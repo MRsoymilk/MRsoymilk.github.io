@@ -1,0 +1,355 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>树莓派配置 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/jquery/jquery-ui.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/highlight/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk-header">
+     
+
+  <nav class="header-nav">
+     
+    <ul class="nav-menu">
+      
+        <li id="Home">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </li>
+      
+        <li id="Archives">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </li>
+      
+        <li id="About">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </li>
+      
+    </ul>
+    
+    
+      <span class="nav-date">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+        <span id="date"></span>
+      </span>
+    
+    
+    
+      <span class="nav-system" id="nav-system"></span>
+    
+    
+    <span class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Power by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+      </div>
+    </span>
+  </nav>
+ 
+  </div>
+  <div class="milk-body">
+    
+<div class="draggable-toc">
+  <div class="toc-title">树莓派配置</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E9%95%9C%E5%83%8F"><span class="toc-text">设置镜像</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E6%A0%A1%E5%87%86"><span class="toc-text">时间校准</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%99%E6%80%81-IP"><span class="toc-text">静态 IP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AF%E7%94%A8-root-%E6%9D%83%E9%99%90"><span class="toc-text">启用 root 权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E4%BF%A1%E6%81%AF"><span class="toc-text">查看信息</span></a></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">树莓派配置</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Microcomputer/">
+          Microcomputer
+        </a>
+          </li>
+      
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Microcomputer/Pi/">
+          Pi
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <p>树莓派的一些常用设置</p>
+<span id="more"></span>
+
+<h2 id="设置镜像"><a href="#设置镜像" class="headerlink" title="设置镜像"></a>设置镜像</h2><p>根据<a target="_blank" rel="noopener" href="https://mirror.tuna.tsinghua.edu.cn/help/raspbian/">清华镜像</a>修改</p>
+<p>查看发布版本：</p>
+<pre><code class="bash">lsb_release -d
+</code></pre>
+<p>以<code>Debian10</code>为例：</p>
+<p>编辑 <code>/etc/apt/sources.list</code> 文件，删除原文件所有内容，用以下内容取代：</p>
+<pre><code class="profile">deb http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ buster main non-free contrib
+deb-src http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ buster main non-free contrib
+</code></pre>
+<p>编辑 <code>/etc/apt/sources.list.d/raspi.list</code> 文件，删除原文件所有内容，用以下内容取代：</p>
+<pre><code class="profile">deb http://mirrors.tuna.tsinghua.edu.cn/raspberrypi/ buster main ui
+</code></pre>
+<h2 id="时间校准"><a href="#时间校准" class="headerlink" title="时间校准"></a>时间校准</h2><p>默认安装 NTP(Network Time Protocol)服务</p>
+<pre><code class="bash">sudo ntpd -s -d
+</code></pre>
+<p>如果没有找到相应命令，则需要安装。</p>
+<pre><code class="bash">sudo apt install ntp
+</code></pre>
+<h2 id="静态-IP"><a href="#静态-IP" class="headerlink" title="静态 IP"></a>静态 IP</h2><p>修改文件<code>/etc/dhcpcd.conf</code></p>
+<p><em>根据个人需求更改</em></p>
+<pre><code class="config"># Example static IP configuration:
+interface wlan0
+static ip_address=192.168.0.200/24
+#static ip6_address=fd51:42f8:caae:d92e::ff/64
+static routers=192.168.0.1
+static domain_name_servers=192.168.0.1 114.114.114.114
+</code></pre>
+<p>重启网卡:</p>
+<pre><code class="bash">sudo systemctl restart dhcpcd
+sudo ip link set wlan0 up
+</code></pre>
+<h2 id="启用-root-权限"><a href="#启用-root-权限" class="headerlink" title="启用 root 权限"></a>启用 root 权限</h2><pre><code class="bash">sudo passwd root
+</code></pre>
+<h2 id="查看信息"><a href="#查看信息" class="headerlink" title="查看信息"></a>查看信息</h2><p>来自网络</p>
+<pre><code class="python">import os
+# Return CPU temperature as a character string
+def getCPUtemperature():
+    res = os.popen(&#39;vcgencmd measure_temp&#39;).readline()
+    return(res.replace(&quot;temp=&quot;,&quot;&quot;).replace(&quot;&#39;C\n&quot;,&quot;&quot;))
+# Return RAM information (unit=kb) in a list
+# Index 0: total RAM
+# Index 1: used RAM
+# Index 2: free RAM
+def getRAMinfo():
+    p = os.popen(&#39;free&#39;)
+    i = 0
+    while 1:
+        i = i + 1
+        line = p.readline()
+        if i==2:
+            return(line.split()[1:4])
+# Return % of CPU used by user as a character string
+def getCPUuse():
+    return(str(os.popen(&quot;top -n1 | awk &#39;/Cpu\(s\):/ &#123;print $2&#125;&#39;&quot;).readline().strip()))
+# Return information about disk space as a list (unit included)
+# Index 0: total disk space
+# Index 1: used disk space
+# Index 2: remaining disk space
+# Index 3: percentage of disk used
+def getDiskSpace():
+    p = os.popen(&quot;df -h /&quot;)
+    i = 0
+    while 1:
+        i = i +1
+        line = p.readline()
+        if i==2:
+            return(line.split()[1:5])
+# CPU informatiom
+CPU_temp = getCPUtemperature()
+CPU_usage = getCPUuse()
+# RAM information
+# Output is in kb, here I convert it in Mb for readability
+RAM_stats = getRAMinfo()
+RAM_total = round(int(RAM_stats[0]) / 1000,1)
+RAM_used = round(int(RAM_stats[1]) / 1000,1)
+RAM_free = round(int(RAM_stats[2]) / 1000,1)
+# Disk information
+DISK_stats = getDiskSpace()
+DISK_total = DISK_stats[0]
+DISK_used = DISK_stats[1]
+DISK_perc = DISK_stats[3]
+if __name__ == &#39;__main__&#39;:
+    print(&#39;&#39;)
+    print(&#39;CPU Temperature = &#39;+CPU_temp)
+    print(&#39;CPU Use = &#39;+CPU_usage)
+    print(&#39;&#39;)
+    print(&#39;RAM Total = &#39;+str(RAM_total)+&#39; MB&#39;)
+    print(&#39;RAM Used = &#39;+str(RAM_used)+&#39; MB&#39;)
+    print(&#39;RAM Free = &#39;+str(RAM_free)+&#39; MB&#39;)
+    print(&#39;&#39;)
+    print(&#39;DISK Total Space = &#39;+str(DISK_total)+&#39;B&#39;)
+    print(&#39;DISK Used Space = &#39;+str(DISK_used)+&#39;B&#39;)
+    print(&#39;DISK Used Percentage = &#39;+str(DISK_perc))
+</code></pre>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/Pi/">
+          Pi
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+  </div>
+</div>
+  </div>
+</body>
+
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+
+<script src="/js/milk.js"></script>
+
+
+</html>

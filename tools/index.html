@@ -1,0 +1,304 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>tools [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/jquery/jquery-ui.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/highlight/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk-header">
+     
+
+  <nav class="header-nav">
+     
+    <ul class="nav-menu">
+      
+        <li id="Home">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </li>
+      
+        <li id="Archives">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </li>
+      
+        <li id="About">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </li>
+      
+    </ul>
+    
+    
+      <span class="nav-date">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+        <span id="date"></span>
+      </span>
+    
+    
+    
+      <span class="nav-system" id="nav-system"></span>
+    
+    
+    <span class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Power by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+      </div>
+    </span>
+  </nav>
+ 
+  </div>
+  <div class="milk-body">
+    
+<div class="draggable-toc">
+  <div class="toc-title">tools</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80"><span class="toc-text">编程语言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#C"><span class="toc-text">C++</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java"><span class="toc-text">Java</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Python"><span class="toc-text">Python</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Julia"><span class="toc-text">Julia</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MATLAB"><span class="toc-text">MATLAB</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93"><span class="toc-text">第三方库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#OpenCV"><span class="toc-text">OpenCV</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Boost"><span class="toc-text">Boost</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OpenCL"><span class="toc-text">OpenCL</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Web-%E7%9B%B8%E5%85%B3"><span class="toc-text">Web 相关</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BD%E5%86%85-CDN-%E6%9C%8D%E5%8A%A1"><span class="toc-text">国内 CDN 服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6"><span class="toc-text">前端框架</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Web-%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">Web 服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#nginx"><span class="toc-text">nginx</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Apache-HTTP-Server"><span class="toc-text">Apache HTTP Server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Tomcat"><span class="toc-text">Tomcat</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DIY-%E7%94%B5%E5%AD%90"><span class="toc-text">DIY 电子</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%91%E8%8E%93%E6%B4%BE"><span class="toc-text">树莓派</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Arduino"><span class="toc-text">Arduino</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83"><span class="toc-text">算法训练</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E7%BA%BF%E5%B7%A5%E5%85%B7"><span class="toc-text">在线工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%B8%AE%E5%8A%A9"><span class="toc-text">系统帮助</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Windows"><span class="toc-text">Windows</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-text">其他</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E6%A0%87%E4%B8%8B%E8%BD%BD"><span class="toc-text">图标下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E7%BD%91%E7%AB%99"><span class="toc-text">常用网站</span></a></li></ol></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">tools</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+    </div>
+    <hr>
+    
+    <h2 id="编程语言"><a href="#编程语言" class="headerlink" title="编程语言"></a>编程语言</h2><h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp">C++ reference</a></li>
+<li><a target="_blank" rel="noopener" href="https://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide/contents/">C++ 风格指南</a></li>
+</ul>
+<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/">Java Documentation</a></li>
+</ul>
+<h3 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.python.org/3/">Python 3.x Documentation</a></li>
+</ul>
+<h3 id="Julia"><a href="#Julia" class="headerlink" title="Julia"></a>Julia</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://cn.julialang.org/JuliaZH.jl/latest/index.html">Julia 中文文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://juliadata.github.io/CSV.jl/stable/">julia CSV</a></li>
+<li><a target="_blank" rel="noopener" href="https://juliadata.github.io/DataFrames.jl/stable/">julia DataFrames</a></li>
+<li><a target="_blank" rel="noopener" href="https://juliaimages.org/latest/">julia JuliaImages</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.juliaplots.org/latest/tutorial/">julia Plots</a></li>
+</ul>
+<h3 id="MATLAB"><a href="#MATLAB" class="headerlink" title="MATLAB"></a>MATLAB</h3><ul>
+<li><a target="_blank" rel="noopener" href="http://www.compileonline.com/execute_matlab_online.php">MATLAB 在线运行</a></li>
+</ul>
+<h2 id="第三方库"><a href="#第三方库" class="headerlink" title="第三方库"></a>第三方库</h2><h3 id="OpenCV"><a href="#OpenCV" class="headerlink" title="OpenCV"></a>OpenCV</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.opencv.org/master/index.html">OpenCV doc</a></li>
+</ul>
+<h3 id="Boost"><a href="#Boost" class="headerlink" title="Boost"></a>Boost</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.boost.org/doc/">Boost C++ Libraries</a></li>
+</ul>
+<h3 id="OpenCL"><a href="#OpenCL" class="headerlink" title="OpenCL"></a>OpenCL</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.khronos.org/opencl/">OpenCL Overview</a></li>
+<li><a target="_blank" rel="noopener" href="https://software.intel.com/en-us/openclsdk-devguide">Intel SDK guide</a></li>
+</ul>
+<h2 id="Web-相关"><a href="#Web-相关" class="headerlink" title="Web 相关"></a>Web 相关</h2><h3 id="国内-CDN-服务"><a href="#国内-CDN-服务" class="headerlink" title="国内 CDN 服务"></a>国内 CDN 服务</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.staticfile.org/">Staticfile CDN</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bootcdn.cn/">BootCDN</a></li>
+</ul>
+<h3 id="前端框架"><a href="#前端框架" class="headerlink" title="前端框架"></a>前端框架</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://v4.bootcss.com/">Bootstrap4</a></li>
+</ul>
+<h2 id="Web-服务器"><a href="#Web-服务器" class="headerlink" title="Web 服务器"></a>Web 服务器</h2><h3 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://nginx.org/en/">nginx</a></li>
+</ul>
+<h3 id="Apache-HTTP-Server"><a href="#Apache-HTTP-Server" class="headerlink" title="Apache HTTP Server"></a>Apache HTTP Server</h3><ul>
+<li><a target="_blank" rel="noopener" href="http://httpd.apache.org/">Apache HTTP Server</a></li>
+</ul>
+<h3 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h3><ul>
+<li><a target="_blank" rel="noopener" href="http://tomcat.apache.org/">Tomcat</a></li>
+</ul>
+<h2 id="DIY-电子"><a href="#DIY-电子" class="headerlink" title="DIY 电子"></a>DIY 电子</h2><h3 id="树莓派"><a href="#树莓派" class="headerlink" title="树莓派"></a>树莓派</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.raspberrypi.org/">树莓派官网</a></li>
+<li><a target="_blank" rel="noopener" href="https://gpiozero.readthedocs.io/en/stable/">树莓派 GPIO Zero 使用</a></li>
+<li><a target="_blank" rel="noopener" href="http://shumeipai.nxez.com/">树莓派实验室</a></li>
+</ul>
+<h3 id="Arduino"><a href="#Arduino" class="headerlink" title="Arduino"></a>Arduino</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.arduino.cc/">Arduino 官网</a></li>
+</ul>
+<h2 id="算法训练"><a href="#算法训练" class="headerlink" title="算法训练"></a>算法训练</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.dotcpp.com/oj/problemset.html">C 语言网</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/">洛谷</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode-cn.com/">力扣 LeetCode</a></li>
+</ul>
+<h2 id="在线工具"><a href="#在线工具" class="headerlink" title="在线工具"></a>在线工具</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.json.cn/">JSON 在线解析</a></li>
+<li><a target="_blank" rel="noopener" href="https://tool.oschina.net/regex">正则表达式</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.compileonline.com/index.htm">在线编译器</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.mdeditor.com/">在线 Markdown 编辑器</a></li>
+</ul>
+<h2 id="系统帮助"><a href="#系统帮助" class="headerlink" title="系统帮助"></a>系统帮助</h2><h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.windows10.pro/">Windows 10</a></li>
+</ul>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="图标下载"><a href="#图标下载" class="headerlink" title="图标下载"></a>图标下载</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.easyicon.net/">easyicon</a></li>
+</ul>
+<h3 id="常用网站"><a href="#常用网站" class="headerlink" title="常用网站"></a>常用网站</h3><ul>
+<li>老伙伴<a target="_blank" rel="noopener" href="https://www.runoob.com/">菜鸟教程</a></li>
+</ul>
+<p>鸠摩搜索：电子版书籍下载网站，找不到资料的小伙伴们注意了2BooKSC：免费论文、书籍下载网站3在线Matlab：在线版的Matlab，很实用4DevCpp：简易C语言编译器5在线编程网站：支持多种语言的在线编译器6pixabay：免费的图片素材下载网站</p>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+  </div>
+</div>
+  </div>
+</body>
+
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+
+<script src="/js/milk.js"></script>
+
+
+</html>

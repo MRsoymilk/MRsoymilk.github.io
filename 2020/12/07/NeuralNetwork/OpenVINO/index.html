@@ -1,0 +1,499 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Windows 10 使用 OpenVINO [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/jquery/jquery-ui.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/highlight/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk-header">
+     
+
+  <nav class="header-nav">
+     
+    <ul class="nav-menu">
+      
+        <li id="Home">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </li>
+      
+        <li id="Archives">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </li>
+      
+        <li id="About">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </li>
+      
+    </ul>
+    
+    
+      <span class="nav-date">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+        <span id="date"></span>
+      </span>
+    
+    
+    
+      <span class="nav-system" id="nav-system"></span>
+    
+    
+    <span class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Power by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+      </div>
+    </span>
+  </nav>
+ 
+  </div>
+  <div class="milk-body">
+    
+<div class="draggable-toc">
+  <div class="toc-title">Windows 10 使用 OpenVINO</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-text">模型转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E4%BC%98%E5%8C%96"><span class="toc-text">模型优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">设置环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96%E5%BA%93"><span class="toc-text">安装依赖库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AC%E6%8D%A2%E6%A8%A1%E5%9E%8B"><span class="toc-text">转换模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%A8%A1%E5%9E%8B"><span class="toc-text">使用模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%88%E6%9E%9C"><span class="toc-text">效果</span></a></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">Windows 10 使用 OpenVINO</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/NeuralNetwork/">
+          NeuralNetwork
+        </a>
+          </li>
+      
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/NeuralNetwork/OpenVINO/">
+          OpenVINO
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://software.intel.com/content/www/us/en/develop/articles/openvino-2020-3-lts-relnotes.html">Release Notes for Intel® Distribution of OpenVINO™ Toolkit 2020.3 LTS </a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.openvinotoolkit.org/2019_R3/_docs_IE_DG_Introduction.html">Introduction to Intel® Deep Learning Deployment Toolkit</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.openvinotoolkit.org/2019_R3/ie_python_api.html">Data Structures</a></li>
+<li><a target="_blank" rel="noopener" href="https://pytorch.org/tutorials/advanced/super_resolution_with_onnxruntime.html">(OPTIONAL) EXPORTING A MODEL FROM PYTORCH TO ONNX AND RUNNING IT USING ONNX RUNTIME</a></li>
+<li><a target="_blank" rel="noopener" href="https://software.intel.com/content/www/us/en/develop/articles/model-downloader-optimizer-for-openvino-on-raspberry-pi.html">Use the Model Downloader and Model Optimizer for the Intel® Distribution of OpenVINO™ Toolkit on Raspberry Pi* </a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.openvinotoolkit.org/latest/openvino_docs_install_guides_installing_openvino_raspbian.html">Install OpenVINO™ toolkit for Raspbian* OS</a></li>
+</ul>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
+<li>转换平台: Windows 10</li>
+<li>Python 版本: Python 3.7.</li>
+<li>部署平台: Raspberry Pi 3B+</li>
+<li>已有模型: pytorch</li>
+<li>目标模型: onnx</li>
+</ul>
+<span id="more"></span>
+
+<p><img src="/workflux.png" alt="workflux"></p>
+<p>安装 OpenVINO toolkit 至默认位置。我的默认位置: <code>Introduction to Intel® Deep Learning Deployment Toolkit</code>。</p>
+<h2 id="模型转换"><a href="#模型转换" class="headerlink" title="模型转换"></a>模型转换</h2><p>pytorch -&gt; onnx</p>
+<p>用于单张图片判断代码和模型转换代码。</p>
+<pre><code class="python">import torch
+from torchvision import models
+import torch.nn as nn
+import os
+import torchvision.transforms as transforms
+import time
+import sys
+from PIL import Image
+
+import torch.utils.model_zoo as model_zoo
+
+model_name = &#39;C:\\Users\\milk\\Desktop\\model.pth&#39;
+classes = [&#39;food&#39;, &#39;other&#39;, &#39;recycle&#39;, &#39;refuse&#39;]
+
+print(classes)
+
+model = models.densenet201(pretrained=True)
+
+model.classifier = nn.Sequential(nn.Linear(1920, 256),
+                                 nn.ReLU(),
+                                 nn.Dropout(0.2),
+                                 nn.Linear(256, len(classes)),
+                                 nn.LogSoftmax(dim=1))
+
+model.eval()
+map_location = lambda storage, loc: storage
+model.load_state_dict(torch.load(model_name, map_location=map_location))
+
+transformations = transforms.Compose([
+                                      transforms.ToTensor(),
+                                      transforms.Normalize(
+                                          [0.485, 0.456, 0.406],
+                                          [0.229, 0.224, 0.225])
+                                      ])
+
+image = Image.open(&#39;ju.png&#39;)
+image = image.convert(&#39;RGB&#39;)
+image = image.resize((256, 256))
+tick = time.time()
+image = transformations(image)
+image = torch.autograd.Variable(image[None, ...])
+print(&quot;image shape: &quot;, image.shape)
+outputs = model(image)
+
+print(time.time() - tick)
+predict = outputs.max(1, keepdim=True)[1]
+print(&quot;predict:\t&quot;, classes[predict])
+print(&quot;time cost:\t&quot;, time.time() - tick)
+
+
+torch_out = model(image)
+torch.onnx.export(
+  model,
+  image,
+  &#39;C:\\users\\milk\\Desktop\\deploy\\onnx_model.onnx&#39;,
+  export_params=True,
+  output_names=[&#39;ashbin&#39;])
+print(&quot;finish&quot;)
+</code></pre>
+<h2 id="模型优化"><a href="#模型优化" class="headerlink" title="模型优化"></a>模型优化</h2><h3 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h3><p>环境变量文件: <code>setvars.bat</code></p>
+<pre><code class="code">PS C:\Program Files (x86)\IntelSWTools\openvino\bin&gt; .\setupvars.bat
+Python 3.7.9
+[setupvars.bat] OpenVINO environment initialized
+</code></pre>
+<h3 id="安装依赖库"><a href="#安装依赖库" class="headerlink" title="安装依赖库"></a>安装依赖库</h3><p>路径: <code>c:\Program Files (x86)\IntelSWTools\openvino\deployment_tools\model_optimizer</code></p>
+<p>路径下文件:</p>
+<pre><code class="code">PS C:\Program Files (x86)\IntelSWTools\openvino\deployment_tools\model_optimizer&gt; ls
+
+
+    目录: C:\Program Files (x86)\IntelSWTools\openvino\deployment_tools\model_optimizer
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+d-----        2020/12/3     11:54                extensions
+d-----        2020/12/3     11:29                install_prerequisites
+d-----        2020/12/3     11:54                mo
+-a----         2020/7/2     17:28            999 mo.py
+-a----         2020/7/2     17:28            932 mo_caffe.py
+-a----         2020/7/2     17:28            932 mo_kaldi.py
+-a----         2020/7/2     17:28            932 mo_mxnet.py
+-a----         2020/7/2     17:28            929 mo_onnx.py
+-a----         2020/7/2     17:28            923 mo_tf.py
+-a----         2020/7/2     17:28            136 requirements.txt
+-a----         2020/7/2     17:28             85 requirements_caffe.txt
+-a----         2020/7/2     17:28             69 requirements_kaldi.txt
+-a----         2020/7/2     17:28             90 requirements_mxnet.txt
+-a----         2020/7/2     17:28             81 requirements_onnx.txt
+-a----         2020/7/2     17:28             87 requirements_tf.txt
+-a----         2020/7/2     17:28             41 version.txt
+</code></pre>
+<p>安装全部依赖<code>requirements.txt</code>或仅安装 onnx 支持依赖<code>requirements_onnx.txt</code></p>
+<pre><code class="bash">pip install -r requirements_onnx.txt
+</code></pre>
+<h3 id="转换模型"><a href="#转换模型" class="headerlink" title="转换模型"></a>转换模型</h3><p>查看帮助:</p>
+<pre><code class="bash">python mo_onnx.py --help
+</code></pre>
+<p>执行转换:</p>
+<p>将目标目录下的<code>onnx_model.onnx</code>转换为<code>.bin</code>和<code>.xml</code>文件。（时间大概一分钟）</p>
+<pre><code class="code">PS C:\Program Files (x86)\IntelSWTools\openvino\deployment_tools\model_optimizer&gt; python mo_onnx.py --log_level INFO --input_model C:\Users\milk\Desktop\deploy\onnx_model.onnx --output_dir C:\Users\milk\Desktop\deploy\onnx_model
+</code></pre>
+<p>成功输出结果:</p>
+<pre><code class="code">[ SUCCESS ] Generated IR version 10 model.
+[ SUCCESS ] XML file: C:\Users\milk\Desktop\deploy\onnx_model\onnx_model.xml
+[ SUCCESS ] BIN file: C:\Users\milk\Desktop\deploy\onnx_model\onnx_model.bin
+[ SUCCESS ] Total execution time: 46.46 seconds.
+It&#39;s been a while, check for a new version of Intel(R) Distribution of OpenVINO(TM) toolkit here https://software.intel.com/en-us/openvino-toolkit/choose-download?cid=&amp;source=upgrade&amp;content=2020_3_LTS or on the GitHub*
+</code></pre>
+<p><code>onnx_model</code>目录文件:</p>
+<pre><code class="bash">onnx_mode.bin
+onnx_model.mapping
+onnx_model.xml
+</code></pre>
+<p>文件说明:</p>
+<ul>
+<li><code>onnx_model.bin</code>：训练后的数据文件。包含权重和偏差二进制数据。</li>
+<li><code>onnx_model.mapping</code>：映射文件。</li>
+<li><code>onnx_model.xml</code>：拓扑文件。描述网络拓扑。</li>
+</ul>
+<h2 id="使用模型"><a href="#使用模型" class="headerlink" title="使用模型"></a>使用模型</h2><p>在树莓派上使用。需要根据官方文档配置环境。</p>
+<p>判断单张图片。</p>
+<pre><code class="python">from openvino.inference_engine import IECore
+import time
+classes = [&#39;food&#39;, &#39;other&#39;, &#39;recycle&#39;, &#39;refuse&#39;]
+
+ie = IECore()
+
+print(&quot;read network&quot;)
+tick = time.time()
+net = ie.read_network(&#39;onnx_model/onnx_model.xml&#39;, &#39;onnx_model/onnx_model.bin&#39;)
+
+input_blob = next(iter(net.input_info))
+output_blob = next(iter(net.outputs))
+net.batch_size = 1
+
+print(&quot;load network&quot;)
+exec_net = ie.load_network(network=net, device_name=&#39;MYRIAD&#39;)
+print(&quot;time: &quot;, time.time() - tick)
+
+import torchvision.transforms as transforms
+transformations = transforms.Compose([
+                                      transforms.ToTensor(),
+                                      transforms.Normalize(
+                                          [0.485, 0.456, 0.406],
+                                          [0.229, 0.224, 0.225])
+                                      ])
+from PIL import Image
+import torch
+def predict(filename):
+    img = Image.open(filename)
+    img = img.resize((256, 256))
+    img = img.convert(&#39;RGB&#39;)
+    img = transformations(img)
+    img = torch.autograd.Variable(img[None, ...])
+    res = exec_net.infer(inputs=&#123;input_blob: img&#125;)
+    res = res[output_blob]
+    return classes[res.argmax()]
+
+tick = time.time()
+print(predict(&#39;test/ju.png&#39;))
+print(&quot;time: &quot;, time.time() - tick)
+</code></pre>
+<p>摄像机判断。（键盘<code>q</code>退出，空格键<code> </code>判断）</p>
+<pre><code class="python">from openvino.inference_engine import IECore
+import time
+classes = [&#39;food&#39;, &#39;other&#39;, &#39;recycle&#39;, &#39;refuse&#39;]
+
+ie = IECore()
+
+print(&quot;read network&quot;)
+tick = time.time()
+net = ie.read_network(&#39;onnx_model/onnx_model.xml&#39;, &#39;onnx_model/onnx_model.bin&#39;)
+
+input_blob = next(iter(net.input_info))
+output_blob = next(iter(net.outputs))
+net.batch_size = 1
+
+print(&quot;load network&quot;)
+exec_net = ie.load_network(network=net, device_name=&#39;MYRIAD&#39;)
+print(&quot;time: &quot;, time.time() - tick)
+
+import torchvision.transforms as transforms
+transformations = transforms.Compose([
+                                      transforms.ToTensor(),
+                                      transforms.Normalize(
+                                          [0.485, 0.456, 0.406],
+                                          [0.229, 0.224, 0.225])
+                                      ])
+
+from PIL import Image
+import torch
+import cv2
+def predict(frame):
+    img = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+    img = img.resize((256, 256))
+    img = img.convert(&#39;RGB&#39;)
+    img = transformations(img)
+    img = torch.autograd.Variable(img[None, ...])
+    res = exec_net.infer(inputs=&#123;input_blob: img&#125;)
+    res = res[output_blob]
+    return classes[res.argmax()]
+
+capture = cv2.VideoCapture(0)
+
+while True:
+    _, frame = capture.read()
+    cv2.imshow(&#39;garbage&#39;, frame)
+    if cv2.waitKey(1) &amp; 0xFF == ord(&#39;q&#39;):
+        break
+    elif cv2.waitKey(1) &amp; 0xFF == ord(&#39; &#39;):
+        print(&quot;========== predict start ==========&quot;)
+        tick = time.time()
+        print(predict(frame))
+        print(&#39;time: &#39;, time.time() - tick)
+
+
+capture.release()
+cv2.destroyAllWindows()
+</code></pre>
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="/result.png" alt="result"></p>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/NerualNetwork/">
+          NerualNetwork
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+  </div>
+</div>
+  </div>
+</body>
+
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+
+<script src="/js/milk.js"></script>
+
+
+</html>

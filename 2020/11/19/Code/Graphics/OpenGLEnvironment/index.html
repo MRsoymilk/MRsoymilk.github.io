@@ -1,0 +1,520 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OpenGL开发环境 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/jquery/jquery-ui.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/highlight/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk-header">
+     
+
+  <nav class="header-nav">
+     
+    <ul class="nav-menu">
+      
+        <li id="Home">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </li>
+      
+        <li id="Archives">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </li>
+      
+        <li id="About">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </li>
+      
+    </ul>
+    
+    
+      <span class="nav-date">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+        <span id="date"></span>
+      </span>
+    
+    
+    
+      <span class="nav-system" id="nav-system"></span>
+    
+    
+    <span class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Power by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+      </div>
+    </span>
+  </nav>
+ 
+  </div>
+  <div class="milk-body">
+    
+<div class="draggable-toc">
+  <div class="toc-title">OpenGL开发环境</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8EPython"><span class="toc-text">基于Python</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8ECMake"><span class="toc-text">基于CMake</span></a></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">OpenGL开发环境</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Code/">
+          Code
+        </a>
+          </li>
+      
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Code/OpenGL/">
+          OpenGL
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><ul>
+<li>基于Python</li>
+<li>基于CMake</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="基于Python"><a href="#基于Python" class="headerlink" title="基于Python"></a>基于Python</h2><p>依赖库:</p>
+<ul>
+<li><code>PyOpenGL</code></li>
+<li><code>PyOpenGL_accelerate</code></li>
+</ul>
+<p>Windows下需要下载相应版本的依赖库，pip默认下载32位，个人平台Windows64使用32位库文件会报错。（Linux平台未发现问题）</p>
+<p>在<a target="_blank" rel="noopener" href="https://www.lfd.uci.edu/~gohlke/pythonlibs/">https://www.lfd.uci.edu/~gohlke&#x2F;pythonlibs&#x2F;</a>上找到python版本相对应的库文件:</p>
+<pre><code class="bash">PyOpenGL-3.1.5-cp38-cp38-win_amd64.whl  # cp38表示python3.8版本
+PyOpenGL_accelerate-3.1.5-cp38-cp38-win_amd64.whl
+</code></pre>
+<p>本地安装。</p>
+<pre><code class="bash">pip install PyOpenGL PyOpenGL_accelerate
+</code></pre>
+<p>测试文件:</p>
+<pre><code class="python">from OpenGL.GL import *
+from OpenGL.GLUT import *
+from OpenGL.GLU import *
+
+w, h= 500,500
+
+def DDALine(x0, y0, x1, y1):
+    dx = x1 - x0
+    dy = y1 - y0
+
+    x = x0
+    y = y0
+
+    eps1 = 0
+    if abs(dx) &gt; abs(dy):
+        eps1 = abs(dx)
+    else:
+        eps1 = abs(dy)
+
+    xIncre = dx / eps1
+    yIncre = dy / eps1
+
+    for k in range(0, eps1 + 1):
+        point(x + 0.5, y + 0.5)
+        x+= xIncre
+        y+=yIncre
+
+
+def point(x, y):
+    glBegin(GL_POINTS)
+    glVertex2f(x, y)
+    glEnd()
+
+
+def square():
+    glBegin(GL_QUADS)
+    glVertex2f(0, 0)
+    glVertex2f(0, 100)
+    glVertex2f(100, 100)
+    glVertex2f(100, 0)
+    glEnd()
+
+def iterate():
+    glViewport(0, 0, 500, 500)
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    glOrtho(0.0, w, 0.0, h, 0.0, 1.0)
+    glMatrixMode (GL_MODELVIEW)
+    glLoadIdentity()
+
+def display():
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glLoadIdentity()
+    iterate()
+    glColor3f(1.0, 0.0, 3.0)
+    square()
+    point(200, 100)
+    DDALine(300, 300, 350, 400)
+    glutSwapBuffers()
+
+glutInit()
+glutInitDisplayMode(GLUT_RGBA)
+glutInitWindowSize(w, h)
+glutCreateWindow(&quot;OpenGL&quot;)
+glutDisplayFunc(display)
+glutMainLoop()
+</code></pre>
+<h2 id="基于CMake"><a href="#基于CMake" class="headerlink" title="基于CMake"></a>基于CMake</h2><p>CMake文件:</p>
+<pre><code class="cmake">cmake_minimum_required(VERSION 3.10)
+
+set(CMAKE_CXX_STANDARD 11)
+
+project(blood)
+
+find_package(GLUT REQUIRED)
+include_directories($&#123;GLUT_INCLUDE_DIRS&#125;)
+link_directories($&#123;GLUT_LIBRARY_DIRS&#125;)
+add_definitions($&#123;GLUT_DEFINITIONS&#125;)
+if(NOT GLUT_FOUND)
+  message(ERROR&quot;GLUT not found&quot;)
+endif(NOT GLUT_FOUND)
+
+find_package(OpenGL REQUIRED)
+include_directories($&#123;OpenGL_INCLUDE_DIRS&#125;)
+link_directories($&#123;OpenGL_LIBRARY_DIRS&#125;)
+add_definitions($&#123;OpenGL_DEFINITIONS&#125;)
+if(NOT OpenGL_FOUND)
+  message(ERROR&quot;OpenGL not found&quot;)
+endif(NOT OpenGL_FOUND)
+
+
+file(GLOB_RECURSE SOURCES &quot;code/*.cpp&quot;)
+file(GLOB_RECURSE HEADERS &quot;code/*.h&quot;)
+
+add_executable($&#123;PROJECT_NAME&#125; $&#123;HEADERS&#125; $&#123;SOURCES&#125;)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY &quot;$&#123;CMAKE_BINARY_DIR&#125;/&quot;)
+
+target_link_libraries($&#123;PROJECT_NAME&#125; $&#123;OPENGL_LIBRARIES&#125; $&#123;GLUT_LIBRARY&#125;)
+</code></pre>
+<p>测试文件:</p>
+<pre><code class="cpp">#include &lt;GL/glu.h&gt;
+#include &lt;cmath&gt;
+#include &lt;iostream&gt;
+#include &lt;GL/freeglut_std.h&gt;
+#include &lt;GL/gl.h&gt;
+#include &lt;GL/glext.h&gt;
+#include &lt;GL/glut.h&gt;
+#include &lt;math.h&gt;
+
+void display()&#123;
+  glClearColor(1.0 * 200 / 255, 1.0 * 200 / 255, 1.0 * 169 / 255, 1.0f);
+  glClear(GL_COLOR_BUFFER_BIT);
+  
+  float hx = -0.5, hy = -0.6;
+  float hheight = 0.8, hwidth = 1;
+  float wx= 0.1, wy = -0.2;
+  float wh = 0.3, ww = 0.3;
+  float dx = -0.4, dy = -0.6;
+  float dh = 0.3, dw = 0.3;
+  float dcx = dx + dw / 2, dcy = dy + dh, r = dw / 2;
+  float sx = 1, sy = 1, sr1 = 0.35, sr2 = 0.3, sr3 = 0.25;
+
+  // 折线
+  glColor3f(0.9, 0.6, 0.6);
+  glLineWidth(8);
+  glBegin(GL_LINE_LOOP);
+  glVertex2f(-0.5, -0.6);
+  glVertex2f(-0.5, 0.2);
+  glVertex2f(0.5, 0.2);
+  glVertex2f(0.5, -0.6);
+  glEnd();
+
+
+  // 矩形
+  glColor3f(1.0 * 200 / 255, 1.0 * 100 / 255, 1.0 * 200 / 255);
+  glRectf(hx, hy, hx + hwidth, hy + hheight);
+
+  // 三角形
+  glColor3f(1.0 * 50 / 255, 1.0 * 100 / 255, 1.0 * 155 / 255);
+  glBegin(GL_TRIANGLES);
+  glVertex2f(hx, hy + hheight);
+  glVertex2f(0, 0.7);
+  glVertex2f(hx + hwidth, hy + hheight);
+  glEnd();
+
+  // 窗户
+
+  glColor3f(1.0 * 249 / 255, 1.0 * 205 / 255, 1.0 * 173 / 255);
+  glRectf(wx, wy, wx + wh, wy + wh);
+
+  glColor3f(1.0 * 252 / 255, 1.0 * 157 / 255, 1.0 * 156 / 255);
+  glLineWidth(3);
+  glBegin(GL_LINES);
+  glVertex2f(wx, wy + wh / 2);
+  glVertex2f(wx + ww, wy + wh / 2);
+  glVertex2f(wx + ww / 2, wy + wh);
+  glVertex2f(wx + ww / 2, wy);
+  glEnd();
+
+  // 门
+  glColor3f(1.0 * 252 / 255, 1.0 * 157 / 255, 1.0 * 156 / 255);
+  glRectf(dx, dy, dx + dh, dy + dh);
+
+  glColor3f(1.0 * 252 / 255, 1.0 * 157 / 255, 1.0 * 156 / 255);
+  glBegin(GL_TRIANGLE_FAN) ;
+  glVertex2f(dcx, dcy);
+  for(float i = dcx - r; i &lt; dcx + r; i+=0.001)&#123;
+    glVertex2f(i, std::sqrt(std::fabs(r * r - (i - dcx) * (i - dcx))) + dcy);
+  &#125;
+  glEnd();
+
+  // 门锁
+  glColor3f(1.0 * 255 / 255, 1.0 * 0 / 255, 1.0 * 0 / 255);
+  glPointSize(10);
+  glBegin(GL_POINTS);
+  glVertex2f(dx + 0.08, dy + dh / 2);
+  glEnd();
+
+  // 太阳
+  glColor3f(1.0 * 255 / 255, 1.0 * 0 / 205, 1.0 * 0 / 255);
+  glBegin(GL_TRIANGLE_FAN);
+  glVertex2f(sx, sy);
+  for(float i = sx - sr1; i &lt; sx; i += 0.001)&#123;
+    glVertex2f(i, -std::sqrt(std::fabs(sr1 * sr1 - (i - sx) * (i - sx))) + sy);
+  &#125;
+  glEnd();
+
+  glColor3f(1.0 * 232 / 255, 1.0 * 110 / 255, 1.0 * 145 / 255);
+  glBegin(GL_TRIANGLE_FAN);
+  glVertex2f(sx, sy);
+  for(float i = sx - sr2; i &lt; sx; i+=0.001)&#123;
+    glVertex2f(i, -std::sqrt(std::fabs(sr2 * sr2 - (i - sx) * (i - sy))) + sy);
+  &#125;
+  glEnd();
+
+  glColor3f(1.0 * 255 / 255, 1.0 * 255 / 255, 1.0 * 0 / 255);
+  glBegin(GL_TRIANGLE_FAN);
+  glVertex2f(sx, sy);
+  for(float i = sx - sr3; i &lt; sx; i+=0.001)&#123;
+    glVertex2f(i, -std::sqrt(std::fabs(sr3 * sr3 - (i - sx) * (i - sy))) + sy);
+  &#125;
+  glEnd();
+
+
+  glFlush();
+&#125;
+
+const int WIDTH = 500;
+const int HEIGHT = 500;
+const int POS_X = 200;
+const int POS_Y = 200;
+
+int main(int argc, char *argv[])
+&#123;
+
+  glutInit(&amp;argc, argv);
+
+  const int SCREEN_WIDTH = glutGet(GLUT_SCREEN_WIDTH);
+  const int SCREEN_HEIGHT = glutGet(GLUT_SCREEN_HEIGHT);
+
+  const int POS_X = (SCREEN_WIDTH - WIDTH) / 2;
+  const int POS_Y = (SCREEN_HEIGHT - HEIGHT) / 2;
+
+  // setting up the display RGB color model + Alpha channel = GLUT_RGBA
+  glutInitDisplayMode(GLUT_RGBA | GLUT_SINGLE);
+
+  // configure window position and size
+  glutInitWindowPosition(POS_X, POS_Y);
+  glutInitWindowSize(WIDTH, HEIGHT);
+  
+  // create window
+  glutCreateWindow(&quot;opengl&quot;);
+
+  // call to the drawing function
+  glutDisplayFunc(display);
+
+  // loop require by opengl
+  glutMainLoop();
+  return 0;
+&#125;
+</code></pre>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/OpenGL/">
+          OpenGL
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+  </div>
+</div>
+  </div>
+</body>
+
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+
+<script src="/js/milk.js"></script>
+
+
+</html>

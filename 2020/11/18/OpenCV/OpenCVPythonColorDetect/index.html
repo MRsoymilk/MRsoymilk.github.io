@@ -1,0 +1,406 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OpenCV Python 颜色检测 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/jquery/jquery-ui.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/highlight/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk-header">
+     
+
+  <nav class="header-nav">
+     
+    <ul class="nav-menu">
+      
+        <li id="Home">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </li>
+      
+        <li id="Archives">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </li>
+      
+        <li id="About">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </li>
+      
+    </ul>
+    
+    
+      <span class="nav-date">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+        <span id="date"></span>
+      </span>
+    
+    
+    
+      <span class="nav-system" id="nav-system"></span>
+    
+    
+    <span class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Power by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+      </div>
+    </span>
+  </nav>
+ 
+  </div>
+  <div class="milk-body">
+    
+<div class="draggable-toc">
+  <div class="toc-title">OpenCV Python 颜色检测</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E7%9D%80%E8%89%B2"><span class="toc-text">图像着色</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%9C"><span class="toc-text">结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E6%97%B6%E9%A2%9C%E8%89%B2%E6%A3%80%E6%B5%8B"><span class="toc-text">实时颜色检测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%9C-1"><span class="toc-text">结果</span></a></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">OpenCV Python 颜色检测</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/OpenCV/">
+          OpenCV
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/32269942">用色彩空间做图像处理，让颜色提取更高效</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.opencv.org/3.4/d4/d73/tutorial_py_contours_begin.html">Contours : Getting Started</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.opencv.org/3.4/d3/dc0/group__imgproc__shape.html#ga95f5b48d01abc7c2e0732db24689837b">Structural Analysis and Shape Descriptors</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/multiple-color-detection-in-real-time-using-python-opencv/">Multiple Color Detection in Real-Time using Python-OpenCV</a></li>
+</ul>
+<p>使用HSV（色相Hue, 饱和度Saturation, 明亮度Value, 有时也称为Brightness）色彩空间。HSV将颜色信息与亮度信息分开，减小了光线对特定颜色识别的影响。</p>
+<span id="more"></span>
+
+<p><img src="/./hsv_color.png" alt="HSV color"></p>
+<p>颜色阈值参考</p>
+<p><img src="/./color.jpg" alt="Color quantization strategy in HSV space"></p>
+<h2 id="图像着色"><a href="#图像着色" class="headerlink" title="图像着色"></a>图像着色</h2><p>提取蓝色：H通道选取100~124，S通道选取43~255，V通道选取35~255。</p>
+<p>提取绿色：H通道选取35~77，S通道选取43~255，V通道选取35~255。</p>
+<p>提取红色：H通道选取156~180和0~10（可能需要做两次运算，取相加结果），S通道选取43~255，V通道选取35~255。</p>
+<p>实现代码:</p>
+<pre><code class="python">import numpy as np
+import cv2
+
+img = cv2.imread(&quot;./ball.jpg&quot;)
+img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+
+blue_lower = np.array([100, 43, 35])
+blue_higher = np.array([124, 255, 255])
+
+green_lower = np.array([35, 43, 35])
+green_higher = np.array([77, 255, 255])
+
+red_lower_1 = np.array([0, 43, 35])
+red_higher_1 = np.array([10, 255, 255])
+red_lower_2 = np.array([156, 43, 35])
+red_higher_2 = np.array([180, 255, 255])
+
+blue_part = cv2.inRange(img_hsv, blue_lower, blue_higher)
+green_part = cv2.inRange(img_hsv, green_lower, green_higher)
+red_part_1 = cv2.inRange(img_hsv, red_lower_1, red_higher_1)
+red_part_2 = cv2.inRange(img_hsv, red_lower_2, red_higher_2)
+red_part = red_part_1 + red_part_2
+
+blank_for_color = np.zeros(shape=img.shape, dtype=np.uint8)
+#################################################
+# 着色开始
+def color_img(img, part, color):
+    for i in range(img.shape[0]):
+        for j in range(img.shape[1]):
+            if part[i, j] == 255:
+                img[i, j] = color
+    return img
+
+blank_for_color = color_img(blank_for_color, blue_part, (255, 0, 0))
+blank_for_color = color_img(blank_for_color, green_part, (0, 255, 0))
+blank_for_color = color_img(blank_for_color, red_part, (0, 0, 255))
+# 着色结束
+#################################################
+
+cv2.imshow(&#39;color&#39;, blank_for_color)
+cv2.imshow(&#39;original&#39;, img)
+
+cv2.waitKey(0)
+</code></pre>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="/./result.png" alt="result"></p>
+<h2 id="实时颜色检测"><a href="#实时颜色检测" class="headerlink" title="实时颜色检测"></a>实时颜色检测</h2><p>由于摄像头的原因，红色可能检测不太准确（偏橘色），根据个人情况更改。</p>
+<p>实现代码:</p>
+<pre><code class="python">import numpy as np
+import cv2
+  
+capture = cv2.VideoCapture(0)
+
+red_lower_1 = np.array([150, 50, 35], np.uint8)
+red_upper_1 = np.array([190, 255, 255], np.uint8)
+red_lower_2 = np.array([0, 50, 35], np.uint8)
+red_upper_2 = np.array([15, 255, 255], np.uint8)
+
+green_lower = np.array([30, 50, 35], np.uint8)
+green_upper = np.array([80, 255, 255], np.uint8)
+
+blue_lower = np.array([90, 50, 35], np.uint8)
+blue_upper = np.array([130, 255, 255], np.uint8)
+
+AREA = 2500  # 50x50
+
+while True:
+    _, frame = capture.read()
+    hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+
+    red_mask_1 = cv2.inRange(hsv_frame, red_lower_1, red_upper_1)
+    red_mask_2 = cv2.inRange(hsv_frame, red_lower_2, red_upper_2)
+    green_mask = cv2.inRange(hsv_frame, green_lower, green_upper)
+    blue_mask = cv2.inRange(hsv_frame, blue_lower, blue_upper)
+
+    # 腐蚀膨胀卷积核
+    kernel = np.ones((5, 5), &quot;uint8&quot;)
+
+    # 红色
+    red_mask_1 = cv2.erode(red_mask_1, kernel)
+    red_mask_1 = cv2.dilate(red_mask_1, kernel)
+    res_red_1 = cv2.bitwise_and(frame, frame, mask=red_mask_1)
+    red_mask_2 = cv2.erode(red_mask_2, kernel)
+    red_mask_2 = cv2.dilate(red_mask_2, kernel)
+    res_red_2 = cv2.bitwise_and(frame, frame, mask=red_mask_2)
+
+    # 绿色
+    green_mask = cv2.erode(green_mask, kernel)
+    green_mask = cv2.dilate(green_mask, kernel)
+    res_green = cv2.bitwise_and(frame, frame, mask=green_mask)
+
+    # For blue color
+    blue_mask = cv2.erode(blue_mask, kernel)
+    blue_mask = cv2.dilate(blue_mask, kernel)
+    res_blue = cv2.bitwise_and(frame, frame, mask=blue_mask)
+
+    # 画红色边框
+    contours, _ = cv2.findContours(red_mask_1, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    for pic, contour in enumerate(contours):
+        area = cv2.contourArea(contour)
+        if(area &gt; AREA):
+            x, y, w, h = cv2.boundingRect(contour)
+            frame = cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
+            cv2.putText(frame, &quot;Red&quot;, (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 255))
+
+    contours, _ = cv2.findContours(red_mask_2, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    for pic, contour in enumerate(contours):
+        area = cv2.contourArea(contour)
+        if(area &gt; AREA):
+            x, y, w, h = cv2.boundingRect(contour)
+            frame = cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
+            cv2.putText(frame, &quot;Red&quot;, (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 255))
+
+    # 画绿色边框
+    contours, _ = cv2.findContours(green_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    for pic, contour in enumerate(contours):
+        area = cv2.contourArea(contour)
+        if(area &gt; AREA):
+            x, y, w, h = cv2.boundingRect(contour)
+            frame = cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            cv2.putText(frame, &quot;Green&quot;, (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 255, 0))
+  
+    # 画蓝色边框
+    contours, _ = cv2.findContours(blue_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    for pic, contour in enumerate(contours):
+        area = cv2.contourArea(contour)
+        if(area &gt; AREA):
+            x, y, w, h = cv2.boundingRect(contour)
+            frame = cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
+            cv2.putText(frame, &quot;Blue&quot;, (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (255, 0, 0))
+
+    # 释放资源
+    cv2.imshow(&quot;color detect&quot;, frame)
+    if cv2.waitKey(10) &amp; 0xFF == ord(&#39;q&#39;):
+        break
+
+capture.release()
+cv2.destroyAllWindows()
+</code></pre>
+<h2 id="结果-1"><a href="#结果-1" class="headerlink" title="结果"></a>结果</h2><p><img src="/color_detect.jpg" alt="result"></p>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/OpenCV/">
+          OpenCV
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+  </div>
+</div>
+  </div>
+</body>
+
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+
+<script src="/js/milk.js"></script>
+
+
+</html>

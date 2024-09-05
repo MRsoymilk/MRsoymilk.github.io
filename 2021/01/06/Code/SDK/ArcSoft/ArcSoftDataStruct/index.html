@@ -1,0 +1,654 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>虹软人脸识别-数据结构 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/jquery/jquery-ui.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/highlight/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk-header">
+     
+
+  <nav class="header-nav">
+     
+    <ul class="nav-menu">
+      
+        <li id="Home">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </li>
+      
+        <li id="Archives">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </li>
+      
+        <li id="About">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </li>
+      
+    </ul>
+    
+    
+      <span class="nav-date">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+        <span id="date"></span>
+      </span>
+    
+    
+    
+      <span class="nav-system" id="nav-system"></span>
+    
+    
+    <span class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Power by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+      </div>
+    </span>
+  </nav>
+ 
+  </div>
+  <div class="milk-body">
+    
+<div class="draggable-toc">
+  <div class="toc-title">虹软人脸识别-数据结构</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ASF-VERSION"><span class="toc-text">ASF_VERSION</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ASF-ActiveFileInfo"><span class="toc-text">ASF_ActiveFileInfo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ASF-SingleFaceInfo"><span class="toc-text">ASF_SingleFaceInfo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ASF-MultiFaceInfo"><span class="toc-text">ASF_MultiFaceInfo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ASF-FaceFeature"><span class="toc-text">ASF_FaceFeature</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ASF-AgeInfo"><span class="toc-text">ASF_AgeInfo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ASF-GenderInfo"><span class="toc-text">ASF_GenderInfo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ASF-Face3DAngle"><span class="toc-text">ASF_Face3DAngle</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ASF-LivenessThreshold"><span class="toc-text">ASF_LivenessThreshold</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ASF-LivenessInfo"><span class="toc-text">ASF_LivenessInfo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ASVLOFFSCREEN"><span class="toc-text">ASVLOFFSCREEN</span></a></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">虹软人脸识别-数据结构</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Code/">
+          Code
+        </a>
+          </li>
+      
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Code/SDK/">
+          SDK
+        </a>
+          </li>
+      
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Code/SDK/ArcSoft/">
+          ArcSoft
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <p>版本：3.0.3902010101.5</p>
+<p>参考：<code>ARCSOFT_ARC_FACE_DEVELOPER&#39;S_GUIDE.pdf</code></p>
+<span id="more"></span>
+
+<h2 id="ASF-VERSION"><a href="#ASF-VERSION" class="headerlink" title="ASF_VERSION"></a>ASF_VERSION</h2><p>SDK版本信息</p>
+<blockquote>
+<p>typedef char* MPChar;</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">变量名</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">MPChar</td>
+<td align="left">Version</td>
+<td align="left">版本号</td>
+</tr>
+<tr>
+<td align="left">MPChar</td>
+<td align="left">BuildDate</td>
+<td align="left">构建日期</td>
+</tr>
+<tr>
+<td align="left">MPChar</td>
+<td align="left">CopyRight</td>
+<td align="left">版权说明</td>
+</tr>
+</tbody></table>
+<p>示例：</p>
+<pre><code class="cpp">#include &lt;iostream&gt;
+
+#include &quot;arcsoft_face_sdk.h&quot;
+#include &quot;merror.h&quot;
+
+#pragma comment(lib, &quot;libarcsoft_face_engine.lib&quot;)
+
+using namespace std;
+
+int main() &#123;
+    ASF_VERSION asf = ASFGetVersion();
+    cout &lt;&lt; &quot;Version:\t&quot; &lt;&lt; asf.Version &lt;&lt; endl;
+    cout &lt;&lt; &quot;BuildDate:\t&quot; &lt;&lt; asf.BuildDate &lt;&lt; endl;
+    cout &lt;&lt; &quot;CopyRight:\t&quot; &lt;&lt; asf.CopyRight &lt;&lt; endl;
+&#125;
+</code></pre>
+<h2 id="ASF-ActiveFileInfo"><a href="#ASF-ActiveFileInfo" class="headerlink" title="ASF_ActiveFileInfo"></a>ASF_ActiveFileInfo</h2><p>激活文件信息。</p>
+<blockquote>
+<p>typedef char* MPChar</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">变量名</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">MPChar</td>
+<td align="left">startTime</td>
+<td align="left">SDK开始时间</td>
+</tr>
+<tr>
+<td align="left">MPChar</td>
+<td align="left">endTime</td>
+<td align="left">SDK截止时间</td>
+</tr>
+<tr>
+<td align="left">MPChar</td>
+<td align="left">platform</td>
+<td align="left">平台版本</td>
+</tr>
+<tr>
+<td align="left">MPChar</td>
+<td align="left">sdkType</td>
+<td align="left">SDK类型</td>
+</tr>
+<tr>
+<td align="left">MPChar</td>
+<td align="left">appId</td>
+<td align="left">APPID</td>
+</tr>
+<tr>
+<td align="left">MPChar</td>
+<td align="left">sdkKey</td>
+<td align="left">SDKKEY</td>
+</tr>
+<tr>
+<td align="left">MPChar</td>
+<td align="left">sdkVersion</td>
+<td align="left">SDK版本号</td>
+</tr>
+<tr>
+<td align="left">MPChar</td>
+<td align="left">fileVersion</td>
+<td align="left">激活文件版本号</td>
+</tr>
+</tbody></table>
+<p>示例：</p>
+<pre><code class="cpp">#include &lt;iostream&gt;
+
+#include &quot;arcsoft_face_sdk.h&quot;
+#include &quot;merror.h&quot;
+
+#pragma comment(lib, &quot;libarcsoft_face_engine.lib&quot;)
+
+using namespace std;
+
+int main() &#123;
+    ASF_ActiveFileInfo info;
+    ASFGetActiveFileInfo(&amp;info);
+
+    cout &lt;&lt; &quot;start time:\t&quot; &lt;&lt; info.startTime &lt;&lt; endl;
+    cout &lt;&lt; &quot;end time:\t&quot; &lt;&lt; info.endTime &lt;&lt; endl;
+    cout &lt;&lt; &quot;platform:\t&quot; &lt;&lt; info.platform &lt;&lt; endl;
+    cout &lt;&lt; &quot;sdk type:\t&quot; &lt;&lt; info.sdkType &lt;&lt; endl;
+    cout &lt;&lt; &quot;app id:\t\t&quot; &lt;&lt; info.appId &lt;&lt; endl;
+    cout &lt;&lt; &quot;sdk key:\t&quot; &lt;&lt; info.sdkKey &lt;&lt; endl;
+    cout &lt;&lt; &quot;sdk version:\t&quot; &lt;&lt; info.sdkVersion &lt;&lt; endl;
+    cout &lt;&lt; &quot;file version:\t&quot; &lt;&lt; info.fileVersion &lt;&lt; endl;
+&#125;
+</code></pre>
+<h2 id="ASF-SingleFaceInfo"><a href="#ASF-SingleFaceInfo" class="headerlink" title="ASF_SingleFaceInfo"></a>ASF_SingleFaceInfo</h2><p>单人脸信息。</p>
+<blockquote>
+<p>typedef signed int MInt32</p>
+</blockquote>
+<pre><code class="cpp">typedef struct __tag_rect&#123;
+    MInt32left;
+    MInt32top;
+    MInt32right;
+    MInt32bottom;
+    &#125; MRECT, *PMRECT;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">变量名</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">MRECT</td>
+<td align="left">faceRect</td>
+<td align="left">人脸框</td>
+</tr>
+<tr>
+<td align="left">MInt32</td>
+<td align="left">faceOrient</td>
+<td align="left">人脸角度</td>
+</tr>
+</tbody></table>
+<pre><code class="cpp">
+</code></pre>
+<h2 id="ASF-MultiFaceInfo"><a href="#ASF-MultiFaceInfo" class="headerlink" title="ASF_MultiFaceInfo"></a>ASF_MultiFaceInfo</h2><p>多人脸信息。</p>
+<blockquote>
+<p>typedef signed int MInt32;</p>
+</blockquote>
+<pre><code class="cpp">typedef struct __tag_rect&#123;
+    MInt32left;
+    MInt32top;
+    MInt32right;
+    MInt32bottom;
+    &#125; MRECT, *PMRECT;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">变量名</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">MRECT*</td>
+<td align="left">faceRect</td>
+<td align="left">人脸框</td>
+</tr>
+<tr>
+<td align="left">MInt32*</td>
+<td align="left">faceOrient</td>
+<td align="left">人脸角度</td>
+</tr>
+<tr>
+<td align="left">MInt32</td>
+<td align="left">faceNum</td>
+<td align="left">检测到的人脸数</td>
+</tr>
+<tr>
+<td align="left">MInt32*</td>
+<td align="left">faceID</td>
+<td align="left">一张人脸从进入画面直到离开画面，faceID不变。在VIDEO模式下有效，IMAGE模式下为空</td>
+</tr>
+</tbody></table>
+<h2 id="ASF-FaceFeature"><a href="#ASF-FaceFeature" class="headerlink" title="ASF_FaceFeature"></a>ASF_FaceFeature</h2><p>人脸特征。</p>
+<blockquote>
+<p>typedef signed int MInt32;<br>typedef unsigned char MByte;</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">变量名</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">MByte*</td>
+<td align="left">feature</td>
+<td align="left">人脸特征</td>
+</tr>
+<tr>
+<td align="left">MInt32</td>
+<td align="left">featureSize</td>
+<td align="left">人脸特征长度</td>
+</tr>
+</tbody></table>
+<h2 id="ASF-AgeInfo"><a href="#ASF-AgeInfo" class="headerlink" title="ASF_AgeInfo"></a>ASF_AgeInfo</h2><p>年龄信息。</p>
+<blockquote>
+<p>typedef signed int MInt32;</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">变量名</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">MInt32*</td>
+<td align="left">ageArray</td>
+<td align="left">0：未知；&gt;0：年龄</td>
+</tr>
+<tr>
+<td align="left">MInt32</td>
+<td align="left">num</td>
+<td align="left">检测的人脸数</td>
+</tr>
+</tbody></table>
+<h2 id="ASF-GenderInfo"><a href="#ASF-GenderInfo" class="headerlink" title="ASF_GenderInfo"></a>ASF_GenderInfo</h2><p>性别信息。</p>
+<blockquote>
+<p>typedef signed int MInt32;</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">变量名</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">MInt32*</td>
+<td align="left">genderArray</td>
+<td align="left">0：男性；1：女性；-1：未知</td>
+</tr>
+<tr>
+<td align="left">MInt32</td>
+<td align="left">num</td>
+<td align="left">检测的人脸数</td>
+</tr>
+</tbody></table>
+<h2 id="ASF-Face3DAngle"><a href="#ASF-Face3DAngle" class="headerlink" title="ASF_Face3DAngle"></a>ASF_Face3DAngle</h2><p>3D角度信息。</p>
+<blockquote>
+<p>typedef signed int MInt32;<br>typedef float MFloat;</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">变量名</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">MFloat*</td>
+<td align="left">roll</td>
+<td align="left">横滚角</td>
+</tr>
+<tr>
+<td align="left">MFloat*</td>
+<td align="left">yaw</td>
+<td align="left">偏航角</td>
+</tr>
+<tr>
+<td align="left">MFloat*</td>
+<td align="left">pitch</td>
+<td align="left">俯仰角</td>
+</tr>
+<tr>
+<td align="left">MInt32*</td>
+<td align="left">status</td>
+<td align="left">0：正常；非0：异常</td>
+</tr>
+<tr>
+<td align="left">MInt32</td>
+<td align="left">num</td>
+<td align="left">检测的人脸数</td>
+</tr>
+</tbody></table>
+<h2 id="ASF-LivenessThreshold"><a href="#ASF-LivenessThreshold" class="headerlink" title="ASF_LivenessThreshold"></a>ASF_LivenessThreshold</h2><p>活体置信度。</p>
+<blockquote>
+<p>typedef float MFloat;</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">变量名</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">MFloat</td>
+<td align="left">thresholdmodel_BGR</td>
+<td align="left">BGR活体检测阈值设置，默认值0.5</td>
+</tr>
+<tr>
+<td align="left">MFloat</td>
+<td align="left">thresholdmodel_IR</td>
+<td align="left">IR活体检测阈值设置，默认值0.7</td>
+</tr>
+</tbody></table>
+<h2 id="ASF-LivenessInfo"><a href="#ASF-LivenessInfo" class="headerlink" title="ASF_LivenessInfo"></a>ASF_LivenessInfo</h2><p>活体信息。</p>
+<blockquote>
+<p>typedef signed int MInt32;</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">变量名</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">MInt32*</td>
+<td align="left">isLive</td>
+<td align="left">0：:非真人； 1：真人；-1：不确定； -2：传入人脸数 &gt; 1；-3：人脸过小；-4: 角度过大；-5：人脸超出边界</td>
+</tr>
+<tr>
+<td align="left">MInt32</td>
+<td align="left">num</td>
+<td align="left">检测的人脸数</td>
+</tr>
+</tbody></table>
+<h2 id="ASVLOFFSCREEN"><a href="#ASVLOFFSCREEN" class="headerlink" title="ASVLOFFSCREEN"></a>ASVLOFFSCREEN</h2><p>图像数据信息。</p>
+<blockquote>
+<p>typedef LPASVLOFFSCREEN LPASF_ImageData;<br>typedef unsigned int MUInt32;<br>typedef signed int MInt32;<br>typedef unsigned char MUInt8</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">变量名</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">MUInt32*</td>
+<td align="left">u32PixelArrayFormat</td>
+<td align="left">颜色格式</td>
+</tr>
+<tr>
+<td align="left">MInt32</td>
+<td align="left">i32Width</td>
+<td align="left">图像宽度</td>
+</tr>
+<tr>
+<td align="left">MInt32</td>
+<td align="left">i32Height</td>
+<td align="left">图像高度</td>
+</tr>
+<tr>
+<td align="left">MUInt8**</td>
+<td align="left">ppu8Plane</td>
+<td align="left">图像数据</td>
+</tr>
+<tr>
+<td align="left">MInt32*</td>
+<td align="left">pi32Pitch</td>
+<td align="left">图像步长</td>
+</tr>
+</tbody></table>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/ArcSoft/">
+          ArcSoft
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+  </div>
+</div>
+  </div>
+</body>
+
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+
+<script src="/js/milk.js"></script>
+
+
+</html>

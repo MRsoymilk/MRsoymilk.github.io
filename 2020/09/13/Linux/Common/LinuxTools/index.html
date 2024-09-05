@@ -1,0 +1,299 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Linux工具 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/jquery/jquery-ui.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/highlight/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk-header">
+     
+
+  <nav class="header-nav">
+     
+    <ul class="nav-menu">
+      
+        <li id="Home">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </li>
+      
+        <li id="Archives">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </li>
+      
+        <li id="About">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </li>
+      
+    </ul>
+    
+    
+      <span class="nav-date">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+        <span id="date"></span>
+      </span>
+    
+    
+    
+      <span class="nav-system" id="nav-system"></span>
+    
+    
+    <span class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Power by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+      </div>
+    </span>
+  </nav>
+ 
+  </div>
+  <div class="milk-body">
+    
+<div class="draggable-toc">
+  <div class="toc-title">Linux工具</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mycli"><span class="toc-text">mycli</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#fzf"><span class="toc-text">fzf</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cloc"><span class="toc-text">cloc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ccache"><span class="toc-text">ccache</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tmux"><span class="toc-text">tmux</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tldr"><span class="toc-text">tldr</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ranger"><span class="toc-text">ranger</span></a></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">Linux工具</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Linux/">
+          Linux
+        </a>
+          </li>
+      
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Linux/common/">
+          common
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>Linux上一些常用的工具。</p>
+<p>例如：可以自动补全的mysql工具<code>mycli</code>，交互式搜索的<code>fzf</code>，代码统计工具<code>cloc</code>…</p>
+<span id="more"></span>
+
+<h2 id="mycli"><a href="#mycli" class="headerlink" title="mycli"></a><code>mycli</code></h2><p><a target="_blank" rel="noopener" href="https://www.mycli.net/">mycli</a></p>
+<p>mysql客户端，支持语法高亮和命令补全，运行在Terminal上。</p>
+<p><img src="/mycli.png" alt="mycli"></p>
+<h2 id="fzf"><a href="#fzf" class="headerlink" title="fzf"></a><code>fzf</code></h2><p><a target="_blank" rel="noopener" href="https://github.com/junegunn/fzf">fzf</a></p>
+<p>命令行下模糊搜索工具，交互式智能搜索并选取文件或内容。</p>
+<p><img src="/fzf.png" alt="fzf"></p>
+<h2 id="cloc"><a href="#cloc" class="headerlink" title="cloc"></a><code>cloc</code></h2><p><a target="_blank" rel="noopener" href="https://github.com/AlDanial/cloc">cloc</a></p>
+<p>代码统计工具</p>
+<p><img src="/cloc.png" alt="cloc"></p>
+<h2 id="ccache"><a href="#ccache" class="headerlink" title="ccache"></a><code>ccache</code></h2><p><a target="_blank" rel="noopener" href="https://wiki.gentoo.org/wiki/Ccache">Gentoo ccache</a></p>
+<p>高速C&#x2F;C++编译缓存工具，提高编译速度。</p>
+<pre><code class="bash">gcc foo.c
+ccache gcc foo.c
+</code></pre>
+<h2 id="tmux"><a href="#tmux" class="headerlink" title="tmux"></a><code>tmux</code></h2><p><a target="_blank" rel="noopener" href="https://github.com/tmux/tmux">tmux</a></p>
+<p>终端复用</p>
+<p><img src="/tmux.png" alt="tmux"></p>
+<h2 id="tldr"><a href="#tldr" class="headerlink" title="tldr"></a><code>tldr</code></h2><p><a target="_blank" rel="noopener" href="https://tldr.sh/">tldr</a></p>
+<p>简略的man文档</p>
+<p>需要额外配置颜色输出<br>文件：<code>~/.tldrrc</code></p>
+<pre><code class="json">&#123;
+  &quot;themes&quot;: &#123;
+    &quot;my&quot;: &#123;
+      &quot;commandName&quot;: &quot;bold, cyan&quot;,
+      &quot;mainDescription&quot;: &quot;underline&quot;,
+      &quot;exampleDescription&quot;: &quot;yellow&quot;,
+      &quot;exampleCode&quot;: &quot;red&quot;,
+      &quot;exampleToken&quot;: &quot;dim&quot;
+    &#125;
+  &#125;,
+  &quot;theme&quot;: &quot;my&quot;
+&#125;
+</code></pre>
+<p><img src="/tldr.png" alt="tldr"></p>
+<h2 id="ranger"><a href="#ranger" class="headerlink" title="ranger"></a><code>ranger</code></h2><p><a target="_blank" rel="noopener" href="https://github.com/ranger/ranger">ranger</a></p>
+<p>Terminal上的文件系统。无桌面环境也能使用。</p>
+<p><img src="/ranger.png" alt="ranger"></p>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/common/">
+          common
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+  </div>
+</div>
+  </div>
+</body>
+
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+
+<script src="/js/milk.js"></script>
+
+
+</html>

@@ -1,0 +1,341 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>特殊字符 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/jquery/jquery-ui.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/highlight/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk-header">
+     
+
+  <nav class="header-nav">
+     
+    <ul class="nav-menu">
+      
+        <li id="Home">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </li>
+      
+        <li id="Archives">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </li>
+      
+        <li id="About">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </li>
+      
+    </ul>
+    
+    
+      <span class="nav-date">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+        <span id="date"></span>
+      </span>
+    
+    
+    
+      <span class="nav-system" id="nav-system"></span>
+    
+    
+    <span class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Power by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+      </div>
+    </span>
+  </nav>
+ 
+  </div>
+  <div class="milk-body">
+    
+<div class="draggable-toc">
+  <div class="toc-title">特殊字符</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6"><span class="toc-text">字符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%8C%E8%85%8A%E5%AD%97%E6%AF%8D"><span class="toc-text">希腊字母</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%84%E6%96%87%E5%AD%97%E6%AF%8D"><span class="toc-text">俄文字母</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E9%9F%B3%E7%AC%A6%E5%8F%B7"><span class="toc-text">注音符号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%BC%E9%9F%B3%E7%AC%A6%E5%8F%B7"><span class="toc-text">拼音符号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A5%E6%96%87%E5%B9%B3%E5%81%87%E5%90%8D"><span class="toc-text">日文平假名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A5%E6%96%87%E7%89%87%E5%81%87%E5%90%8D"><span class="toc-text">日文片假名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E7%82%B9%E7%AC%A6%E5%8F%B7"><span class="toc-text">标点符号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E4%BD%8D%E7%AC%A6%E5%8F%B7"><span class="toc-text">单位符号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E5%AD%A6%E7%AC%A6%E5%8F%B7"><span class="toc-text">数学符号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E5%BA%8F%E5%8F%B7"><span class="toc-text">数字序号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8B%B1%E6%96%87%E5%AD%97%E6%AF%8D"><span class="toc-text">英文字母</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4"><span class="toc-text">日期时间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9F%B3%E4%B9%90%E7%AC%A6%E5%8F%B7"><span class="toc-text">音乐符号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%AD%E5%A4%B4%E7%AC%A6%E5%8F%B7"><span class="toc-text">箭头符号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E5%9D%97%E7%AC%A6%E5%8F%B7"><span class="toc-text">方块符号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%B6%E8%A1%A8%E7%AC%A6"><span class="toc-text">制表符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%A7%E5%B8%81%E7%AC%A6%E5%8F%B7"><span class="toc-text">货币符号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E6%96%87%E5%AD%97"><span class="toc-text">特殊文字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-text">其他</span></a></li></ol></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">特殊字符</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/others/">
+          others
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>特殊字符，大多用于美化。</p>
+<p>参考:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.sioe.cn/zifu.htm">特殊字符大全</a></li>
+<li><a target="_blank" rel="noopener" href="http://m.fhdq.net/">符号大全手机版</a></li>
+</ul>
+<span id="more"></span>
+
+<h2 id="字符"><a href="#字符" class="headerlink" title="字符"></a>字符</h2><h3 id="希腊字母"><a href="#希腊字母" class="headerlink" title="希腊字母"></a>希腊字母</h3><pre><code class="plaintext">[大写] Α Β Γ Δ Ε Ζ Η Θ Ι Κ ∧ Μ Ν Ξ Ο ∏ Ρ ∑ Τ Υ Φ Χ Ψ Ω
+[小写] α β γ δ ε ζ η θ ι κ λ μ ν ξ ο π ρ σ τ υ φ χ ψ ω
+</code></pre>
+<h3 id="俄文字母"><a href="#俄文字母" class="headerlink" title="俄文字母"></a>俄文字母</h3><pre><code class="plaintext">[大写] А Б В Г Д Е Ё Ж З И Й К Л М Н О П Р С Т У Ф Х Ц Ч Ш Щ Ъ Ы Ь Э Ю Я
+[小写] а б в г д е ё ж з и й к л м н о п р с т у ф х ц ч ш щ ъ ы ь э ю я
+</code></pre>
+<h3 id="注音符号"><a href="#注音符号" class="headerlink" title="注音符号"></a>注音符号</h3><pre><code class="plaintext">ㄅ ㄉ ㄓ ㄚ ㄞ ㄢ ㄦ ㄆ ㄊ ㄍ ㄐ ㄔ ㄗ ㄧ ㄛ ㄟ ㄣ ㄇ ㄋ ㄎ ㄑ ㄕ ㄘ ㄨ ㄜ ㄠ ㄤ ㄈ ㄏ ㄒ ㄖ ㄙ ㄩ ㄝ ㄡ ㄥ
+</code></pre>
+<h3 id="拼音符号"><a href="#拼音符号" class="headerlink" title="拼音符号"></a>拼音符号</h3><pre><code class="plaintext">ā á ǎ à、ō ó ǒ ò、ê ē é ě è、ī í ǐ ì、ū ú ǔ ù、ǖ ǘ ǚ ǜ ü
+</code></pre>
+<h3 id="日文平假名"><a href="#日文平假名" class="headerlink" title="日文平假名"></a>日文平假名</h3><pre><code class="plaintext">ぁ ぃ ぅ ぇ ぉ か き く け こ ん さ し す せ そ た ち つ っ て と ゐ な に ぬ ね の は ひ ふ へ ほ ゑ ま み む め も ゃ ゅ ょ ゎ を
+</code></pre>
+<h3 id="日文片假名"><a href="#日文片假名" class="headerlink" title="日文片假名"></a>日文片假名</h3><pre><code class="plaintext">ァ ィ ゥ ヴ ェ ォ カ ヵ キ ク ケ ヶ コ サ シ ス セ ソ タ チ ツ ッ テ ト ヰ ン ナ ニ ヌ ネ ノ ハ ヒ フ ヘ ホ ヱ マ ミ ム メ モ ャ ュ ョ ヮ ヲ
+</code></pre>
+<h3 id="标点符号"><a href="#标点符号" class="headerlink" title="标点符号"></a>标点符号</h3><pre><code class="plaintext">～ ‖ ∶ ” &#39; ‘｜ 〃 〈 〉 ＾ 〉 ∩ ∪ 「 」 『 』 ［ ］ ＜ ＞ ≤ ≥ （ ） ｛ ｝ 〔 〕 【 】 《 》 ╳
+</code></pre>
+<h3 id="单位符号"><a href="#单位符号" class="headerlink" title="单位符号"></a>单位符号</h3><pre><code class="plaintext">° ′ ″ ％ ＠ ℃ ℉ ﹩﹪ ‰ ﹫ ㎡ ㏕ ㎜ ㎝ ㎞ ㏎ m ³ ㎎ ㎏ ㏄ º ○ % º ¹ ² ³
+</code></pre>
+<h3 id="数学符号"><a href="#数学符号" class="headerlink" title="数学符号"></a>数学符号</h3><pre><code class="plaintext">≈ ≡ ≠ ＝ ≤ ≥ ＜ ＞ ≮ ≯ ∷ ± ＋ － × ÷ ／ ∫ ∮ ∝ ∞ ∧ ∨ ∑ ∏ ∪ ∩ ∈ ∵ ∴ ⊥ ‖ ∠ ⌒ ⊙ ≌ ∽ √
+</code></pre>
+<h3 id="数字序号"><a href="#数字序号" class="headerlink" title="数字序号"></a>数字序号</h3><pre><code class="plaintext">Ⅰ Ⅱ Ⅲ Ⅳ Ⅴ Ⅵ Ⅶ Ⅷ Ⅸ Ⅹ Ⅺ Ⅻ
+ⅰ ⅱ ⅲ ⅳ ⅴ ⅵ ⅶ ⅷ ⅸ ⅹ
+⒈ ⒉ ⒊ ⒋ ⒌ ⒍ ⒎ ⒏ ⒐ ⒑ ⒒ ⒓ ⒔ ⒕ ⒖ ⒗ ⒘ ⒙ ⒚ ⒛
+⑴ ⑵ ⑶ ⑷ ⑸ ⑹ ⑺ ⑻ ⑼ ⑽ ⑾ ⑿ ⒀ ⒁ ⒂ ⒃ ⒄ ⒅ ⒆ ⒇
+  ❶ ❷ ❸ ❹ ❺ ❻ ❼ ❽ ❾ ❿
+⓪ ① ② ③ ④ ⑤ ⑥ ⑦ ⑧ ⑨ ⑩ ⑪ ⑫ ⑬ ⑭ ⑮ ⑯ ⑰ ⑱ ⑲ ⑳
+</code></pre>
+<h3 id="英文字母"><a href="#英文字母" class="headerlink" title="英文字母"></a>英文字母</h3><pre><code class="plaintext">⒜ ⒝ ⒞ ⒟ ⒠ ⒡ ⒢ ⒣ ⒤ ⒥ ⒦ ⒧ ⒨ ⒩ ⒪ ⒫ ⒬ ⒭ ⒮ ⒯ ⒰ ⒱ ⒲ ⒳ ⒴ ⒵
+[大写] Ⓐ Ⓑ Ⓒ Ⓓ Ⓔ Ⓕ Ⓖ Ⓗ Ⓘ Ⓙ Ⓚ Ⓛ Ⓜ Ⓝ Ⓞ Ⓟ Ⓠ Ⓡ Ⓢ Ⓣ Ⓤ Ⓥ Ⓦ Ⓧ Ⓨ Ⓩ
+[小写] ⓐ ⓑ ⓒ ⓓ ⓔ ⓕ ⓖ ⓗ ⓘ ⓙ ⓚ ⓛ ⓜ ⓝ ⓞ ⓟ ⓠ ⓡ ⓢ ⓣ ⓤ ⓥ ⓦ ⓧ ⓨ ⓩ
+</code></pre>
+<h3 id="日期时间"><a href="#日期时间" class="headerlink" title="日期时间"></a>日期时间</h3><pre><code class="plaintext">㍘ ㍙ ㍚ ㍛ ㍜ ㍝ ㍞ ㍟ ㍠ ㍡ ㍢ ㍣ ㍤ ㍥ ㍦ ㍧ ㍨ ㍩ ㍪ ㍫ ㍬ ㍭ ㍮ ㍯ ㍰
+㋀ ㋁ ㋂ ㋃ ㋄ ㋅ ㋆ ㋇ ㋈ ㋉ ㋊ ㋋
+㏠ ㏡ ㏢ ㏣ ㏤ ㏥ ㏦ ㏧ ㏨ ㏩ ㏪ ㏫ ㏬ ㏭ ㏮ ㏯ ㏰ ㏱ ㏲ ㏳ ㏴ ㏵ ㏶ ㏷ ㏸ ㏹ ㏺ ㏻ ㏼ ㏽ ㏾
+</code></pre>
+<h3 id="音乐符号"><a href="#音乐符号" class="headerlink" title="音乐符号"></a>音乐符号</h3><pre><code class="plaintext">♩ ♪ ♫ ♬ ♯ ♭ ♮
+</code></pre>
+<h3 id="箭头符号"><a href="#箭头符号" class="headerlink" title="箭头符号"></a>箭头符号</h3><pre><code class="plaintext">↑ ↓ ← → ↖ ↗ ↘ ↙ ↔ ↕
+➻ ➼ ➽ ➸ ➳ ➺ ➻ ➴ ➵ ➶ ➷ ➹
+▶ ► ▷ ◁ ◀ ◄ « »
+➩ ➪ ➫ ➬ ➭ ➮ ➯ ➱ ⏎ ➲ ➾
+➛ ➜ ➝ ➞ ➟ ➠
+➡ ➢ ➣ ➤ ➥ ➦ ➧ ➨
+↚ ↛ ↜ ↝ ↞ ↟ ↠ ↠ ↡ ↢ ↣ ↤ ↤ ↥ ↦ ↧ ↨
+⇄ ⇅ ⇆ ⇇ ⇈ ⇉ ⇊ ⇋ ⇌ ⇍ ⇎ ⇏ ⇐ ⇑ ⇒ ⇓ ⇔ ⇖ ⇗ ⇘ ⇙
+⇜ ↩ ↪ ↫ ↬ ↭ ↮ ↯ ↰ ↱ ↲ ↳ ↴ ↵ ↶ ↷ ↸ ↹ ☇ ☈
+↼ ↽ ↾ ↿ ⇀ ⇁ ⇂ ⇃ ⇞ ⇟ ⇠ ⇡ ⇢ ⇣ ⇤ ⇥
+⇦ ⇧ ⇨ ⇩ ⇪ ↺ ↻ ⇚ ⇛
+</code></pre>
+<h3 id="方块符号"><a href="#方块符号" class="headerlink" title="方块符号"></a>方块符号</h3><pre><code class="plaintext">◢ ◣　◥　◤▁ ▂ ▃ ▄ ▅ ▆ ▇ █ ▉ ▊ ▋ ▌▍▎ ▓ ▔▕
+</code></pre>
+<h3 id="制表符"><a href="#制表符" class="headerlink" title="制表符"></a>制表符</h3><pre><code class="plaintext">┌ ┍ ┎ ┏ ┐ ┑ ┒ ┓
+└ ┕ ┖ ┗ ┘ ┙ ┚ ┛
+├ ┝ ┞ ┟ ┠ ┡ ┢ ┣ ┤ ┥ ┦ ┧ ┨ ┩ ┪ ┫
+┬ ┭ ┮ ┯ ┰ ┱ ┲ ┳
+┴ ┵ ┶ ┷ ┸ ┹ ┺ ┻
+┼ ┽ ┾ ┿ ╀ ╁ ╂ ╃ ╄ ╅ ╆ ╇ ╈ ╉ ╊ ╋
+─ ━ │ ┃ ┄ ┅ ┆ ┇ ┈ ┉ ┊  ┋ ═ ║
+╒ ╓ ╔ ╕ ╖ ╗
+╘ ╙ ╚ ╛ ╜ ╝
+╞ ╟ ╠ ╡ ╢ ╣
+╤ ╥ ╦ ╧ ╨ ╩ ╪ ╫ ╬
+</code></pre>
+<h3 id="货币符号"><a href="#货币符号" class="headerlink" title="货币符号"></a>货币符号</h3><pre><code class="plaintext">€ £ Ұ ₴ $ ₰ ¢ ₤ ¥ ₳ ₲ ₪ ₵ 元 ₣ ₱ ฿ ¤ ₡ ₮ ₭ ₩ 円 ₢ ₥ ₫ ₦ z ł ₠ ₧ ₯ ₨ K č र ₹ ƒ ₸ ￠
+</code></pre>
+<h3 id="特殊文字"><a href="#特殊文字" class="headerlink" title="特殊文字"></a>特殊文字</h3><pre><code class="plaintext">㈱ ㍿ 囍 卐 卍 ォミ ツ〡〢〣〤〥〦〧〨〩
+㊐ ㊊ ㊎ ㊍ ㊌ ㊋ ㊏ ㊑ ㊒ ㊓ ㊔ ㊕ ㊖ ㊗ ㊘ ㊜ ㊝ ㊞ ㊟ ㊠ ㊡㊢ ㊩ ㊪ ㊫ ㊬ ㊭ ㊮ ㊯ ㊰ ㊙ ㊚ ㊛ ㊣ ㊤ ㊥ ㊦ ㊧ ㊨
+</code></pre>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><pre><code class="plaintext">👑 ♚ ♛ ♝ ♞ ♜ ♟ ♔ ♕ ♗ ♘ ♖ ♙
+☈ ☫ ☬ ☊ ☋ ❡ ❞ ❝ ❖ 〠 ۩ ๑ ≈ ≌ ﺴ ≌ ≈ ۞
+☻ ☺ ♠ ◈ ♤ ♦ ◊ ♨ ♣ ♧ ♥ ♡ ❤ ❥ ❦ ❧ ▦ ▩ ▣ ▧ ▨ ▤ ▥ ▪ ▫ ◘ ◙ ☏ ☎ ◑ ◐ ◦ ° ₪
+✩ ✫ ✬ ✭ ✮ ✰ ★ ❁ ❀ ✿ ✾ ❃ ✺ ❇ ❈ ❊ ❉ ☸ ✱ ✲ ☼ ☀ ☁ ☂ ☃ ☄
+☢ ☠ ☪ ☣ ☭ ❂ ✈ ☯
+☰ ☲ ☱ ☴ ☵ ☶ ☳ ☷
+✐ ✎ ✏ ✑ ✒
+✁ ✂ ✃ ✄
+☑ ✓ ✔ √ ☐ ☒ ✗ ✘ ㄨ ✕ ✖
+</code></pre>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://www.fontawesome.com.cn/cheatsheet/">Font Awesome 字体</a></li>
+<li><a target="_blank" rel="noopener" href="https://home.unicode.org/">Unicode – The World Standard for Text and Emoji</a></li>
+</ul>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/others/">
+          others
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+  </div>
+</div>
+  </div>
+</body>
+
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+
+<script src="/js/milk.js"></script>
+
+
+</html>

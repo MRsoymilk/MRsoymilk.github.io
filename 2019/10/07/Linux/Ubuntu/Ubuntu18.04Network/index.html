@@ -1,0 +1,315 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ubuntu18.04网络相关 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/jquery/jquery-ui.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/highlight/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk-header">
+     
+
+  <nav class="header-nav">
+     
+    <ul class="nav-menu">
+      
+        <li id="Home">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </li>
+      
+        <li id="Archives">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </li>
+      
+        <li id="About">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </li>
+      
+    </ul>
+    
+    
+      <span class="nav-date">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+        <span id="date"></span>
+      </span>
+    
+    
+    
+      <span class="nav-system" id="nav-system"></span>
+    
+    
+    <span class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Power by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+      </div>
+    </span>
+  </nav>
+ 
+  </div>
+  <div class="milk-body">
+    
+<div class="draggable-toc">
+  <div class="toc-title">Ubuntu18.04网络相关</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%A8%E5%8F%B7%E4%B8%8A%E7%BD%91"><span class="toc-text">拨号上网</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B"><span class="toc-text">开始</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%BF%9E%E6%8E%A5Wifi"><span class="toc-text">命令行连接Wifi</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%90%AF-WiFi"><span class="toc-text">开启 WiFi</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%97%AD-WiFi"><span class="toc-text">关闭 WiFi</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%AB%E6%8F%8F-WiFi"><span class="toc-text">扫描 WiFi</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E6%96%B0%E6%89%AB%E6%8F%8F-WiFi"><span class="toc-text">重新扫描 WiFi</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5-WiFi"><span class="toc-text">连接 WiFi</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E5%A4%9A"><span class="toc-text">更多</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#18-04%E7%89%88%E6%9C%AC%E4%BF%AE%E6%94%B9DNS"><span class="toc-text">18.04版本修改DNS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%BE%E5%AF%B9%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6"><span class="toc-text">找对修改文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%90%AF%E6%9C%8D%E5%8A%A1%E4%BB%A5%E6%9B%B4%E6%96%B0%E4%BF%AE%E6%94%B9"><span class="toc-text">重启服务以更新修改</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E4%BF%AE%E6%94%B9%E6%98%AF%E5%90%A6%E6%88%90%E5%8A%9F"><span class="toc-text">查看修改是否成功</span></a></li></ol></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">Ubuntu18.04网络相关</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Linux/">
+          Linux
+        </a>
+          </li>
+      
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Linux/Ubuntu/">
+          Ubuntu
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>一些网络相关的操作。</p>
+<span id="more"></span>
+
+<h2 id="拨号上网"><a href="#拨号上网" class="headerlink" title="拨号上网"></a>拨号上网</h2><p>同 Windows 下的拨号上网<br>解决校园网上网问题<br>主要使用 pppoeconf — configures a PPPoE (ADSL) connection</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/alex_xhl/article/details/8131055">Linux&#x2F;Ubuntu 下的 PPPoE 拨号上网方法</a></p>
+<h3 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h3><ol>
+<li>开启配置</li>
+</ol>
+<pre><code class="bash">$ sudo pppoeconf
+</code></pre>
+<p>经历步骤：</p>
+<ul>
+<li>输入用户名</li>
+<li>输入密码</li>
+<li>一路‘yes’</li>
+</ul>
+<ol start="2">
+<li>联网</li>
+</ol>
+<pre><code class="bash">$ sudo pon dsl-provider
+</code></pre>
+<ol start="3">
+<li>断网</li>
+</ol>
+<pre><code class="bash">$ sudo poff
+</code></pre>
+<hr>
+
+<h2 id="命令行连接Wifi"><a href="#命令行连接Wifi" class="headerlink" title="命令行连接Wifi"></a>命令行连接Wifi</h2><p>使用工具: nmcli，命令行网络管理工具</p>
+<p>安装 nmcli: <code>sudo apt install network-manager</code></p>
+<p>参考: <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq951127336/article/details/81544935">Ubuntu 命令行链接 WIFI</a></p>
+<h3 id="开启-WiFi"><a href="#开启-WiFi" class="headerlink" title="开启 WiFi"></a>开启 WiFi</h3><pre><code class="bash">nmcli radio wifi on
+</code></pre>
+<h3 id="关闭-WiFi"><a href="#关闭-WiFi" class="headerlink" title="关闭 WiFi"></a>关闭 WiFi</h3><pre><code class="bash">nmcli radio wifi off
+</code></pre>
+<h3 id="扫描-WiFi"><a href="#扫描-WiFi" class="headerlink" title="扫描 WiFi"></a>扫描 WiFi</h3><pre><code class="bash">nmcli device wifi list
+</code></pre>
+<h3 id="重新扫描-WiFi"><a href="#重新扫描-WiFi" class="headerlink" title="重新扫描 WiFi"></a>重新扫描 WiFi</h3><pre><code class="bash">nmcli device wifi rescan
+</code></pre>
+<h3 id="连接-WiFi"><a href="#连接-WiFi" class="headerlink" title="连接 WiFi"></a>连接 WiFi</h3><pre><code class="bash">nmcli device wifi connect &quot;WiFi名&quot; password &quot;WiFi密码&quot;
+</code></pre>
+<h3 id="更多"><a href="#更多" class="headerlink" title="更多"></a>更多</h3><p>更多 nmcli 用法可以使用<code>man nmcli</code></p>
+<p>更多 nmcli wifi 的操作可以使用<code>nmcli device wifi help</code></p>
+<hr>
+
+<h2 id="18-04版本修改DNS"><a href="#18-04版本修改DNS" class="headerlink" title="18.04版本修改DNS"></a>18.04版本修改DNS</h2><p>修改文件<code>/etc/systemd/resolved.conf</code>。</p>
+<h3 id="找对修改文件"><a href="#找对修改文件" class="headerlink" title="找对修改文件"></a>找对修改文件</h3><p>在 CentOS 下，修改 DNS 可以通过修改<code>/etc/resolv.conf</code>(或直接编辑网卡)，在 Ubuntu18.04 上也有<code>/etc/resolve.conf</code>，但是注释却提醒不能在此处修改，计算机重启后修改将会被重置。<br><img src="/no.jpg" alt="no~"></p>
+<p>查看<code>/etc/systemd/resolved.conf</code>文件可以看到有<code>DNS=</code>且没有特殊说明。</p>
+<pre><code class="profile">DNS=114.114.114.114
+# 多个DNS直接添加DNS即可
+# DNS=8.8.8.8
+</code></pre>
+<h3 id="重启服务以更新修改"><a href="#重启服务以更新修改" class="headerlink" title="重启服务以更新修改"></a>重启服务以更新修改</h3><pre><code class="bash">sudo systemctl restart systemd-resolved.service
+</code></pre>
+<h3 id="查看修改是否成功"><a href="#查看修改是否成功" class="headerlink" title="查看修改是否成功"></a>查看修改是否成功</h3><pre><code class="bash">systemed-resolve --status
+</code></pre>
+<p><img src="/dns.jpg" alt="DNS information"></p>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/Ubuntu/">
+          Ubuntu
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+  </div>
+</div>
+  </div>
+</body>
+
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+
+<script src="/js/milk.js"></script>
+
+
+</html>

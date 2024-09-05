@@ -1,0 +1,339 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gitbook安装错误处理 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/jquery/jquery-ui.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/highlight/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk-header">
+     
+
+  <nav class="header-nav">
+     
+    <ul class="nav-menu">
+      
+        <li id="Home">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </li>
+      
+        <li id="Archives">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </li>
+      
+        <li id="About">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </li>
+      
+    </ul>
+    
+    
+      <span class="nav-date">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+        <span id="date"></span>
+      </span>
+    
+    
+    
+      <span class="nav-system" id="nav-system"></span>
+    
+    
+    <span class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Power by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+      </div>
+    </span>
+  </nav>
+ 
+  </div>
+  <div class="milk-body">
+    
+<div class="draggable-toc">
+  <div class="toc-title">Gitbook安装错误处理</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3"><span class="toc-text">解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95"><span class="toc-text">另一种方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E6%96%B9%E6%B3%95"><span class="toc-text">本方法</span></a></li></ol></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">Gitbook安装错误处理</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Tool/">
+          Tool
+        </a>
+          </li>
+      
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Tool/gitbook/">
+          gitbook
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>参考: <a target="_blank" rel="noopener" href="https://flaviocopes.com/cb-apply-not-a-function/">How I fixed a “cb.apply is not a function” error while using Gitbook</a></p>
+<p>通过注释对应代码成功安装gitbook</p>
+<p>解决错误:</p>
+<pre><code class="bash">CLI version: 2.3.2
+Installing GitBook 3.2.3
+/usr/lib64/node_modules/gitbook-cli/node_modules/npm/node_modules/graceful-fs/polyfills.js:287
+      if (cb) cb.apply(this, arguments)
+                 ^
+
+TypeError: cb.apply is not a function
+    at /usr/lib64/node_modules/gitbook-cli/node_modules/npm/node_modules/graceful-fs/polyfills.js:287:18
+    at FSReqCallback.oncomplete (fs.js:177:5)
+</code></pre>
+<span id="more"></span>
+
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><h3 id="另一种方法"><a href="#另一种方法" class="headerlink" title="另一种方法"></a>另一种方法</h3><p>还有一种方法是下载gitbook对应版本的nodejs(10.x版本)</p>
+<p>个人感觉多版本共存会有很多麻烦，我选择注释相应代码。</p>
+<h3 id="本方法"><a href="#本方法" class="headerlink" title="本方法"></a>本方法</h3><p>不同电脑需要修改的位置可能不同，相应替换即可</p>
+<p>注释后，再一次执行<code>gitbook -V</code>:</p>
+<pre><code class="bash">CLI version: 2.3.2
+Installing GitBook 3.2.3
+-
+-
+|
+gitbook@3.2.3 ../../tmp/tmp-32050HTpwq7g3YZK9/node_modules/gitbook
+├── escape-string-regexp@1.0.5
+├── escape-html@1.0.3
+├── destroy@1.0.4
+├── ignore@3.1.2
+├── bash-color@0.0.4
+├── gitbook-plugin-livereload@0.0.1
+├── cp@0.2.0
+├── graceful-fs@4.1.4
+├── nunjucks-do@1.0.0
+├── github-slugid@1.0.1
+├── direction@0.1.5
+├── q@1.4.1
+├── spawn-cmd@0.0.2
+├── gitbook-plugin-fontsettings@2.0.0
+├── open@0.0.5
+├── is@3.3.0
+├── object-path@0.9.2
+├── extend@3.0.2
+├── json-schema-defaults@0.1.1
+├── gitbook-plugin-search@2.2.1
+├── jsonschema@1.1.0
+├── crc@3.4.0
+├── urijs@1.18.0
+├── semver@5.1.0
+├── immutable@3.8.2
+├── front-matter@2.3.0
+├── npmi@2.0.1 (semver@4.3.6)
+├── resolve@1.1.7
+├── gitbook-plugin-theme-default@1.0.7
+├── moment@2.13.0
+├── npm@3.9.2
+├── dom-serializer@0.1.0 (domelementtype@1.1.3, entities@1.1.2)
+├── error@7.0.2 (string-template@0.2.1, xtend@4.0.2)
+├── tmp@0.0.28 (os-tmpdir@1.0.2)
+├── omit-keys@0.1.0 (isobject@0.2.0, array-difference@0.0.1)
+├── mkdirp@0.5.1 (minimist@0.0.8)
+├── gitbook-plugin-lunr@1.2.0 (html-entities@1.2.0, lunr@0.5.12)
+├── gitbook-plugin-highlight@2.0.2 (highlight.js@9.2.0)
+├── gitbook-plugin-sharing@1.0.2 (lodash@3.10.1)
+├── i18n-t@1.0.1 (lodash@4.17.20)
+├── gitbook-markdown@1.3.2 (kramed-text-renderer@0.2.1, gitbook-html@1.3.3, kramed@0.5.6, lodash@4.17.20)
+├── send@0.13.2 (range-parser@1.0.3, fresh@0.3.0, etag@1.7.0, statuses@1.2.1, ms@0.7.1, depd@1.1.2, mime@1.3.4, debug@2.2.0, http-errors@1.3.1, on-finished@2.3.0)
+├── gitbook-asciidoc@1.2.2 (gitbook-html@1.3.3, lodash@4.17.20, asciidoctor.js@1.5.5-1)
+├── js-yaml@3.14.0 (esprima@4.0.1, argparse@1.0.10)
+├── rmdir@1.2.0 (node.flow@1.2.3)
+├── fresh-require@1.0.3 (is-require@0.0.1, shallow-copy@0.0.1, astw@1.3.0, acorn@0.9.0, sleuth@0.1.1, through2@0.6.5, escodegen@1.14.3)
+├── cheerio@0.20.0 (entities@1.1.2, lodash@4.17.20, htmlparser2@3.8.3, css-select@1.2.0, jsdom@7.2.2)
+├── request@2.72.0 (tunnel-agent@0.4.3, aws-sign2@0.6.0, oauth-sign@0.8.2, forever-agent@0.6.1, caseless@0.11.0, is-typedarray@1.0.0, stringstream@0.0.6, aws4@1.10.1, isstream@0.1.2, json-stringify-safe@5.0.1, tough-cookie@2.2.2, node-uuid@1.4.8, qs@6.1.2, combined-stream@1.0.8, mime-types@2.1.27, hawk@3.1.3, bl@1.1.2, http-signature@1.1.1, form-data@1.0.1, har-validator@2.0.6)
+├── tiny-lr@0.2.1 (parseurl@1.3.3, livereload-js@2.4.0, qs@5.1.0, debug@2.2.0, faye-websocket@0.10.0, body-parser@1.14.2)
+├── read-installed@4.0.3 (debuglog@1.0.1, util-extend@1.0.3, slide@1.1.6, readdir-scoped-modules@1.1.0, read-package-json@2.1.2)
+├── cpr@1.1.1 (rimraf@2.4.5)
+├── juice@2.0.0 (deep-extend@0.4.2, slick@1.12.2, batch@0.5.3, cssom@0.3.1, commander@2.9.0, cross-spawn-async@2.2.5, web-resource-inliner@2.0.0)
+├── chokidar@1.5.0 (async-each@1.0.3, path-is-absolute@1.0.1, inherits@2.0.4, glob-parent@2.0.0, is-glob@2.0.1, is-binary-path@1.0.1, anymatch@1.3.2, readdirp@2.2.1)
+└── nunjucks@2.5.2 (asap@2.0.6, yargs@3.32.0, chokidar@1.7.0)
+GitBook version: 3.2.3
+</code></pre>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/gitbook/">
+          gitbook
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+  </div>
+</div>
+  </div>
+</body>
+
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+
+<script src="/js/milk.js"></script>
+
+
+</html>

@@ -1,0 +1,359 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hexo博客Google收录 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/jquery/jquery-ui.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/highlight/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk-header">
+     
+
+  <nav class="header-nav">
+     
+    <ul class="nav-menu">
+      
+        <li id="Home">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </li>
+      
+        <li id="Archives">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </li>
+      
+        <li id="About">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </li>
+      
+    </ul>
+    
+    
+      <span class="nav-date">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+        <span id="date"></span>
+      </span>
+    
+    
+    
+      <span class="nav-system" id="nav-system"></span>
+    
+    
+    <span class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Power by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+      </div>
+    </span>
+  </nav>
+ 
+  </div>
+  <div class="milk-body">
+    
+<div class="draggable-toc">
+  <div class="toc-title">Hexo博客Google收录</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B"><span class="toc-text">开始</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E5%BC%A0%E7%BD%91%E9%A1%B5%E7%BC%96%E5%85%A5%E7%B4%A2%E5%BC%95"><span class="toc-text">单张网页编入索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%99%BE%E5%BA%A6%E6%8F%90%E4%BA%A4"><span class="toc-text">百度提交</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AB%99%E7%82%B9%E5%9C%B0%E5%9B%BE%E6%8F%90%E4%BA%A4"><span class="toc-text">站点地图提交</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-text">其他</span></a></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">Hexo博客Google收录</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/博客/">
+          博客
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>两种方法：</p>
+<ul>
+<li>单张网页编入索引</li>
+<li>站点地图提交给 Google</li>
+</ul>
+<p>关于提交给百度，我也会稍微讲以下(纯吐槽…)</p>
+<span id="more"></span>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/9c2d6db2f855">简书 viggoz</a></p>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>确认网页是否被收录</p>
+<p>搜索格式：</p>
+<pre><code class="profile">site:url
+</code></pre>
+<p><img src="/site_search.png" alt="search"></p>
+<p>点击<code>尝试使用Google Search Console</code>即可进入 Google 控制台</p>
+<p>在此之前你需要:</p>
+<ul>
+<li>一个 Google 账号</li>
+<li>可能需要网站资源验证(Google Console 内)</li>
+</ul>
+<h2 id="单张网页编入索引"><a href="#单张网页编入索引" class="headerlink" title="单张网页编入索引"></a>单张网页编入索引</h2><p>以我的博客为例，网址: <code>https://blog.soymilk.fun/2019/09/11/blog/%E6%8F%90%E4%BA%A4Google/</code></p>
+<ol>
+<li>网址检查 -&gt; 输入网址</li>
+</ol>
+<p><img src="/submit_url.png" alt="input your url"></p>
+<p><em>功能展示</em></p>
+<p><img src="/submit_function.png" alt="function"></p>
+<ol start="2">
+<li>运行测试</li>
+</ol>
+<p><img src="/test.png" alt="test"></p>
+<ol start="3">
+<li>请求编入索引</li>
+</ol>
+<p>成功信息</p>
+<p><img src="/already.png" alt="yes"></p>
+<ol start="4">
+<li>测试</li>
+</ol>
+<p>稍等一会即可</p>
+<p>搜索, 以我的博客为例</p>
+<pre><code class="profile">site:blog.soymilk.fun
+</code></pre>
+<p><img src="/site_get.png" alt="find it!"></p>
+<h2 id="百度提交"><a href="#百度提交" class="headerlink" title="百度提交"></a>百度提交</h2><ol>
+<li>相同的操作</li>
+</ol>
+<p><img src="/baidu_site.png" alt="use baidu"></p>
+<ol start="2">
+<li>简洁的提交</li>
+</ol>
+<p><img src="/baidu_submit.png" alt="submit"></p>
+<p>个人吐槽：</p>
+<p>绑定熊掌 ID 真的是各种麻烦，不绑定各种功能用不了。</p>
+<p>填写相关信息暂且不说，需要下载百度 APP 验证身份(我是拒绝的)，下载后找不到扫码功能，半天原来在我的-&gt;常用功能(点击全部)-&gt;更多功能(扫一扫找到了)，那么问题来了: APP 导航栏-&gt;百度-&gt;右上角扫码只能付钱嘛。</p>
+<p><img src="/what.jpg" alt="only for pay"><br>各种输入，拍照，关键是有个人脸识别竟然黑屏，试了两三次都不行。<br>放弃。</p>
+<h2 id="站点地图提交"><a href="#站点地图提交" class="headerlink" title="站点地图提交"></a>站点地图提交</h2><p>我的博客文件夹 hexo_blog</p>
+<blockquote>
+<p>站点地图是一个网站所有链接的容器。很多网站的连接层次比较深，爬虫很难抓取到，站点地图可以方便爬虫抓取网站页面，通过抓取网站页面，清晰了解网站的架构，网站地图一般存放在根目录下并命名 sitemap，为爬虫指路，增加网站重要内容页面的收录。站点地图就是根据网站的结构、框架、内容，生成的导航网页文件。站点地图对于提高用户体验有好处，它们为网站访问者指明方向，并帮助迷失的访问者找到他们想看的页面。 – 来自百度百科</p>
+</blockquote>
+<ol>
+<li>安装站点地图生成插件</li>
+</ol>
+<p>位置: hexo_blog&#x2F;</p>
+<pre><code class="bash">cnpm install hexo-generator-sitemap --save
+</code></pre>
+<p><em><code>cnpm</code>和<code>npm</code>功能一致，使用的是国内源，速度更快</em></p>
+<ol start="2">
+<li>修改_config.yml 文件</li>
+</ol>
+<p>位置: hexo_blog&#x2F;</p>
+<p>添加代码:</p>
+<pre><code class="profile">Plugins:
+- hexo-generator-sitemap
+
+sitemap:
+  path: sitemap.xml
+</code></pre>
+<ol start="3">
+<li>生成站点地图</li>
+</ol>
+<p>使用命令<code>hexo -g</code>后会在<code>hexo_blog/public/</code>下生成<code>sitemap.xml</code>文件，即为你的站点地图</p>
+<ol start="4">
+<li>提交</li>
+</ol>
+<p><img src="/sitemap_sub.jpg" alt="submit sitemap"></p>
+<p>我遇到的问题：</p>
+<p>明明通过<code>https://blog.soymilk.fun/sitemap.xml</code>可以看到我的站点地图，为什么出现 404 错误？</p>
+<p><img src="/fail.png" alt="404?!"></p>
+<p>我的解决：</p>
+<p>问题排查</p>
+<ol>
+<li>站点地图有问题？</li>
+</ol>
+<p>因为是插件自动生成，出错概率几乎为 0</p>
+<ol start="2">
+<li>大概是长城防火墙，可能是由于 Google 是国外的</li>
+</ol>
+<p>因为浏览器能正常访问，所以概率很大</p>
+<p>问题解决：<em>注：针对有个人域名网站, 我是在阿里云买的域名</em></p>
+<p>添加针对谷歌的解析:</p>
+<p><img src="/google_dns.png" alt="add new"></p>
+<p>解析细节:</p>
+<p><img src="/dns_detail.png" alt="details"></p>
+<p>再次提交：</p>
+<p><img src="/success.png" alt="success"></p>
+<p>Google 会自动抓取站点地图。已经 OK 了。<br>一次提交，后记无忧。</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>我搜索的关于 Google 收录的都是根据老版本来提交，于是写了这个新版的使用，更多新版使用可以在<code>Google Search Console</code>中的<code>关于新版本</code>获得<br>再次感谢前人 ❤♥</p>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/博客/">
+          博客
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+  </div>
+</div>
+  </div>
+</body>
+
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+
+<script src="/js/milk.js"></script>
+
+
+</html>

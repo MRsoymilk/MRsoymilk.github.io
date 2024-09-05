@@ -1,0 +1,341 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hexo+Gitee部署 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/jquery/jquery-ui.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/highlight/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk-header">
+     
+
+  <nav class="header-nav">
+     
+    <ul class="nav-menu">
+      
+        <li id="Home">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </li>
+      
+        <li id="Archives">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </li>
+      
+        <li id="About">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </li>
+      
+    </ul>
+    
+    
+      <span class="nav-date">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+        <span id="date"></span>
+      </span>
+    
+    
+    
+      <span class="nav-system" id="nav-system"></span>
+    
+    
+    <span class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Power by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+      </div>
+    </span>
+  </nav>
+ 
+  </div>
+  <div class="milk-body">
+    
+<div class="draggable-toc">
+  <div class="toc-title">Hexo+Gitee部署</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gitee-%E4%B8%8A%E7%9A%84%E9%83%A8%E7%BD%B2"><span class="toc-text">Gitee 上的部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E9%85%8D%E7%BD%AE"><span class="toc-text">文件配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gitee-Pages-%E6%9C%8D%E5%8A%A1"><span class="toc-text">Gitee Pages 服务</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E7%BB%AD%E6%93%8D%E4%BD%9C"><span class="toc-text">后续操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-config%E9%80%89%E9%A1%B9"><span class="toc-text">使用--config选项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AF%94%E8%BE%83%E9%BA%BB%E7%83%A6%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="toc-text">比较麻烦的操作</span></a></li></ol></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">Hexo+Gitee部署</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/博客/">
+          博客
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p><code>Github</code>本来挺好用的，奈何网速太慢，于是尝试了一下<code>Gitee</code>。</p>
+<p><code>Gitee</code>的优点：国内访问速度快。</p>
+<p><code>Gitee</code>的缺点：</p>
+<ul>
+<li>无法免费使用个性化域名。</li>
+<li><code>hexo d</code>无法实现自动部署(<code>Gitee Pages</code>服务手动更新)。</li>
+</ul>
+<p>不过，如果你愿意花费 99 元&#x2F;年购买<code>Gitee Page</code>服务，缺点就都没了。</p>
+<p>我的方法不是最好的，但是能用。</p>
+<span id="more"></span>
+
+<h2 id="Gitee-上的部署"><a href="#Gitee-上的部署" class="headerlink" title="Gitee 上的部署"></a>Gitee 上的部署</h2><h3 id="文件配置"><a href="#文件配置" class="headerlink" title="文件配置"></a>文件配置</h3><p>需要一份不同于<code>Github</code>部署的<code>_config.yml</code>配置文件。</p>
+<p>其中不同之处在于</p>
+<ol>
+<li><code>url</code>与<code>root</code>选项</li>
+</ol>
+<ul>
+<li><code>Gitee</code>仓库设置<br><img src="/Gitee.png" alt="Gitee"></li>
+<li><code>_config.yml</code>设置<br><img src="/config_url_root.png" alt="`_config.yml`"></li>
+</ul>
+<ol start="2">
+<li><code>deploy</code></li>
+</ol>
+<p><img src="/config_deploy.png" alt="`_config.yml`"></p>
+<h3 id="Gitee-Pages-服务"><a href="#Gitee-Pages-服务" class="headerlink" title="Gitee Pages 服务"></a>Gitee Pages 服务</h3><p>在本地使用了<code>hexo deploy</code>之后，登录你的<code>Gitee</code>，手动更新。</p>
+<p><img src="/GiteePages.png" alt="`Gitee Pages`"></p>
+<h2 id="后续操作"><a href="#后续操作" class="headerlink" title="后续操作"></a>后续操作</h2><h3 id="使用-config选项"><a href="#使用-config选项" class="headerlink" title="使用--config选项"></a>使用<code>--config</code>选项</h3><p>复制一份给<code>Gitee</code>使用，例如: <code>_config.gitee.yml</code>，更改相应配置</p>
+<pre><code class="bash">hexo g --config _config.gitee.yml  # 生成文件
+hexo d --config _config.gitee.yml  # 部署到Gitee
+</code></pre>
+<h3 id="比较麻烦的操作"><a href="#比较麻烦的操作" class="headerlink" title="比较麻烦的操作"></a>比较麻烦的操作</h3><p>为了实现<code>Gitee</code>和<code>Github</code>的部署，使用两份配置文件的方法。</p>
+<ul>
+<li>复制一份给<code>Gitee</code>：<code>_config.yml.gitee</code>，更改相应配置。</li>
+<li>复制一份给<code>Github</code>：<code>_config.yml.github</code>，更改相应配置。</li>
+</ul>
+<p>删除原来的<code>_config.yml</code></p>
+<p>在部署中，将对应的文件复制为<code>_config.yml</code></p>
+<p>常用的操作是<code>deploy</code>和<code>server</code>，然后写了如下的<code>shell</code>文件。</p>
+<p>使用方法：将文件方在博客文件夹根目录，<code>./myhexo d</code>同时部署，<code>./myhexo s</code>启动服务。</p>
+<pre><code class="sh">#!/bin/bash
+
+# file: myhexo
+
+# usage
+# ./myhexo d
+# ./myhexo s
+
+function judge()&#123;
+  if [[ -f &quot;_config.yml&quot; ]]; then
+    rm _config.yml
+  fi
+&#125;
+
+function exec()&#123;
+  echo &quot;✔-----$1-----hexo deploy&quot;
+  cp &quot;_config.yml.$1&quot; _config.yml
+
+  echo &quot;✔----------------hexo generate for $1&quot;
+  hexo g
+
+  if [[ $2 = &#39;d&#39; ]]; then
+    echo &quot;✔----------------hexo deploy for $1&quot;
+    hexo d
+  fi
+
+  if [[ $2 = &#39;s&#39; ]]; then
+    echo &quot;✔----------hexo server----------&quot;
+    hexo s
+  fi
+
+  judge
+&#125;
+
+judge
+
+case $1 in
+d)
+  exec github d
+  exec gitee d
+  ;;
+s)
+  exec github s
+  ;;
+*)
+  echo &quot;✘----------wrong cmd----------&quot;
+  exit
+esac
+
+judge
+</code></pre>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/博客/">
+          博客
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+  </div>
+</div>
+  </div>
+</body>
+
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+
+<script src="/js/milk.js"></script>
+
+
+</html>

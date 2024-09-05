@@ -1,0 +1,310 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>虹软人脸识别-枚举 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/jquery/jquery-ui.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/highlight/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk-header">
+     
+
+  <nav class="header-nav">
+     
+    <ul class="nav-menu">
+      
+        <li id="Home">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </li>
+      
+        <li id="Archives">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </li>
+      
+        <li id="About">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </li>
+      
+    </ul>
+    
+    
+      <span class="nav-date">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+        <span id="date"></span>
+      </span>
+    
+    
+    
+      <span class="nav-system" id="nav-system"></span>
+    
+    
+    <span class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Power by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+      </div>
+    </span>
+  </nav>
+ 
+  </div>
+  <div class="milk-body">
+    
+<div class="draggable-toc">
+  <div class="toc-title">虹软人脸识别-枚举</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%BC%8F"><span class="toc-text">检测模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B%E6%96%B9%E5%90%91"><span class="toc-text">人脸检测方向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B%E5%88%B0%E7%9A%84%E4%BA%BA%E8%84%B8%E8%A7%92%E5%BA%A6"><span class="toc-text">检测到的人脸角度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9E%8B"><span class="toc-text">检测模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%BA%E8%84%B8%E6%AF%94%E5%AF%B9%E5%8F%AF%E9%80%89%E7%9A%84%E6%A8%A1%E5%9E%8B"><span class="toc-text">人脸比对可选的模型</span></a></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">虹软人脸识别-枚举</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Code/">
+          Code
+        </a>
+          </li>
+      
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Code/SDK/">
+          SDK
+        </a>
+          </li>
+      
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Code/SDK/ArcSoft/">
+          ArcSoft
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <p>版本：3.0.3902010101.5</p>
+<p>参考：<code>ARCSOFT_ARC_FACE_DEVELOPER&#39;S_GUIDE.pdf</code></p>
+<span id="more"></span>
+
+<h2 id="检测模式"><a href="#检测模式" class="headerlink" title="检测模式"></a>检测模式</h2><pre><code class="cpp">enum ASF_DetectMode&#123;
+    ASF_DETECT_MODE_VIDEO=0x00000000,   //VIDEO模式，一般用于多帧连续检测
+    ASF_DETECT_MODE_IMAGE=0xFFFFFFFF    //IMAGE模式，一般用于静态图的单次检测
+&#125;;
+</code></pre>
+<h2 id="人脸检测方向"><a href="#人脸检测方向" class="headerlink" title="人脸检测方向"></a>人脸检测方向</h2><p>选择单一角度，检测效果更优，角度按逆时针方向。</p>
+<pre><code class="cpp">enum ArcSoftFace_OrientPriority &#123;
+    ASF_OP_0_ONLY=0x1,      // 常规预览下正方向
+    ASF_OP_90_ONLY=0x2,     // 基于0°逆时针旋转90°的方向
+    ASF_OP_270_ONLY=0x3,    // 基于0°逆时针旋转270°的方向
+    ASF_OP_180_ONLY=0x4,    // 基于0°旋转180°的方向（逆时针、顺时针效果一样）
+    ASF_OP_ALL_OUT=0x5      // 全角度
+&#125;
+</code></pre>
+<h2 id="检测到的人脸角度"><a href="#检测到的人脸角度" class="headerlink" title="检测到的人脸角度"></a>检测到的人脸角度</h2><p>角度按逆时针方向。</p>
+<pre><code class="cpp">enum ArcSoftFace_OrientCode &#123;ASF_OC_0=0x1,// 0度
+    ASF_OC_90=0x2,      // 90度
+    ASF_OC_270=0x3,     // 270度
+    ASF_OC_180=0x4,     // 180度
+    ASF_OC_30=0x5,      // 30度
+    ASF_OC_60=0x6,      // 60度
+    ASF_OC_120=0x7,     // 120度
+    ASF_OC_150=0x8,     // 150度
+    ASF_OC_210=0x9,     // 210度
+    ASF_OC_240=0xa,     // 240度
+    ASF_OC_300=0xb,     // 300度
+    ASF_OC_330=0xc      // 330度
+&#125;
+</code></pre>
+<h2 id="检测模型"><a href="#检测模型" class="headerlink" title="检测模型"></a>检测模型</h2><p>根据图像颜色空间选择对应的算法模型进行检测。</p>
+<pre><code class="cpp">enum ASF_DetectModel&#123;
+    ASF_DETECT_MODEL_RGB=0x1    //RGB图像检测模型
+    //预留扩展其他检测模型
+&#125;
+</code></pre>
+<h2 id="人脸比对可选的模型"><a href="#人脸比对可选的模型" class="headerlink" title="人脸比对可选的模型"></a>人脸比对可选的模型</h2><p>根据应用场景选择对应的模型进行人脸特征对比。</p>
+<pre><code class="cpp">enum ASF_CompareModel&#123;
+    ASF_LIFE_PHOTO=0x1, //用于生活照之间的特征比对，推荐阈值0.80
+    ASF_ID_PHOTO=0x2    //用于证件照或生活照与证件照之间的特征比对，推荐阈值0.82
+&#125;;
+</code></pre>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/ArcSoft/">
+          ArcSoft
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+  </div>
+</div>
+  </div>
+</body>
+
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+
+<script src="/js/milk.js"></script>
+
+
+</html>

@@ -1,0 +1,339 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Windows下VSCode编写C++配置 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/jquery/jquery-ui.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/highlight/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk-header">
+     
+
+  <nav class="header-nav">
+     
+    <ul class="nav-menu">
+      
+        <li id="Home">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </li>
+      
+        <li id="Archives">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </li>
+      
+        <li id="About">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </li>
+      
+    </ul>
+    
+    
+      <span class="nav-date">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+        <span id="date"></span>
+      </span>
+    
+    
+    
+      <span class="nav-system" id="nav-system"></span>
+    
+    
+    <span class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Power by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+      </div>
+    </span>
+  </nav>
+ 
+  </div>
+  <div class="milk-body">
+    
+<div class="draggable-toc">
+  <div class="toc-title">Windows下VSCode编写C++配置</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%AA%E4%BA%BA%E9%97%AE%E9%A2%98"><span class="toc-text">个人问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E9%85%8D%E7%BD%AE"><span class="toc-text">开始配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%90%8E%E9%9D%A2"><span class="toc-text">写在后面</span></a></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">Windows下VSCode编写C++配置</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Tool/">
+          Tool
+        </a>
+          </li>
+      
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Tool/VSCode/">
+          VSCode
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/cpp/config-mingw">GCC on Windows</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/65e20d4b3d58">VSCode+MinGW(MSYS2) C++环境搭建</a></li>
+</ul>
+<p>可能有用：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://code.visualstudio.com/">Visual Studio Code官网</a></li>
+<li><a target="_blank" rel="noopener" href="https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/installer/mingw-w64-install.exe/download">Mingw-w64下载</a></li>
+<li><a target="_blank" rel="noopener" href="https://sourceware.org/cygwin/">Cywin</a></li>
+</ul>
+<span id="more"></span>
+
+<h2 id="个人问题"><a href="#个人问题" class="headerlink" title="个人问题"></a>个人问题</h2><p><code>使用mingw-w64-install.exe</code>安装报错</p>
+<p><img src="/wrong.png" alt="wrong"></p>
+<p>然后我使用了<code>Cywin</code>(<a target="_blank" rel="noopener" href="https://sourceware.org/cygwin/setup-x86_64.exe">setup-x86_64.exe</a>)</p>
+<h2 id="开始配置"><a href="#开始配置" class="headerlink" title="开始配置"></a>开始配置</h2><ol>
+<li><p>安装Visual Studio Code</p>
+</li>
+<li><p>安装插件</p>
+</li>
+</ol>
+<p><code>C/C++</code><br><img src="/PlugCpp.png" alt="C/C++"></p>
+<p><code>Coder Runner</code><br><img src="/PlugCode.png" alt="Coder Runner"></p>
+<ol start="3">
+<li>安装GCC（以Cywin为例）</li>
+</ol>
+<ul>
+<li>选择下载资源<br><img src="/ChooseADownloadSource.png" alt="Choose A Download Source"></li>
+<li>选择安装目录<br><img src="/SelectRootInstallDirectory.png" alt="Select Root InstallD irectory"></li>
+<li>选择安装包下载目录<br><img src="/SelectLocalPackageDirectory.png" alt="SelectLocalPackageDirectory"></li>
+<li>选择你的网络连接<br><img src="/SelectYourInternetConnection.png" alt="SelectYourInternetConnection"></li>
+<li>选择下载镜像<br><img src="/ChooseADownloadSource.png" alt="ChooseADownloadSource"></li>
+<li>选择扩展包<br><img src="/SelectPackage.png" alt="Select Package"></li>
+</ul>
+<p><strong>注意：必须勾选<code>GCC</code></strong></p>
+<p>默认等待结束即可。</p>
+<p>打开<code>Cygwin64 Terminal</code>检查<code>gcc</code></p>
+<p><img src="/gcc.png" alt="gcc"></p>
+<p>此时已经可以使用GCC编译器</p>
+<p><img src="/WriteWithNotepad.png" alt="Write With Notepad"></p>
+<p>为了方便使用，添加到环境变量中。</p>
+<p><img src="/path.png" alt="path"></p>
+<p>打开<code>powershell</code>检查<br><img src="/gccYes.png" alt="gcc yes!"></p>
+<ol start="4">
+<li>配置VSCode环境</li>
+</ol>
+<p><code>File</code> -&gt; <code>Preferences</code> -&gt; <code>Settings</code> -&gt; <code>settings.json</code></p>
+<p><img src="/settings.png" alt="settings.json"></p>
+<p>修改文件中<code>command</code>与 <code>cwd</code>，对应本机。</p>
+<pre><code class="json">&#123;
+  &quot;version&quot;: &quot;2.0.0&quot;,
+  &quot;tasks&quot;: [
+    &#123;
+      &quot;type&quot;: &quot;shell&quot;,
+      &quot;label&quot;: &quot;g++.exe build active file&quot;,
+      &quot;command&quot;: &quot;F:\\tools\\cygwin\\bin\\g++.exe&quot;,
+      &quot;args&quot;: [
+        &quot;-g&quot;,
+        &quot;$&#123;file&#125;&quot;,
+        &quot;-o&quot;,
+        &quot;$&#123;fileDirname&#125;\\$&#123;fileBasenameNoExtension&#125;.exe&quot;
+      ],
+      &quot;options&quot;: &#123;
+        &quot;cwd&quot;: &quot;F:\\tools\\cygwin\\bin&quot;
+      &#125;,
+      &quot;problemMatcher&quot;: [
+        &quot;$gcc&quot;
+      ],
+      &quot;group&quot;: &#123;
+        &quot;kind&quot;: &quot;build&quot;,
+        &quot;isDefault&quot;: true
+      &#125;
+    &#125;
+  ]
+&#125;
+</code></pre>
+<p>重启VSCode</p>
+<p><img src="/HelloWorld.png" alt="Hello World"></p>
+<h2 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h2><p>VSCode本质上应该算是一个编辑器，根据个人需求添加相应插件可以成为顺手的IDE。</p>
+<p>在Windows上使用VSCode最麻烦的在于编译器的配置，如果你是Linux，基本上能够做到开箱即用。</p>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/VSCode/">
+          VSCode
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+  </div>
+</div>
+  </div>
+</body>
+
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+
+<script src="/js/milk.js"></script>
+
+
+</html>

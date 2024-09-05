@@ -1,0 +1,275 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Windows 10 开启WiFi [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/jquery/jquery-ui.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/highlight/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk-header">
+     
+
+  <nav class="header-nav">
+     
+    <ul class="nav-menu">
+      
+        <li id="Home">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </li>
+      
+        <li id="Archives">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </li>
+      
+        <li id="About">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </li>
+      
+    </ul>
+    
+    
+      <span class="nav-date">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+        <span id="date"></span>
+      </span>
+    
+    
+    
+      <span class="nav-system" id="nav-system"></span>
+    
+    
+    <span class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Power by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+      </div>
+    </span>
+  </nav>
+ 
+  </div>
+  <div class="milk-body">
+    
+<div class="draggable-toc">
+  <div class="toc-title">Windows 10 开启WiFi</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B"><span class="toc-text">开始</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80-%E5%90%AF%E5%8A%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%AA%97%E5%8F%A3"><span class="toc-text">(一)启动命令行窗口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C-%E7%AC%AC%E4%B8%80%E6%9D%A1%E5%91%BD%E4%BB%A4"><span class="toc-text">(二)第一条命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89-%E7%AC%AC%E4%BA%8C%E6%9D%A1%E5%91%BD%E4%BB%A4"><span class="toc-text">(三)第二条命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B-%E5%88%86%E4%BA%AB%E4%BD%A0%E7%9A%84%E7%BD%91%E7%BB%9C"><span class="toc-text">(四)分享你的网络</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-text">其他</span></a></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">Windows 10 开启WiFi</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Windows/">
+          Windows
+        </a>
+          </li>
+      
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Windows/others/">
+          others
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>校园网<strong>拨号上网</strong>发现 Windows 10 自带的移动热点无法开启。<br>多番查找实验发现可以通过命令窗口开启 WiFi，使用命令<code>netsh wlan</code></p>
+<span id="more"></span>
+
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><h3 id="一-启动命令行窗口"><a href="#一-启动命令行窗口" class="headerlink" title="(一)启动命令行窗口"></a>(一)启动命令行窗口</h3><p>以**<span style="color:red">管理员权限</span>**打开命令行窗口<br><em>关于管理员权限的启动：鼠标右击，选择以管理员身份运行</em><br>我使用的是 powershell<br><img src="/powershell.png" alt="start powershell"></p>
+<h3 id="二-第一条命令"><a href="#二-第一条命令" class="headerlink" title="(二)第一条命令"></a>(二)第一条命令</h3><pre><code class="powershell">netsh wlan set hostednetwork mode=allow ssid=soymilk key=hello.milk
+</code></pre>
+<p><strong>ssid</strong>: 热点名称<br><strong>key</strong>: 热点密码</p>
+<h3 id="三-第二条命令"><a href="#三-第二条命令" class="headerlink" title="(三)第二条命令"></a>(三)第二条命令</h3><pre><code class="powershell">netsh wlan start hostednetwork
+</code></pre>
+<p>启动网络</p>
+<h3 id="四-分享你的网络"><a href="#四-分享你的网络" class="headerlink" title="(四)分享你的网络"></a>(四)分享你的网络</h3><p>第一步: 启动网络和 Internet 设置<br><img src="/setting.png" alt="netwrok setting"></p>
+<p>第二步: 更改适配器选项<br><img src="/adapter.png" alt="change adapter"></p>
+<p>第三步: 查看你的网络状态<br><img src="/summary.png" alt="your network"></p>
+<p>第四步: 共享设置<br><img src="/share.png" alt="share"></p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p><strong>问题</strong>：单次使用，电脑重启后需要再次重复设置</p>
+<p>关于 netsh:<br>netsh(Network Shell)是 Windows 系统本身提供的功能强大的网络配置命令行工具。</p>
+<p>可能会有诸多问题。难难难。有更好方法请留言告知。😘</p>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/Windows/">
+          Windows
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+  </div>
+</div>
+  </div>
+</body>
+
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+
+<script src="/js/milk.js"></script>
+
+
+</html>

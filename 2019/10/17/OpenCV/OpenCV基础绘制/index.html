@@ -1,0 +1,335 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OpenCV基础图形绘制 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/jquery/jquery-ui.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/highlight/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk-header">
+     
+
+  <nav class="header-nav">
+     
+    <ul class="nav-menu">
+      
+        <li id="Home">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </li>
+      
+        <li id="Archives">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </li>
+      
+        <li id="About">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </li>
+      
+    </ul>
+    
+    
+      <span class="nav-date">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+        <span id="date"></span>
+      </span>
+    
+    
+    
+      <span class="nav-system" id="nav-system"></span>
+    
+    
+    <span class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Power by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+      </div>
+    </span>
+  </nav>
+ 
+  </div>
+  <div class="milk-body">
+    
+<div class="draggable-toc">
+  <div class="toc-title">OpenCV基础图形绘制</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%8E%AF%E5%A2%83"><span class="toc-text">操作环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B"><span class="toc-text">开始</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B4%E7%BA%BF"><span class="toc-text">直线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%86%E5%BD%A2"><span class="toc-text">圆形</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A4%AD%E5%9C%86"><span class="toc-text">椭圆</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A9%E5%BD%A2"><span class="toc-text">矩形</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E5%AD%97"><span class="toc-text">文字</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%90%8E%E9%9D%A2"><span class="toc-text">写在后面</span></a></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">OpenCV基础图形绘制</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/OpenCV/">
+          OpenCV
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>使用 C++语言<br>一些圆、椭圆、直线等基础图形绘制, 为图像添加文字。</p>
+<span id="more"></span>
+
+<h2 id="操作环境"><a href="#操作环境" class="headerlink" title="操作环境"></a>操作环境</h2><p><strong>操作系统</strong>: Ubuntu 18.04</p>
+<p><strong>OpenCV</strong>: 4.1.0</p>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>OpenCV 坐标系</p>
+<pre><code class="plaintext">原点  _______\  x轴
+    |
+    |
+    |
+   \|
+  y轴
+</code></pre>
+<p><strong>注意</strong>:</p>
+<p>所有的图像均是在名为 canvas 的 Mat 类型上实现</p>
+<p>已提前声明命名空间<code>using namespace cv;</code></p>
+<pre><code class="C++">cv::Mat canvas(400, 400, CV_8U);
+</code></pre>
+<h3 id="直线"><a href="#直线" class="headerlink" title="直线"></a>直线</h3><pre><code class="C++">void line()&#123;
+  cv::line(canvas,
+           cv::Point(0, 45),  // 起始点
+           cv::Point(400, 400),  // 终点
+           255,  // 颜色
+           2);  // 宽度
+  cv::imshow(&quot;line&quot;, canvas);
+  cv::waitKey(0);
+&#125;
+</code></pre>
+<p><img src="/cv_line.png" alt="line"></p>
+<h3 id="圆形"><a href="#圆形" class="headerlink" title="圆形"></a>圆形</h3><pre><code class="C++">void circle() &#123;
+  cv::circle(canvas,
+             cv::Point(200, 200),  // 圆心
+             100,  // 半径
+             255,  // 颜色
+             2);  // 宽度
+  cv::imshow(&quot;circle&quot;, canvas);
+  cv::waitKey(0);
+&#125;
+</code></pre>
+<p><img src="/cv_circle.png" alt="circle"></p>
+<h3 id="椭圆"><a href="#椭圆" class="headerlink" title="椭圆"></a>椭圆</h3><pre><code class="C++">void ellipse()&#123;
+ cv::ellipse(canvas
+             cv::Point(200, 200),  // 圆心
+             cv::Size(100, 50)),  // (x轴长度，y轴长度)
+             10,  // 旋转角度
+             0,  // 绘制起点
+             270,  // 绘制终点
+             255,  // 颜色
+             2);  // 宽度
+  cv::imshow(&quot;ellipse&quot;, canvas);
+  cv::waitKey(0);
+&#125;
+</code></pre>
+<p><img src="/cv_ellipse.png" alt="ellipse"></p>
+<h3 id="矩形"><a href="#矩形" class="headerlink" title="矩形"></a>矩形</h3><pre><code class="C++">void rectangle()&#123;
+  cv::rectangle(canvas,
+                cv::Point(100, 100),  // 左上角坐标
+                cv::Point(300, 300),  // 右下角坐标
+                255,  // 颜色
+                2);  // 宽度
+  cv::rectangle(canvas,
+                Rect(50, 50, 100, 100),  // (左上角点x，左上角点y, 矩形宽度, 矩形长度)
+                255,  // 颜色
+                2);  // 宽度
+  cv::imshow(&quot;rectangle&quot;, canvas);
+  cv::waitKey(0);
+&#125;
+</code></pre>
+<p><img src="/cv_rectangle.png" alt="rectangle"></p>
+<h3 id="文字"><a href="#文字" class="headerlink" title="文字"></a>文字</h3><pre><code class="C++">void text()&#123;
+  cv::putText(canvas,
+              &quot;hello world&quot;,  // 绘制文字
+              cv::Point(20, 100),  // 起始点
+              cv::FONT_ITALIC,  // 字体
+              2,  // 字体缩放
+              255,  // 颜色
+              2);  // 宽度
+  cv::imshow(&quot;text&quot;, canvas);
+  cv::waitKey(0);
+&#125;
+</code></pre>
+<p><img src="/cv_text.png" alt="text"></p>
+<p><strong>注意</strong>: 无法输出中文, 会出现???</p>
+<h2 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h2><p>基础绘制，多用于标记。</p>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/OpenCV/">
+          OpenCV
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+  </div>
+</div>
+  </div>
+</body>
+
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+
+<script src="/js/milk.js"></script>
+
+
+</html>

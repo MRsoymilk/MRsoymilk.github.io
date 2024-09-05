@@ -1,0 +1,429 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Python MySQL基础操作 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/jquery/jquery-ui.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/highlight/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk-header">
+     
+
+  <nav class="header-nav">
+     
+    <ul class="nav-menu">
+      
+        <li id="Home">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </li>
+      
+        <li id="Archives">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </li>
+      
+        <li id="About">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </li>
+      
+    </ul>
+    
+    
+      <span class="nav-date">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+        <span id="date"></span>
+      </span>
+    
+    
+    
+      <span class="nav-system" id="nav-system"></span>
+    
+    
+    <span class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Power by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+      </div>
+    </span>
+  </nav>
+ 
+  </div>
+  <div class="milk-body">
+    
+<div class="draggable-toc">
+  <div class="toc-title">Python MySQL基础操作</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%B7%A5%E5%85%B7"><span class="toc-text">使用工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5"><span class="toc-text">连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BADatabase"><span class="toc-text">创建Database</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Table%E6%93%8D%E4%BD%9C"><span class="toc-text">Table操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5"><span class="toc-text">增删改查</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A2%9E-Insert-Into"><span class="toc-text">增 Insert Into</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0-Delete-From"><span class="toc-text">删 Delete From</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B9-Update"><span class="toc-text">改 Update</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5-Select"><span class="toc-text">查 Select</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL%E6%B3%A8%E5%85%A5%E9%A2%84%E9%98%B2"><span class="toc-text">SQL注入预防</span></a></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">Python MySQL基础操作</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Python/">
+          Python
+        </a>
+          </li>
+      
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Python/MySQL/">
+          MySQL
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <h2 id="使用工具"><a href="#使用工具" class="headerlink" title="使用工具"></a>使用工具</h2><ul>
+<li>MySQL 8.x</li>
+<li>mysql-connector-python</li>
+</ul>
+<p>安装:</p>
+<pre><code class="bash">pip install mysql-connector-python
+</code></pre>
+<span id="more"></span>
+
+<h2 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h2><p>连接方式:</p>
+<pre><code class="python">import mysql.connector
+
+mydb = mysql.connector.connect(
+  host=&quot;localhost or others&quot;, user=&quot;your_user_name&quot;, password=&quot;your_password&quot;
+)
+print(mydb)
+</code></pre>
+<p>结果:</p>
+<pre><code class="bash">&lt;mysql.connector.connection_cext.CMySQLConnection object at 0x7f04e4d56460&gt;
+</code></pre>
+<p>无报错说明安装成功。</p>
+<h2 id="创建Database"><a href="#创建Database" class="headerlink" title="创建Database"></a>创建Database</h2><p>连接方式:</p>
+<pre><code class="python">import mysql.connector
+
+mydb = mysql.connector.connect(
+  host=&#39;localhost&#39;,
+  user=&#39;milk&#39;,
+  password=&#39;mypassword&#39;
+  )
+
+cursor = mydb.cursor()
+cursor.execute(&#39;Create Database test&#39;)
+
+cursor.execute(&#39;show databases&#39;)
+cursor.fetchall()
+</code></pre>
+<p>个人做了简化的输出值:</p>
+<pre><code class="bash">[(&#39;test&#39;,)]
+</code></pre>
+<p>MySQL命令行中使用<code>show databases;</code>，新增据库<code>test</code></p>
+<h2 id="Table操作"><a href="#Table操作" class="headerlink" title="Table操作"></a>Table操作</h2><p>创建Table</p>
+<pre><code class="python">import mysql.connector
+
+mydb = mysql.connector.connect(
+  host=&quot;localhost&quot;,
+  user=&quot;milk&quot;,
+  password=&quot;mypassword&quot;,
+  database=&quot;test&quot;
+  )
+
+cursor = mydb.cursor()
+
+# 创建表 方式一
+cursor.execute(&quot;Create Table student(name Varchar(255), score Int)&quot;)
+cursor.execute(&quot;Alter Table student Add Column id Int Auto_Increment Primary Key&quot;)
+
+# 创建表 方式二
+cursor.execute(&quot;Create Table student (id Int Auto_Increment Primary Key, name Varchar(255), score Int)&quot;)
+
+# 检查表
+cursor.execute(&quot;show tables&quot;)
+
+# 获取内容
+cursor.fetchall()
+</code></pre>
+<p>输出值:</p>
+<pre><code class="bash">[(&#39;student&#39;,)]
+</code></pre>
+<p>删除任何存在的Table</p>
+<pre><code class="python">sql = &quot;Drop Table student&quot;
+cursor.execute(sql)
+</code></pre>
+<p>Table已经删除或其他原因无法退出，使用<code>IF EXISTS</code></p>
+<pre><code class="python">sql = &quot;Drop Table If Exists student&quot;
+cursor.execute(sql)
+</code></pre>
+<p>Table Join操作</p>
+<ul>
+<li>内连接，可以使用Join替代Inner Join</li>
+<li>左连接，left join</li>
+<li>右连接，right join</li>
+</ul>
+<pre><code class="python">sql = &quot;select \
+  a.name as a, b.name as b \
+  from a inner join b \
+  on a.id = b.id&quot;
+</code></pre>
+<h2 id="增删改查"><a href="#增删改查" class="headerlink" title="增删改查"></a>增删改查</h2><p>使用<code>mydb.commit()</code>进行梗概。否则不做任何更改。</p>
+<h3 id="增-Insert-Into"><a href="#增-Insert-Into" class="headerlink" title="增 Insert Into"></a>增 Insert Into</h3><p>增加单行数据</p>
+<pre><code class="python">sql = &quot;Insert Into student(name, score) Values (%s, %s)&quot;
+val = (&#39;soy&#39;, 60)
+cursor.execute(sql, val)
+mydb.commit()
+</code></pre>
+<p>增加多行数据</p>
+<pre><code class="python">sql = &quot;Insert Into student(name, score) Values(%s, %s)&quot;
+val = [
+  (&#39;xiao ming&#39;, &#39;66&#39;),
+  (&#39;zhang san&#39;, &#39;77&#39;),
+  (&#39;li si&#39;, &#39;80&#39;)
+]
+cursor.executemany(sql, val)
+mydb.commit()
+</code></pre>
+<p>获取插入id，插入行id，多行插入则为最后一个插入行</p>
+<pre><code class="python">cursor.lastrowid
+</code></pre>
+<h3 id="删-Delete-From"><a href="#删-Delete-From" class="headerlink" title="删 Delete From"></a>删 Delete From</h3><p>使用<code>cursor.commit()</code>后产生变化</p>
+<pre><code class="python">sql = &quot;delete from student where name=&#39;xiao ming&#39;&quot;
+cursor.execute(sql)
+mydb.commit()
+</code></pre>
+<p>使用占位符<code>%s</code>预防SQL注入</p>
+<pre><code class="python">sql = &quot;delete from student where score=%s&quot;
+val = (90, )
+cursor.execute(sql, val)
+mydb.commit()
+</code></pre>
+<h3 id="改-Update"><a href="#改-Update" class="headerlink" title="改 Update"></a>改 Update</h3><p>使用<code>mydb.commit()</code>执行更改。</p>
+<pre><code class="python">sql = &quot;update student Set name = &#39;xiao hei&#39; Where score=90&quot;
+cursor.execute(sql)
+mydb.commit()
+</code></pre>
+<p>使用占位符<code>%s</code>防止SQL注入</p>
+<pre><code class="python">sql = &quot;update student set name=%s where score=%s&quot;
+val = (&#39;xiao ming&#39;, 90)
+cursor.execute(sql, val)
+mydb.commit()
+</code></pre>
+<h3 id="查-Select"><a href="#查-Select" class="headerlink" title="查 Select"></a>查 Select</h3><pre><code class="python">cursor.execute(&#39;select * from student&#39;)
+result = cursor.fetchall()  # 获取所有行
+for x in result:
+  print(x)
+
+result = cursor.fetchone()  # 获取第一行
+</code></pre>
+<p>where 条件</p>
+<pre><code class="python">sql = &quot;Select * From student Where score &gt; 80&quot;
+cursor.execute(sql)
+</code></pre>
+<p>通配符条件</p>
+<p>使用<code>%</code>表示字符之间。</p>
+<p>例如名字中包含<code>l</code>的同学:</p>
+<pre><code class="python">sql = &quot;Select * from student Where name Like &#39;%l%&#39;&quot;
+cursor.execute(sql)
+</code></pre>
+<p>数据排序 <code>Order By</code></p>
+<pre><code class="python">sql = &quot;select * from student Order By score&quot; # 默认升序
+sql = &quot;select * from student Order By score DESC&quot; # 降序
+</code></pre>
+<p>限制数据量 <code>LIMIT</code></p>
+<pre><code class="python">sql = &quot;select * from student Limit 5&quot;
+</code></pre>
+<p>从指定位置开始 <code>OFFSET</code></p>
+<pre><code class="python">sql = &quot;select * from student offset 2&quot;
+</code></pre>
+<h2 id="SQL注入预防"><a href="#SQL注入预防" class="headerlink" title="SQL注入预防"></a>SQL注入预防</h2><p>使用占位符<code>%s</code>，字符串或数字或其他类型</p>
+<p><code>%s</code>是固定的，可以是字符串、数字。</p>
+<pre><code class="python">sql = &quot;Select * from student where score=%d&quot;
+val = (90, )
+cursor.execute(sql, val)
+</code></pre>
+<p>另一种数传递方法</p>
+<pre><code class="python">sql = &quot;select * from student where score=%(score)s&quot;
+val = &#123;&#39;score&#39;:90&#125;
+cursor.execute(sql, val)
+</code></pre>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/Python/">
+          Python
+        </a></li>
+      
+        <li><a href="/tags/MySQL/">
+          MySQL
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+  </div>
+</div>
+  </div>
+</body>
+
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+
+<script src="/js/milk.js"></script>
+
+
+</html>

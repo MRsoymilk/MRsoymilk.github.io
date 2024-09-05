@@ -1,0 +1,642 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gentoo桌面使用配置 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/jquery/jquery-ui.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/highlight/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk-header">
+     
+
+  <nav class="header-nav">
+     
+    <ul class="nav-menu">
+      
+        <li id="Home">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </li>
+      
+        <li id="Archives">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </li>
+      
+        <li id="About">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </li>
+      
+    </ul>
+    
+    
+      <span class="nav-date">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+        <span id="date"></span>
+      </span>
+    
+    
+    
+      <span class="nav-system" id="nav-system"></span>
+    
+    
+    <span class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Power by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+      </div>
+    </span>
+  </nav>
+ 
+  </div>
+  <div class="milk-body">
+    
+<div class="draggable-toc">
+  <div class="toc-title">Gentoo桌面使用配置</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#grub-%E5%90%AF%E5%8A%A8%E7%BE%8E%E5%8C%96"><span class="toc-text">grub 启动美化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%8C%E9%9D%A2%E9%85%8D%E7%BD%AE"><span class="toc-text">桌面配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#i3wm"><span class="toc-text">i3wm</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%AE%E5%BA%A6%E8%B0%83%E6%95%B4-light"><span class="toc-text">亮度调整 light</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8F%9C%E5%8D%95-rofi"><span class="toc-text">菜单 rofi</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E9%80%9A%E7%9F%A5-dunst"><span class="toc-text">消息通知 dunst</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#neofetch-%E9%85%8D%E7%BD%AE"><span class="toc-text">neofetch 配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8-cmus"><span class="toc-text">音乐播放器 cmus</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE%E5%99%A8-mpv"><span class="toc-text">视频播放器 mpv</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Fcitx-%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5"><span class="toc-text">Fcitx 中文输入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-text">其他</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E6%A0%A1%E5%87%86"><span class="toc-text">时间校准</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B5%E6%BA%90%E7%AE%A1%E7%90%86"><span class="toc-text">电源管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%AA%E5%B1%8F%E5%B7%A5%E5%85%B7-flameshot"><span class="toc-text">截屏工具 flameshot</span></a></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">Gentoo桌面使用配置</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Linux/">
+          Linux
+        </a>
+          </li>
+      
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Linux/Gentoo/">
+          Gentoo
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <p>Gentoo 桌面配置一条龙。</p>
+<span id="more"></span>
+
+<h2 id="grub-启动美化"><a href="#grub-启动美化" class="headerlink" title="grub 启动美化"></a>grub 启动美化</h2><p>参考：<a target="_blank" rel="noopener" href="https://wiki.gentoo.org/wiki/GRUB2/zh-cn">GRUB Wiki</a></p>
+<ol>
+<li>修改文件<code>/etc/default/gruv</code></li>
+</ol>
+<p>与外观相关的配置</p>
+<pre><code class="bash">GRUB_DISTRIBUTOR=&quot;Gentoo&quot;  # 发行版本
+GRUB_GFXMODE=1920x1080x32  # 屏幕分辨率
+GRUB_GFXPAYLOAD_LINUX=&quot;keep&quot;  # 保持分辨率， 默认情况是文字先大后小，比较突兀
+GRUB_BACKGROUND=&quot;/boot/grub/gentoo.png&quot;  # 添加背景，这样比较有格调
+GRUB_THEME=&quot;/boot/grub/themes/your_theme_file/theme.txt&quot;  # 接入主题包，Gentoo默认主题为starfield星空主题(个人感觉不是很好)
+GRUB_TIME_STYLE=menu  # 显示时间状态条
+</code></pre>
+<p>更多见配置文件</p>
+<ol start="2">
+<li>修改文件完成后需要生成新的配置文件</li>
+</ol>
+<pre><code class="bash">grub-mkconfig -o /boot/grub/grub.cfg
+</code></pre>
+<ol start="3">
+<li>其他</li>
+</ol>
+<p><em>个人认为没有必要过度美化</em></p>
+<p><em><code>GRUB_TIME_STYLE=menu</code>在没有主题包的加持下无效，可能是其他选项没有配置好。</em></p>
+<h2 id="桌面配置"><a href="#桌面配置" class="headerlink" title="桌面配置"></a>桌面配置</h2><p>参考：<a target="_blank" rel="noopener" href="https://tunkshif.github.io/linux/i3-config.html">桌面环境微科普与 i3 配置记录</a></p>
+<h3 id="i3wm"><a href="#i3wm" class="headerlink" title="i3wm"></a><code>i3wm</code></h3><p><img src="/desktop.jpg" alt="desktop"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/MRsoymilk/i3">我的配置文件</a></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://tunkshif.github.io/linux/i3-config.html">桌面环境微科普与 i3 配置记录</a></p>
+<p>配置 <code>i3wm</code> 需要的工具：</p>
+<ul>
+<li>按键检测工具 <code>xev</code>, <code>xev</code> 输出的 <code>keysym</code> 值就是配置文件中 <code>bindsym</code> 需要的值</li>
+<li>窗口检测工具 <code>xprop</code>，查找窗口名称命令：<code>xprop | grep WM_CLASS</code></li>
+</ul>
+<ol>
+<li>窗口管理器：<code>i3-gaps</code></li>
+</ol>
+<p><code>i3-gaps</code>相比 <code>i3</code>，添加了窗口之间的间隔</p>
+<p>配置可以参考<a target="_blank" rel="noopener" href="https://wiki.gentoo.org/wiki/I3">i3wm Wiki</a></p>
+<p>安装</p>
+<pre><code class="bash">emerge --ask x11-wm/i3-gaps
+</code></pre>
+<ol start="2">
+<li>状态栏：<code>i3blocks</code></li>
+</ol>
+<p>i3 config 文件中调用</p>
+<pre><code class="bash">emerge --ask x11-misc/i3blocks
+</code></pre>
+<ol start="3">
+<li>锁屏：<code>i3lock</code></li>
+</ol>
+<p><code>i3lock</code>默认：白色屏幕，输入密码，回车重新进入，图像仅仅支持 <code>png</code> 格式而且不支持缩放</p>
+<p>利用 <code>convert</code> 随意配置了一个像素版本的锁屏图像</p>
+<pre><code class="bash">convert pic.xxx pic.png  # 转格式
+convert -scale 10% pic.png -scale 1000% pic.png  # 缩小10倍放大十倍制造像素效果
+convert -modulate 50% pic.png pic.png  # 降低亮度
+i3lock -i path/to/your/pic.png  # 命令行锁屏，可在i3 config文件中调用
+</code></pre>
+<ol start="4">
+<li>透明背景</li>
+</ol>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://wiki.gentoo.org/wiki/Feh">feh</a>，设置壁纸，查看图片，居家必备工具。</li>
+<li><a target="_blank" rel="noopener" href="https://packages.gentoo.org/packages/x11-misc/xcompmgr">xcompmgr</a>，i3wm 本身不支持窗口混合，透明背景就靠他。</li>
+</ul>
+<p>安装<code>feh</code>和<code>xcompmgr</code></p>
+<pre><code class="bash">emerge --ask media-gfx/feh x11-misc/xcompmgr
+</code></pre>
+<p>想要透明背景就先执行 <code>xcompmgr &amp;</code></p>
+<p>想要背景需要执行<code>feh --bg-fill /path/to/your/pic.png</code>生成<code>~/.fehbg</code>文件，然后在<code>i3 config</code>中配置<code>exec --no-startup-id sh ~/.fehbg</code></p>
+<p>或者直接在配置文件中配置<code>exec --no-startup-id feh --bg-fill /path/to/your/pic.png</code></p>
+<p>多显示器设置(因此个人更为倾向执行<code>~/.fehbg</code>文件)</p>
+<pre><code class="bash">feh --bg-fill pic_path_for_windows_1 pic_path_for_windows_2
+</code></pre>
+<ol start="5">
+<li>i3wm 使用 GTK</li>
+</ol>
+<ul>
+<li>如果你选择安装<code>lxappearance</code>那么接下来的配置部分就不用看了。</li>
+<li>如果你选择手写配置文件，那么..</li>
+</ul>
+<p>主题文件放置：</p>
+<pre><code class="code">图标主题： ~/.local/share/icons/
+窗体主题：~/.local/share/themes/
+鼠标主题：~/.icon/
+</code></pre>
+<p>使用 <code>xfce4-appearance-settings</code> 指定主题，但是对于在 <code>i3wm</code> 中使用，你还要修改配置文件。</p>
+<p>对于 GTK+ 2.x</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://faq.i3wm.org/question/115/how-to-configure-gtk-theme-support/%3C/p%3E.html">How to configure GTK theme support?</a></p>
+<p><strong>测试 GTK+ 3.x 可行</strong></p>
+<p>创建文件<code>~/.gtkrc-2.0</code></p>
+<pre><code class="ini">gtk-theme-name = &quot;Clearlooks&quot;
+gtk-font-name = &quot;Sans 8&quot;
+</code></pre>
+<p>对于 GTK+ 3.x</p>
+<p>创建文件<code>~/.config/gtk-3.0/settings.ini</code></p>
+<pre><code class="ini">[Settings]
+gtk-theme-name = Adwaita
+gtk-icon-theme-name = Adwaita
+gtk-cursor-theme-name = Adwaita
+</code></pre>
+<p><code>Adwaita</code>为对应主题文件夹名称。</p>
+<p>个人测试：<code>theme</code>和<code>icon</code>能正常显示，但是<code>cursor</code>只能在浏览器中显示。不过<code>lxappearance</code>能解决。</p>
+<ol start="6">
+<li>一些额外的配置</li>
+</ol>
+<ul>
+<li>配置 Caps_Lock 按键</li>
+</ul>
+<p><code>i3/config</code>文件</p>
+<pre><code class="profile">bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
+</code></pre>
+<p><em>11 可以取其他值</em></p>
+<p>i3&#x2F;i3blocks.conf 文件</p>
+<pre><code class="profile">[caps-lock]
+label=CPAS
+interval=once
+signal=11
+</code></pre>
+<p>caps-lock 原为<code>/usr/libexec/i3blocks/</code>下的<code>keyindicator</code>文件，方便识别改为<code>caps-lock</code></p>
+<ul>
+<li>蓝牙状态</li>
+</ul>
+<p>bluetooth 检测，这个 i3blocks 官方没有提供，稍微写了一个简陋版</p>
+<pre><code class="sh">#!/bin/bash
+
+STATUS=$&#123;bluetoothctl info | grep -wo &#39;Connected: yes&#39;&#125;
+
+if [[ $STATUS = &#39;Connected: yes&#39; ]]; then
+  echo &quot;on&quot;
+  echo &quot;on&quot;
+  echo &quot;#6498FF&quot;
+fi
+</code></pre>
+<p>放置在<code>/usr/libexec/i3blocks/</code>目录下</p>
+<h2 id="亮度调整-light"><a href="#亮度调整-light" class="headerlink" title="亮度调整 light"></a>亮度调整 light</h2><p><code>light</code>软件包并不在官方软件包中, 使用<code>layman</code>添加对应提供源然后安装。或者从源码安装。</p>
+<pre><code class="bash">emerge --ask dev-libs/light
+</code></pre>
+<h2 id="菜单-rofi"><a href="#菜单-rofi" class="headerlink" title="菜单 rofi"></a>菜单 rofi</h2><p><img src="/rofi.png" alt="rofi.jpg"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/MRsoymilk/warehouse/rofi">我的配置文件</a></p>
+<p>什么是 rofi?</p>
+<blockquote>
+<pre><code>A window switcher, application launcher, ssh dialog and dmenu replacement
+</code></pre>
+</blockquote>
+<p>安装</p>
+<ol>
+<li>记得添加<code>windowmode</code>保证 window switcher 的使用，修改<code>/etc/portage/package.use/rofi</code>文件</li>
+</ol>
+<pre><code class="profile">x11-misc/rofi windowmode
+</code></pre>
+<ol start="2">
+<li>emerge</li>
+</ol>
+<pre><code class="bash">emerge --ask x11-misc/rofi
+</code></pre>
+<ol start="3">
+<li><code>rofi</code>导出配置文件</li>
+</ol>
+<pre><code class="bash">rofi -dump-config &gt; ~/.config/rofi/config.rasi
+</code></pre>
+<p>根据提示配置即可</p>
+<p>主题切换可以使用<code>rofi-theme-selector</code>快速浏览主题，根据个人选择</p>
+<h2 id="消息通知-dunst"><a href="#消息通知-dunst" class="headerlink" title="消息通知 dunst"></a>消息通知 dunst</h2><p>没什么好说的。(直接下载了官网文件)<br><a target="_blank" rel="noopener" href="https://dunst-project.org/screenshots/">dunst-project</a></p>
+<pre><code class="bash">emerge --ask x11-misc/dunst
+</code></pre>
+<h2 id="neofetch-配置"><a href="#neofetch-配置" class="headerlink" title="neofetch 配置"></a>neofetch 配置</h2><p><code>~/.config/neofetch/config</code>文件根据提示配置</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/MRsoymilk/warehouse/neofetch">我的 neofetch</a></p>
+<h2 id="音乐播放器-cmus"><a href="#音乐播放器-cmus" class="headerlink" title="音乐播放器 cmus"></a>音乐播放器 <code>cmus</code></h2><p>主题设置</p>
+<pre><code class="bash">:colorscheme gruvbox
+</code></pre>
+<p>更多主题设置在<code>/usr/share/cmus</code>文件中</p>
+<p>基本使用</p>
+<table>
+<thead>
+<tr>
+<th>效果</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>添加音乐</td>
+<td><code>:add ~/Music</code></td>
+</tr>
+<tr>
+<td>播放</td>
+<td>x</td>
+</tr>
+<tr>
+<td>暂停</td>
+<td>c</td>
+</tr>
+<tr>
+<td>下一首</td>
+<td>b</td>
+</tr>
+<tr>
+<td>上一首</td>
+<td>z</td>
+</tr>
+<tr>
+<td>停止</td>
+<td>v</td>
+</tr>
+<tr>
+<td>+</td>
+<td>音量+10%</td>
+</tr>
+<tr>
+<td>-</td>
+<td>音量-10%</td>
+</tr>
+</tbody></table>
+<h2 id="视频播放器-mpv"><a href="#视频播放器-mpv" class="headerlink" title="视频播放器 mpv"></a>视频播放器 <code>mpv</code></h2><p><a target="_blank" rel="noopener" href="https://wiki.gentoo.org/wiki/Mpv">mpv Wiki</a></p>
+<p>基本使用</p>
+<p><strong>mpv 支持鼠标</strong></p>
+<table>
+<thead>
+<tr>
+<th>效果</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>暂停</td>
+<td>Space &#x2F; p</td>
+</tr>
+<tr>
+<td>视频下一个&#x2F;上一个</td>
+<td>&gt; &#x2F; &lt;</td>
+</tr>
+<tr>
+<td>向前&#x2F;向后 5 秒</td>
+<td>Left &#x2F; Right</td>
+</tr>
+<tr>
+<td>向前&#x2F;向后 10 秒</td>
+<td>Up &#x2F; Down</td>
+</tr>
+<tr>
+<td>加速&#x2F;减速 10%</td>
+<td>[ &#x2F; ]</td>
+</tr>
+<tr>
+<td>当前速度减半&#x2F;加倍</td>
+<td>{&#x2F; }</td>
+</tr>
+<tr>
+<td>原始速度</td>
+<td>Backspace</td>
+</tr>
+<tr>
+<td>音量减少&#x2F;增加</td>
+<td>9 &#x2F; 0</td>
+</tr>
+<tr>
+<td>静音</td>
+<td>m</td>
+</tr>
+<tr>
+<td>全屏</td>
+<td>f</td>
+</tr>
+<tr>
+<td>退出全屏</td>
+<td>Esc</td>
+</tr>
+<tr>
+<td>退出</td>
+<td>q</td>
+</tr>
+<tr>
+<td>对比度 -1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>对比度 +1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>亮度 -1</td>
+<td>3</td>
+</tr>
+<tr>
+<td>亮度 +1</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Gamma 值 -1</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Gamma 值 +1</td>
+<td>6</td>
+</tr>
+<tr>
+<td>饱和度 -1</td>
+<td>7</td>
+</tr>
+<tr>
+<td>饱和度 +1</td>
+<td>8</td>
+</tr>
+</tbody></table>
+<p>更多按键参考：<a target="_blank" rel="noopener" href="https://github.com/mpv-player/mpv/blob/master/etc/input.conf"> mpv-player&#x2F;<br>mpv</a></p>
+<h2 id="Fcitx-中文输入"><a href="#Fcitx-中文输入" class="headerlink" title="Fcitx 中文输入"></a>Fcitx 中文输入</h2><p><a target="_blank" rel="noopener" href="https://wiki.gentoo.org/wiki/Fcitx/zh-cn">Fcitx Wiki</a></p>
+<ol>
+<li>安装</li>
+</ol>
+<pre><code class="bash">emerge --ask app-i18n/fcitx
+</code></pre>
+<ol start="2">
+<li>修改配置文件<code>~/.xinitrc</code></li>
+</ol>
+<pre><code class="profile">export XMODIFIERS=&quot;@im=fcitx&quot;
+export QT_IM_MODULE=fcitx
+export GTK_IM_MODULE=fcitx
+
+eval &quot;$(dbus-launch --sh-syntax --exit-with-session)&quot;
+</code></pre>
+<ol start="3">
+<li>Fcitx GUI 配置工具</li>
+</ol>
+<ul>
+<li>依赖 GTK2 或 GTK3 的 <code>fcitx-configtool</code></li>
+<li>依赖 KDE 的 <code>kcm-fcitx</code></li>
+</ul>
+<p>我选择<code>fcitx-configtool</code></p>
+<pre><code class="bash">emerge --ask app-i18n/fcitx-configtool
+</code></pre>
+<ol start="4">
+<li>中文支持</li>
+</ol>
+<p>本身支持中文输入。</p>
+<p><code>fcitx-configtool</code>启动工具。</p>
+<p><img src="/fcitx.png" alt="fcitx.png"></p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="时间校准"><a href="#时间校准" class="headerlink" title="时间校准"></a>时间校准</h3><p><a target="_blank" rel="noopener" href="https://forum.ubuntu.com.cn/viewtopic.php?t=445989">Ubuntu 论坛</a></p>
+<p>修改<code>/etc/conf.d/hwclock</code></p>
+<pre><code class="profile">clock=&quot;local&quot;
+</code></pre>
+<p>时间快 8 个小时，原因：clock&#x3D;”UTC”<br>中国是东八区，+8 个小时</p>
+<pre><code class="bash">/etc/init.d/hwclock restart  # 我没发现有多大用，走个形式吧
+</code></pre>
+<p>个人认为主要原因是在安装的时候<br><code>ntpd -q -g</code>同步的是 UTC 时间，然而安装后并没有再次同步</p>
+<p>在设置 hwclock 之后：</p>
+<pre><code class="bash">emerge --ask net-misc/ntp
+ntpd -q -g
+</code></pre>
+<p>date 时间同步完成</p>
+<h3 id="电源管理"><a href="#电源管理" class="headerlink" title="电源管理"></a>电源管理</h3><p><img src="/bar.png" alt="bar"></p>
+<p>使用 <code>xfce4-power-manager</code></p>
+<p><code>i3 config</code>添加</p>
+<pre><code class="bash">exec_always --no-startup-id xfce4-power-manager
+</code></pre>
+<p><em>也可以写在外部文件中供 i3 调用</em></p>
+<p>重启失效，发现 <code>xfce4-power-manager-settings</code> 中 <code>tray icon</code> 默认关闭。</p>
+<p>经过查找，发现 <code>xfce4-power-manager.xml</code> 文件中仿佛有我们想要的。</p>
+<p>路径：<code>~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml</code></p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+
+&lt;channel name=&quot;xfce4-power-manager&quot; version=&quot;1.0&quot;&gt;
+  &lt;property name=&quot;xfce4-power-manager&quot; type=&quot;empty&quot;&gt;
+    &lt;property name=&quot;brightness-switch-restore-on-exit&quot; type=&quot;int&quot; value=&quot;1&quot;/&gt;
+    &lt;property name=&quot;brightness-switch&quot; type=&quot;int&quot; value=&quot;1&quot;/&gt;
+    &lt;property name=&quot;general-notification&quot; type=&quot;bool&quot; value=&quot;true&quot;/&gt;
+    &lt;property name=&quot;show-tray-icon&quot; type=&quot;bool&quot; value=&quot;true&quot;/&gt;
+    &lt;property name=&quot;presentation-mode&quot; type=&quot;bool&quot; value=&quot;true&quot;/&gt;
+  &lt;/property&gt;
+&lt;/channel&gt;
+</code></pre>
+<p>设置为只读，重启发现 <code>tray icon</code> 存在。</p>
+<pre><code class="bash">chmod 444 xfce4-power-manager.xml
+</code></pre>
+<p><strong>多显示器需要针对设置</strong></p>
+<h2 id="截屏工具-flameshot"><a href="#截屏工具-flameshot" class="headerlink" title="截屏工具 flameshot"></a>截屏工具 flameshot</h2><p>参考：<a target="_blank" rel="noopener" href="https://flameshot.js.org/#/command-line-options?id=cli-configuration">flameshot</a></p>
+<p><code>flameshot</code>现已加入官方软件包中。</p>
+<pre><code class="bash">sudo emerge -av flameshot
+</code></pre>
+<p>flameshot依赖包spdlog-1.8.5存在bug。近期（2021-06-24）可能无法直接安装。</p>
+<p>使用：</p>
+<p><code>flameshot gui</code>，选择截取</p>
+<p><code>flameshot full -p /path/to/put</code>，全屏截取</p>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/Gentoo/">
+          Gentoo
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+  </div>
+</div>
+  </div>
+</body>
+
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+
+<script src="/js/milk.js"></script>
+
+
+</html>
