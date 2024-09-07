@@ -27,6 +27,9 @@
 <link rel="stylesheet" href="/css/milk.css">
 
 
+<link rel="stylesheet" href="/css/theme/default.css">
+
+
 <meta name="generator" content="Hexo 7.3.0"></head>
 <body>
   <div class="milk-header">
@@ -150,7 +153,7 @@
 <li><p>IR红外活体：主要基于红外光线反射成像原理，通过人脸成像甄别是否为活体。基于红外成像特点，对于屏幕类攻击，基本可以达到近100%的活体防御。IR采用静默式识别方式，体验较好，但需要增加红外摄像头成本，同时要结合场景考虑红外成像距离。</p>
 </li>
 </ul>
-<h3 id="SDK包结构"><a href="#SDK包结构" class="headerlink" title="SDK包结构"></a>SDK包结构</h3><pre><code class="code">SDK
+<h3 id="SDK包结构"><a href="#SDK包结构" class="headerlink" title="SDK包结构"></a>SDK包结构</h3><pre><code class="plaintext">SDK
 |---demo
 |   |---ArcFaceDemo                                 Demo工程
 |---doc
@@ -202,7 +205,7 @@
 <li>用于证件照或生活照与证件照之间的特征比对，推荐阈值0.82</li>
 </ul>
 <h2 id="Windows-10-开发环境搭建"><a href="#Windows-10-开发环境搭建" class="headerlink" title="Windows 10 开发环境搭建"></a>Windows 10 开发环境搭建</h2><p>项目目录结构：</p>
-<pre><code class="code">FACE
+<pre><code class="plaintext">FACE
 |----- .vs
 |----- inc
 |----- |----- opencv2
@@ -280,7 +283,7 @@ int main() &#123;
 <p><img src="/result.png" alt="result"></p>
 <h2 id="Linux-开发环境搭建"><a href="#Linux-开发环境搭建" class="headerlink" title="Linux 开发环境搭建"></a>Linux 开发环境搭建</h2><p>下载相应SDK。</p>
 <p>ArcSoft Linux x64 SDK目录结构：</p>
-<pre><code class="code">├── doc
+<pre><code class="plaintext">├── doc
 │   └── ARCSOFT_ARC_FACE_DEVELOPER&#39;S_GUIDE.pdf
 ├── inc
 │   ├── amcomdef.h
@@ -297,7 +300,7 @@ int main() &#123;
     └── ReadMe.txt
 </code></pre>
 <p>项目结构：</p>
-<pre><code class="code">├── cmake-build-debug
+<pre><code class="plaintext">├── cmake-build-debug
 │   ├── ArcFace64.dat
 │   ├── CMakeCache.txt
 │   ├── CMakeFiles
