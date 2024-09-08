@@ -1,0 +1,626 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>cmus外部歌词 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/jquery/jquery-ui.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/highlight/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<link rel="stylesheet" href="/css/theme/default.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk-header">
+     
+
+  <nav class="header-nav">
+     
+    <ul class="nav-menu">
+      
+        <li id="Home">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </li>
+      
+        <li id="Archives">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </li>
+      
+        <li id="About">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </li>
+      
+    </ul>
+    
+    
+      <span class="nav-date">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+        <span id="date"></span>
+      </span>
+    
+    
+    
+      <span class="nav-system" id="nav-system"></span>
+    
+    
+    <span class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Power by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+      </div>
+    </span>
+  </nav>
+ 
+  </div>
+  <div class="milk-body">
+    
+<div class="draggable-toc">
+  <div class="toc-title">cmus外部歌词</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%8C%E8%AF%8D%E7%9A%84%E8%8E%B7%E5%8F%96"><span class="toc-text">歌词的获取</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E7%9B%AE%E6%A0%87%E6%AD%8C%E6%9B%B2"><span class="toc-text">设置目标歌曲</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lrc-%E6%96%87%E4%BB%B6%E7%9A%84%E8%8E%B7%E5%8F%96"><span class="toc-text">lrc 文件的获取</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%8C%E8%AF%8D%E7%9A%84%E6%98%BE%E7%A4%BA"><span class="toc-text">歌词的显示</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#lrc-%E6%96%87%E4%BB%B6%E7%9A%84%E5%8A%A0%E8%BD%BD"><span class="toc-text">lrc 文件的加载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%8F%E5%B9%95%E7%BB%98%E5%88%B6"><span class="toc-text">屏幕绘制</span></a></li></ol></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">cmus外部歌词</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Others/">
+          Others
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>使用<code>python</code>的<code>curses</code>库进行终端歌词显示</p>
+<p>原理是持续使用<code>cmus-remote -Q</code>查询当前音乐状态，然后进行歌词的时间轴匹配</p>
+<p>Github 地址: <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk/ctlyrics">ctlyrics</a></p>
+<p><img src="/play.png" alt="显示效果"></p>
+<span id="more"></span>
+
+<h2 id="歌词的获取"><a href="#歌词的获取" class="headerlink" title="歌词的获取"></a>歌词的获取</h2><h3 id="设置目标歌曲"><a href="#设置目标歌曲" class="headerlink" title="设置目标歌曲"></a>设置目标歌曲</h3><p>首先将要查找的歌曲存入<code>songs_list.txt</code>文件，最终保存的格式为<code>名称 - 歌手</code>，从文件中读取目标歌曲便于组织和管理歌曲</p>
+<p>结果举例：</p>
+<pre><code class="plaintext">島みやえい子 - 宇宙の花
+潘辰 - 流泪
+如果这都不算爱 - 张学友
+Brilliant days - moumoon
+女恶魔人op
+</code></pre>
+<p>其中前两首存在问题，矫正后如下：</p>
+<pre><code class="plaintext">宇宙の花 - 島みやえい子
+流泪 - 潘辰
+如果这都不算爱 - 张学友
+Brilliant days - moumoon
+女恶魔人op
+</code></pre>
+<p>相邻两行的去重操作（仅限 vim）：<code>:g/^\(.*\)$\n\1/d</code></p>
+<p>获取目标歌曲流程：</p>
+<p><img src="/flowchart_get_songs_from_directory.png" alt="流程图 get songs from directory"></p>
+<p>具体程序：</p>
+<pre><code class="python">import os
+
+def get_songs_from_directory(directory):
+    valid_extensions = (&#39;.mp3&#39;, &#39;.flac&#39;, &#39;.wav&#39;)
+    songs = []
+
+    for filename in os.listdir(directory):
+        if not filename.endswith(valid_extensions):
+            continue
+        try:
+            if &#39;-&#39; in filename:
+                song_name, song_artist = filename.split(&#39;-&#39;, 1)
+                song_name = song_name.strip()
+                song_artist = (song_artist.rsplit(&#39;.&#39;, 1)[0]).strip()
+            else:
+                song_name = (filename.rsplit(&#39;.&#39;, 1)[0]).strip()
+                song_artist = &quot;&quot;
+            songs.append((song_name, song_artist))
+        except Exception as e:
+            print(f&quot;Error processing &#123;filename&#125;: &#123;e&#125;&quot;)
+            continue
+    return songs
+
+def save_songs_to_file(songs, file_path):
+    with open(file_path, &#39;w&#39;, encoding=&#39;utf-8&#39;) as file:
+        for song_name, song_artist in songs:
+            if(song_artist == &quot;&quot;):
+                file.write(f&quot;&#123;song_name&#125;\n&quot;)
+            else:
+                file.write(f&quot;&#123;song_name&#125; - &#123;song_artist&#125;\n&quot;)
+
+if __name__ == &quot;__main__&quot;:
+    music_dir = &quot;/home/_warehouse/music/&quot;
+    output_file = &quot;songs_list.txt&quot;
+    songs = get_songs_from_directory(music_dir)
+    save_songs_to_file(songs, output_file)
+</code></pre>
+<h3 id="lrc-文件的获取"><a href="#lrc-文件的获取" class="headerlink" title="lrc 文件的获取"></a>lrc 文件的获取</h3><p>我是在无损音乐网获取的歌词<code>https://www.sq0527.cn/</code></p>
+<p>假设查找半生缘的歌词，点击搜索后发现网址变更如下：</p>
+<pre><code class="plaintext">https://www.sq0527.cn/search?ac=半生缘
+</code></pre>
+<p><img src="/search_result.png" alt="search result"></p>
+<p>可以得出，获取结果可以使用<code>requests</code>直接访问<code>https://www.sq0527.cn/search?ac=半生缘</code>，得到对应结果</p>
+<p>接着处理搜索结果，理论上歌词大差不差，默认选择第一个作为目标</p>
+<pre><code class="html">&lt;ul class=&quot;mul&quot; style=&quot;background:#fff;overflow:hidden;&quot;&gt;
+  &lt;li
+    style=&quot;line-height: 30px; height: 30px; float: left; width: 210px; margin: 0px 10px; white-space: nowrap; overflow: hidden; background-color: rgb(255, 255, 255);&quot;
+    onmouseover=&quot;this.style.backgroundColor=&#39;#eee&#39;&quot;
+    onmouseout=&quot;this.style.backgroundColor=&#39;#FFF&#39;&quot;
+  &gt;
+    &lt;a href=&quot;/music/557628382.html&quot; target=&quot;_blank&quot; title=&quot;&quot;
+      &gt;莫文蔚 - &lt;font color=&quot;red&quot;&gt;半生缘&lt;/font&gt; (我们在这里相遇)&lt;/a
+    &gt;
+  &lt;/li&gt;
+  &lt;li
+    style=&quot;line-height: 30px; height: 30px; float: left; width: 210px; margin: 0px 10px; white-space: nowrap; overflow: hidden; background-color: rgb(255, 255, 255);&quot;
+    onmouseover=&quot;this.style.backgroundColor=&#39;#eee&#39;&quot;
+    onmouseout=&quot;this.style.backgroundColor=&#39;#FFF&#39;&quot;
+  &gt;
+    &lt;a href=&quot;/music/2073816158.html&quot; target=&quot;_blank&quot; title=&quot;&quot;
+      &gt;莫文蔚 - &lt;font color=&quot;red&quot;&gt;半生缘&lt;/font&gt;&lt;/a
+    &gt;
+  &lt;/li&gt;
+  ...
+&lt;/ul&gt;
+</code></pre>
+<p>只要将包裹在<code>ul</code>下每个<code>li</code>提取出来即可，可以获取链接（用于进一步获取目标）、名称（用于可能的展示）</p>
+<p>使用<code>BeautifulSoup</code>的<code>select</code>进行提取：</p>
+<pre><code class="python">soup = BeautifulSoup(response.text, &#39;html.parser&#39;)
+search_results = soup.select(&#39;ul.mul li a&#39;)
+</code></pre>
+<p>默认进入第一个链接<code>/music/557628382.html</code></p>
+<p><img src="/result_of_lrc.png" alt="result of lrc"></p>
+<pre><code class="html">&lt;textarea placeholder=&quot;歌词&quot; class=&quot;layui-textarea&quot;&gt;
+[00:00.00] 作词 : 李焯雄
+[00:00.79] 作曲 : 华晨宇
+[00:01.59] 编曲 : Ruth Ling
+[00:02.38] 制作人 : 荒井十一
+[00:03.18]
+[00:15.05]后半从前半分裂
+[00:22.43]人生是连环失窃
+[00:29.72]你爱的不告而别
+...
+&lt;/textarea&gt;
+</code></pre>
+<p><code>textarea</code>标签内即为歌词，保存为对应的<code>lrc</code>文件即可</p>
+<p>使用<code>BeautifulSoup</code>的<code>select_one</code>进行提取：</p>
+<pre><code class="python">soup = BeautifulSoup(response.text, &#39;html.parser&#39;)
+lyrics = soup.select_one(&#39;textarea.layui-textarea&#39;)
+</code></pre>
+<p>流程：</p>
+<p><img src="/flowchart_get_lyrics.png" alt="流程图 get lyrics"></p>
+<p>完整程序：</p>
+<pre><code class="python">import os
+import requests
+from bs4 import BeautifulSoup
+
+def search_song(song_name):
+    search_url = f&#39;https://www.sq0527.cn/search?ac=&#123;song_name&#125;&#39;
+    response = requests.get(search_url)
+    if response.status_code != 200:
+        print(f&quot;request failed: &#123;response.status_code&#125;&quot;)
+        return None
+    soup = BeautifulSoup(response.text, &#39;html.parser&#39;)
+    search_results = soup.select(&#39;ul.mul li a&#39;)
+    if not search_results:
+        print(f&quot;can&#39;t find &#123;song_name&#125;&quot;)
+        return None
+    return search_results
+
+def choose_search_result(search_results, limit=15, by_self=False):
+    limited_results = search_results[:limit]
+    for index, result in enumerate(limited_results, 1):
+        print(f&quot;&#123;index&#125;. &#123;result.text.strip()&#125;&quot;)
+    if by_self:
+        choice = int(input(&quot;your choice: &quot;)) - 1
+        if 0 &lt;= choice &lt; len(limited_results):
+            return limited_results[choice][&#39;href&#39;]
+        else:
+            print(&quot;invalid choice!&quot;)
+            return None
+    else:
+        return limited_results[0][&#39;href&#39;]
+
+def get_lyrics(lyrics_url):
+    response = requests.get(lyrics_url)
+    if response.status_code != 200:
+        print(f&quot;request failed, error code: &#123;response.status_code&#125;&quot;)
+        return None
+    soup = BeautifulSoup(response.text, &#39;html.parser&#39;)
+    lyrics = soup.select_one(&#39;textarea.layui-textarea&#39;)
+    return lyrics.text if lyrics else None
+
+def save_lyrics(lyrics, filename, save_directory=&quot;./lyrics&quot;):
+    if not os.path.exists(save_directory):
+        os.makedirs(save_directory)
+    file_path = os.path.join(save_directory, filename)
+    with open(file_path, &#39;w&#39;, encoding=&#39;utf-8&#39;) as file:
+        file.write(lyrics)
+    print(f&quot;lyrics saved to &#123;file_path&#125;&quot;)
+
+def get_songs_from_file(file_path):
+    songs = []
+    with open(file_path, &#39;r&#39;, encoding=&#39;utf-8&#39;) as file:
+        for line in file:
+            line = line.strip()
+            if &#39; - &#39; in line:
+                song_name = line.split(&#39; - &#39;, 1)[0]
+            else:
+                song_name = line
+            songs.append((song_name, line))
+    return songs
+
+def log_error(file, message):
+    with open(file, &#39;a&#39;, encoding=&#39;utf-8&#39;) as file:
+        file.write(f&quot;&#123;message&#125;\n&quot;)
+
+if __name__ == &quot;__main__&quot;:
+    songs_list = &quot;songs_list.txt&quot;
+    lyrics_dir = &quot;./lyrics&quot;
+    is_self = False
+    res_limit = 15
+    songs = get_songs_from_file(songs_list)
+    total_songs = len(songs)
+    index = 1
+    error_log = &quot;error.txt&quot;
+    for song_name, original_filename in songs:
+        os.system(&#39;clear&#39;)
+        print(f&quot;\n(&#123;index&#125;/&#123;total_songs&#125;) searching: &#123;song_name&#125;&quot;)
+        index += 1
+        search_results = search_song(song_name)
+        is_success = True
+        error_msg = song_name
+        if search_results:
+            selected_result = choose_search_result(search_results, res_limit, is_self)
+            if selected_result:
+                lyrics_url = f&#39;https://www.sq0527.cn&#123;selected_result&#125;&#39;
+                lyrics = get_lyrics(lyrics_url)
+                if lyrics:
+                    save_lyrics(lyrics, f&quot;&#123;original_filename&#125;.lrc&quot;, lyrics_dir)
+                else:
+                    print(&quot;lyrics not found&quot;)
+                    is_success = False
+                    error_msg += &quot;|lyrics not found&quot;
+            else:
+                print(&quot;selected result not found&quot;)
+                is_success = False
+                error_msg += &quot;|selected result not found&quot;
+        else:
+            print(&quot;search results not found&quot;)
+            is_success = False
+            error_msg += &quot;|search results not found&quot;
+        if not is_success:
+            log_error(error_log, error_msg)
+</code></pre>
+<ul>
+<li><code>songs_list</code>定义了获取歌曲的文件</li>
+<li><code>lyrics_dir</code>定义了保存文件的目标</li>
+<li><code>is_self</code>定义了是否手动筛选歌词的搜索结果</li>
+<li><code>res_limit</code>定义了歌词搜索结果的展示数量</li>
+</ul>
+<p>程序执行效果：</p>
+<pre><code class="plaintext">(1/881) searching: ALL KILL
+1. T-ara - ALL KILL
+2. 白永 - All-Kill
+3. Rosie - All Kill
+4. 忆唏 - ALL KILL
+5. Zico/Crush - BERMUDA TRIANGLE
+6. 智柠 - ALL KILL
+7. 国民之子 - NEVER
+8. Truedy - ALL KILL
+9. 崔姨母/智贤贤 - ALL KILL
+10. IU - 밤편지
+11. 咖菲 - ALL KILL
+12. MG_木九九九 - ALL KILL
+13. 无可乐不乐 - ALL KILL
+14. 4ROSE - All Kill
+15. Alina铭/猫人 - All Kill
+lyrics saved to ./lyrics/ALL KILL - T-ara.lrc
+</code></pre>
+<h2 id="歌词的显示"><a href="#歌词的显示" class="headerlink" title="歌词的显示"></a>歌词的显示</h2><p>流程：<br><img src="/flowchart_display_lyrics.png" alt="流程图 display lyrics"></p>
+<p>首先使用<code>cmus-remote -Q</code>获取当前音乐信息：</p>
+<pre><code class="bash">status paused
+file /home/_warehouse/music/Brilliant days - moumoon.mp3
+duration 246
+position 159
+set aaa_mode all
+set continue true
+set play_library true
+set play_sorted false
+set replaygain disabled
+set replaygain_limit true
+set replaygain_preamp 0.000000
+set repeat false
+set repeat_current false
+set shuffle off
+set softvol false
+set vol_left 70
+set vol_right 70
+</code></pre>
+<p>主要获取<code>file</code>, <code>position</code><br>其中<code>file</code>用于歌词的查找，<code>postion</code>用于歌词的定位</p>
+<pre><code class="python">import re
+import subprocess
+
+def get_cmus_info():
+    try:
+        output = subprocess.check_output([&#39;cmus-remote&#39;, &#39;-Q&#39;]).decode(&#39;utf-8&#39;)
+        # get position
+        position_match = re.search(r&#39;position (\d+)&#39;, output)
+        position = int(position_match.group(1)) if position_match else 0
+        # get duration
+        duration_match = re.search(r&#39;duration (\d+)&#39;, output)
+        duration = int(duration_match.group(1)) if duration_match else 0
+        # get status
+        status_match = re.search(r&#39;status (\w+)&#39;, output)
+        status = status_match.group(1) if status_match else &#39;stopped&#39;
+        # get title and artist
+        song_match = re.search(r&#39;/([^/]+?)(?:\s*-\s*([^/.]+))?\.&#39;, output)
+        title = song_match.group(1).strip() if song_match.group(1) else &quot;unknown&quot;
+        artist = song_match.group(2).strip() if song_match.group(2) else &quot;unknown&quot;
+        return &#123;
+            &quot;position&quot;: position,
+            &quot;duration&quot;: duration,
+            &quot;status&quot;: status,
+            &quot;title&quot;: title,
+            &quot;artist&quot;: artist
+        &#125;
+    except subprocess.CalledProcessError:
+        return &#123;
+            &quot;position&quot;: 0,
+            &quot;duration&quot;: 0,
+            &quot;status&quot;: &quot;unknown&quot;,
+            &quot;title&quot;: &quot;unknown&quot;,
+            &quot;artist&quot;: &quot;unknown&quot;
+        &#125;
+</code></pre>
+<h3 id="lrc-文件的加载"><a href="#lrc-文件的加载" class="headerlink" title="lrc 文件的加载"></a>lrc 文件的加载</h3><p>然后查找对应的<code>lrc</code>文件：</p>
+<pre><code class="python">def load_lyrics_and_info(self, info):
+    current_title = info.get(&#39;title&#39;)
+    artist = info.get(&#39;artist&#39;)
+    if current_title == self.last_title:
+        return self.last_lyrics, self.last_total_lines
+    lyrics_path = find_lrc_file(&#39;lyrics&#39;, current_title, artist)
+    if lyrics_path:
+        self.last_lyrics = parse_lrc(lyrics_path)
+        self.last_total_lines = len(self.last_lyrics)
+    else:
+        self.last_lyrics = []
+        self.last_total_lines = 0
+    self.last_title = current_title
+    return self.last_lyrics, self.last_total_lines
+</code></pre>
+<p>其中<code>info</code>信息即<code>get_cmus_info()</code>得到，为了减少性能损耗，创建了<code>LyricsCache</code>类，只有音乐不同于上一首时才遍历文件夹进行歌词的查找。以上代码只是<code>LyricsCache</code>中的加载函数</p>
+<p>歌词的查找：</p>
+<pre><code class="python">def find_lrc_file(dir, title, artist=None):
+    if not title:
+        return None
+    title_pattern = re.compile(re.escape(title), re.IGNORECASE)
+    files = os.listdir(dir)
+    matching_files = [file for file in files if title_pattern.search(file) and file.endswith(&#39;.lrc&#39;)]
+    if len(matching_files) == 0:
+        return None
+    if len(matching_files) == 1:
+        return os.path.join(dir, matching_files[0])
+    if artist:
+        artist_pattern = re.compile(re.escape(artist), re.IGNORECASE)
+        for file in matching_files:
+            if artist_pattern.search(file):
+                return os.path.join(dir, file)
+    return os.path.join(dir, matching_files[0]) if matching_files else None
+</code></pre>
+<p>首先判断<code>title</code>是否相同，如果相同则进一步比较<code>artist</code>，如果一首歌存在多个演唱家的歌词，则返回最后一个结果</p>
+<h3 id="屏幕绘制"><a href="#屏幕绘制" class="headerlink" title="屏幕绘制"></a>屏幕绘制</h3><p>使用<code>curses.newpad()</code>创建双缓冲的歌词显示，避免刷新闪烁</p>
+<pre><code class="python">def display_lyrics(stdscr, info, lyrics, total_lines, offset):
+    current_line = 0
+    adjusted_position = info[&#39;position&#39;] + offset
+    for i, (timestamp, _) in enumerate(lyrics):
+        if adjusted_position &gt;= timestamp:
+            current_line = i
+        else:
+            break
+    height, width = stdscr.getmaxyx()
+    if width &lt;= 0 or height &lt;= 0:
+        return
+    start_line = max(0, current_line - height // 2)
+    end_line = min(total_lines, start_line + height)
+    pad = curses.newpad(total_lines + 1, width)
+    song_info = f&quot;&#123;info[&#39;title&#39;]&#125; - &#123;info[&#39;artist&#39;]&#125; [&#123;info[&#39;status&#39;]&#125;] (Offset: &#123;offset:.1f&#125;s)&quot;
+    pad.addstr(0, 0, song_info, curses.A_BOLD)
+    for i in range(end_line - start_line):
+        display_line = start_line + i
+        if display_line &gt;= total_lines:
+            break
+        text = lyrics[display_line][1]
+        try:
+            if display_line == current_line:
+                pad.addstr(i + 1, 0, text, curses.color_pair(1) | curses.A_BOLD)
+            else:
+                pad.addstr(i + 1, 0, text)
+        except curses.error:
+            print(f&quot;Failed to display line &#123;i + 1&#125;: &#123;text&#125;&quot;)
+    pad.refresh(0, 0, 0, 0, height - 1, width - 1)
+</code></pre>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/cmus/">
+          cmus
+        </a></li>
+      
+        <li><a href="/tags/Python/">
+          Python
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+  </div>
+</div>
+  </div>
+</body>
+
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+
+<script src="/js/milk.js"></script>
+
+
+</html>
