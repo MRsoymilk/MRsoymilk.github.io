@@ -12,22 +12,18 @@
 
 
 
-<link rel="stylesheet" href="/lib/jquery/jquery-ui.css">
-
-
-
 <link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
 
 
 
-<link rel="stylesheet" href="/lib/highlight/railscasts.css">
+<link rel="stylesheet" id="highlight-link" href="/lib/highlight/style/railscasts.css">
 
 
 
 <link rel="stylesheet" href="/css/milk.css">
 
 
-<link rel="stylesheet" href="/css/theme/default.css">
+<link rel="stylesheet" id="shceme-link" href="/css/theme/default.css">
 
 
 <meta name="generator" content="Hexo 7.3.0"></head>
@@ -86,8 +82,18 @@
           
         </ul>
         <ul>
-          <li><span>Power by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+          <li><span>Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
         </ul>
+        <div>
+          <label for="scheme-select">Color scheme: </label>
+          <select id="scheme-select">
+            <option value='default'>default</option>
+          </select>
+          <label for="highlight-select">Code highlight: </label>
+          <select id="highlight-select">
+            <option value='railscasts'>railscasts</option>
+          </select>
+        </div>
       </div>
     </span>
   </nav>
