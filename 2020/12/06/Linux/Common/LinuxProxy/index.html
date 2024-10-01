@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Linux终端代理 [ Soymilk ]</title>
+  <title>Linux网络代理配置 [ Soymilk ]</title>
   
 <link rel="shortcut icon" href="/favicon/favicon.ico">
 
@@ -107,16 +107,16 @@
     <div class="milk-body">
       
 <div class="draggable-toc">
-  <div class="toc-title">Linux终端代理</div>
+  <div class="toc-title">Linux网络代理配置</div>
   <p>process: <span>0</span></p>
   <div class="progress-container">
     <div class="progress-bar" id="bar"></div>
   </div>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE"><span class="toc-text">设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE"><span class="toc-text">设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-ALL-PROXY"><span class="toc-text">使用 ALL_PROXY</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-proxychains"><span class="toc-text">使用 proxychains</span></a></li></ol>
 </div>
 
 <div class="post-content" id="post-content">
-  <div id="top">Linux终端代理</div>
+  <div id="top">Linux网络代理配置</div>
   <div class="post">
     
     <div class="content-categories">
@@ -144,19 +144,33 @@
     </div>
     <hr>
     
-    <h2 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h2><pre><code class="bash">alias setproxy=&quot;expore ALL_PROXY=socks5://127.0.0.1:1080&quot;
+    <h2 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h2><p>使用<code>ALL_PROXY</code>变量</p>
+<pre><code class="bash">alias setproxy=&quot;export ALL_PROXY=http://127.0.0.1:7090&quot;
 alias unsetproxy=&quot;unset ALL_PROXY&quot;
+</code></pre>
+<p><em>curl 默认使用 HTTP 代理来处理 HTTP 请求</em></p>
+<p>或使用<code>proxychains</code>。Gentoo 下使用<code>emerge --ask net-proxy/proxychains</code>进行安装</p>
+<p>然后编辑配置文件<code>/etc/proxychains.conf</code>，</p>
+<pre><code class="config">[ProxyList]
+# add proxy here ...
+# meanwile
+# defaults set to &quot;tor&quot;
+# socks4  127.0.0.1 9050
+http    127.0.0.1 7890
+socks5  127.0.0.1 7891
 </code></pre>
 <span id="more"></span>
 
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>使用代理</p>
+<h2 id="使用-ALL-PROXY"><a href="#使用-ALL-PROXY" class="headerlink" title="使用 ALL_PROXY"></a>使用 ALL_PROXY</h2><p>使用代理</p>
 <pre><code class="bash">setproxy
 </code></pre>
 <p>取消代理</p>
 <pre><code class="bash">unsetproxy
 </code></pre>
 <p>验证</p>
-<pre><code class="bash">curl ip.c
+<pre><code class="bash">curl www.google.com
+</code></pre>
+<h2 id="使用-proxychains"><a href="#使用-proxychains" class="headerlink" title="使用 proxychains"></a>使用 proxychains</h2><pre><code class="bash">proxychains curl www.google.com
 </code></pre>
 
     

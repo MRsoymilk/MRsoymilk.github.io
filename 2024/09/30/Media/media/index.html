@@ -1,0 +1,461 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>多媒体基础知识 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" id="highlight-link" href="/lib/highlight/style/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<link rel="stylesheet" id="shceme-link" href="/css/theme/default.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk">
+    <div class="milk-header">
+       
+
+  <nav class="header-nav">
+     
+    <ul class="nav-menu">
+      
+        <li id="Home">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </li>
+      
+        <li id="Archives">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </li>
+      
+        <li id="About">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </li>
+      
+    </ul>
+    
+    
+      <span class="nav-date">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+        <span id="date"></span>
+      </span>
+    
+    
+    
+      <span class="nav-system" id="nav-system"></span>
+    
+    
+    <span class="nav-layout" id="nav-layout" data-layout="tile">
+      <div id="layout-show">tile</div>
+    </span>
+    
+    <span class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+        <div>
+          <label for="scheme-select">Color scheme: </label>
+          <select id="scheme-select">
+            <option value='default'>default</option>
+          </select>
+          <label for="highlight-select">Code highlight: </label>
+          <select id="highlight-select">
+            <option value='railscasts'>railscasts</option>
+          </select>
+        </div>
+      </div>
+    </span>
+  </nav>
+ 
+    </div>
+    <div class="milk-body">
+      
+<div class="draggable-toc">
+  <div class="toc-title">多媒体基础知识</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%81%E8%A3%85%E6%A0%BC%E5%BC%8F"><span class="toc-text">封装格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%86%E9%A2%91%E7%BC%96%E7%A0%81%E6%95%B0%E6%8D%AE"><span class="toc-text">视频编码数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9F%B3%E9%A2%91%E7%BC%96%E7%A0%81%E6%95%B0%E6%8D%AE"><span class="toc-text">音频编码数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%86%E9%A2%91%E5%83%8F%E7%B4%A0%E6%95%B0%E6%8D%AE"><span class="toc-text">视频像素数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9F%B3%E9%A2%91%E9%87%87%E6%A0%B7%E6%95%B0%E6%8D%AE"><span class="toc-text">音频采样数据</span></a></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">多媒体基础知识</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Media/">
+          Media
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <p>封装格式</p>
+<ul>
+<li>MP4</li>
+<li>RMVB</li>
+<li>TS</li>
+<li>FLV</li>
+<li>AVI</li>
+</ul>
+<p>视频编码数据</p>
+<ul>
+<li>H.264</li>
+<li>MPEG2</li>
+<li>VC-1</li>
+</ul>
+<p>音频编码数据</p>
+<ul>
+<li>AAC</li>
+<li>MP3</li>
+<li>AC-3</li>
+</ul>
+<p>视频像素数据</p>
+<ul>
+<li>YUV420P</li>
+<li>RGB</li>
+</ul>
+<p>音频采样数据</p>
+<ul>
+<li>PCM</li>
+</ul>
+<p>常用播放器</p>
+<ul>
+<li>跨平台系列：VLC、MPlayer、ffplay</li>
+<li>Windows 系列：完美解码、终极解码、暴风影音</li>
+</ul>
+<p>信息查看工具：</p>
+<ul>
+<li>综合信息查看：MediaInfo</li>
+<li>二进制信息查看：UltraEdit</li>
+</ul>
+<p>单项详细分析：</p>
+<ul>
+<li>封装格式: Elecard Format Analyzer</li>
+<li>视频编码数据: Elecard Stream Eye</li>
+<li>视频像素数据: YUV Player</li>
+<li>音频采样数据: Adobe Audition</li>
+</ul>
+<h2 id="封装格式"><a href="#封装格式" class="headerlink" title="封装格式"></a>封装格式</h2><ul>
+<li><strong>作用</strong>：视频码流和音频码流按照一定的格式存储在一个文件中</li>
+</ul>
+<p>封装格式分析工具：Elecard Format Analyzer</p>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">推出机构</th>
+<th align="left">使用领域</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">AVI</td>
+<td align="left">MicrosoftInc.</td>
+<td align="left">BT 下载影视</td>
+</tr>
+<tr>
+<td align="left">MP4</td>
+<td align="left">MPEG</td>
+<td align="left">互联网视频网站</td>
+</tr>
+<tr>
+<td align="left">TS</td>
+<td align="left">MPEG</td>
+<td align="left">IPTV，数字电视</td>
+</tr>
+<tr>
+<td align="left">FLV</td>
+<td align="left">AdobeInc.</td>
+<td align="left">互联网视频网站</td>
+</tr>
+<tr>
+<td align="left">MKV</td>
+<td align="left">CoreCodecInc.</td>
+<td align="left">互联网视频网站</td>
+</tr>
+<tr>
+<td align="left">RMVB</td>
+<td align="left">RealNetworksInc.</td>
+<td align="left">BT 下载影视</td>
+</tr>
+</tbody></table>
+<h2 id="视频编码数据"><a href="#视频编码数据" class="headerlink" title="视频编码数据"></a>视频编码数据</h2><ul>
+<li><strong>作用</strong>：将视频像素数据（RGB、YUV 等）压缩成为视频码流，从而降低视频的数据量</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">推出机构</th>
+<th align="left">推出时间</th>
+<th align="left">使用领域</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">HEVC(H.265)</td>
+<td align="left">MPEG&#x2F;ITU-T</td>
+<td align="left">2013</td>
+<td align="left">研发中</td>
+</tr>
+<tr>
+<td align="left">H.264</td>
+<td align="left">MPEG&#x2F;ITU-T</td>
+<td align="left">2003</td>
+<td align="left">各个领域</td>
+</tr>
+<tr>
+<td align="left">MPEG4</td>
+<td align="left">MPEG</td>
+<td align="left">2001</td>
+<td align="left">不温不火</td>
+</tr>
+<tr>
+<td align="left">MPEG2</td>
+<td align="left">MPEG</td>
+<td align="left">1994</td>
+<td align="left">数字电视</td>
+</tr>
+<tr>
+<td align="left">VP9</td>
+<td align="left">Google</td>
+<td align="left">2013</td>
+<td align="left">研发中</td>
+</tr>
+<tr>
+<td align="left">VP8</td>
+<td align="left">Google</td>
+<td align="left">2008</td>
+<td align="left">不普及</td>
+</tr>
+<tr>
+<td align="left">VC-1</td>
+<td align="left">MicrosoftInc.</td>
+<td align="left">2006</td>
+<td align="left">微软平台</td>
+</tr>
+</tbody></table>
+<h2 id="音频编码数据"><a href="#音频编码数据" class="headerlink" title="音频编码数据"></a>音频编码数据</h2><ul>
+<li><strong>作用</strong>：将音频采样数据（PCM 等）压缩成为音频码流，从而降低音频的数据量</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">推出机构</th>
+<th align="left">推出时间</th>
+<th align="left">使用领域</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">AAC</td>
+<td align="left">MPEG</td>
+<td align="left">1997</td>
+<td align="left">各个领域（新）</td>
+</tr>
+<tr>
+<td align="left">AC-3</td>
+<td align="left">DolbyInc.</td>
+<td align="left">1992</td>
+<td align="left">电影</td>
+</tr>
+<tr>
+<td align="left">MP3</td>
+<td align="left">MPEG</td>
+<td align="left">1993</td>
+<td align="left">各个领域（旧）</td>
+</tr>
+<tr>
+<td align="left">WMA</td>
+<td align="left">MicrosoftInc.</td>
+<td align="left">1999</td>
+<td align="left">微软平台</td>
+</tr>
+</tbody></table>
+<h2 id="视频像素数据"><a href="#视频像素数据" class="headerlink" title="视频像素数据"></a>视频像素数据</h2><ul>
+<li><strong>作用</strong>：保存屏幕上每个像素点的像素值</li>
+<li><strong>格式</strong>：常见 RGB24、RGB32、YUV420P、YUV422P、YUV444P</li>
+<li><strong>特点</strong>：体积很大，一般情况下高清视频的 RGB24 格式数据体积 <code>3600*25*1920*1080*3 = 559.9GByte</code></li>
+</ul>
+<h2 id="音频采样数据"><a href="#音频采样数据" class="headerlink" title="音频采样数据"></a>音频采样数据</h2><ul>
+<li><strong>作用</strong>：保存了音频每个采样点的值</li>
+<li><strong>特点</strong>：数据体积大，一般情况下一首 4 分钟的 PCM 格式的歌曲为<code>4*60*44100*2*2=42.3Mbyte</code><br>假定采样率为 44100Hz，采样精度为 16bit</li>
+</ul>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/Media/">
+          Media
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+  </div>
+</div>
+    </div>
+  </div>
+</body>
+
+
+
+    
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+    
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+    
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+    
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+    
+<script src="/js/milk.js"></script>
+
+
+
+</html>

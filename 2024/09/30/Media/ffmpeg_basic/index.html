@@ -1,0 +1,357 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FFmpeg基础知识 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" id="highlight-link" href="/lib/highlight/style/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<link rel="stylesheet" id="shceme-link" href="/css/theme/default.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk">
+    <div class="milk-header">
+       
+
+  <nav class="header-nav">
+     
+    <ul class="nav-menu">
+      
+        <li id="Home">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </li>
+      
+        <li id="Archives">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </li>
+      
+        <li id="About">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </li>
+      
+    </ul>
+    
+    
+      <span class="nav-date">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+        <span id="date"></span>
+      </span>
+    
+    
+    
+      <span class="nav-system" id="nav-system"></span>
+    
+    
+    <span class="nav-layout" id="nav-layout" data-layout="tile">
+      <div id="layout-show">tile</div>
+    </span>
+    
+    <span class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+        <div>
+          <label for="scheme-select">Color scheme: </label>
+          <select id="scheme-select">
+            <option value='default'>default</option>
+          </select>
+          <label for="highlight-select">Code highlight: </label>
+          <select id="highlight-select">
+            <option value='railscasts'>railscasts</option>
+          </select>
+        </div>
+      </div>
+    </span>
+  </nav>
+ 
+    </div>
+    <div class="milk-body">
+      
+<div class="draggable-toc">
+  <div class="toc-title">FFmpeg基础知识</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E4%B8%AA%E5%BA%93"><span class="toc-text">8 个库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B"><span class="toc-text">处理流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-text">数据结构</span></a></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">FFmpeg基础知识</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Media/">
+          Media
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <h2 id="8-个库"><a href="#8-个库" class="headerlink" title="8 个库"></a>8 个库</h2><ul>
+<li>avcodec：编解码（最重要）</li>
+<li>avformat：封装格式处理</li>
+<li>avfilter：滤镜特效处理</li>
+<li>avdevice：各种设备的输入输出</li>
+<li>avutil：工具库</li>
+<li>postproc：后加工</li>
+<li>swresample：音频采样数据格式转换</li>
+<li>swscale：视频像素数据格式转换</li>
+</ul>
+<h2 id="处理流程"><a href="#处理流程" class="headerlink" title="处理流程"></a>处理流程</h2><p>av_register_all() 注册所有组件</p>
+<p>-&gt; avformat_open_input() 打开输入视频文件</p>
+<p>-&gt; avformat_find_stream_info() 获取视频文件信息</p>
+<p>-&gt; avcodec_find_decoder() 查找解码器</p>
+<p>-&gt; avcodec_open2() 打开解码器</p>
+<p>-&gt; av_read_frame() 从输入文件读取一帧压缩数据</p>
+<p>-&gt; Get Packet? -&gt; AVPacket -&gt; avcodec_decode_video2() 解码一帧压缩数据 -&gt; AVFrame -&gt; Show On Screen …</p>
+<p>-&gt; avcodec_close() 关闭解码器</p>
+<p>-&gt; avformat_close_input() 关闭输入视频文件</p>
+<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><ul>
+<li><p>AVFormatContext：封装格式上下文结构体，统领全局的结构体，保存了视频文件封装格式相关信息</p>
+<ul>
+<li>iformat 输入视频的 AVInputFormat</li>
+<li>nb_streams 输入视频的 AVStream 个数</li>
+<li>streams 输入视频的 AVStream[] 数组</li>
+<li>duration 输入视频的时长（以微妙为单位）</li>
+<li>bit_rate 输入视频的码率</li>
+</ul>
+</li>
+<li><p>AVInputFormat：每种封装格式（FLV、MKV、MP4、AVI）对应一个结构体</p>
+<ul>
+<li>name 封装格式名称</li>
+<li>long_name 封装格式的长名称</li>
+<li>extensionns 封装格式的扩展名</li>
+<li>id 封装格式 ID</li>
+</ul>
+</li>
+<li><p>AVStream：视频文件中每个视频（音频）流对应一个结构体</p>
+<ul>
+<li>id 序号</li>
+<li>codec 对应的 AVCodecContext</li>
+<li>time_base 时基</li>
+<li>r_frame_rate 帧率</li>
+</ul>
+</li>
+<li><p>AVCodecContext：编码器上下文结构体，保存了视频（音频）编解码相关信息</p>
+<ul>
+<li>codec 编码器的 AVCodec</li>
+<li>width, height 宽高</li>
+<li>pix_fmt 像素格式</li>
+<li>sample_rate 采样率</li>
+<li>channels 声道数</li>
+<li>sample_fmt 采样格式</li>
+</ul>
+</li>
+<li><p>AVCodec：每种视频（音频）编解码（例如 H.264 解码器）对应一个该结构体</p>
+<ul>
+<li>name 编解码器名称</li>
+<li>long_name 编解码器长名称</li>
+<li>type 编解码器类型</li>
+<li>id 编解码器 ID</li>
+</ul>
+</li>
+<li><p>AVPacket：存储一帧压缩编码数据</p>
+<ul>
+<li>pts 显示时间戳</li>
+<li>dts 解码时间戳</li>
+<li>data 压缩编码数据</li>
+<li>size 压缩编码数据大小</li>
+<li>stream_index 所属的 AVStream</li>
+</ul>
+</li>
+<li><p>AVFrame：存储一帧解码后像素（采样）数据</p>
+<ul>
+<li>data 解码后的图像像素数据（音频采样数据）</li>
+<li>linesize 图像中一行像素的大小</li>
+<li>width, height 图像的宽高</li>
+<li>key_frame 是否为关键帧</li>
+<li>pict_type 帧类型</li>
+</ul>
+</li>
+</ul>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/Media/">
+          Media
+        </a></li>
+      
+        <li><a href="/tags/FFmpeg/">
+          FFmpeg
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+  </div>
+</div>
+    </div>
+  </div>
+</body>
+
+
+
+    
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+    
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+    
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+    
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+    
+<script src="/js/milk.js"></script>
+
+
+
+</html>

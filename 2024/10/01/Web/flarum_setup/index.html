@@ -1,0 +1,393 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>flarum 论坛搭建 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" id="highlight-link" href="/lib/highlight/style/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<link rel="stylesheet" id="shceme-link" href="/css/theme/default.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk">
+    <div class="milk-header">
+       
+
+  <nav class="header-nav">
+     
+    <ul class="nav-menu">
+      
+        <li id="Home">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </li>
+      
+        <li id="Archives">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </li>
+      
+        <li id="About">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </li>
+      
+    </ul>
+    
+    
+      <span class="nav-date">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+        <span id="date"></span>
+      </span>
+    
+    
+    
+      <span class="nav-system" id="nav-system"></span>
+    
+    
+    <span class="nav-layout" id="nav-layout" data-layout="tile">
+      <div id="layout-show">tile</div>
+    </span>
+    
+    <span class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+        <div>
+          <label for="scheme-select">Color scheme: </label>
+          <select id="scheme-select">
+            <option value='default'>default</option>
+          </select>
+          <label for="highlight-select">Code highlight: </label>
+          <select id="highlight-select">
+            <option value='railscasts'>railscasts</option>
+          </select>
+        </div>
+      </div>
+    </span>
+  </nav>
+ 
+    </div>
+    <div class="milk-body">
+      
+<div class="draggable-toc">
+  <div class="toc-title">flarum 论坛搭建</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Composer-%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8"><span class="toc-text">Composer 安装与使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-flarum"><span class="toc-text">安装 flarum</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-nginx"><span class="toc-text">配置 nginx</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="toc-text">数据库的创建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0"><span class="toc-text">更新</span></a></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">flarum 论坛搭建</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/WEB/">
+          WEB
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <h2 id="Composer-安装与使用"><a href="#Composer-安装与使用" class="headerlink" title="Composer 安装与使用"></a>Composer 安装与使用</h2><p>Flarum 使用 Composer 来管理其依赖包和扩展程序</p>
+<p>安装，参考：<a target="_blank" rel="noopener" href="https://getcomposer.org/download/">https://getcomposer.org/download/</a></p>
+<pre><code class="bash">php -r &quot;copy(&#39;https://getcomposer.org/installer&#39;, &#39;composer-setup.php&#39;);&quot;
+php -r &quot;if (hash_file(&#39;sha384&#39;, &#39;composer-setup.php&#39;) === &#39;dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6&#39;) &#123; echo &#39;Installer verified&#39;; &#125; else &#123; echo &#39;Installer corrupt&#39;; unlink(&#39;composer-setup.php&#39;); &#125; echo PHP_EOL;&quot;
+php composer-setup.php
+php -r &quot;unlink(&#39;composer-setup.php&#39;);&quot;
+</code></pre>
+<p>安装程序脚本将简单地检查一些 php.ini 设置，如果设置不正确，则会发出警告，然后在当前目录中下载最新的 composer.phar。上面的 4 行将按顺序说明：</p>
+<ul>
+<li>下载安装程序到当前目录</li>
+<li>验证安装程序 SHA-384，也可以在此处交叉检查</li>
+<li>运行安装程序</li>
+<li>删除安装程序</li>
+</ul>
+<p>安装成功后将在当前目录下生成<code>composer.phar</code></p>
+<p>使用<code>--version</code>验证安装是否成功：</p>
+<pre><code class="bash">$ php composer.phar --version
+Composer version 2.7.9 2024-09-04 14:43:28
+PHP version 8.3.10 (/usr/lib64/php8.3/bin/php)
+Run the &quot;diagnose&quot; command to get more detailed diagnostics output.
+</code></pre>
+<h2 id="安装-flarum"><a href="#安装-flarum" class="headerlink" title="安装 flarum"></a>安装 flarum</h2><p>php 需要以下扩展：curl、dom、fileinfo、gd、json、mbstring、openssl、pdo_mysql、tokenizer、zip</p>
+<p>Gentoo 系统下编辑<code>package.use</code>：<code>dev-lang/php fpm curl gd pdo mysql zip</code></p>
+<p>使用 Composer 工具从 Flarum 的 GitHub 仓库下载并安装 Flarum 的最新版本，并将其放在目录 flarum 中：</p>
+<pre><code class="bash">php composer.phar create-project flarum/flarum flarum/
+</code></pre>
+<h2 id="配置-nginx"><a href="#配置-nginx" class="headerlink" title="配置 nginx"></a>配置 nginx</h2><p>如果 <code>conf.d</code> 目录不存在，则创建，并在<code>/etc/nginx/nginx.conf</code>中添加：</p>
+<pre><code class="config">http &#123;
+    include /etc/nginx/conf.d/*.conf;
+&#125;
+</code></pre>
+<p>编辑：<code>/etc/nginx/conf.d/flarum.conf</code></p>
+<pre><code class="config">server &#123;
+    listen 90;
+    server_name localhost;
+    root /home/vv/project/CyberSpirit/forum/flarum/public;
+    index index.php index.html index.htm;
+    location ~ \.php$ &#123;
+        include fastcgi_params;
+        fastcgi_pass unix:/run/php-fpm.socket;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    &#125;
+    include /home/vv/project/CyberSpirit/forum/flarum/.nginx.conf;
+&#125;
+</code></pre>
+<p>这段 Nginx 配置用于设置一个 Web 服务器，以支持运行在 <code>localhost</code> 的 Flarum 应用。以下是各部分的详细解释：</p>
+<ol>
+<li><p><code>server &#123; ... &#125;</code>：<br>一个 server 块，表示 Nginx 的一个虚拟主机配置。</p>
+</li>
+<li><p><code>listen 90;</code>：<br>指定服务器监听的端口，这里是 <code>90</code>。浏览器访问时需要在 URL 中指定端口，例如 <code>http://localhost:90</code>。</p>
+</li>
+<li><p><code>server_name localhost;</code>：<br>指定服务器的名称，这里是 <code>localhost</code>。表示此配置处理针对 <code>localhost</code> 的请求。</p>
+</li>
+<li><p><code>root /home/vv/project/CyberSpirit/forum/flarum/public;</code>：<br>指定网站的根目录。在这个配置中，所有请求都会从这个路径查找文件。</p>
+</li>
+<li><p><code>index index.php index.html index.htm;</code>：<br>指定默认的索引文件。当访问一个目录时，Nginx 会尝试按照此顺序查找这些文件。</p>
+</li>
+<li><p><code>location ~ \.php$ &#123; ... &#125;</code>：<br>定义一个 location 块，处理以 <code>.php</code> 结尾的请求。正则表达式 <code>~</code> 表示该匹配为正则匹配。</p>
+<ul>
+<li><p><code>include fastcgi_params;</code>：<br>包含 FastCGI 参数配置文件，定义与 FastCGI 通信所需的参数。</p>
+</li>
+<li><p><code>fastcgi_pass unix:/run/php-fpm.socket;</code>：<br>指定 PHP-FPM 服务的地址和端口，通常是 <code>127.0.0.1:9000</code>，这里选择<code>unix:/run/php-fpm.socket</code>。</p>
+</li>
+<li><p><code>fastcgi_index index.php;</code>：<br>指定默认的 PHP 文件，当请求目录时，Nginx 将尝试使用 <code>index.php</code>。</p>
+</li>
+<li><p><code>fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;</code>：<br>设置 FastCGI 参数 <code>SCRIPT_FILENAME</code>，告诉 PHP-FPM 处理哪个文件。这里将 <code>$document_root</code>（根目录）与 <code>$fastcgi_script_name</code>（请求的脚本名）组合起来。</p>
+</li>
+</ul>
+</li>
+<li><p><code>include /home/vv/project/CyberSpirit/forum/flarum/.nginx.conf;</code>：<br>引入额外的 Nginx 配置文件，可能包含其他配置，如安全设置、压缩、缓存等。</p>
+</li>
+</ol>
+<p>这段配置的总体作用是将所有访问 <code>localhost</code> 的请求（特别是 <code>.php</code> 文件）传递给 PHP-FPM 进行处理，并确保可以正确找到和执行 Flarum 应用的入口文件。</p>
+<p>其中<code>/etc/php/fpm-php8.3/fpm.d/www.conf</code>:</p>
+<ul>
+<li><code>listen = /run/php-fpm.socket</code></li>
+<li><code>listen.owner = nginx</code></li>
+<li><code>listen.group = nginx</code></li>
+<li><code>user = nginx</code></li>
+<li><code>group = nginx</code></li>
+</ul>
+<p>测试<code>nginx</code>配置是否正确</p>
+<pre><code class="bash">$ sudo nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+</code></pre>
+<p>重新加载</p>
+<pre><code class="bash">$ sudo nginx -s reload
+</code></pre>
+<p>打开对应网页：<code>http://localhost:90/</code></p>
+<p><img src="/nginx_init.png" alt="nginx init"></p>
+<p>首先修改读写权限</p>
+<pre><code class="bash">sudo chmod 775 -R flarum
+</code></pre>
+<p>然后更改组权限</p>
+<pre><code class="bash">chown -R nginx:nginx /path/to/directory
+</code></pre>
+<p>还是存在问题：</p>
+<pre><code class="log">2024/10/01 00:01:23 [error] 1751#0: *11 FastCGI sent in stderr: &quot;PHP message: PHP Warning:  file_put_contents(/home/vv/project/CyberSpirit/forum/flarum/storage/sessions/zHnFCrDJ9yufNQEG6AZn73r1HX284Fv6Rme6MgYg): Failed to open stream: Permission denied in /home/vv/project/CyberSpirit/forum/flarum/vendor/illuminate/filesystem/Filesystem.php on line 187&quot; while reading response header from upstream, client: 127.0.0.1, server: localhost, request: &quot;GET / HTTP/1.1&quot;, upstream: &quot;fastcgi://127.0.0.1:9000&quot;, host: &quot;localhost:90&quot;
+</code></pre>
+<p>但是可以发现是 php-fpm 相关的问题，找到对应的配置文件</p>
+<p>发现<code>/etc/php/fpm-php8.3/fpm.d/www.conf</code></p>
+<pre><code class="config">user = nobody
+group = nobody
+</code></pre>
+<p>修改为</p>
+<pre><code class="config">user = nginx
+group = nginx
+</code></pre>
+<p>刷新页面，已经能够正常访问</p>
+<p><img src="/writable.png" alt="writable"></p>
+<h2 id="数据库的创建"><a href="#数据库的创建" class="headerlink" title="数据库的创建"></a>数据库的创建</h2><pre><code class="sql">CREATE DATABASE flarum;
+CREATE USER &#39;flarum&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;your_passwd&#39;;
+GRANT ALL PRIVILEGES ON flarum.* TO &#39;flarum&#39;@&#39;localhost&#39;;
+FLUSH PRIVILEGES;
+</code></pre>
+<p><img src="/success_enter.png" alt="success enter"></p>
+<h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><pre><code class="bash">php composer.phar update --prefer-dist --no-plugins --no-dev -a --with-all-dependencies
+php flarum migrate
+php flarum cache:clear
+</code></pre>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/WEB/">
+          WEB
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+  </div>
+</div>
+    </div>
+  </div>
+</body>
+
+
+
+    
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+    
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+    
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+    
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+    
+<script src="/js/milk.js"></script>
+
+
+
+</html>
