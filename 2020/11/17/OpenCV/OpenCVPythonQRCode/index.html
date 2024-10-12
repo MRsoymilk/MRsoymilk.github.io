@@ -99,6 +99,21 @@
             <option value='railscasts'>railscasts</option>
           </select>
         </div>
+        <div>
+          <label for="ffolders-select">ffolders scheme: </label>
+          <select name="size" id="size-select">
+            <option value='medium'>medium</option>
+          </select>
+          <select name="color" id="color-select">
+            <option value='pink'>pink</option>
+          </select>
+        </div>
+        <div>
+          <label for="blur-slider">background blur
+            <span id="blur-value">10</span> px
+          </label>
+          <input type="range" id="blur-slider" min="0" max="20" data-value='10'>
+        </div>
       </div>
     </span>
   </nav>
@@ -176,9 +191,9 @@ capture.release()
 # 销毁窗口
 cv2.destroyAllWindows()
 </code></pre>
-<h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><p><img src="/./qrcode_detect.png" alt="result"></p>
+<h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><p><img src="/qrcode_detect.png" alt="result"></p>
 <h2 id="存在问题"><a href="#存在问题" class="headerlink" title="存在问题"></a>存在问题</h2><ul>
-<li>帧率不高(使用的是树莓派3B+)。</li>
+<li>帧率不高(使用的是树莓派 3B+)。</li>
 <li>可能会报错: <code>cv2.error: OpenCV(4.4.0) /tmp/pip-wheel-2l8ccy47/opencv-python/modules/core/src/alloc.cpp:73: error: (-4: Insufficient memory) Failed to allocate 1521000000 bytes in function &#39;OutOfMemoryError&#39;</code>，重新启动程序可以解决。</li>
 </ul>
 
@@ -283,6 +298,7 @@ cv2.destroyAllWindows()
     data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
     data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
     >
+    <canvas id="sprite-canvas" width="100" height="100"></canvas>
   </div>
 </div>
     </div>

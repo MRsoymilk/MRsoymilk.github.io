@@ -99,6 +99,21 @@
             <option value='railscasts'>railscasts</option>
           </select>
         </div>
+        <div>
+          <label for="ffolders-select">ffolders scheme: </label>
+          <select name="size" id="size-select">
+            <option value='medium'>medium</option>
+          </select>
+          <select name="color" id="color-select">
+            <option value='pink'>pink</option>
+          </select>
+        </div>
+        <div>
+          <label for="blur-slider">background blur
+            <span id="blur-value">10</span> px
+          </label>
+          <input type="range" id="blur-slider" min="0" max="20" data-value='10'>
+        </div>
       </div>
     </span>
   </nav>
@@ -158,7 +173,7 @@
 </ul>
 <span id="more"></span>
 
-<p><img src="/./switch.png" alt="switch"></p>
+<p><img src="/switch.png" alt="switch"></p>
 <h2 id="程序"><a href="#程序" class="headerlink" title="程序"></a>程序</h2><details>
     <summary>基于QDialog的窗口切换</summary>
 
@@ -466,6 +481,7 @@ sys.exit(app.exec_())
     data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
     data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
     >
+    <canvas id="sprite-canvas" width="100" height="100"></canvas>
   </div>
 </div>
     </div>

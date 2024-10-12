@@ -99,6 +99,21 @@
             <option value='railscasts'>railscasts</option>
           </select>
         </div>
+        <div>
+          <label for="ffolders-select">ffolders scheme: </label>
+          <select name="size" id="size-select">
+            <option value='medium'>medium</option>
+          </select>
+          <select name="color" id="color-select">
+            <option value='pink'>pink</option>
+          </select>
+        </div>
+        <div>
+          <label for="blur-slider">background blur
+            <span id="blur-value">10</span> px
+          </label>
+          <input type="range" id="blur-slider" min="0" max="20" data-value='10'>
+        </div>
       </div>
     </span>
   </nav>
@@ -204,11 +219,6 @@
 <td align="left">返回用户主目录的完整路径。基于主目录值而设置。</td>
 </tr>
 <tr>
-<td align="left"><code>%HOMESHARE%</code></td>
-<td align="left">系统</td>
-<td align="left">返回用户的共享主目录的网络路径。基于主目录值而设置。</td>
-</tr>
-<tr>
 <td align="left"><code>%LOGONSERVER%</code></td>
 <td align="left">本地</td>
 <td align="left">返回验证当前登录会话的域控制器的名称。</td>
@@ -304,6 +314,105 @@
 <td align="left">返回操作系统目录的位置。</td>
 </tr>
 </tbody></table>
+<p>以我的系统举例（使用 Windows 的 cmd）：</p>
+<pre><code class="bat">echo %ALLUSERSPROFILE%
+C:\ProgramData
+
+echo %APPDATA%
+C:\Users\milk\AppData\Roaming
+
+echo %CD%
+C:\Users\milk
+
+echo %CMDCMDLINE%
+&quot;C:\Windows\system32\cmd.exe&quot;
+
+echo %CMDEXTVERSION%
+2
+
+echo %COMPUTERNAME%
+DARK
+
+echo %COMSPEC%
+C:\Windows\system32\cmd.exe
+
+echo %DATE%
+周三 2024/10/02
+
+C:\Users\milk&gt;date /t
+周三 2024/10/02
+
+echo %ERRORLEVEL%
+0
+
+echo %ERRORLEVEL%
+
+echo %HOMEDRIVE%
+C:
+
+echo %HOMEPATH%
+\Users\milk
+
+echo %LOGONSERVER%
+\\DARK
+
+echo %NUMBER_OF_PROCESSORS%
+16
+
+echo %OS%
+Windows_NT
+
+echo %PATH%
+C:\Program Files\PowerShell\7;...
+
+echo %PATHEXT%
+.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.CPL
+
+echo %PROCESSOR_ARCHITECTURE%
+AMD64
+
+echo %PROCESSOR_IDENTIFIER%
+AMD64 Family 25 Model 33 Stepping 0, AuthenticAMD
+
+echo %PROCESSOR_LEVEL%
+25
+
+echo %PROCESSOR_REVISION%
+2100
+
+echo %PROMPT%
+$P$G
+
+echo %RANDOM%
+7390
+
+echo %SYSTEMDRIVE%
+C:
+
+echo %SYSTEMROOT%
+C:\Windows
+
+echo %TEMP%
+C:\Users\milk\AppData\Local\Temp
+
+echo %TMP%
+C:\Users\milk\AppData\Local\Temp
+
+echo %TIME%
+16:57:33.11
+
+echo %USERDOMAIN%
+DARK
+
+echo %USERNAME%
+milk
+
+echo %USERPROFILE%
+C:\Users\milk
+
+echo %WINDIR%
+C:\Windows
+</code></pre>
 
     
     <hr>
@@ -406,6 +515,7 @@
     data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
     data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
     >
+    <canvas id="sprite-canvas" width="100" height="100"></canvas>
   </div>
 </div>
     </div>

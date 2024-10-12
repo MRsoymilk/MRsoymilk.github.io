@@ -99,6 +99,21 @@
             <option value='railscasts'>railscasts</option>
           </select>
         </div>
+        <div>
+          <label for="ffolders-select">ffolders scheme: </label>
+          <select name="size" id="size-select">
+            <option value='medium'>medium</option>
+          </select>
+          <select name="color" id="color-select">
+            <option value='pink'>pink</option>
+          </select>
+        </div>
+        <div>
+          <label for="blur-slider">background blur
+            <span id="blur-value">10</span> px
+          </label>
+          <input type="range" id="blur-slider" min="0" max="20" data-value='10'>
+        </div>
       </div>
     </span>
   </nav>
@@ -146,9 +161,9 @@
 <p>使用HSV（色相Hue, 饱和度Saturation, 明亮度Value, 有时也称为Brightness）色彩空间。HSV将颜色信息与亮度信息分开，减小了光线对特定颜色识别的影响。</p>
 <span id="more"></span>
 
-<p><img src="/./hsv_color.png" alt="HSV color"></p>
+<p><img src="/hsv_color.png" alt="HSV color"></p>
 <p>颜色阈值参考</p>
-<p><img src="/./color.jpg" alt="Color quantization strategy in HSV space"></p>
+<p><img src="/color.jpg" alt="Color quantization strategy in HSV space"></p>
 <h2 id="图像着色"><a href="#图像着色" class="headerlink" title="图像着色"></a>图像着色</h2><p>提取蓝色：H通道选取100~124，S通道选取43~255，V通道选取35~255。</p>
 <p>提取绿色：H通道选取35~77，S通道选取43~255，V通道选取35~255。</p>
 <p>提取红色：H通道选取156~180和0~10（可能需要做两次运算，取相加结果），S通道选取43~255，V通道选取35~255。</p>
@@ -197,7 +212,7 @@ cv2.imshow(&#39;original&#39;, img)
 
 cv2.waitKey(0)
 </code></pre>
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="/./result.png" alt="result"></p>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="/result.png" alt="result"></p>
 <h2 id="实时颜色检测"><a href="#实时颜色检测" class="headerlink" title="实时颜色检测"></a>实时颜色检测</h2><p>由于摄像头的原因，红色可能检测不太准确（偏橘色），根据个人情况更改。</p>
 <p>实现代码:</p>
 <pre><code class="python">import numpy as np
@@ -394,6 +409,7 @@ cv2.destroyAllWindows()
     data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
     data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
     >
+    <canvas id="sprite-canvas" width="100" height="100"></canvas>
   </div>
 </div>
     </div>

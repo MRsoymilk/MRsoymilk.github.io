@@ -99,6 +99,21 @@
             <option value='railscasts'>railscasts</option>
           </select>
         </div>
+        <div>
+          <label for="ffolders-select">ffolders scheme: </label>
+          <select name="size" id="size-select">
+            <option value='medium'>medium</option>
+          </select>
+          <select name="color" id="color-select">
+            <option value='pink'>pink</option>
+          </select>
+        </div>
+        <div>
+          <label for="blur-slider">background blur
+            <span id="blur-value">10</span> px
+          </label>
+          <input type="range" id="blur-slider" min="0" max="20" data-value='10'>
+        </div>
       </div>
     </span>
   </nav>
@@ -154,7 +169,7 @@
 <span id="more"></span>
 
 <h2 id="Waveshare-LCD安装"><a href="#Waveshare-LCD安装" class="headerlink" title="Waveshare LCD安装"></a>Waveshare LCD安装</h2><p><a target="_blank" rel="noopener" href="https://www.waveshare.com/wiki/3.5inch_RPi_LCD_(A)">Waveshare LCD</a></p>
-<p><img src="/./lcd_waveshare.png" alt="Waveshare"></p>
+<p><img src="/lcd_waveshare.png" alt="Waveshare"></p>
 <p>安装方式：</p>
 <pre><code class="bash">git clone https://github.com/waveshare/LCD-show.git
 cd LCD-show
@@ -164,7 +179,7 @@ sudo ./LCD35-show
 <pre><code class="bash">./LCD-hdmi
 </code></pre>
 <h2 id="KeDei-LCD安装"><a href="#KeDei-LCD安装" class="headerlink" title="KeDei LCD安装"></a>KeDei LCD安装</h2><p><a target="_blank" rel="noopener" href="http://www.kedei.net/index.html">KeDei LCD</a></p>
-<p><img src="/./lcd_kedei.png" alt="KeDei"></p>
+<p><img src="/lcd_kedei.png" alt="KeDei"></p>
 <pre><code class="bash">git clone https://github.com/kedei/LCD_driver.git
 cd LCD_driver
 sudo ./LCD35_show
@@ -275,6 +290,7 @@ sudo ./LCD35_show
     data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
     data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
     >
+    <canvas id="sprite-canvas" width="100" height="100"></canvas>
   </div>
 </div>
     </div>

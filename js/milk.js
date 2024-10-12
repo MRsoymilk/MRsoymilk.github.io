@@ -36,46 +36,63 @@ $(() => {
 
   // scroll to top
   $(() => {
-    const $spriteContainer = $("#sprite-container");
-    if (
-      $spriteContainer.data("mouse-out-ani") &&
-      $spriteContainer.data("mouse-hover-ani") &&
-      $spriteContainer.data("mouse-click-ani")
-    ) {
-      const mouseOutAni = $spriteContainer.data("mouse-out-ani").split(",");
-      const mouseHoverAni = $spriteContainer.data("mouse-hover-ani").split(",");
-      const mouseClickAni = $spriteContainer.data("mouse-click-ani").split(",");
+    const $sprite = $("#sprite-container");
+    const $canvas = $("#sprite-canvas");
+    const ctx = $canvas[0].getContext("2d");
 
-      function handleMouseOut() {
-        mouseOutAni.forEach((frame, index) => {
-          setTimeout(() => {
-            $spriteContainer.css("background-image", `url('${frame}')`);
-          }, index * 100);
-        });
-      }
+    const mouseOutAni = $sprite.data("mouse-out-ani").split(",");
+    const mouseHoverAni = $sprite.data("mouse-hover-ani").split(",");
+    const mouseClickAni = $sprite.data("mouse-click-ani").split(",");
+    console.log(mouseOutAni);
+    console.log(mouseHoverAni);
+    console.log(mouseClickAni);
+    function drawFrame(imageSrc) {
+      const img = new Image();
+      img.src = imageSrc;
+      img.onload = () => {
+        const imgWidth = img.width;
+        const imgHeight = img.height;
 
-      function handleMouseClick() {
-        $(".post-content").animate({ scrollTop: $("#top").offset().top }, 500);
-        mouseClickAni.forEach((frame, index) => {
-          setTimeout(() => {
-            $spriteContainer.css("background-image", `url('${frame}')`);
-          }, index * 100);
-        });
-      }
+        const scale = Math.min(
+          $canvas.width() / imgWidth,
+          $canvas.height() / imgHeight
+        );
 
-      function handleMouseOver() {
-        mouseHoverAni.forEach((frame, index) => {
-          setTimeout(() => {
-            $spriteContainer.css("background-image", `url('${frame}')`);
-          }, index * 100);
-        });
-      }
+        const drawWidth = imgWidth * scale;
+        const drawHeight = imgHeight * scale;
 
-      $spriteContainer.click(handleMouseClick);
-      $spriteContainer.mouseover(handleMouseOver);
-      $spriteContainer.mouseout(handleMouseOut);
-      handleMouseOut();
+        const offsetX = ($canvas.width() - drawWidth) / 2;
+        const offsetY = ($canvas.height() - drawHeight) / 2;
+
+        ctx.clearRect(0, 0, $canvas.width(), $canvas.height());
+        ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+      };
     }
+
+    function playAnimation(frames) {
+      frames.forEach((frame, index) => {
+        setTimeout(() => drawFrame(frame), index * 100);
+      });
+    }
+
+    function handleMouseOut() {
+      playAnimation(mouseOutAni);
+    }
+
+    function handleMouseOver() {
+      playAnimation(mouseHoverAni);
+    }
+
+    function handleMouseClick() {
+      $(".post-content").animate({ scrollTop: $("#top").offset().top }, 500);
+      playAnimation(mouseClickAni);
+    }
+
+    $canvas.on("click", handleMouseClick);
+    $canvas.on("mouseover", handleMouseOver);
+    $canvas.on("mouseout", handleMouseOut);
+
+    handleMouseOut();
   });
 
   // toc style
@@ -230,9 +247,13 @@ $(() => {
 
   // tags style
   $(() => {
-    $("#list-cloud a").wrap('<div class="ffolder small pink"></div>');
-    $("#list-cloud a").width("50px");
-    $("#list-cloud a").css({
+    const $tags = $("#list-cloud");
+    const $tags_item = $("#list-cloud a");
+    var size = $tags.data("size");
+    var color = $tags.data("color");
+    $tags_item.wrap('<div class="ffolder ' + size + " " + color + '"></div>');
+    $tags_item.width("100%");
+    $tags_item.css({
       "font-size": "25px",
       color: "black",
       "text-overflow": "ellipsis",
@@ -241,7 +262,7 @@ $(() => {
       "white-space": "nowrap",
     });
 
-    $("#list-cloud a").each(function () {
+    $tags_item.each(function () {
       $(this).attr("title", $(this).text());
     });
   });
@@ -317,7 +338,7 @@ $(() => {
       }
     });
 
-    // change img path as http://host:port/img.typ to http://host:port/path/to/your/image/file
+    // change img path as http://host:port/img.png to http://host:port/path/to/your/image/file
     $(".desktop-content ul li").each(function () {
       var postSourceHref = $(this)
         .find("#post-source li:last-child a")
@@ -366,7 +387,6 @@ $(() => {
 
     schemeSelect.on("change", function () {
       const selectedScheme = $(this).val();
-      console.log(selectedScheme);
       $("#shceme-link").attr("href", "/css/theme/" + selectedScheme + ".css");
     });
 
@@ -456,7 +476,6 @@ $(() => {
 
     highlightSelect.on("change", function () {
       const highlightededScheme = $(this).val();
-      console.log(highlightededScheme);
       $("#highlight-link").attr(
         "href",
         "/lib/highlight/style/" + highlightededScheme + ".css"
@@ -578,6 +597,69 @@ $(() => {
       $(this).data("layout", next);
       $("#layout-show").text(next);
       setLayout(next);
+    });
+  });
+
+  // ffolders
+  $(() => {
+    // folder size
+    const sizes = ["small", "medium", "big"];
+    const sizeSelect = $("#size-select");
+    sizes.forEach(function (scheme) {
+      sizeSelect.append(`<option value="${scheme}">${scheme}</option>`);
+    });
+    sizeSelect.on("change", function () {
+      const newSize = $(this).val();
+      $("#list-cloud a").each(function () {
+        const $parentDiv = $(this).parent();
+        const colorClass = $parentDiv.attr("class").split(" ")[2];
+        $parentDiv.attr("class", `ffolder ${newSize} ${colorClass}`);
+      });
+    });
+    // folder color
+    const colors = ["cyan", "yellow", "pink", "green", "gray"];
+    const colorSelect = $("#color-select");
+    colors.forEach(function (scheme) {
+      colorSelect.append(`<option value="${scheme}">${scheme}</option>`);
+    });
+    colorSelect.on("change", function () {
+      const newColor = $(this).val();
+      $("#list-cloud a").each(function () {
+        const $parentDiv = $(this).parent();
+        const sizeClass = $parentDiv.attr("class").split(" ")[1];
+        $parentDiv.attr("class", `ffolder ${sizeClass} ${newColor}`);
+      });
+    });
+  });
+
+  // background blue
+  $(() => {
+    const elementsToBlur = [
+      ".archive",
+      ".draggable-toc",
+      ".post-content",
+      ".desktop-content",
+      ".desktop-category",
+      ".desktop-tag",
+    ];
+
+    $blurSlider = $("#blur-slider");
+    $blurValue = $("#blur-value");
+
+    function setBlur(value) {
+      $blurValue.text(value);
+      $blurSlider.val(value);
+      elementsToBlur.forEach((selector) => {
+        $(selector).css("backdrop-filter", `blur(${value}px)`);
+      });
+    }
+
+    const defaultBlur = $blurSlider.data("value");
+    setBlur(defaultBlur);
+
+    $blurSlider.on("input", function () {
+      const blurValue = $(this).val();
+      setBlur(blurValue);
     });
   });
 });
