@@ -40,6 +40,7 @@
   max-width: 30%;
   left: 40%;
   height: inherit;
+  text-align: center;
 }
 .milk .milk-header .nav-date {
   -ms-overflow-style: none;
@@ -47,6 +48,15 @@
 }
 .milk .milk-header .nav-date::-webkit-scrollbar {
   display: none;
+}
+.milk .milk-header .nav-date #date-ymd {
+  font-size: 15px;
+}
+.milk .milk-header .nav-date #date-week {
+  font-size: 15px;
+}
+.milk .milk-header .nav-date #date-time {
+  font-size: 15px;
 }
 .milk .milk-header .nav-system {
   white-space: nowrap;
@@ -250,7 +260,7 @@ textarea, input {
 
 html,
 body {
-  font-family: "Bad Script";
+  font-family: "custom-font";
   font-size: 25px !important;
   background-image: url("/background.jpg");
   background-repeat: no-repeat;
@@ -619,6 +629,10 @@ details {
   height: 100%;
 }
 
+@font-face {
+  font-family: "custom-font";
+  src: url("/lib/font/fun.ttf") format("truetype");
+}
 ul.breadcrumbs {
   margin: 0px;
   padding: 0px;

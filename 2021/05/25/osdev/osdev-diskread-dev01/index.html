@@ -55,8 +55,9 @@
     
     
       <span class="nav-date">
-        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-        <span id="date"></span>
+        <div id="date-ymd"></div>
+        <div id="date-week"></div>
+        <div id="date-time"></div>
       </span>
     
     
@@ -116,6 +117,10 @@
             <span id="blur-value">10</span> px
           </label>
           <input type="range" id="blur-slider" min="0" max="20" data-value='10'>
+        </div>
+        <div>
+          <label for="font-enable">font</label>
+          <input type="checkbox" id="font-check" name="font-check" data-check="fun.ttf">
         </div>
       </div>
     </span>
@@ -418,9 +423,9 @@
 <pre><code class="nasm">%ifndef VAR
 %define VAR
 
-; 内存地址0x900
+; 内存地址 0x900
 LOADER_BASE_ADDR equ 0x900
-; LBA地址，第一块硬盘逻辑扇区
+; LBA 地址，第一块硬盘逻辑扇区
 LOADER_START_SECTOR equ 0x1
 
 %endif
@@ -559,14 +564,14 @@ jmp func
 </code></pre>
 </details>
 
-<h3 id="执行"><a href="#执行" class="headerlink" title="执行"></a>执行</h3><p>使用bochs</p>
+<h3 id="执行"><a href="#执行" class="headerlink" title="执行"></a>执行</h3><p>使用 bochs</p>
 <pre><code class="bash">nasm mbr.asm
 nasm loader.asm
 dd if=mbr of=os.img bs=512 count=1 conv=notrunc
 dd if=loader of=os.img bs=512 count=10 seek=2 conv=notrunc
 bochs
 </code></pre>
-<p>使用qemu</p>
+<p>使用 qemu</p>
 <pre><code class="bash">nasm mbr.asm
 nasm loader.asm
 cat mbr loader &gt; os.img
@@ -689,7 +694,7 @@ DISK_READ_ERROR_String: db &quot;Disk read failed&quot;, 0x0a, 0x0d, 0
 </code></pre>
 </details>
 
-<h3 id="启动方式"><a href="#启动方式" class="headerlink" title="启动方式"></a>启动方式</h3><p>使用qemu</p>
+<h3 id="启动方式"><a href="#启动方式" class="headerlink" title="启动方式"></a>启动方式</h3><p>使用 qemu</p>
 <pre><code class="bash">nasm mbr.asm
 nasm loader.asm
 cat mbr loader &gt; os.img

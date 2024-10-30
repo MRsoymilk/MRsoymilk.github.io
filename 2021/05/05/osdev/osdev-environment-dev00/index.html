@@ -55,8 +55,9 @@
     
     
       <span class="nav-date">
-        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-        <span id="date"></span>
+        <div id="date-ymd"></div>
+        <div id="date-week"></div>
+        <div id="date-time"></div>
       </span>
     
     
@@ -117,6 +118,10 @@
           </label>
           <input type="range" id="blur-slider" min="0" max="20" data-value='10'>
         </div>
+        <div>
+          <label for="font-enable">font</label>
+          <input type="checkbox" id="font-check" name="font-check" data-check="fun.ttf">
+        </div>
       </div>
     </span>
   </nav>
@@ -173,10 +178,15 @@
 <pre><code class="bash">sudo apt install -y nasm bochs bochs-x
 </code></pre>
 <p>可选，安装 qemu：</p>
-<p>Gentoo:</p>
+<ul>
+<li>Gentoo:</li>
+</ul>
+<p>USE 标志使用<code>sdl</code>（图形化的控制台界面，否则会出现无窗口现象）</p>
 <pre><code class="bash">sudo emerge -av qemu
 </code></pre>
-<p>Ubuntu:</p>
+<ul>
+<li>Ubuntu:</li>
+</ul>
 <pre><code class="bash">sudo apt install qemu-system-x86
 </code></pre>
 <h2 id="BIOS-可以引导的程序"><a href="#BIOS-可以引导的程序" class="headerlink" title="BIOS 可以引导的程序"></a>BIOS 可以引导的程序</h2><p>首先编写一个最简单的 OS 程序，它的功能是清屏并在屏幕上显示 Hello, World!的信息。<br>如果使用 VIM 编辑器，在编写 nasm 汇编代码时使用<code>set ft=nasm</code>可启用 nasm 高亮。</p>
@@ -187,12 +197,11 @@ autocmd BufNewFile,Bufread *.asm set syntax=nasm
 endif&quot;
 </code></pre>
 <p>对 <code>.asm</code> 文件启用<code>set ft=nasm</code></p>
-<details open="命令解释">
-<summary>
+<details>
+<summary>命令解释</summary>
 
 <p>autocmd: 事件监听</p>
 <p>监听到 创建&#x2F;读取 *.asm 文件时，启用命令</p>
-</summary>
 </details>
 
 <p>boot.asm 程序：</p>
@@ -238,7 +247,7 @@ db 0x55, 0xaa
 <p>默认生成 bin 格式的无后缀<code>boot</code>文件</p>
 <p>有两种方法查看写的程序，两种可以相互补充。主要看个人喜好。</p>
 <h3 id="使用-Bochs"><a href="#使用-Bochs" class="headerlink" title="使用 Bochs"></a>使用 Bochs</h3><p>使用 bochs 提供的工具 bximage 创建 os.img</p>
-<pre><code class="bash">bximage -mode=create -hd=10 -imgmode=flat -sectsize=512 os.img -q
+<pre><code class="bash">bximage -func=create -hd=10 -imgmode=flat -sectsize=512 os.img -q
 </code></pre>
 <p>提示将<code>ata0-master: type=disk, path=&quot;os.img&quot;, mode=flat</code>写入 bochsrc 文件。bochsrc 文件是 bochs 执行需要的配置文件。默认查找顺序是<code>.bochsrc</code>，<code>bochsrc</code></p>
 <p>bochsrc 文件:</p>
