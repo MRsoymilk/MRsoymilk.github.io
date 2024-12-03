@@ -34,45 +34,45 @@
 
   <nav class="header-nav">
      
-    <ul class="nav-menu">
+    <div class="nav-menu">
       
-        <li id="Home">
+        <div id="Home" class="menu-item">
           <i class="fas fa-home" aria-hidden="true"></i>
           <a href="/ ">Home</a>
-        </li>
+        </div>
       
-        <li id="Archives">
+        <div id="Archives" class="menu-item">
           <i class="fas fa-archive" aria-hidden="true"></i>
           <a href="/archives ">Archives</a>
-        </li>
+        </div>
       
-        <li id="About">
+        <div id="About" class="menu-item">
           <i class="fas fa-user-circle" aria-hidden="true"></i>
           <a href="/about ">About</a>
-        </li>
+        </div>
       
-    </ul>
+    </div>
     
     
-      <span class="nav-date">
+      <div class="nav-date">
         <div id="date-ymd"></div>
         <div id="date-week"></div>
         <div id="date-time"></div>
-      </span>
+      </div>
     
     
     
-      <span class="nav-system" id="nav-system"></span>
+      <div class="nav-system" id="nav-system"></div>
     
     
-    <span class="nav-layout" id="nav-layout" data-layout="tile">
+    <div class="nav-layout" id="nav-layout" data-layout="tile">
       <div id="layout-show">
         <div class="show-icon"></div>
         <div class="show-text"></div>
       </div>
-    </span>
+    </div>
     
-    <span class="nav-access">
+    <div class="nav-access">
       <i class="fas fa-toggle-off" id="nav-access"></i>
       <div class="dropdown-content" id="dropdown-content">
         <ul class="social">
@@ -123,52 +123,105 @@
           <input type="checkbox" id="font-check" name="font-check" data-check="fun.ttf">
         </div>
       </div>
-    </span>
+    </div>
   </nav>
  
     </div>
     <div class="milk-body">
        
+
 <div class="win">
-  <div id="category">
-    <div class="win-title">
-      Linux
+  
+  <div class="win-title">Archives</div>
+  <div class="win-body">
+    <div class="archive">
+      
+         
+        
+        
+          
+            <div>
+              <a href="/archives/2019" class="archive-year">
+                2019
+              </a>
+            </div>
+        
+        <div class="archive-item">
+          <article class="archive-article archive-type-post">
+            <div class="archive-article-inner">
+              <header class="archive-article-header">
+                <a href="/2019/08/17/Linux/Ubuntu/Ubuntu18.04Setting/">
+                  <time datetime="2019-08-16T16:00:00.000Z" itemprop="datePublished">
+                    2019-08-17
+                  </time>
+                </a>
+                
+                  <h1 itemprop="name">
+                    <a href="/2019/08/17/Linux/Ubuntu/Ubuntu18.04Setting/">
+                      Ubuntu18.04初始配置
+                    </a>
+                  </h1>
+                
+              </header>
+            </div>
+          </article>
+        </div>
+      
+         
+        
+        
+        <div class="archive-item">
+          <article class="archive-article archive-type-post">
+            <div class="archive-article-inner">
+              <header class="archive-article-header">
+                <a href="/2019/08/17/Linux/Ubuntu/VMware%E5%AE%89%E8%A3%85Ubuntu18.04/">
+                  <time datetime="2019-08-16T16:00:00.000Z" itemprop="datePublished">
+                    2019-08-17
+                  </time>
+                </a>
+                
+                  <h1 itemprop="name">
+                    <a href="/2019/08/17/Linux/Ubuntu/VMware%E5%AE%89%E8%A3%85Ubuntu18.04/">
+                      VMware Pro 安装Ubuntu 18.04
+                    </a>
+                  </h1>
+                
+              </header>
+            </div>
+          </article>
+        </div>
+      
+         
+        
+        
+        <div class="archive-item">
+          <article class="archive-article archive-type-post">
+            <div class="archive-article-inner">
+              <header class="archive-article-header">
+                <a href="/2019/08/17/Linux/Ubuntu/VirtualBox%E5%AE%89%E8%A3%85Ubuntu18.04/">
+                  <time datetime="2019-08-16T16:00:00.000Z" itemprop="datePublished">
+                    2019-08-17
+                  </time>
+                </a>
+                
+                  <h1 itemprop="name">
+                    <a href="/2019/08/17/Linux/Ubuntu/VirtualBox%E5%AE%89%E8%A3%85Ubuntu18.04/">
+                      VirtualBox安装Ubuntu 18.04
+                    </a>
+                  </h1>
+                
+              </header>
+            </div>
+          </article>
+        </div>
+      
     </div>
-    <div class="win-body">
-      
-      <div class="win-list">
-        <a href="/2019/08/17/Linux/Ubuntu/Ubuntu18.04Setting/">
-          Ubuntu18.04初始配置
-        </a>
-        <time datetime="2019-08-16T16:00:00.000Z">
-          2019-08-17
-        </time>
-      </div>
-      
-      <div class="win-list">
-        <a href="/2019/08/17/Linux/Ubuntu/VMware%E5%AE%89%E8%A3%85Ubuntu18.04/">
-          VMware Pro 安装Ubuntu 18.04
-        </a>
-        <time datetime="2019-08-16T16:00:00.000Z">
-          2019-08-17
-        </time>
-      </div>
-      
-      <div class="win-list">
-        <a href="/2019/08/17/Linux/Ubuntu/VirtualBox%E5%AE%89%E8%A3%85Ubuntu18.04/">
-          VirtualBox安装Ubuntu 18.04
-        </a>
-        <time datetime="2019-08-16T16:00:00.000Z">
-          2019-08-17
-        </time>
-      </div>
-      
-      <div class="paginator">
-        <a class="extend prev" rel="prev" href="/categories/Linux/page/2/">Prev</a><a class="page-number" href="/categories/Linux/">1</a><a class="page-number" href="/categories/Linux/page/2/">2</a><span class="page-number current">3</span>
-      </div>
+    <div class="paginator">
+      <a class="extend prev" rel="prev" href="/categories/Linux/page/2/">Prev</a><a class="page-number" href="/categories/Linux/">1</a><a class="page-number" href="/categories/Linux/page/2/">2</a><span class="page-number current">3</span>
     </div>
   </div>
 </div>
+
     </div>
   </div>
 </body>
