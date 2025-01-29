@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Linux网络代理配置 [ Soymilk ]</title>
+  <title>一种在线观看视频的方式 [ Soymilk ]</title>
   
 <link rel="shortcut icon" href="/favicon/favicon.ico">
 
@@ -130,16 +130,16 @@
     <div class="milk-body">
       
 <div class="draggable-toc">
-  <div class="toc-title">Linux网络代理配置</div>
+  <div class="toc-title">一种在线观看视频的方式</div>
   <p>process: <span>0</span></p>
   <div class="progress-container">
     <div class="progress-bar" id="bar"></div>
   </div>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE"><span class="toc-text">设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-ALL-PROXY"><span class="toc-text">使用 ALL_PROXY</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-proxychains"><span class="toc-text">使用 proxychains</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%BF%E5%91%8A%E6%8B%A6%E6%88%AA"><span class="toc-text">广告拦截</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8-Firefox-%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="toc-text">启动 Firefox 插件安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E6%8F%92%E4%BB%B6"><span class="toc-text">查找插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E6%8B%A9-uBlock-Origin"><span class="toc-text">选择 uBlock Origin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6"><span class="toc-text">安装插件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E6%90%9C%E7%B4%A2"><span class="toc-text">网络搜索</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2%E8%A7%86%E9%A2%91"><span class="toc-text">搜索视频</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%9B%E9%80%89%E7%BB%93%E6%9E%9C"><span class="toc-text">筛选结果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E8%A7%82%E7%9C%8B"><span class="toc-text">开始观看</span></a></li></ol></li></ol>
 </div>
 
 <div class="post-content" id="post-content">
-  <div id="top">Linux网络代理配置</div>
+  <div id="top">一种在线观看视频的方式</div>
   <div class="post">
     
     <div class="content-categories">
@@ -150,15 +150,15 @@
         
           <li>&gt;</li>
           <li>
-            <a href="/categories/Linux/">
-          Linux
+            <a href="/categories/Tool/">
+          Tool
         </a>
           </li>
       
           <li>&gt;</li>
           <li>
-            <a href="/categories/Linux/common/">
-          common
+            <a href="/categories/Tool/Plugs/">
+          Plugs
         </a>
           </li>
       
@@ -167,34 +167,24 @@
     </div>
     <hr>
     
-    <h2 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h2><p>使用<code>ALL_PROXY</code>变量</p>
-<pre><code class="bash">alias setproxy=&quot;export ALL_PROXY=http://127.0.0.1:7090&quot;
-alias unsetproxy=&quot;unset ALL_PROXY&quot;
-</code></pre>
-<p><em>curl 默认使用 HTTP 代理来处理 HTTP 请求</em></p>
-<p>或使用<code>proxychains</code>。Gentoo 下使用<code>emerge --ask net-proxy/proxychains</code>进行安装</p>
-<p>然后编辑配置文件<code>/etc/proxychains.conf</code>，</p>
-<pre><code class="config">[ProxyList]
-# add proxy here ...
-# meanwile
-# defaults set to &quot;tor&quot;
-# socks4  127.0.0.1 9050
-http    127.0.0.1 7890
-socks5  127.0.0.1 7891
-</code></pre>
+    <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>一种在线看视频的方式（个人电脑 + 浏览器 + 广告拦截插件）</p>
+<ul>
+<li>浏览器使用 Firefox（其他类似，比如Edge，Chrome）</li>
+<li>广告拦截插件 uBlock Origin</li>
+</ul>
+<p>附：<a target="_blank" rel="noopener" href="https://apps.apple.com/hk/app/adblock-pro-%E7%80%8F%E8%A6%BD%E5%99%A8%E9%98%BB%E6%93%8B%E5%BB%A3%E5%91%8A/id1018301773">苹果手机广告拦截 AdBlock Pro</a></p>
 <span id="more"></span>
 
-<h2 id="使用-ALL-PROXY"><a href="#使用-ALL-PROXY" class="headerlink" title="使用 ALL_PROXY"></a>使用 ALL_PROXY</h2><p>使用代理</p>
-<pre><code class="bash">setproxy
-</code></pre>
-<p>取消代理</p>
-<pre><code class="bash">unsetproxy
-</code></pre>
-<p>验证</p>
-<pre><code class="bash">curl www.google.com
-</code></pre>
-<h2 id="使用-proxychains"><a href="#使用-proxychains" class="headerlink" title="使用 proxychains"></a>使用 proxychains</h2><pre><code class="bash">proxychains curl www.google.com
-</code></pre>
+<h2 id="广告拦截"><a href="#广告拦截" class="headerlink" title="广告拦截"></a>广告拦截</h2><h3 id="启动-Firefox-插件安装"><a href="#启动-Firefox-插件安装" class="headerlink" title="启动 Firefox 插件安装"></a>启动 Firefox 插件安装</h3><p><img src="/plug_start_adds.png" alt="plug start adds"></p>
+<h3 id="查找插件"><a href="#查找插件" class="headerlink" title="查找插件"></a>查找插件</h3><p><img src="/plug_search.png" alt="plug search"></p>
+<h3 id="选择-uBlock-Origin"><a href="#选择-uBlock-Origin" class="headerlink" title="选择 uBlock Origin"></a>选择 uBlock Origin</h3><p><img src="/plug_search_res.png" alt="plug search res"></p>
+<h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p><em>我已经安装，因此是”Remove”</em></p>
+<p><img src="/plug_install.png" alt="plug install"></p>
+<h2 id="网络搜索"><a href="#网络搜索" class="headerlink" title="网络搜索"></a>网络搜索</h2><h3 id="搜索视频"><a href="#搜索视频" class="headerlink" title="搜索视频"></a>搜索视频</h3><p>比如我想看《漫长的季节》，输入<code>漫长的季节</code> + <code> </code> + <code>在线</code></p>
+<p><img src="/web_search.png" alt="web search"></p>
+<h3 id="筛选结果"><a href="#筛选结果" class="headerlink" title="筛选结果"></a>筛选结果</h3><p>安装广告拦截后一般最上面几个结果就能观看</p>
+<p><img src="/web_res.png" alt="web res"></p>
+<h3 id="开始观看"><a href="#开始观看" class="headerlink" title="开始观看"></a>开始观看</h3><p><img src="/web_watch.png" alt="web watch"></p>
 
     
     <hr>
@@ -203,8 +193,8 @@ socks5  127.0.0.1 7891
       <i class="fas fa-tags"></i>
       <ul>
         
-        <li><a href="/tags/common/">
-          common
+        <li><a href="/tags/Plugs/">
+          Plugs
         </a></li>
       
       </ul>
