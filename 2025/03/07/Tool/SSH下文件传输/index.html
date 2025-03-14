@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>nginx文件服务 [ Soymilk ]</title>
+  <title>SSH下文件传输 [ Soymilk ]</title>
   
 <link rel="shortcut icon" href="/favicon/favicon.ico">
 
@@ -130,16 +130,16 @@
     <div class="milk-body">
       
 <div class="draggable-toc">
-  <div class="toc-title">nginx文件服务</div>
+  <div class="toc-title">SSH下文件传输</div>
   <p>process: <span>0</span></p>
   <div class="progress-container">
     <div class="progress-bar" id="bar"></div>
   </div>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE"><span class="toc-text">配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E9%80%89"><span class="toc-text">可选</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-1"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-1"><span class="toc-text">配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="toc-text">反向代理</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#scp"><span class="toc-text">scp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lrzsz"><span class="toc-text">lrzsz</span></a></li></ol>
 </div>
 
 <div class="post-content" id="post-content">
-  <div id="top">nginx文件服务</div>
+  <div id="top">SSH下文件传输</div>
   <div class="post">
     
     <div class="content-categories">
@@ -150,15 +150,8 @@
         
           <li>&gt;</li>
           <li>
-            <a href="/categories/WEB/">
-          WEB
-        </a>
-          </li>
-      
-          <li>&gt;</li>
-          <li>
-            <a href="/categories/WEB/Server/">
-          Server
+            <a href="/categories/Tool/">
+          Tool
         </a>
           </li>
       
@@ -167,62 +160,45 @@
     </div>
     <hr>
     
-    <ol>
-<li>文件服务。</li>
-<li>反向代理。</li>
-</ol>
+    <p>使用 scp 和 lrzsz</p>
 <span id="more"></span>
 
-<details>
-<summary>Ubuntu</summary>
-
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><pre><code class="bash">sudo apt install nginx
+<h2 id="scp"><a href="#scp" class="headerlink" title="scp"></a>scp</h2><p>scp — OpenSSH secure file copy</p>
+<p>本地-&gt;远程</p>
+<pre><code class="bash">scp file remote_username@remote_ip:/path/to/file
 </code></pre>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>编辑配置文件<code>/etc/nginx/sites-available/default</code></p>
-<p>增加内容，其中<code>root</code>位置具体到项目可能有所不同。</p>
-<pre><code class="config">location /images/ &#123;
-  root /home/milk/picture-html;
-  autoindex on;
-&#125;
+<p>远程-&gt;本地</p>
+<pre><code class="bash">scp file remote_username@remote_ip:/path/to/file
+</code></pre>
+<p>如果是整个目录，添加选项<code>-r</code></p>
+<pre><code class="bash">scp -r folder remote_username@remote_ip:/path/to/file
+</code></pre>
+<h2 id="lrzsz"><a href="#lrzsz" class="headerlink" title="lrzsz"></a>lrzsz</h2><p>用于在远程 Linux 服务器和本地 Windows 系统之间传输文件</p>
+<pre><code class="bash">sudo apt install lrzsz
 </code></pre>
 <ul>
-<li><code>root</code>：将<code>images</code>映射到<code>/home/milk/picture-html</code>路径。</li>
-<li><code>autoindex</code>：开启浏览功能。</li>
+<li>发送文件到远程服务器</li>
 </ul>
-<p>重启 nginx</p>
-<pre><code class="bash">sudo systemctl restart nginx
+<p>在远程服务器的终端（如 ssh 连接）中运行：</p>
+<pre><code class="bash">rz
 </code></pre>
-<h2 id="可选"><a href="#可选" class="headerlink" title="可选"></a>可选</h2><p>nginx 默认时间是<code>UTC</code>，修改为本地</p>
-<p>编辑文件<code>/etc/nginx/nginx.conf</code>，<code>http</code>加入：</p>
-<pre><code class="config">auto index_localtime on;
+<p>然后在本地 选择要上传的文件，终端会自动接收并存储到当前目录。</p>
+<p>或者直接：</p>
+<pre><code class="bash">rz -y  # 自动覆盖同名文件
 </code></pre>
-</details>
-
-<details>
-<summary>Gentoo</summary>
-
-<p>参考：<a target="_blank" rel="noopener" href="https://wiki.gentoo.org/wiki/Nginx/en">https://wiki.gentoo.org/wiki/Nginx/en</a></p>
-<h2 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h2><pre><code class="bash">sudo emerge -av nginx
+<ul>
+<li>从远程服务器下载文件</li>
+</ul>
+<p>在远程服务器上运行：</p>
+<pre><code class="bash">sz filename
 </code></pre>
-<h2 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h2><pre><code class="bash">mkdir /var/www/localhost/htdocs
-echo &#39;Hello, world!&#39; &gt; /var/www/localhost/htdocs/index.html
+<p>然后在本地 接收文件，默认存储在终端软件的下载目录中。</p>
+<p>如果需要 批量下载多个文件：</p>
+<pre><code class="bash">sz file1 file2 file3
 </code></pre>
-<p>网页访问<code>http://localhost</code></p>
-</details>
-
-<h2 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h2><pre><code class="conf">http &#123;
-  # ...
-  server &#123;
-      listen 8091;
-      server_name 127.0.0.1;
-      location / &#123;
-          proxy_pass http://192.168.2.154:18000;
-      &#125;
-  &#125;
-  # ...
-&#125;
+<p>或者：</p>
+<pre><code class="bash">sz -y file1 file2  # 自动覆盖本地文件
 </code></pre>
-<p>访问本地，转发到服务器192.168.2.154</p>
 
     
     <hr>
@@ -231,8 +207,8 @@ echo &#39;Hello, world!&#39; &gt; /var/www/localhost/htdocs/index.html
       <i class="fas fa-tags"></i>
       <ul>
         
-        <li><a href="/tags/WEB/">
-          WEB
+        <li><a href="/tags/Tool/">
+          Tool
         </a></li>
       
       </ul>

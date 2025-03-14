@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>nginx文件服务 [ Soymilk ]</title>
+  <title>测试框架 Google Test [ Soymilk ]</title>
   
 <link rel="shortcut icon" href="/favicon/favicon.ico">
 
@@ -130,16 +130,16 @@
     <div class="milk-body">
       
 <div class="draggable-toc">
-  <div class="toc-title">nginx文件服务</div>
+  <div class="toc-title">测试框架 Google Test</div>
   <p>process: <span>0</span></p>
   <div class="progress-container">
     <div class="progress-bar" id="bar"></div>
   </div>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE"><span class="toc-text">配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E9%80%89"><span class="toc-text">可选</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-1"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-1"><span class="toc-text">配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="toc-text">反向代理</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E4%B8%8E%E8%BF%90%E8%A1%8C"><span class="toc-text">编译与运行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A2%9E%E5%8A%A0%E5%87%BD%E6%95%B0"><span class="toc-text">增加函数</span></a></li></ol>
 </div>
 
 <div class="post-content" id="post-content">
-  <div id="top">nginx文件服务</div>
+  <div id="top">测试框架 Google Test</div>
   <div class="post">
     
     <div class="content-categories">
@@ -150,15 +150,8 @@
         
           <li>&gt;</li>
           <li>
-            <a href="/categories/WEB/">
-          WEB
-        </a>
-          </li>
-      
-          <li>&gt;</li>
-          <li>
-            <a href="/categories/WEB/Server/">
-          Server
+            <a href="/categories/Code/">
+          Code
         </a>
           </li>
       
@@ -167,62 +160,151 @@
     </div>
     <hr>
     
-    <ol>
-<li>文件服务。</li>
-<li>反向代理。</li>
-</ol>
+    <p>一个简单的使用 Google Test 测试框架的加减乘除示例</p>
 <span id="more"></span>
 
-<details>
-<summary>Ubuntu</summary>
-
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><pre><code class="bash">sudo apt install nginx
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>使用包管理器</p>
+<pre><code class="bash">sudo emerge -av gtest
 </code></pre>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>编辑配置文件<code>/etc/nginx/sites-available/default</code></p>
-<p>增加内容，其中<code>root</code>位置具体到项目可能有所不同。</p>
-<pre><code class="config">location /images/ &#123;
-  root /home/milk/picture-html;
-  autoindex on;
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>简单的 C++ 代码 <code>my_math.cpp</code>，实现 <code>add()</code> 函数</p>
+<p>头文件<code>my_math.h</code></p>
+<pre><code class="cpp">// my_math.h
+#pragma once
+
+namespace my &#123;
+    int add(int a, int b);
 &#125;
 </code></pre>
-<ul>
-<li><code>root</code>：将<code>images</code>映射到<code>/home/milk/picture-html</code>路径。</li>
-<li><code>autoindex</code>：开启浏览功能。</li>
-</ul>
-<p>重启 nginx</p>
-<pre><code class="bash">sudo systemctl restart nginx
-</code></pre>
-<h2 id="可选"><a href="#可选" class="headerlink" title="可选"></a>可选</h2><p>nginx 默认时间是<code>UTC</code>，修改为本地</p>
-<p>编辑文件<code>/etc/nginx/nginx.conf</code>，<code>http</code>加入：</p>
-<pre><code class="config">auto index_localtime on;
-</code></pre>
-</details>
+<p>源文件<code>my_math.cpp</code></p>
+<pre><code class="cpp">// my_math.cpp
+#include &quot;my_math.h&quot;
 
-<details>
-<summary>Gentoo</summary>
-
-<p>参考：<a target="_blank" rel="noopener" href="https://wiki.gentoo.org/wiki/Nginx/en">https://wiki.gentoo.org/wiki/Nginx/en</a></p>
-<h2 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h2><pre><code class="bash">sudo emerge -av nginx
-</code></pre>
-<h2 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h2><pre><code class="bash">mkdir /var/www/localhost/htdocs
-echo &#39;Hello, world!&#39; &gt; /var/www/localhost/htdocs/index.html
-</code></pre>
-<p>网页访问<code>http://localhost</code></p>
-</details>
-
-<h2 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h2><pre><code class="conf">http &#123;
-  # ...
-  server &#123;
-      listen 8091;
-      server_name 127.0.0.1;
-      location / &#123;
-          proxy_pass http://192.168.2.154:18000;
-      &#125;
-  &#125;
-  # ...
+namespace my &#123;
+    int add(int a, int b) &#123;
+        return a + b;
+    &#125;
 &#125;
 </code></pre>
-<p>访问本地，转发到服务器192.168.2.154</p>
+<p>编写单元测试<code>test_my_math.cpp</code>：</p>
+<pre><code class="cpp">// test_my_math.cpp
+#include &lt;gtest/gtest.h&gt;
+
+#include &quot;my_math.h&quot;
+
+// 测试 add() 函数
+TEST(TestMyMath, AddFunction) &#123;
+    EXPECT_EQ(my::add(2, 3), 5);
+    EXPECT_EQ(my::add(-1, 1), 0);
+    EXPECT_EQ(my::add(0, 0), 0);
+&#125;
+
+// 主函数
+int main(int argc, char **argv) &#123;
+    ::testing::InitGoogleTest(&amp;argc, argv);
+    return RUN_ALL_TESTS();
+&#125;
+</code></pre>
+<h2 id="编译与运行"><a href="#编译与运行" class="headerlink" title="编译与运行"></a>编译与运行</h2><p>使用<code>g++</code></p>
+<pre><code class="bash">g++ -o test_my_math test_my_math.cpp my_math.cpp -lgtest -lgtest_main -pthread
+./test_my_math
+</code></pre>
+<p>使用 <code>cmake</code></p>
+<pre><code class="cmake">cmake_minimum_required(VERSION 3.10)
+project(test_my_math)
+
+# 启用 Google Test
+find_package(GTest REQUIRED)
+
+# 添加测试可执行文件
+add_executable(test_my_math test_my_math.cpp my_math.cpp)
+
+# 链接 Google Test 库
+target_link_libraries(test_my_math GTest::GTest GTest::Main)
+</code></pre>
+<p>测试结果：</p>
+<pre><code class="bash">[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from TestMyMath
+[ RUN      ] TestMyMath.AddFunction
+[       OK ] TestMyMath.AddFunction (0 ms)
+[----------] 1 test from TestMyMath (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+</code></pre>
+<h2 id="增加函数"><a href="#增加函数" class="headerlink" title="增加函数"></a>增加函数</h2><pre><code class="cpp">// my_math.h
+
+namespace my &#123;
+    int sub(int a, int b);
+    int mul(int a, int b);
+    double div(double a, double b);
+&#125;
+</code></pre>
+<pre><code class="cpp">// my_math.cpp
+
+namespace my &#123;
+    int sub(int a, int b) &#123;
+        return a - b;
+    &#125;
+
+    int mul(int a, int b) &#123;
+        return a * b;
+    &#125;
+
+    double div(double a, double b) &#123;
+        if (b == 0) &#123;
+            throw std::runtime_error(&quot;Division by zero&quot;);
+        &#125;
+        return a / b;
+    &#125;
+&#125;
+</code></pre>
+<pre><code class="cpp">// 测试减法
+TEST(MyMathTest, SubTest) &#123;
+    EXPECT_EQ(my::sub(5, 3), 2);
+    EXPECT_EQ(my::sub(3, 5), -2);
+    EXPECT_EQ(my::sub(0, 0), 0);
+&#125;
+
+// 测试乘法
+TEST(MyMathTest, MulTest) &#123;
+    EXPECT_EQ(my::mul(2, 3), 6);
+    EXPECT_EQ(my::mul(-2, 3), -6);
+    EXPECT_EQ(my::mul(0, 5), 0);
+&#125;
+
+// 测试除法
+TEST(MyMathTest, DivTest) &#123;
+    EXPECT_DOUBLE_EQ(my::div(6, 2), 3.0);
+    EXPECT_DOUBLE_EQ(my::div(5, 2), 2.5);
+&#125;
+
+// 测试除零
+TEST(MyMathTest, DivByZeroTest) &#123;
+    EXPECT_THROW(my::div(1, 0), std::runtime_error);
+&#125;
+</code></pre>
+<p>测试结果：</p>
+<pre><code class="bash">[==========] Running 5 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 5 tests from MyMathTest
+[ RUN      ] MyMathTest.AddTest
+[       OK ] MyMathTest.AddTest (0 ms)
+[ RUN      ] MyMathTest.SubTest
+[       OK ] MyMathTest.SubTest (0 ms)
+[ RUN      ] MyMathTest.MulTest
+[       OK ] MyMathTest.MulTest (0 ms)
+[ RUN      ] MyMathTest.DivTest
+[       OK ] MyMathTest.DivTest (0 ms)
+[ RUN      ] MyMathTest.DivByZeroTest
+[       OK ] MyMathTest.DivByZeroTest (0 ms)
+[----------] 5 tests from MyMathTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 5 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 5 tests.
+</code></pre>
 
     
     <hr>
@@ -231,8 +313,8 @@ echo &#39;Hello, world!&#39; &gt; /var/www/localhost/htdocs/index.html
       <i class="fas fa-tags"></i>
       <ul>
         
-        <li><a href="/tags/WEB/">
-          WEB
+        <li><a href="/tags/Test/">
+          Test
         </a></li>
       
       </ul>
