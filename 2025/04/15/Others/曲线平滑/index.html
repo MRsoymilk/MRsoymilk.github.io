@@ -1,0 +1,687 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>曲线平滑 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" id="highlight-link" href="/lib/highlight/style/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<link rel="stylesheet" id="shceme-link" href="/css/theme/default.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk">
+    <div class="milk-header">
+       
+
+  <nav class="header-nav">
+     
+    <div class="nav-menu">
+      
+        <div id="Home" class="menu-item">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </div>
+      
+        <div id="Archives" class="menu-item">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </div>
+      
+        <div id="About" class="menu-item">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </div>
+      
+    </div>
+    
+    
+      <div class="nav-date">
+        <div id="date-ymd"></div>
+        <div id="date-week"></div>
+        <div id="date-time"></div>
+      </div>
+    
+    
+    
+      <div class="nav-system" id="nav-system"></div>
+    
+    
+    <div class="nav-layout" id="nav-layout" data-layout="tile">
+      <div id="layout-show">
+        <div class="show-icon"></div>
+        <div class="show-text"></div>
+      </div>
+    </div>
+    
+    <div class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+        <div>
+          <label for="scheme-select">Color scheme: </label>
+          <select id="scheme-select">
+            <option value='default'>default</option>
+          </select>
+          <label for="highlight-select">Code highlight: </label>
+          <select id="highlight-select">
+            <option value='railscasts'>railscasts</option>
+          </select>
+        </div>
+        <div>
+          <label for="ffolders-select">ffolders scheme: </label>
+          <select name="size" id="size-select">
+            <option value='medium'>medium</option>
+          </select>
+          <select name="color" id="color-select">
+            <option value='pink'>pink</option>
+          </select>
+        </div>
+        <div>
+          <label for="blur-slider">background blur
+            <span id="blur-value">10</span> px
+          </label>
+          <input type="range" id="blur-slider" min="0" max="20" data-value='10'>
+        </div>
+        <div>
+          <label for="font-enable">font</label>
+          <input type="checkbox" id="font-check" name="font-check" data-check="fun.ttf">
+        </div>
+      </div>
+    </div>
+  </nav>
+ 
+    </div>
+    <div class="milk-body">
+      
+<div class="draggable-toc">
+  <div class="toc-title">曲线平滑</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%99%AA%E5%A3%B0%E6%9B%B2%E7%BA%BF%E5%B9%B6%E6%98%BE%E7%A4%BA"><span class="toc-text">生成噪声曲线并显示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E5%B9%B3%E6%BB%91%E7%AE%97%E6%B3%95"><span class="toc-text">基础平滑算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%9F%E5%90%88%E7%B1%BB%E5%B9%B3%E6%BB%91%E7%AE%97%E6%B3%95"><span class="toc-text">拟合类平滑算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BB%A4%E6%B3%A2%E5%99%A8%E7%B1%BB"><span class="toc-text">滤波器类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%A0%E4%BD%95-%E5%9B%BE%E5%BD%A2%E5%B9%B3%E6%BB%91"><span class="toc-text">几何&#x2F;图形平滑</span></a></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">曲线平滑</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/others/">
+          others
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <ul>
+<li>基础平滑算法</li>
+<li>拟合类平滑算法</li>
+<li>滤波器类</li>
+<li>几何&#x2F;图形平滑</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="生成噪声曲线并显示"><a href="#生成噪声曲线并显示" class="headerlink" title="生成噪声曲线并显示"></a>生成噪声曲线并显示</h2><details>
+   <summary>python</summary>
+
+<pre><code class="python">import numpy as np
+import matplotlib.pyplot as plt
+
+# ========== 生成并写入带噪声曲线数据 ==========
+np.random.seed(0)
+x = np.linspace(0, 4 * np.pi, 500)
+y_true = np.sin(x)
+noise = np.random.normal(0, 0.3, x.shape)
+y_noisy = y_true + noise
+
+# 保存数据到文件
+np.savetxt(&quot;data/noisy_data.csv&quot;, np.column_stack((x, y_noisy)), delimiter=&quot;,&quot;, header=&quot;x,y_noisy&quot;, comments=&#39;&#39;)
+
+# ========== 从文件读取数据 ==========
+data = np.loadtxt(&quot;data/noisy_data.csv&quot;, delimiter=&quot;,&quot;, skiprows=1)
+x = data[:, 0]
+y_noisy = data[:, 1]
+
+plt.plot(x, y_noisy, label=&#39;Noisy&#39;, color=&#39;gray&#39;)
+plt.title(&quot;Original Noisy Curve&quot;)
+plt.show()
+</code></pre>
+</details>
+
+<p><img src="/original_noisy.jpg" alt="original noisy"></p>
+<h2 id="基础平滑算法"><a href="#基础平滑算法" class="headerlink" title="基础平滑算法"></a>基础平滑算法</h2><table>
+<thead>
+<tr>
+<th align="left">算法名</th>
+<th align="left">简介</th>
+<th align="left">优点</th>
+<th align="left">缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">移动平均（Moving Average）</td>
+<td align="left">用相邻点平均代替当前点</td>
+<td align="left">简单易实现</td>
+<td align="left">会模糊边缘，无法处理非线性数据</td>
+</tr>
+<tr>
+<td align="left">加权移动平均（Weighted Moving Average）</td>
+<td align="left">给中间点更大权重</td>
+<td align="left">平滑更自然</td>
+<td align="left">参数依赖经验</td>
+</tr>
+<tr>
+<td align="left">中值滤波（Median Filter）</td>
+<td align="left">用邻域的中位数代替当前点</td>
+<td align="left">抗脉冲噪声强</td>
+<td align="left">对高频信号损失较大</td>
+</tr>
+<tr>
+<td align="left">高斯滤波（Gaussian Filter）</td>
+<td align="left">使用高斯核进行平滑</td>
+<td align="left">控制光滑程度好</td>
+<td align="left">需要选择合适的 σ</td>
+</tr>
+</tbody></table>
+<details>
+   <summary>python</summary>
+
+<pre><code class="python">import numpy as np
+import matplotlib.pyplot as plt
+from scipy.ndimage import gaussian_filter1d
+from scipy.signal import medfilt
+
+
+data = np.loadtxt(&quot;data/noisy_data.csv&quot;, delimiter=&quot;,&quot;, skiprows=1)
+x = data[:, 0]
+y = data[:, 1]
+
+# 1. 简单移动平均
+def moving_average(y, window=5):
+    return np.convolve(y, np.ones(window) / window, mode=&#39;same&#39;)
+
+# 2. 加权移动平均
+def weighted_moving_average(y, weights=None):
+    if weights is None:
+        weights = np.array([1, 2, 3, 2, 1])
+    weights = weights / weights.sum()
+    return np.convolve(y, weights, mode=&#39;same&#39;)
+
+# 3. 中值滤波
+def median_filter(y, kernel_size=5):
+    return medfilt(y, kernel_size=kernel_size)
+
+# 4. 高斯滤波
+def gaussian_filter(y, sigma=2):
+    return gaussian_filter1d(y, sigma=sigma)
+
+# 应用平滑方法
+y_ma = moving_average(y)
+y_wma = weighted_moving_average(y)
+y_med = median_filter(y)
+y_gauss = gaussian_filter(y)
+
+# 画图
+plt.figure(figsize=(12, 8))
+plt.plot(x, y, label=&#39;original&#39;, alpha=0.4, linestyle=&#39;--&#39;)
+plt.plot(x, y_ma, label=&#39;moving average&#39;)
+plt.plot(x, y_wma, label=&#39;weighted moving average&#39;)
+plt.plot(x, y_med, label=&#39;median filter&#39;)
+plt.plot(x, y_gauss, label=&#39;gaussian filter&#39;)
+
+plt.legend()
+plt.title(&#39;basic smooth&#39;)
+plt.grid(True)
+plt.show()
+</code></pre>
+</details>
+
+<p><img src="/basic_smooth.jpg" alt="basic smooth"></p>
+<h2 id="拟合类平滑算法"><a href="#拟合类平滑算法" class="headerlink" title="拟合类平滑算法"></a>拟合类平滑算法</h2><table>
+<thead>
+<tr>
+<th align="left">算法名</th>
+<th align="left">简介</th>
+<th align="left">优点</th>
+<th align="left">缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">多项式拟合（Polynomial Fitting）</td>
+<td align="left">用曲线整体拟合数据</td>
+<td align="left">保留趋势</td>
+<td align="left">高阶拟合容易震荡</td>
+</tr>
+<tr>
+<td align="left">样条插值（Spline Interpolation）</td>
+<td align="left">拟合连续光滑曲线（如 B 样条、三次样条）</td>
+<td align="left">平滑度高，常用于 CAD、路径规划</td>
+<td align="left">计算复杂度略高</td>
+</tr>
+<tr>
+<td align="left">Loess &#x2F; LOWESS</td>
+<td align="left">局部加权回归</td>
+<td align="left">抗噪声能力强，适合非线性</td>
+<td align="left">参数选择敏感，计算较慢</td>
+</tr>
+</tbody></table>
+<details>
+   <summary>python</summary>
+
+<pre><code class="python">import numpy as np
+import matplotlib.pyplot as plt
+from scipy.interpolate import CubicSpline
+import statsmodels.api as sm
+
+# 读取数据
+data = np.loadtxt(&quot;data/noisy_data.csv&quot;, delimiter=&quot;,&quot;, skiprows=1)
+x = data[:, 0]
+y = data[:, 1]
+
+# 1. 多项式拟合（Polynomial Fit）
+def poly_fit(x, y, degree=4):
+coeffs = np.polyfit(x, y, deg=degree)
+poly_func = np.poly1d(coeffs)
+return poly_func(x)
+
+# 2. 样条插值（Cubic Spline）
+def spline_fit(x, y):
+cs = CubicSpline(x, y)
+return cs(x)
+
+# 3. Loess（局部加权回归）
+def loess_fit(x, y, frac=0.2):
+lowess = sm.nonparametric.lowess
+y_loess = lowess(y, x, frac=frac, return_sorted=False)
+return y_loess
+
+# 平滑处理
+y_poly = poly_fit(x, y, degree=4)
+y_spline = spline_fit(x, y)
+y_loess = loess_fit(x, y, frac=0.15)
+
+# 绘图
+plt.figure(figsize=(12, 8))
+plt.plot(x, y, label=&#39;original&#39;, linestyle=&#39;--&#39;, alpha=0.5)
+plt.plot(x, y_poly, label=&#39;poly&#39;)
+plt.plot(x, y_spline, label=&#39;spline&#39;)
+plt.plot(x, y_loess, label=&#39;loess&#39;)
+
+plt.title(&#39;fitting smooth&#39;)
+plt.legend()
+plt.grid(True)
+plt.savefig(&#39;fitted_curve.png&#39;) # 保存图像
+plt.show()
+</code></pre>
+</details>
+
+<p><img src="/fitting_smooth.jpg" alt="fitting smooth"></p>
+<h2 id="滤波器类"><a href="#滤波器类" class="headerlink" title="滤波器类"></a>滤波器类</h2><table>
+<thead>
+<tr>
+<th align="left">算法名</th>
+<th align="left">简介</th>
+<th align="left">优点</th>
+<th align="left">缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Savitzky–Golay 滤波器</td>
+<td align="left">在滑动窗口内做局部多项式拟合</td>
+<td align="left">平滑但保留峰值、斜率</td>
+<td align="left">不适合强噪声数据</td>
+</tr>
+<tr>
+<td align="left">卡尔曼滤波（Kalman Filter）</td>
+<td align="left">适合动态系统中的数据平滑</td>
+<td align="left">实时性能好</td>
+<td align="left">参数调优复杂</td>
+</tr>
+<tr>
+<td align="left">Butterworth &#x2F; 低通滤波器</td>
+<td align="left">信号频域滤波法</td>
+<td align="left">控制频率响应</td>
+<td align="left">需频域变换（如 FFT）</td>
+</tr>
+</tbody></table>
+<details>
+   <summary>python</summary>
+
+<pre><code class="python">import numpy as np
+import matplotlib.pyplot as plt
+from scipy.signal import savgol_filter, butter, filtfilt
+from filterpy.kalman import KalmanFilter
+
+# 读取数据
+data = np.loadtxt(&quot;data/noisy_data.csv&quot;, delimiter=&quot;,&quot;, skiprows=1)
+x = data[:, 0]
+y = data[:, 1]
+
+def apply_savgol(y, window_length=11, polyorder=3):
+    return savgol_filter(y, window_length, polyorder)
+
+def apply_kalman(y):
+    kf = KalmanFilter(dim_x=2, dim_z=1)
+    kf.x = np.array([[0.], [0.]])
+    kf.F = np.array([[1., 1.], [0., 1.]])
+    kf.H = np.array([[1., 0.]])
+    kf.P *= 1000.
+    kf.R = 5
+    kf.Q = np.array([[1., 0.], [0., 1.]]) * 0.01
+
+    estimates = []
+    for z in y:
+        kf.predict()
+        kf.update(z)
+        estimates.append(kf.x[0, 0])
+    return np.array(estimates)
+
+def apply_butterworth(y, cutoff=0.05, fs=1.0, order=5):
+    b, a = butter(order, cutoff, fs=fs, btype=&#39;low&#39;)
+    return filtfilt(b, a, y)
+
+y_sg = apply_savgol(y)
+y_kf = apply_kalman(y)
+y_bf = apply_butterworth(y)
+
+plt.figure(figsize=(12, 8))
+plt.plot(x, y, label=&quot;original&quot;, linestyle=&#39;--&#39;, alpha=0.6)
+plt.plot(x, y_sg, label=&quot;Savitzky–Golay&quot;)
+plt.plot(x, y_kf, label=&quot;Kalman&quot;)
+plt.plot(x, y_bf, label=&quot;Butterworth&quot;)
+
+plt.title(&quot;filter smooth&quot;)
+plt.xlabel(&quot;x&quot;)
+plt.ylabel(&quot;y&quot;)
+plt.legend()
+plt.grid(True)
+plt.savefig(&quot;filter_compare.png&quot;)
+plt.show()
+</code></pre>
+</details>
+
+<p><img src="/filter_smooth.jpg" alt="filter smooth"></p>
+<h2 id="几何-图形平滑"><a href="#几何-图形平滑" class="headerlink" title="几何&#x2F;图形平滑"></a>几何&#x2F;图形平滑</h2><table>
+<thead>
+<tr>
+<th align="left">算法名</th>
+<th align="left">应用领域</th>
+<th align="left">简介</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Chaikin 算法</td>
+<td align="left">2D 曲线</td>
+<td align="left">迭代方式缩短控制点构造圆滑曲线</td>
+</tr>
+<tr>
+<td align="left">Bézier 曲线</td>
+<td align="left">图形&#x2F;动画</td>
+<td align="left">精确建模平滑曲线</td>
+</tr>
+<tr>
+<td align="left">Catmull-Rom 样条</td>
+<td align="left">动画插值</td>
+<td align="left">过所有控制点且自然平滑</td>
+</tr>
+</tbody></table>
+<details>
+   <summary>python</summary>
+
+<pre><code class="python">import numpy as np
+import matplotlib.pyplot as plt
+
+
+# Chaikin 曲线细分算法
+def chaikin_curve(points, iterations=3):
+    for _ in range(iterations):
+        new_points = []
+        for i in range(len(points) - 1):
+            p0 = points[i]
+            p1 = points[i + 1]
+            q = 0.75 * p0 + 0.25 * p1
+            r = 0.25 * p0 + 0.75 * p1
+            new_points.extend([q, r])
+        points = np.array(new_points)
+    return points
+
+
+# Bézier 曲线（de Casteljau 算法）
+def bezier_curve(points, num=100):
+    def de_casteljau(pts, t):
+        while len(pts) &gt; 1:
+            pts = [(1 - t) * pts[i] + t * pts[i + 1] for i in range(len(pts) - 1)]
+        return pts[0]
+
+    t_values = np.linspace(0, 1, num)
+    curve = np.array([de_casteljau(points.copy(), t) for t in t_values])
+    return curve
+
+
+# Catmull-Rom 样条插值
+def catmull_rom_spline(points, num=100):
+    def catmull_rom(p0, p1, p2, p3, t):
+        t2 = t * t
+        t3 = t2 * t
+        return 0.5 * ((2 * p1) +
+                      (-p0 + p2) * t +
+                      (2*p0 - 5*p1 + 4*p2 - p3) * t2 +
+                      (-p0 + 3*p1 - 3*p2 + p3) * t3)
+
+    curve = []
+    for i in range(1, len(points) - 2):
+        for t in np.linspace(0, 1, num):
+            pt = catmull_rom(points[i - 1], points[i], points[i + 1], points[i + 2], t)
+            curve.append(pt)
+    return np.array(curve)
+
+
+# 读取 data.txt 中的二维点
+data = np.loadtxt(&#39;data/noisy_data.csv&#39;, delimiter=&#39;,&#39;, skiprows=1)
+x, y = data[:, 0], data[:, 1]
+points = np.column_stack((x, y))
+
+# 应用三种算法
+chaikin_pts = chaikin_curve(points, iterations=3)
+bezier_pts = bezier_curve(points)
+catmull_pts = catmull_rom_spline(points) if len(points) &gt;= 4 else None
+
+# 绘图
+plt.figure(figsize=(12, 6))
+plt.plot(points[:, 0], points[:, 1], &#39;o--&#39;, label=&#39;Original&#39;, linewidth=1)
+
+plt.plot(chaikin_pts[:, 0], chaikin_pts[:, 1], label=&#39;Chaikin&#39;, linewidth=2)
+plt.plot(bezier_pts[:, 0], bezier_pts[:, 1], label=&#39;Bezier&#39;, linewidth=2)
+
+if catmull_pts is not None:
+    plt.plot(catmull_pts[:, 0], catmull_pts[:, 1], label=&#39;Catmull-Rom&#39;, linewidth=2)
+
+plt.legend()
+plt.title(&#39;Geometry/Animation Smoothing&#39;)
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+</code></pre>
+</details>
+
+<p><img src="/geometry_smooth.jpg" alt="geometry smooth"></p>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/others/">
+          others
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+    <canvas id="sprite-canvas" width="100" height="100"></canvas>
+  </div>
+</div>
+    </div>
+  </div>
+</body>
+
+
+
+    
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+    
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+    
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+    
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+    
+<script src="/js/milk.js"></script>
+
+
+
+</html>

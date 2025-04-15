@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>使用gcc与CMake编写OpenCV代码 [ Soymilk ]</title>
+  <title>Linux下unzip的乱码问题 [ Soymilk ]</title>
   
 <link rel="shortcut icon" href="/favicon/favicon.ico">
 
@@ -130,16 +130,16 @@
     <div class="milk-body">
       
 <div class="draggable-toc">
-  <div class="toc-title">使用gcc与CMake编写OpenCV代码</div>
+  <div class="toc-title">Linux下unzip的乱码问题</div>
   <p>process: <span>0</span></p>
   <div class="progress-container">
     <div class="progress-bar" id="bar"></div>
   </div>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E-CMake-%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="toc-text">关于 CMake 的配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E9%85%8D%E7%BD%AE"><span class="toc-text">执行配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-text">其他</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-unzip-%E7%9A%84-O-%E6%8C%87%E5%AE%9A%E7%BC%96%E7%A0%81"><span class="toc-text">使用 unzip 的-O 指定编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-7z"><span class="toc-text">使用 7z</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-iconv"><span class="toc-text">使用 iconv</span></a></li></ol>
 </div>
 
 <div class="post-content" id="post-content">
-  <div id="top">使用gcc与CMake编写OpenCV代码</div>
+  <div id="top">Linux下unzip的乱码问题</div>
   <div class="post">
     
     <div class="content-categories">
@@ -150,8 +150,15 @@
         
           <li>&gt;</li>
           <li>
-            <a href="/categories/OpenCV/">
-          OpenCV
+            <a href="/categories/Linux/">
+          Linux
+        </a>
+          </li>
+      
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Linux/Problem/">
+          Problem
         </a>
           </li>
       
@@ -160,33 +167,17 @@
     </div>
     <hr>
     
-    <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://docs.opencv.org/master/db/df5/tutorial_linux_gcc_cmake.html">OpenCV 官方文档</a></p>
-<h2 id="关于-CMake-的配置"><a href="#关于-CMake-的配置" class="headerlink" title="关于 CMake 的配置"></a>关于 CMake 的配置</h2><p><strong>编辑 <code>CMakeLists.txt</code> 文件</strong></p>
-<p>我根据官方文档修改后：</p>
-<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
-project( first )
-find_package( OpenCV REQUIRED )
-include_directories( $&#123;OpenCV_INCLUDE_DIRS&#125; )
-add_executable( main main.cpp )
-target_link_libraries( main $&#123;OpenCV_LIBS&#125; )
+    <p>通常是因为字符编码不一致导致</p>
+<p>Windows 下的 ZIP 文件的默认编码为 <code>CP437</code> 或 <code>GBK</code></p>
+<p>Linux 系统默认使用 <code>UTF-8</code> 编码</p>
+<span id="more"></span>
+
+<h2 id="使用-unzip-的-O-指定编码"><a href="#使用-unzip-的-O-指定编码" class="headerlink" title="使用 unzip 的-O 指定编码"></a>使用 unzip 的-O 指定编码</h2><pre><code class="sh">unzip -O CP936 your_file.zip
 </code></pre>
-<p><strong>参数说明</strong>：<br><code>cmake_minmum_required</code>：顾名思义，cmake 最小版本，没有特殊要求</p>
-<p><code>project</code>：你的项目名称，自定义修改，我取名为 first</p>
-<p><code>find_package</code>：查找你的 OpenCV 库文件，提供给 include_directories，保持默认</p>
-<p><code>include_directories</code>：定位 OpenCV 库文件位置，保持默认</p>
-<p><code>add_executable</code>：添加可执行文件，main 表示生成可执行文件的名称，自定义修改；main.cpp 表示存在 main 函数的 cpp 文件，自定义修改</p>
-<p><code>target_link_libraries</code>：为目标文件(你的可执行文件)提供 OpenCV 链接库，其他默认</p>
-<p>其他：比如我的可执行文件为 demo，那么可以这么修改</p>
-<pre><code class="cmake">add_executable( demo main.cpp )
-target_link_libraries( demo $&#123;OpenCV_LIBS&#125; )
+<h2 id="使用-7z"><a href="#使用-7z" class="headerlink" title="使用 7z"></a>使用 7z</h2><pre><code class="sh">7z x your_file.zip
 </code></pre>
-<h2 id="执行配置"><a href="#执行配置" class="headerlink" title="执行配置"></a>执行配置</h2><ol>
-<li><code>cd</code> 你的工作目录 # 在哪写 main 函数的地方</li>
-<li><code>cmake .</code> # 当前目录下执行 cmake</li>
-<li><code>make</code> # 生成可执行文件</li>
-<li><code>./main</code><br><img src="/first.png" alt="success"></li>
-</ol>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>由于我对 CMake 不是十分了解，上述功能解释可能出错。仅供参考</p>
+<h2 id="使用-iconv"><a href="#使用-iconv" class="headerlink" title="使用 iconv"></a>使用 iconv</h2><pre><code class="sh">convmv -f GBK -t UTF-8 --notest --recursive your_folder
+</code></pre>
 
     
     <hr>
@@ -195,8 +186,8 @@ target_link_libraries( demo $&#123;OpenCV_LIBS&#125; )
       <i class="fas fa-tags"></i>
       <ul>
         
-        <li><a href="/tags/OpenCV/">
-          OpenCV
+        <li><a href="/tags/Linux/">
+          Linux
         </a></li>
       
       </ul>

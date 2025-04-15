@@ -172,31 +172,44 @@
 </ul>
 <span id="more"></span>
 
-<h2 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h2><p>Hadoop分布式文件系统(Hadoop Distributed File System, HDFS)是Hadoop项目两大核心之一，针对谷歌文件系统(Google File System, GFS)的开源实现。1</p>
-<p>HDFS的优点有：</p>
-<p>处理超大数据：HDFS可以存储和处理PB级别的数据，通过分布式存储和计算的方式，提高了数据处理的效率和可靠性。<br>流式处理：HDFS支持一次写入多次读取的模式，适合于批量处理和流式分析的场景。<br>可运行在廉价商用服务器上：HDFS不需要昂贵的硬件设备，可以运行在普通的商用服务器上，通过软件层面的容错机制，保证了数据的可用性。<br>HDFS的主要组件有：<br>NameNode：主节点，负责管理文件系统的元数据，如文件名，目录结构，文件属性，文件块映射等。NameNode还负责处理客户端请求，如打开、关闭、重命名文件等。NameNode是HDFS的单点故障，如果NameNode宕机，整个文件系统将不可用。为了解决这个问题，HDFS引入了Secondary NameNode和HA（高可用）模式。<br>DataNode：从节点，负责存储实际的文件块数据，并定期向NameNode汇报存储信息。DataNode还负责处理客户端读写请求，并执行NameNode指派的复制、删除、移动等任务。<br>Secondary NameNode：辅助节点，负责定期合并NameNode内存中的元数据镜像（fsimage）和操作日志（edits），并推送给NameNode。Secondary NameNode并不是NameNode的热备份，不能在NameNode宕机时接管其工作。2<br>HA模式：高可用模式，通过引入Active NameNode和Standby NameNode两个节点，并使用ZooKeeper来监控节点状态和选举领导者，实现了NameNode的故障转移和自动恢复功能。3</p>
-<p>Hadoop分布式文件系统(Hadoop Distributed File System, HDFS)<br>Hadoop项目两大核心之一<br>针对谷歌文件系统(Google File System, GFS)的开源实现</p>
+<h2 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h2><p>Hadoop 分布式文件系统(Hadoop Distributed File System, HDFS)是 Hadoop 项目两大核心之一，针对谷歌文件系统(Google File System, GFS)的开源实现。1</p>
+<p>HDFS 的优点有：</p>
+<ul>
+<li>处理超大数据：HDFS 可以存储和处理 PB 级别的数据，通过分布式存储和计算的方式，提高了数据处理的效率和可靠性。</li>
+<li>流式处理：HDFS 支持一次写入多次读取的模式，适合于批量处理和流式分析的场景。</li>
+<li>可运行在廉价商用服务器上：HDFS 不需要昂贵的硬件设备，可以运行在普通的商用服务器上，通过软件层面的容错机制，保证了数据的可用性。</li>
+</ul>
+<p>HDFS 的主要组件有：</p>
+<ul>
+<li>NameNode：主节点，负责管理文件系统的元数据，如文件名，目录结构，文件属性，文件块映射等。NameNode 还负责处理客户端请求，如打开、关闭、重命名文件等。NameNode 是 HDFS 的单点故障，如果 NameNode 宕机，整个文件系统将不可用。为了解决这个问题，HDFS 引入了 Secondary NameNode 和 HA（高可用）模式。</li>
+<li>DataNode：从节点，负责存储实际的文件块数据，并定期向 NameNode 汇报存储信息。DataNode 还负责处理客户端读写请求，并执行 NameNode 指派的复制、删除、移动等任务。</li>
+<li>Secondary NameNode：辅助节点，负责定期合并 NameNode 内存中的元数据镜像（fsimage）和操作日志（edits），并推送给 NameNode。Secondary - NameNode 并不是 NameNode 的热备份，不能在 NameNode 宕机时接管其工作。2</li>
+<li>HA 模式：高可用模式，通过引入 Active NameNode 和 Standby NameNode 两个节点，并使用 ZooKeeper 来监控节点状态和选举领导者，实现了 NameNode 的故障转移和自动恢复功能。3</li>
+</ul>
+<p>Hadoop 分布式文件系统(Hadoop Distributed File System, HDFS)</p>
+<p>Hadoop 项目两大核心之一</p>
+<p>针对谷歌文件系统(Google File System, GFS)的开源实现</p>
 <p>优点:</p>
 <ul>
 <li>处理超大数据</li>
 <li>流式处理</li>
 <li>可运行在廉价商用服务器上</li>
 </ul>
-<h2 id="HBase"><a href="#HBase" class="headerlink" title="HBase"></a>HBase</h2><p>提供高可靠性、高性能、可伸缩、实时读写、分布式的列式数据库，一般采用HDFS作为底层数据存储。<br>针对谷歌BigTable的开源实现</p>
-<h2 id="MapReduce"><a href="#MapReduce" class="headerlink" title="MapReduce"></a>MapReduce</h2><p>针对谷歌MapReduce的开源实现。<br>MapReduce: 编程模型，用于大规模数据集(大于1TB)的并行运算，将复杂的、运行在大规模集群上的并行计算过程高度抽象到两个函数上–Map和Reduce。允许用户在不了解分布式系统底层细节的情况下开发并行应用程序，并将其运行在廉价计算机集群上，完成海量数据存储。<br>核心思想: 分而治之</p>
-<h2 id="Hive"><a href="#Hive" class="headerlink" title="Hive"></a>Hive</h2><p>基于Hadoop的数据仓库工具，可以用于对Hadoop文件中的数据集进行数据整理、特殊查询和分析存储。<br>Hive学习门槛较低，因为提供了类似于关系数据库SQL语言的查询语句–HiveQL，可以通过HiveQL语句快速实现简单的MapReduce统计，Hive自身可以将HiveQL语句转换为MapReduce任务进行运行，不必开发专门的MapReduce应用，适合数据仓库的统计分析。</p>
-<h2 id="Pig"><a href="#Pig" class="headerlink" title="Pig"></a>Pig</h2><p>数据流语言和运行环境，适合于使用Hadoop和MapReduce平台查询大型半结构化数据集。<br>Pig简化了Hadoop常见的工作任务。在MapReduce的基础上创建了更简单的过程语言抽象，为Hadoop应用程序提供了一种更接近结构化查询语言的接口。</p>
-<h2 id="Mahout"><a href="#Mahout" class="headerlink" title="Mahout"></a>Mahout</h2><p>提供一些可扩展的机器学习领域经典算法的实现，以帮助开发人员更加方便快捷地创建智能应用程序。<br>包含: 聚类、分类、推荐过滤、频繁子项挖掘。<br>通过Apache Hadoop库，Mahout可以有效地扩展到云中。</p>
+<h2 id="HBase"><a href="#HBase" class="headerlink" title="HBase"></a>HBase</h2><p>提供高可靠性、高性能、可伸缩、实时读写、分布式的列式数据库，一般采用 HDFS 作为底层数据存储。<br>针对谷歌 BigTable 的开源实现</p>
+<h2 id="MapReduce"><a href="#MapReduce" class="headerlink" title="MapReduce"></a>MapReduce</h2><p>针对谷歌 MapReduce 的开源实现。<br>MapReduce: 编程模型，用于大规模数据集(大于 1TB)的并行运算，将复杂的、运行在大规模集群上的并行计算过程高度抽象到两个函数上–Map 和 Reduce。允许用户在不了解分布式系统底层细节的情况下开发并行应用程序，并将其运行在廉价计算机集群上，完成海量数据存储。<br>核心思想: 分而治之</p>
+<h2 id="Hive"><a href="#Hive" class="headerlink" title="Hive"></a>Hive</h2><p>基于 Hadoop 的数据仓库工具，可以用于对 Hadoop 文件中的数据集进行数据整理、特殊查询和分析存储。<br>Hive 学习门槛较低，因为提供了类似于关系数据库 SQL 语言的查询语句–HiveQL，可以通过 HiveQL 语句快速实现简单的 MapReduce 统计，Hive 自身可以将 HiveQL 语句转换为 MapReduce 任务进行运行，不必开发专门的 MapReduce 应用，适合数据仓库的统计分析。</p>
+<h2 id="Pig"><a href="#Pig" class="headerlink" title="Pig"></a>Pig</h2><p>数据流语言和运行环境，适合于使用 Hadoop 和 MapReduce 平台查询大型半结构化数据集。<br>Pig 简化了 Hadoop 常见的工作任务。在 MapReduce 的基础上创建了更简单的过程语言抽象，为 Hadoop 应用程序提供了一种更接近结构化查询语言的接口。</p>
+<h2 id="Mahout"><a href="#Mahout" class="headerlink" title="Mahout"></a>Mahout</h2><p>提供一些可扩展的机器学习领域经典算法的实现，以帮助开发人员更加方便快捷地创建智能应用程序。<br>包含: 聚类、分类、推荐过滤、频繁子项挖掘。<br>通过 Apache Hadoop 库，Mahout 可以有效地扩展到云中。</p>
 <h2 id="Zookeeper"><a href="#Zookeeper" class="headerlink" title="Zookeeper"></a>Zookeeper</h2><p>分布式资源协调组件，主要用来解决分布式应用中的数据资源管理问题，解决分布式集群中应用系统的一致性问题。</p>
 <p>能够提供基于类似于文件系统的目录节点树方式的数据存储，并不存储数据，作用主要是维护和监控已存存储数据的状态变化。</p>
 <p>监控这些数据状态的变化，从而达到基于数据的集群管理。</p>
 <p>典型应用场景：统一的命名服务、配置管理、集群管理、分布式锁、队列管理等</p>
-<p>针对谷歌Chubby的开源实现，高效和可靠的协同工作系统，提供分布式锁🔓之类的基本服务（如统一命名服务、状态同步服务、集群管理、分布式应用配置项的管理的管理等），用于构建分布式应用，减轻分布式应用程序承担的协调任务。<br>使用Java编写。使用和文件树相似的数据模型，可使用Java或C进行编程接入。</p>
-<h2 id="Flume"><a href="#Flume" class="headerlink" title="Flume"></a>Flume</h2><p>Cloudera提供的一个高可用的、高可靠的、分布式的海量日志采集、聚合和传输的系统。<br>Flume支持在日志系统中定制各类数据发送方，用于收集数据。<br>Flume提供对数据进行简单处理并写入各种数据接收方的能力。</p>
-<h2 id="Sqoop"><a href="#Sqoop" class="headerlink" title="Sqoop"></a>Sqoop</h2><p>SQL-to-Hadoop，主要用来在Hadoop和关系型数据库之间交换数据，可以改进数据的互操作性。<br>将数据从MySQL、Oracle、PostgreSQL等关系型数据库中导入Hadoop（可以导入HDFS、HBase或Hive）<br>将数据从Hadoop导出到关系型数据库</p>
-<p>主要通过JDBC（Java DataBase Connectivity）和关系型数据库进行交互，理论上支持JDBC的关系型数据库都可以使Sqoop和Hadoop进行数据交互。</p>
+<p>针对谷歌 Chubby 的开源实现，高效和可靠的协同工作系统，提供分布式锁 🔓 之类的基本服务（如统一命名服务、状态同步服务、集群管理、分布式应用配置项的管理的管理等），用于构建分布式应用，减轻分布式应用程序承担的协调任务。<br>使用 Java 编写。使用和文件树相似的数据模型，可使用 Java 或 C 进行编程接入。</p>
+<h2 id="Flume"><a href="#Flume" class="headerlink" title="Flume"></a>Flume</h2><p>Cloudera 提供的一个高可用的、高可靠的、分布式的海量日志采集、聚合和传输的系统。<br>Flume 支持在日志系统中定制各类数据发送方，用于收集数据。<br>Flume 提供对数据进行简单处理并写入各种数据接收方的能力。</p>
+<h2 id="Sqoop"><a href="#Sqoop" class="headerlink" title="Sqoop"></a>Sqoop</h2><p>SQL-to-Hadoop，主要用来在 Hadoop 和关系型数据库之间交换数据，可以改进数据的互操作性。<br>将数据从 MySQL、Oracle、PostgreSQL 等关系型数据库中导入 Hadoop（可以导入 HDFS、HBase 或 Hive）<br>将数据从 Hadoop 导出到关系型数据库</p>
+<p>主要通过 JDBC（Java DataBase Connectivity）和关系型数据库进行交互，理论上支持 JDBC 的关系型数据库都可以使 Sqoop 和 Hadoop 进行数据交互。</p>
 <p>专为大数据集设计，支持增量更新，可以将新纪录添加到最近一次导出的数据源上，或者指定上次修改的时间戳。</p>
-<h2 id="Ambari"><a href="#Ambari" class="headerlink" title="Ambari"></a>Ambari</h2><p>基于Web的工具，支持Apache Hadoop集群的安装、部署、配置和管理。<br>支持大多数Hadoop组件，包括HDFS、MapReduce、Hive、Pig、HBase、Zookeeper、Sqoop等</p>
+<h2 id="Ambari"><a href="#Ambari" class="headerlink" title="Ambari"></a>Ambari</h2><p>基于 Web 的工具，支持 Apache Hadoop 集群的安装、部署、配置和管理。<br>支持大多数 Hadoop 组件，包括 HDFS、MapReduce、Hive、Pig、HBase、Zookeeper、Sqoop 等</p>
 
     
     <hr>
