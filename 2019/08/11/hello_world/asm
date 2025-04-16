@@ -1,0 +1,44 @@
+; 物理地址空间信息获取过程
+; get memory address size type
+mov bp, StartGetMemStructMessage
+int 0x10
+
+mov ebx, 0
+mov ax, 0x00
+mov es, ax
+mov di, MemoryStructBufferAddr
+
+Label_Get_Mem_Struct:
+  mov eax, 0x0E820
+  mov ecx, 20
+  mov edx, 0x534D4150
+  int 0x15
+  jc Label_Get_Mem_Fail
+  add di, 20
+  cmp ebx, 0
+  jne Label_Get_Mem_Struct
+  jmp Label_Get_Mem_OK
+
+Label_Get_Mem_Fail:
+  mov bp, GetMemStructErrMessage
+  int 0x10
+  jmp $
+
+Label_Get_Mem_OK:
+  mov bp, GetMemStructOKMessage
+  int 0x10
+
+
+; 设置显示模式
+; VESA VBE设置（SVGA mode）
+mov ax, 0x4F02
+mov bx, 0x4180  ; mode: 0x180 or 0x143
+int 0x10
+
+cmp ax, 0x4F
+jnz Label_SET_SVGA_Mode_VESA_VBE_FAIL
+
+; 显示模式的属性信息
+; 模式 | 列 | 行 | 物理地址 | 像素点位宽
+; 0x180|1440|900 |e0000000h |32bit
+; 0x143|800 |600 |e0000000h |32bit

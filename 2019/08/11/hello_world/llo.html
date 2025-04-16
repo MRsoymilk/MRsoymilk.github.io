@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AMap</title>
+        <style>
+            #container {
+                width: 600px;
+                height: 600px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id='container'></div>
+    </body>
+    <script src="https://webapi.amap.com/loader.js"></script>
+    <script type="text/javascript">
+        AMapLoader.load({
+            "key": "fd48383b750b1e227b74a411810c2cfc", // 申请好的Web端开发者Key，首次调用 load 时必填
+            "version": "2.0", // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
+            "plugins": [] // 需要使用的的插件列表，如比例尺'AMap.Scale'等
+        }).then((AMap) => {
+          var map = new AMap.Map('container', {
+            zoom: 11,
+            center: [106.63, 26.65],
+          });
+          var infoWindow = new AMap.InfoWindow({
+            content: 'hello',
+            offset: new AMap.Pixel(16, -45)
+          })
+          var onMarkerClick = function(e){
+            infoWindow.open(map, e.target.getPosition())
+          }
+          var marker = new AMap.Marker({
+            position: new AMap.LngLat(106.63, 26.65),
+            title: 'my'
+          });
+          map.add(marker)
+          marker.on('click', onMarkerClick)
+        }).catch((e) => {
+            console.error(e); // 加载错误提示
+        });
+    </script>
+</html>
