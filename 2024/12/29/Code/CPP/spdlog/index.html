@@ -1,0 +1,528 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>一种简单的 spdlog 封装 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" id="highlight-link" href="/lib/highlight/style/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<link rel="stylesheet" id="shceme-link" href="/css/theme/default.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk">
+    <div class="milk-header">
+       
+
+  <nav class="header-nav">
+     
+    <div class="nav-menu">
+      
+        <div id="Home" class="menu-item">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </div>
+      
+        <div id="Archives" class="menu-item">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </div>
+      
+        <div id="About" class="menu-item">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </div>
+      
+    </div>
+    
+    
+      <div class="nav-date">
+        <div id="date-ymd"></div>
+        <div id="date-week"></div>
+        <div id="date-time"></div>
+      </div>
+    
+    
+    
+      <div class="nav-system" id="nav-system"></div>
+    
+    
+    <div class="nav-layout" id="nav-layout" data-layout="tile">
+      <div id="layout-show">
+        <div class="show-icon"></div>
+        <div class="show-text"></div>
+      </div>
+    </div>
+    
+    <div class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+        <div>
+          <label for="scheme-select">Color scheme: </label>
+          <select id="scheme-select">
+            <option value='default'>default</option>
+          </select>
+          <label for="highlight-select">Code highlight: </label>
+          <select id="highlight-select">
+            <option value='railscasts'>railscasts</option>
+          </select>
+        </div>
+        <div>
+          <label for="ffolders-select">ffolders scheme: </label>
+          <select name="size" id="size-select">
+            <option value='medium'>medium</option>
+          </select>
+          <select name="color" id="color-select">
+            <option value='pink'>pink</option>
+          </select>
+        </div>
+        <div>
+          <label for="blur-slider">background blur
+            <span id="blur-value">10</span> px
+          </label>
+          <input type="range" id="blur-slider" min="0" max="20" data-value='10'>
+        </div>
+        <div>
+          <label for="font-enable">font</label>
+          <input type="checkbox" id="font-check" name="font-check" data-check="fun.ttf">
+        </div>
+      </div>
+    </div>
+  </nav>
+ 
+    </div>
+    <div class="milk-body">
+      
+<div class="draggable-toc">
+  <div class="toc-title">一种简单的 spdlog 封装</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#cmake-%E9%9B%86%E6%88%90"><span class="toc-text">cmake 集成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E5%A2%9E%E5%BC%BA"><span class="toc-text">输出增强</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Qt-%E4%B8%AD-UI-%E5%90%8C%E6%AD%A5%E6%9B%B4%E6%96%B0%E6%96%B9%E6%B3%95"><span class="toc-text">Qt 中 UI 同步更新方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Qt-%E4%B8%AD%E8%BE%93%E5%87%BA-QString-%E7%AD%89%E7%B1%BB%E5%9E%8B"><span class="toc-text">Qt 中输出 QString 等类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#QString"><span class="toc-text">QString</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#QByteArray"><span class="toc-text">QByteArray</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#QStringList"><span class="toc-text">QStringList</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E7%BB%88%E4%BB%A3%E7%A0%81"><span class="toc-text">最终代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mylog-h"><span class="toc-text">mylog.h</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mylog-cpp"><span class="toc-text">mylog.cpp</span></a></li></ol></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">一种简单的 spdlog 封装</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Code/">
+          Code
+        </a>
+          </li>
+      
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Code/CPP/">
+          CPP
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <p>记录一种简单的 spdlog 封装</p>
+<p>TODO: 如何在<code>.h</code>中隐藏 spdlog 依赖</p>
+<span id="more"></span>
+
+<h2 id="cmake-集成"><a href="#cmake-集成" class="headerlink" title="cmake 集成"></a>cmake 集成</h2><p>CMakeLists.txt如下：</p>
+<pre><code class="cmake">cmake_minimum_required(VERSION 3.14)
+
+project(test VERSION 0.0.1 LANGUAGES CXX)
+
+# 使用 C++17 标准
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# 添加可执行文件
+add_executable(test main.cpp mylog.h mylog.cpp)
+
+add_subdirectory(vendor/spdlog-1.15.0/)
+target_link_libraries(test PRIVATE spdlog::spdlog)
+</code></pre>
+<h2 id="输出增强"><a href="#输出增强" class="headerlink" title="输出增强"></a>输出增强</h2><h3 id="Qt-中-UI-同步更新方法"><a href="#Qt-中-UI-同步更新方法" class="headerlink" title="Qt 中 UI 同步更新方法"></a>Qt 中 UI 同步更新方法</h3><p>创建<code>UILogSink</code>类</p>
+<pre><code class="cpp">// UILogSink.h
+#ifndef UILOGSINK_H
+#define UILOGSINK_H
+
+#include &lt;QMetaObject&gt;
+#include &lt;QPlainTextEdit&gt;
+#include &lt;QTextCursor&gt;
+#include &lt;mutex&gt;
+#include &lt;spdlog/sinks/base_sink.h&gt;
+
+template&lt;typename Mutex&gt;
+class UILogSink : public spdlog::sinks::base_sink&lt;Mutex&gt;
+&#123;
+public:
+    UILogSink(QPlainTextEdit *widget)
+        : widget_(widget)
+    &#123;&#125;
+
+protected:
+    void sink_it_(const spdlog::details::log_msg &amp;msg) override
+    &#123;
+        // 格式化为字符串
+        spdlog::memory_buf_t formatted;
+        this-&gt;formatter_-&gt;format(msg, formatted);
+        QString qtext = QString::fromStdString(fmt::to_string(formatted));
+
+        // UI 更新必须在主线程
+        if (widget_) &#123;
+            QMetaObject::invokeMethod(
+                widget_,
+                [=]() &#123;
+                    widget_-&gt;appendPlainText(qtext);
+                    widget_-&gt;moveCursor(QTextCursor::End);
+                &#125;,
+                Qt::QueuedConnection);
+        &#125;
+    &#125;
+
+    void flush_() override &#123;&#125;
+
+private:
+    QPlainTextEdit *widget_;
+&#125;;
+
+using UILogSink_mt = UILogSink&lt;std::mutex&gt;;
+
+#endif // UILOGSINK_H
+</code></pre>
+<p>使用</p>
+<pre><code class="cpp">#include &quot;formlog.h&quot;
+#include &quot;UILogSink.h&quot;
+#include &quot;mylog.h&quot;
+#include &quot;ui_formlog.h&quot;
+
+FormLog::FormLog(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::FormLog)
+&#123;
+    ui-&gt;setupUi(this);
+
+    auto ui_sink = std::make_shared&lt;UILogSink_mt&gt;(ui-&gt;txtLog);
+    ui_sink-&gt;set_pattern(&quot;[%H:%M:%S] [%l] %v&quot;);
+
+    MY_LOG.getLogger()-&gt;sinks().push_back(ui_sink);
+&#125;
+
+FormLog::~FormLog()
+&#123;
+    delete ui;
+&#125;
+</code></pre>
+<h3 id="Qt-中输出-QString-等类型"><a href="#Qt-中输出-QString-等类型" class="headerlink" title="Qt 中输出 QString 等类型"></a>Qt 中输出 QString 等类型</h3><p>Qt 中想直接输出 QString 类型数据，但是报错：</p>
+<pre><code class="bash">E:\project\train\tool\myYolo\vendor\spdlog-1.15.0\include\spdlog\fmt\bundled\base.h:1641: error: C2079: “_”使用未定义的 struct“fmt::v11::detail::type_is_unformattable_for&lt;T,fmt::v11::context::char_type&gt;”
+</code></pre>
+<p>参考 <a target="_blank" rel="noopener" href="https://fmt.dev/9.1.0/api.html#formatting-user-defined-types"><code>https://fmt.dev/9.1.0/api.html#formatting-user-defined-types</code></a></p>
+<h4 id="QString"><a href="#QString" class="headerlink" title="QString"></a>QString</h4><pre><code class="cpp">template &lt;&gt; struct fmt::formatter&lt;QString&gt;: formatter&lt;std::string&gt; &#123;
+    template &lt;typename FormatContext&gt;
+    auto format(QString s, FormatContext&amp; ctx) const &#123;
+        return formatter&lt;std::string&gt;::format(s.toStdString(), ctx);
+    &#125;
+&#125;;
+</code></pre>
+<h4 id="QByteArray"><a href="#QByteArray" class="headerlink" title="QByteArray"></a>QByteArray</h4><pre><code class="cpp">template&lt;&gt;
+struct fmt::formatter&lt;QByteArray&gt; : fmt::formatter&lt;std::string&gt;
+&#123;
+    template&lt;typename FormatContext&gt;
+    auto format(const QByteArray &amp;s, FormatContext &amp;ctx) const
+    &#123;
+        return fmt::formatter&lt;std::string&gt;::format(s.toStdString(), ctx);
+    &#125;
+&#125;;
+</code></pre>
+<h4 id="QStringList"><a href="#QStringList" class="headerlink" title="QStringList"></a>QStringList</h4><pre><code class="cpp">template &lt;&gt;
+struct fmt::formatter&lt;QStringList&gt; : formatter&lt;std::string&gt;
+&#123;
+    template &lt;typename FormatContext&gt;
+    auto format(QStringList s, FormatContext &amp;ctx) const
+    &#123;
+        return formatter&lt;std::string&gt;::format(s.join(&#39;,&#39;).toStdString(), ctx);
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="最终代码"><a href="#最终代码" class="headerlink" title="最终代码"></a>最终代码</h2><h3 id="mylog-h"><a href="#mylog-h" class="headerlink" title="mylog.h"></a><code>mylog.h</code></h3><pre><code class="cpp">#ifndef MYLOG_H
+#define MYLOG_H
+
+#include &lt;QByteArray&gt;
+#include &lt;QJsonDocument&gt;
+#include &lt;QJsonObject&gt;
+#include &lt;QString&gt;
+#include &lt;memory&gt;
+
+#include &quot;spdlog/spdlog.h&quot;
+
+class MyLog
+&#123;
+public:
+    static MyLog &amp;getInstance();
+    ~MyLog();
+    void init(const std::string &amp;file_name = &quot;./log/myLog.log&quot;,
+              size_t max_size = 10 * 1024 * 1024,
+              size_t max_files = 10);
+    static std::shared_ptr&lt;spdlog::logger&gt; getLogger();
+
+private:
+    MyLog();
+    static std::shared_ptr&lt;spdlog::logger&gt; s_logger;
+&#125;;
+
+template&lt;&gt;
+struct fmt::formatter&lt;QString&gt; : formatter&lt;std::string&gt;
+&#123;
+    template&lt;typename FormatContext&gt;
+    auto format(QString s, FormatContext &amp;ctx) const
+    &#123;
+        return formatter&lt;std::string&gt;::format(s.toStdString(), ctx);
+    &#125;
+&#125;;
+
+template&lt;&gt;
+struct fmt::formatter&lt;QByteArray&gt; : fmt::formatter&lt;std::string&gt;
+&#123;
+    template&lt;typename FormatContext&gt;
+    auto format(const QByteArray &amp;s, FormatContext &amp;ctx) const
+    &#123;
+        return fmt::formatter&lt;std::string&gt;::format(s.toStdString(), ctx);
+    &#125;
+&#125;;
+
+template&lt;&gt;
+struct fmt::formatter&lt;QStringList&gt; : formatter&lt;std::string&gt;
+&#123;
+    template&lt;typename FormatContext&gt;
+    auto format(QStringList s, FormatContext &amp;ctx) const
+    &#123;
+        return formatter&lt;std::string&gt;::format(s.join(&#39;,&#39;).toStdString(), ctx);
+    &#125;
+&#125;;
+
+#define MY_LOG MyLog::getInstance()
+
+#endif // MYLOG_H
+</code></pre>
+<h3 id="mylog-cpp"><a href="#mylog-cpp" class="headerlink" title="mylog.cpp"></a><code>mylog.cpp</code></h3><pre><code class="cpp">#include &quot;mylog.h&quot;
+
+#include &quot;spdlog/sinks/rotating_file_sink.h&quot;
+#include &quot;spdlog/sinks/stdout_color_sinks.h&quot;
+
+std::shared_ptr&lt;spdlog::logger&gt; MyLog::s_logger = nullptr;
+
+MyLog &amp;MyLog::getInstance()
+&#123;
+    static MyLog instance;
+    return instance;
+&#125;
+
+MyLog::~MyLog()
+&#123;
+    spdlog::drop_all();
+&#125;
+
+void MyLog::init(const std::string &amp;file_name, size_t max_size, size_t max_files)
+&#123;
+    std::vector&lt;spdlog::sink_ptr&gt; logSinks;
+    logSinks.emplace_back(std::make_shared&lt;spdlog::sinks::stdout_color_sink_mt&gt;());
+    logSinks.emplace_back(
+        std::make_shared&lt;spdlog::sinks::rotating_file_sink_mt&gt;(file_name, max_size, max_files));
+
+    logSinks[0]-&gt;set_pattern(&quot;%^[%T] %n: %v%$&quot;);
+    logSinks[1]-&gt;set_pattern(&quot;[%T] [%l] %n: %v&quot;);
+
+    s_logger = std::make_shared&lt;spdlog::logger&gt;(&quot;MySerial&quot;, begin(logSinks), end(logSinks));
+    spdlog::register_logger(s_logger);
+    s_logger-&gt;set_level(spdlog::level::trace);
+    s_logger-&gt;flush_on(spdlog::level::trace);
+&#125;
+
+std::shared_ptr&lt;spdlog::logger&gt; MyLog::getLogger()
+&#123;
+    return s_logger;
+&#125;
+
+MyLog::MyLog()
+&#123;
+    init();
+&#125;
+</code></pre>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/CPP/">
+          CPP
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+    <canvas id="sprite-canvas" width="100" height="100"></canvas>
+  </div>
+</div>
+    </div>
+  </div>
+</body>
+
+
+
+    
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+    
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+    
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+    
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+    
+<script src="/js/milk.js"></script>
+
+
+
+</html>
