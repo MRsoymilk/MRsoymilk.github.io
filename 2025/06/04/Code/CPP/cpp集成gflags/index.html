@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Linux工具 [ Soymilk ]</title>
+  <title>cpp集成gflags [ Soymilk ]</title>
   
 <link rel="shortcut icon" href="/favicon/favicon.ico">
 
@@ -130,16 +130,16 @@
     <div class="milk-body">
       
 <div class="draggable-toc">
-  <div class="toc-title">Linux工具</div>
+  <div class="toc-title">cpp集成gflags</div>
   <p>process: <span>0</span></p>
   <div class="progress-container">
     <div class="progress-bar" id="bar"></div>
   </div>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mycli"><span class="toc-text">mycli</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#fzf"><span class="toc-text">fzf</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cloc"><span class="toc-text">cloc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ccache"><span class="toc-text">ccache</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tmux"><span class="toc-text">tmux</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tldr"><span class="toc-text">tldr</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ranger"><span class="toc-text">ranger</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cpupower"><span class="toc-text">cpupower</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E9%9B%86%E6%88%90"><span class="toc-text">简单集成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C"><span class="toc-text">运行</span></a></li></ol>
 </div>
 
 <div class="post-content" id="post-content">
-  <div id="top">Linux工具</div>
+  <div id="top">cpp集成gflags</div>
   <div class="post">
     
     <div class="content-categories">
@@ -150,15 +150,15 @@
         
           <li>&gt;</li>
           <li>
-            <a href="/categories/Linux/">
-          Linux
+            <a href="/categories/Code/">
+          Code
         </a>
           </li>
       
           <li>&gt;</li>
           <li>
-            <a href="/categories/Linux/common/">
-          common
+            <a href="/categories/Code/CPP/">
+          CPP
         </a>
           </li>
       
@@ -167,69 +167,65 @@
     </div>
     <hr>
     
-    <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>Linux 上一些常用的工具。</p>
-<p>例如：可以自动补全的 mysql 工具<code>mycli</code>，交互式搜索的<code>fzf</code>，代码统计工具<code>cloc</code>…</p>
-<span id="more"></span>
-
-<h2 id="mycli"><a href="#mycli" class="headerlink" title="mycli"></a><code>mycli</code></h2><p><a target="_blank" rel="noopener" href="https://www.mycli.net/">mycli</a></p>
-<p>mysql 客户端，支持语法高亮和命令补全，运行在 Terminal 上。</p>
-<p><img src="/mycli.png" alt="mycli"></p>
-<h2 id="fzf"><a href="#fzf" class="headerlink" title="fzf"></a><code>fzf</code></h2><p><a target="_blank" rel="noopener" href="https://github.com/junegunn/fzf">fzf</a></p>
-<p>命令行下模糊搜索工具，交互式智能搜索并选取文件或内容。</p>
-<p><img src="/fzf.png" alt="fzf"></p>
-<h2 id="cloc"><a href="#cloc" class="headerlink" title="cloc"></a><code>cloc</code></h2><p><a target="_blank" rel="noopener" href="https://github.com/AlDanial/cloc">cloc</a></p>
-<p>代码统计工具</p>
-<p><img src="/cloc.png" alt="cloc"></p>
-<h2 id="ccache"><a href="#ccache" class="headerlink" title="ccache"></a><code>ccache</code></h2><p><a target="_blank" rel="noopener" href="https://wiki.gentoo.org/wiki/Ccache">Gentoo ccache</a></p>
-<p>高速 C&#x2F;C++编译缓存工具，提高编译速度。</p>
-<pre><code class="bash">gcc foo.c
-ccache gcc foo.c
+    <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><a target="_blank" rel="noopener" href="https://github.com/gflags/gflags">gflags</a> 是 Google 开源的命令行参数解析库，主要用于 C++项目中提供灵活、强大的命令行参数定义与解析功能</p>
+<p>gflags 通过宏定义全局变量并自动处理命令行参数传参，例如<code>DEFINE_int32(port, 8080, &quot;Port to listen on&quot;);</code></p>
+<p>更多用法：<a target="_blank" rel="noopener" href="https://gflags.github.io/gflags/">How To Use gflags (formerly Google Commandline Flags)</a></p>
+<h2 id="简单集成"><a href="#简单集成" class="headerlink" title="简单集成"></a>简单集成</h2><p>项目结构：</p>
+<pre><code class="bash">.
+├── build
+├── CMakeLists.txt
+├── main.cpp
+└── vendor
 </code></pre>
-<h2 id="tmux"><a href="#tmux" class="headerlink" title="tmux"></a><code>tmux</code></h2><p><a target="_blank" rel="noopener" href="https://github.com/tmux/tmux">tmux</a></p>
-<p>终端复用</p>
-<p><img src="/tmux.png" alt="tmux"></p>
-<h2 id="tldr"><a href="#tldr" class="headerlink" title="tldr"></a><code>tldr</code></h2><p><a target="_blank" rel="noopener" href="https://tldr.sh/">tldr</a></p>
-<p>简略的 man 文档</p>
-<p>需要额外配置颜色输出<br>文件：<code>~/.tldrrc</code></p>
-<pre><code class="json">&#123;
-  &quot;themes&quot;: &#123;
-    &quot;my&quot;: &#123;
-      &quot;commandName&quot;: &quot;bold, cyan&quot;,
-      &quot;mainDescription&quot;: &quot;underline&quot;,
-      &quot;exampleDescription&quot;: &quot;yellow&quot;,
-      &quot;exampleCode&quot;: &quot;red&quot;,
-      &quot;exampleToken&quot;: &quot;dim&quot;
-    &#125;
-  &#125;,
-  &quot;theme&quot;: &quot;my&quot;
+<p>输出</p>
+<pre><code class="bash">git clone https://github.com/gflags/gflags.git vendor/gflags
+</code></pre>
+<p>CMakeLists.txt 文件：</p>
+<pre><code class="cmake">cmake_minimum_required(VERSION 3.10)
+project(test)
+
+set(CMAKE_CXX_STANDARD 17)
+
+add_subdirectory(vendor/gflags)
+
+add_executable(test main.cpp)
+
+target_link_libraries(test gflags)
+</code></pre>
+<p>main.cpp 文件：</p>
+<pre><code class="cpp">#include &lt;iostream&gt;
+#include &quot;gflags/gflags.h&quot;
+
+DEFINE_bool(debug, false, &quot;Enable debug mode&quot;);
+DEFINE_int32(port, 8080, &quot;Listening port&quot;);
+
+int main(int argc, char** argv) &#123;
+    gflags::SetUsageMessage(&quot;Usage: ./test [options]&quot;);
+    gflags::ParseCommandLineFlags(&amp;argc, &amp;argv, true);
+
+    std::cout &lt;&lt; &quot;Debug mode: &quot; &lt;&lt; (FLAGS_debug ? &quot;ON&quot; : &quot;OFF&quot;) &lt;&lt; std::endl;
+    std::cout &lt;&lt; &quot;Listening on port: &quot; &lt;&lt; FLAGS_port &lt;&lt; std::endl;
+
+    return 0;
 &#125;
 </code></pre>
-<p><img src="/tldr.png" alt="tldr"></p>
-<h2 id="ranger"><a href="#ranger" class="headerlink" title="ranger"></a><code>ranger</code></h2><p><a target="_blank" rel="noopener" href="https://github.com/ranger/ranger">ranger</a></p>
-<p>Terminal 上的文件系统。无桌面环境也能使用。</p>
-<p><img src="/ranger.png" alt="ranger"></p>
-<h2 id="cpupower"><a href="#cpupower" class="headerlink" title="cpupower"></a><code>cpupower</code></h2><p>限制 CPU 功率，降低功耗</p>
-<p>查看支持的调度器：</p>
-<pre><code class="bash">cpupower frequency-info
-analyzing CPU 5:
-  driver: intel_pstate
-  CPUs which run at the same hardware frequency: 5
-  CPUs which need to have their frequency coordinated by software: 5
-  maximum transition latency:  Cannot determine or is not supported.
-  hardware limits: 800 MHz - 4.00 GHz
-  available cpufreq governors: performance powersave
-  current policy: frequency should be within 800 MHz and 4.00 GHz.
-                  The governor &quot;performance&quot; may decide which speed to use
-                  within this range.
-  current CPU frequency: Unable to call hardware
-  current CPU frequency: 3.07 GHz (asserted by call to kernel)
-  boost state support:
-    Supported: yes
-    Active: yes
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>无参数运行：</p>
+<pre><code class="bash">./test
+Debug mode: OFF
+Listening on port: 8080
 </code></pre>
-<p>从<code>available cpufreq governors</code>获取两种模式<code>performance</code>和<code>powersave</code></p>
-<p>限制最大频率（1.2GHz）：</p>
-<pre><code class="bash">sudo cpupower frequency-set -u 1200000
+<p>带参数运行：</p>
+<pre><code class="bash">./test --port=10086
+Debug mode: OFF
+Listening on port: 10086
+</code></pre>
+<p>查看帮助：</p>
+<pre><code class="bash">./test --help
+test: Usage: ./test [options]
+
+  Flags from /home/vv/tmp/cpp_gflags/main.cpp:
+    -debug (Enable debug mode) type: bool default: false
+    -port (Listening port) type: int32 default: 8080
 </code></pre>
 
     
@@ -239,8 +235,12 @@ analyzing CPU 5:
       <i class="fas fa-tags"></i>
       <ul>
         
-        <li><a href="/tags/common/">
-          common
+        <li><a href="/tags/CPP/">
+          CPP
+        </a></li>
+      
+        <li><a href="/tags/cmake/">
+          cmake
         </a></li>
       
       </ul>

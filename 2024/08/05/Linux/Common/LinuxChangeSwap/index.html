@@ -240,6 +240,31 @@ Swap:           19Gi       609Mi        19Gi
 </ol>
 <pre><code class="bash">sudo rm /path/to/swap_extend
 </code></pre>
+<p>我的系统上并不能生效，即<code>/etc/fstab</code>中<code>/home/swap_extend</code>并未生效，因此采用<code>openrc</code>进行管理</p>
+<p>创建<code>/etc/init.d/late_swap</code>:</p>
+<pre><code class="bash">#!/sbin/openrc-run
+# Copyright 2025 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+name=&quot;late_swap daemon&quot;
+description=&quot;Enable swap file in /home after /home is mounted&quot;
+command=/usr/bin/late_swap
+command_args=&quot;$&#123;late_swap_args&#125;&quot;
+
+depend() &#123;
+  need localmount
+  after localmount
+&#125;
+
+start() &#123;
+    ebegin &quot;Enabling late swap file&quot;
+    swapon /home/swap_extend
+    eend $?
+&#125;
+</code></pre>
+<p>添加到默认启动</p>
+<pre><code class="bash">sudo rc-update add late_swap default
+</code></pre>
 
     
     <hr>

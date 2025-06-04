@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Linux工具 [ Soymilk ]</title>
+  <title>设计模式——概述 [ Soymilk ]</title>
   
 <link rel="shortcut icon" href="/favicon/favicon.ico">
 
@@ -130,16 +130,16 @@
     <div class="milk-body">
       
 <div class="draggable-toc">
-  <div class="toc-title">Linux工具</div>
+  <div class="toc-title">设计模式——概述</div>
   <p>process: <span>0</span></p>
   <div class="progress-container">
     <div class="progress-bar" id="bar"></div>
   </div>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mycli"><span class="toc-text">mycli</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#fzf"><span class="toc-text">fzf</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cloc"><span class="toc-text">cloc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ccache"><span class="toc-text">ccache</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tmux"><span class="toc-text">tmux</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tldr"><span class="toc-text">tldr</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ranger"><span class="toc-text">ranger</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cpupower"><span class="toc-text">cpupower</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%89%E8%AE%AE"><span class="toc-text">争议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F"><span class="toc-text">创建型模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F"><span class="toc-text">结构型模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%8C%E4%B8%BA%E6%A8%A1%E5%BC%8F"><span class="toc-text">行为模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%85%AD%E5%A4%A7%E5%8E%9F%E5%88%99"><span class="toc-text">设计模式的六大原则</span></a></li></ol>
 </div>
 
 <div class="post-content" id="post-content">
-  <div id="top">Linux工具</div>
+  <div id="top">设计模式——概述</div>
   <div class="post">
     
     <div class="content-categories">
@@ -150,15 +150,8 @@
         
           <li>&gt;</li>
           <li>
-            <a href="/categories/Linux/">
-          Linux
-        </a>
-          </li>
-      
-          <li>&gt;</li>
-          <li>
-            <a href="/categories/Linux/common/">
-          common
+            <a href="/categories/DesignPattern/">
+          DesignPattern
         </a>
           </li>
       
@@ -167,70 +160,64 @@
     </div>
     <hr>
     
-    <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>Linux 上一些常用的工具。</p>
-<p>例如：可以自动补全的 mysql 工具<code>mycli</code>，交互式搜索的<code>fzf</code>，代码统计工具<code>cloc</code>…</p>
-<span id="more"></span>
-
-<h2 id="mycli"><a href="#mycli" class="headerlink" title="mycli"></a><code>mycli</code></h2><p><a target="_blank" rel="noopener" href="https://www.mycli.net/">mycli</a></p>
-<p>mysql 客户端，支持语法高亮和命令补全，运行在 Terminal 上。</p>
-<p><img src="/mycli.png" alt="mycli"></p>
-<h2 id="fzf"><a href="#fzf" class="headerlink" title="fzf"></a><code>fzf</code></h2><p><a target="_blank" rel="noopener" href="https://github.com/junegunn/fzf">fzf</a></p>
-<p>命令行下模糊搜索工具，交互式智能搜索并选取文件或内容。</p>
-<p><img src="/fzf.png" alt="fzf"></p>
-<h2 id="cloc"><a href="#cloc" class="headerlink" title="cloc"></a><code>cloc</code></h2><p><a target="_blank" rel="noopener" href="https://github.com/AlDanial/cloc">cloc</a></p>
-<p>代码统计工具</p>
-<p><img src="/cloc.png" alt="cloc"></p>
-<h2 id="ccache"><a href="#ccache" class="headerlink" title="ccache"></a><code>ccache</code></h2><p><a target="_blank" rel="noopener" href="https://wiki.gentoo.org/wiki/Ccache">Gentoo ccache</a></p>
-<p>高速 C&#x2F;C++编译缓存工具，提高编译速度。</p>
-<pre><code class="bash">gcc foo.c
-ccache gcc foo.c
-</code></pre>
-<h2 id="tmux"><a href="#tmux" class="headerlink" title="tmux"></a><code>tmux</code></h2><p><a target="_blank" rel="noopener" href="https://github.com/tmux/tmux">tmux</a></p>
-<p>终端复用</p>
-<p><img src="/tmux.png" alt="tmux"></p>
-<h2 id="tldr"><a href="#tldr" class="headerlink" title="tldr"></a><code>tldr</code></h2><p><a target="_blank" rel="noopener" href="https://tldr.sh/">tldr</a></p>
-<p>简略的 man 文档</p>
-<p>需要额外配置颜色输出<br>文件：<code>~/.tldrrc</code></p>
-<pre><code class="json">&#123;
-  &quot;themes&quot;: &#123;
-    &quot;my&quot;: &#123;
-      &quot;commandName&quot;: &quot;bold, cyan&quot;,
-      &quot;mainDescription&quot;: &quot;underline&quot;,
-      &quot;exampleDescription&quot;: &quot;yellow&quot;,
-      &quot;exampleCode&quot;: &quot;red&quot;,
-      &quot;exampleToken&quot;: &quot;dim&quot;
-    &#125;
-  &#125;,
-  &quot;theme&quot;: &quot;my&quot;
-&#125;
-</code></pre>
-<p><img src="/tldr.png" alt="tldr"></p>
-<h2 id="ranger"><a href="#ranger" class="headerlink" title="ranger"></a><code>ranger</code></h2><p><a target="_blank" rel="noopener" href="https://github.com/ranger/ranger">ranger</a></p>
-<p>Terminal 上的文件系统。无桌面环境也能使用。</p>
-<p><img src="/ranger.png" alt="ranger"></p>
-<h2 id="cpupower"><a href="#cpupower" class="headerlink" title="cpupower"></a><code>cpupower</code></h2><p>限制 CPU 功率，降低功耗</p>
-<p>查看支持的调度器：</p>
-<pre><code class="bash">cpupower frequency-info
-analyzing CPU 5:
-  driver: intel_pstate
-  CPUs which run at the same hardware frequency: 5
-  CPUs which need to have their frequency coordinated by software: 5
-  maximum transition latency:  Cannot determine or is not supported.
-  hardware limits: 800 MHz - 4.00 GHz
-  available cpufreq governors: performance powersave
-  current policy: frequency should be within 800 MHz and 4.00 GHz.
-                  The governor &quot;performance&quot; may decide which speed to use
-                  within this range.
-  current CPU frequency: Unable to call hardware
-  current CPU frequency: 3.07 GHz (asserted by call to kernel)
-  boost state support:
-    Supported: yes
-    Active: yes
-</code></pre>
-<p>从<code>available cpufreq governors</code>获取两种模式<code>performance</code>和<code>powersave</code></p>
-<p>限制最大频率（1.2GHz）：</p>
-<pre><code class="bash">sudo cpupower frequency-set -u 1200000
-</code></pre>
+    <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://refactoringguru.cn/design-patterns">https://refactoringguru.cn/design-patterns</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/design-pattern/design-pattern-intro.html">设计模式简介</a></li>
+</ul>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>1994，由 Erich Gamma、Richard Helm、Ralph Johnson 和 John Vlissides 四人合著出版了一本名为 Design Patterns - Elements of Reusable Object-Oriented Software（中文译名：设计模式 - 可复用的面向对象软件元素） 的书，该书首次提到了软件开发中设计模式的概念。</p>
+<p>四位作者合称 GOF（四人帮，全拼 Gang of Four）。他们所提出的设计模式主要是基于以下的面向对象设计原则。</p>
+<p>面向对象系统的分析和设计的追求：高内聚（Cohesion）和低耦合（Coupling）</p>
+<p>对接口编程而不是对实现编程。优先使用对象组合而不是继承</p>
+<h2 id="争议"><a href="#争议" class="headerlink" title="争议"></a>争议</h2><ul>
+<li>一种针对不完善编程语言的蹩脚解决方案（例如，策略模式在绝大部分现代编程语言中可以简单地使用匿名（lambda）函数来实现）</li>
+<li>低效的解决方案</li>
+<li>不当使用</li>
+</ul>
+<h2 id="创建型模式"><a href="#创建型模式" class="headerlink" title="创建型模式"></a>创建型模式</h2><p>在创建对象的同时隐藏创建逻辑的方式，而不是使用 <code>new</code> 运算符直接实例化独享，使程序在判断针对某个给定实例需要创建哪些对象时更加灵活。</p>
+<ul>
+<li>工厂模式（Factory）</li>
+<li>抽象工厂模式（AbstactFactory）</li>
+<li>单例模式（Singleton）</li>
+<li>建造者模式（Builder）</li>
+<li>原型模式（Prototype）</li>
+</ul>
+<p>这类模式提供创建对象的机制， 能够提升已有代码的灵活性和可复用性。</p>
+<h2 id="结构型模式"><a href="#结构型模式" class="headerlink" title="结构型模式"></a>结构型模式</h2><p>关注对象之间的组合和关系，解决如何构建灵活且可复用的类和对象结构。</p>
+<ul>
+<li>适配器模式（Adapter）</li>
+<li>桥接模式（Bridge）</li>
+<li>过滤器模式（Bridge）</li>
+<li>组合模式（Composite）</li>
+<li>装饰器模式（Decorator）</li>
+<li>外观模式（Facade）</li>
+<li>享元模式（Flyweight）</li>
+<li>代理模式（Proxy）</li>
+</ul>
+<p>这类模式介绍如何将对象和类组装成较大的结构， 并同时保持结构的灵活和高效。</p>
+<h2 id="行为模式"><a href="#行为模式" class="headerlink" title="行为模式"></a>行为模式</h2><p>关注对象之间的通信和交互，解决对象之间的责任分配和算法的封装。</p>
+<ul>
+<li>责任链模式（Chain of Responsibility）</li>
+<li>命令模式（Command）</li>
+<li>解释器模式（Interpreter）</li>
+<li>迭代器模式（Iterator）</li>
+<li>中介者模式（Mediator）</li>
+<li>备忘录模式（Memento）</li>
+<li>观察者模式（Observer）</li>
+<li>状态模式（State）</li>
+<li>空对象模式（Null Object）</li>
+<li>策略模式（Strategy）</li>
+<li>模板模式（Template）</li>
+<li>访问者模式（Visitor）</li>
+</ul>
+<p>这类模式负责对象间的高效沟通和职责委派。</p>
+<h2 id="设计模式的六大原则"><a href="#设计模式的六大原则" class="headerlink" title="设计模式的六大原则"></a>设计模式的六大原则</h2><ul>
+<li>单一职责原则（SRP）Single Responsibility Principle：一个类只负责一项职责（功能），职责越单一，代码耦合度越低，维护越简单。</li>
+<li>开闭原则（OCP）Open Closed Principle：对扩展开放，对修改关闭。即新增功能应通过扩展实现，而非修改原有代码。</li>
+<li>里氏替换原则（LSP）Liskov Substitution Principle：子类对象必须能够替换其父类对象，并且功能不被破坏。强调继承体系的合理性。</li>
+<li>依赖倒置原则（DIP）Dependency Inversion Principle：高层模块不依赖底层模块，两者都应依赖于抽象。强调通过接口或抽象类编程。</li>
+<li>接口隔离原则（ISP）Interface Segregation Principle：不应该强迫用户依赖它们不使用的接口，应拆分成更小更具体的接口。</li>
+<li>迪米特法则（LOD）Law of Demeter：一个对象应该对其他对象有尽可能少的了解，即“最少知道原则”。避免过度耦合。</li>
+</ul>
 
     
     <hr>
@@ -239,8 +226,8 @@ analyzing CPU 5:
       <i class="fas fa-tags"></i>
       <ul>
         
-        <li><a href="/tags/common/">
-          common
+        <li><a href="/tags/DesignPattern/">
+          DesignPattern
         </a></li>
       
       </ul>

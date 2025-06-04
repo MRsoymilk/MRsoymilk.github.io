@@ -135,7 +135,7 @@
   <div class="progress-container">
     <div class="progress-bar" id="bar"></div>
   </div>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-web-ui%EF%BC%88%E9%9C%80%E8%A6%81-python-%E7%89%88%E6%9C%AC-3-11%EF%BC%89"><span class="toc-text">安装 web ui（需要 python 版本&gt;&#x3D;3.11）</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD-ollama"><span class="toc-text">下载 ollama</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E6%A8%A1%E5%9E%8B"><span class="toc-text">下载模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-web-ui"><span class="toc-text">安装 web ui</span></a></li></ol>
 </div>
 
 <div class="post-content" id="post-content">
@@ -160,8 +160,7 @@
     </div>
     <hr>
     
-    <p>下载 ollama</p>
-<p><img src="/download.jpg" alt="download ollama"></p>
+    <h2 id="下载-ollama"><a href="#下载-ollama" class="headerlink" title="下载 ollama"></a>下载 ollama</h2><p><img src="/download.jpg" alt="download ollama"></p>
 <p>启动命令行：</p>
 <pre><code class="sh">ollama
 Usage:
@@ -188,13 +187,14 @@ Flags:
 
 Use &quot;ollama [command] --help&quot; for more information about a command.
 </code></pre>
-<p>下载模型（模型网站：<a target="_blank" rel="noopener" href="https://ollama.com/search%EF%BC%89">https://ollama.com/search）</a></p>
+<h2 id="下载模型"><a href="#下载模型" class="headerlink" title="下载模型"></a>下载模型</h2><p>模型网站：<a target="_blank" rel="noopener" href="https://ollama.com/search">https://ollama.com/search</a></p>
 <pre><code class="sh">ollama pull llama3.2
 # or
 ollama run llama3.2
 </code></pre>
 <p><img src="/usage.jpg" alt="usage"></p>
-<h2 id="安装-web-ui（需要-python-版本-3-11）"><a href="#安装-web-ui（需要-python-版本-3-11）" class="headerlink" title="安装 web ui（需要 python 版本&gt;&#x3D;3.11）"></a>安装 web ui（需要 python 版本&gt;&#x3D;3.11）</h2><pre><code class="sh">pip install open-webui
+<h2 id="安装-web-ui"><a href="#安装-web-ui" class="headerlink" title="安装 web ui"></a>安装 web ui</h2><p>需要 python 版本&gt;&#x3D;3.11</p>
+<pre><code class="sh">pip install open-webui
 </code></pre>
 <p>运行</p>
 <pre><code class="sh">open-webui serve
