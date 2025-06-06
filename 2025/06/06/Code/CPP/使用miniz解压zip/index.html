@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>cpp集成gflags [ Soymilk ]</title>
+  <title>使用minzi解压zip [ Soymilk ]</title>
   
 <link rel="shortcut icon" href="/favicon/favicon.ico">
 
@@ -130,16 +130,16 @@
     <div class="milk-body">
       
 <div class="draggable-toc">
-  <div class="toc-title">cpp集成gflags</div>
+  <div class="toc-title">使用minzi解压zip</div>
   <p>process: <span>0</span></p>
   <div class="progress-container">
     <div class="progress-bar" id="bar"></div>
   </div>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E9%9B%86%E6%88%90"><span class="toc-text">简单集成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C"><span class="toc-text">运行</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E7%A7%8D%E5%9C%A8-Windows-%E4%B8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-text">一种在 Windows 下的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#miniz-%E9%85%8D%E7%BD%AE"><span class="toc-text">miniz 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%B4%E6%96%87%E4%BB%B6"><span class="toc-text">头文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#h-%E5%AE%9E%E7%8E%B0"><span class="toc-text">.h 实现</span></a></li></ol></li></ol>
 </div>
 
 <div class="post-content" id="post-content">
-  <div id="top">cpp集成gflags</div>
+  <div id="top">使用minzi解压zip</div>
   <div class="post">
     
     <div class="content-categories">
@@ -167,67 +167,170 @@
     </div>
     <hr>
     
-    <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><a target="_blank" rel="noopener" href="https://github.com/gflags/gflags">gflags</a> 是 Google 开源的命令行参数解析库，主要用于 C++项目中提供灵活、强大的命令行参数定义与解析功能</p>
-<p>gflags 通过宏定义全局变量并自动处理命令行参数传参，例如<code>DEFINE_int32(port, 8080, &quot;Port to listen on&quot;);</code></p>
-<p>更多用法：<a target="_blank" rel="noopener" href="https://gflags.github.io/gflags/">How To Use gflags (formerly Google Commandline Flags)</a></p>
+    <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><img src="https://github.com/richgel999/miniz" alt="miniz">，一个轻量的 zlib (RFC 1950) and Deflate (RFC 1951) 实现库。</p>
 <span id="more"></span>
 
-<h2 id="简单集成"><a href="#简单集成" class="headerlink" title="简单集成"></a>简单集成</h2><p>项目结构：</p>
-<pre><code class="bash">.
-├── build
-├── CMakeLists.txt
-├── main.cpp
-└── vendor
+<h2 id="一种在-Windows-下的实现"><a href="#一种在-Windows-下的实现" class="headerlink" title="一种在 Windows 下的实现"></a>一种在 Windows 下的实现</h2><h3 id="miniz-配置"><a href="#miniz-配置" class="headerlink" title="miniz 配置"></a>miniz 配置</h3><ol>
+<li><img src="/include_miniz.jpg" alt="加入include目录"></li>
+<li><img src="/add_miniz.jpg" alt="项目添加对应文件"></li>
+</ol>
+<h3 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h3><pre><code class="cpp">#pragma once
+
+#include &lt;memory&gt;
+
+class MY_Zip &#123;
+public:
+    MY_Zip();
+    virtual ~MY_Zip();
+    bool unzip(const char* in, const char* out);
+    const char* error();
+    int code();
+private:
+    class Impl;
+    std::unique_ptr&lt;Impl&gt; m_pImpl;
+&#125;;
 </code></pre>
-<p>输出</p>
-<pre><code class="bash">git clone https://github.com/gflags/gflags.git vendor/gflags
-</code></pre>
-<p>CMakeLists.txt 文件：</p>
-<pre><code class="cmake">cmake_minimum_required(VERSION 3.10)
-project(test)
+<h3 id="h-实现"><a href="#h-实现" class="headerlink" title=".h 实现"></a>.h 实现</h3><pre><code class="cpp">#include &quot;MY_Zip.h&quot;
+#include &quot;miniz.h&quot;
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+#include &lt;windows.h&gt;
+#include &lt;memory&gt;
+#include &lt;ShlObj_core.h&gt;
 
-set(CMAKE_CXX_STANDARD 17)
 
-add_subdirectory(vendor/gflags)
+class MY_Zip::Impl &#123;
+public:
+  std::string errMsg;
+  int errCode;
+  bool IsDirectory(const std::string&amp; path) &#123;
+    std::string name = path;
+    return !name.empty() &amp;&amp; (name.back() == &#39;/&#39; || name.back() == &#39;\\&#39;);
+  &#125;
 
-add_executable(test main.cpp)
+  bool CreateDirectory(const std::string&amp; path) &#123;
+    int result = SHCreateDirectoryExW(NULL, string2wstring(path).c_str(), NULL);
+    return result == ERROR_SUCCESS || result == ERROR_ALREADY_EXISTS;
+  &#125;
+private:
+  std::string wstring2string(const std::wstring&amp; wstr) &#123;
+    int size_needed = WideCharToMultiByte(CP_UTF8, 0, wstr.c_str(), -1, NULL, 0, NULL, NULL);
+    std::string str(size_needed - 1, 0);
+    WideCharToMultiByte(CP_UTF8, 0, wstr.c_str(), -1, &amp;str[0], size_needed, NULL, NULL);
+    return str;
+  &#125;
 
-target_link_libraries(test gflags)
-</code></pre>
-<p>main.cpp 文件：</p>
-<pre><code class="cpp">#include &lt;iostream&gt;
-#include &quot;gflags/gflags.h&quot;
+  std::wstring string2wstring(const std::string&amp; str) &#123;
+    int size_needed = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, NULL, 0);
+    std::wstring wstr(size_needed - 1, 0);
+    MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, &amp;wstr[0], size_needed);
+    return wstr;
+  &#125;
+&#125;;
 
-DEFINE_bool(debug, false, &quot;Enable debug mode&quot;);
-DEFINE_int32(port, 8080, &quot;Listening port&quot;);
+MY_Zip::MY_Zip() : m_pImpl(new Impl)
+&#123;
+&#125;
 
-int main(int argc, char** argv) &#123;
-    gflags::SetUsageMessage(&quot;Usage: ./test [options]&quot;);
-    gflags::ParseCommandLineFlags(&amp;argc, &amp;argv, true);
+MY_Zip::~MY_Zip()
+&#123;
+&#125;
 
-    std::cout &lt;&lt; &quot;Debug mode: &quot; &lt;&lt; (FLAGS_debug ? &quot;ON&quot; : &quot;OFF&quot;) &lt;&lt; std::endl;
-    std::cout &lt;&lt; &quot;Listening on port: &quot; &lt;&lt; FLAGS_port &lt;&lt; std::endl;
+bool MY_Zip::unzip(const char* in, const char* out)
+&#123;
+  mz_zip_archive archive&#123;&#125;;
+  if (!mz_zip_reader_init_file(&amp;archive, in, 0)) &#123;
+    m_pImpl-&gt;errMsg = &quot;can not open zip file: &quot; + std::string(in);
+    std::cerr &lt;&lt; m_pImpl-&gt;errMsg &lt;&lt; std::endl;
+    return false;
+  &#125;
+  int file_cnt = (int)mz_zip_reader_get_num_files(&amp;archive);
+  if (file_cnt == 0) &#123;
+    m_pImpl-&gt;errMsg = &quot;zip file is empty&quot;;
+    std::cerr &lt;&lt; m_pImpl-&gt;errMsg &lt;&lt; std::endl;
+    return false;
+  &#125;
 
-    return 0;
+  for (int i = 0; i &lt; file_cnt; ++i) &#123;
+    mz_zip_archive_file_stat file_stat;
+    if (!mz_zip_reader_file_stat(&amp;archive, i, &amp;file_stat)) &#123;
+      m_pImpl-&gt;errMsg = &quot;can&#39;t get file infomation in zip&quot;;
+      mz_zip_reader_end(&amp;archive);
+      return false;
+    &#125;
+
+    std::string path = std::string(out) + &quot;\\&quot; + file_stat.m_filename;
+    if (m_pImpl-&gt;IsDirectory(path)) &#123;
+      m_pImpl-&gt;CreateDirectory(path);
+      continue;
+    &#125;
+
+    size_t last_slash = path.find_last_of(&quot;/\\&quot;);
+    if (last_slash != std::string::npos) &#123;
+      m_pImpl-&gt;CreateDirectory(path.substr(0, last_slash));
+    &#125;
+
+    if (!mz_zip_reader_extract_to_file(&amp;archive, i, path.c_str(), 0)) &#123;
+      m_pImpl-&gt;errMsg = &quot;unzip failed &quot; + path;
+      m_pImpl-&gt;errCode = archive.m_last_error;
+      std::cerr &lt;&lt; m_pImpl-&gt;errMsg &lt;&lt; std::endl;
+      mz_zip_reader_end(&amp;archive);
+      return false;
+    &#125;
+  &#125;
+  mz_zip_reader_end(&amp;archive);
+  m_pImpl-&gt;errMsg = &quot;&quot;;
+  std::cout &lt;&lt; &quot;unzip complete.&quot; &lt;&lt; std::endl;
+  return true;
+&#125;
+
+const char* MY_Zip::error()
+&#123;
+  return m_pImpl-&gt;errMsg.c_str();
+&#125;
+
+int MY_Zip::code()
+&#123;
+  return m_pImpl-&gt;errCode;
 &#125;
 </code></pre>
-<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>无参数运行：</p>
-<pre><code class="bash">./test
-Debug mode: OFF
-Listening on port: 8080
+<p>使用:</p>
+<pre><code class="cpp">string tempLatestFile = ANSItoUTF8(strLatestFile.GetBuffer());
+string tempLatestFolder = ANSItoUTF8(strLatestFolder.GetBuffer());
+hjZip.unzip(tempLatestFile.c_str(), tempLatestFolder.c_str())
 </code></pre>
-<p>带参数运行：</p>
-<pre><code class="bash">./test --port=10086
-Debug mode: OFF
-Listening on port: 10086
-</code></pre>
-<p>查看帮助：</p>
-<pre><code class="bash">./test --help
-test: Usage: ./test [options]
+<p><img src="/miniz_unzip.jpg" alt="miniz_unzip"></p>
+<p>其中路径转换：</p>
+<pre><code class="cpp">string UTF8toANSI(const std::string&amp; instr) //utf-8--&gt;ansi
+&#123;
+    int MAX_STRSIZE = instr.length() * 2 + 2;
+    WCHAR* wcharstr = new WCHAR[MAX_STRSIZE];
+    memset(wcharstr, 0, MAX_STRSIZE);
+    MultiByteToWideChar(CP_UTF8, 0, (char*)instr.data(), -1, wcharstr, MAX_STRSIZE);
+    char* charstr = new char[MAX_STRSIZE];
+    memset(charstr, 0, MAX_STRSIZE);
+    WideCharToMultiByte(CP_ACP, 0, wcharstr, -1, charstr, MAX_STRSIZE, NULL, NULL);
+    string charstrtemp(charstr);
+    delete []wcharstr;
+    delete []charstr;
+    return charstrtemp;
+&#125;
 
-  Flags from /home/vv/tmp/cpp_gflags/main.cpp:
-    -debug (Enable debug mode) type: bool default: false
-    -port (Listening port) type: int32 default: 8080
+string ANSItoUTF8(const std::string&amp; instr) //ansi--&gt;utf-8
+&#123;
+    int MAX_STRSIZE = instr.length() * 2 + 2;
+    WCHAR* wcharstr = new WCHAR[MAX_STRSIZE];
+    memset(wcharstr, 0, MAX_STRSIZE);
+    MultiByteToWideChar(CP_ACP, 0, (char*)instr.data(), -1, wcharstr, MAX_STRSIZE);
+    char* charstr = new char[MAX_STRSIZE];
+    memset(charstr, 0, MAX_STRSIZE);
+    WideCharToMultiByte(CP_UTF8, 0, wcharstr, -1, charstr, MAX_STRSIZE, NULL, NULL);
+    CString charstrtemp(charstr);
+    delete[] wcharstr;
+    delete[] charstr;
+    return (LPCSTR)charstrtemp;
+&#125;
 </code></pre>
 
     
@@ -239,10 +342,6 @@ test: Usage: ./test [options]
         
         <li><a href="/tags/CPP/">
           CPP
-        </a></li>
-      
-        <li><a href="/tags/cmake/">
-          cmake
         </a></li>
       
       </ul>
