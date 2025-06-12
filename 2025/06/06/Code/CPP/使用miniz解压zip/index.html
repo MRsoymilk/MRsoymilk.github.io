@@ -135,7 +135,7 @@
   <div class="progress-container">
     <div class="progress-bar" id="bar"></div>
   </div>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E7%A7%8D%E5%9C%A8-Windows-%E4%B8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-text">一种在 Windows 下的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#miniz-%E9%85%8D%E7%BD%AE"><span class="toc-text">miniz 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%B4%E6%96%87%E4%BB%B6"><span class="toc-text">头文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#h-%E5%AE%9E%E7%8E%B0"><span class="toc-text">.h 实现</span></a></li></ol></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E7%A7%8D%E5%9C%A8-Windows-%E4%B8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-text">一种在 Windows 下的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#miniz-%E9%85%8D%E7%BD%AE"><span class="toc-text">miniz 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%B4%E6%96%87%E4%BB%B6"><span class="toc-text">头文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#h-%E5%AE%9E%E7%8E%B0"><span class="toc-text">.h 实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E7%A7%8D-Linux-%E4%B8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-text">一种 Linux 下的实现</span></a></li></ol>
 </div>
 
 <div class="post-content" id="post-content">
@@ -332,6 +332,105 @@ string ANSItoUTF8(const std::string&amp; instr) //ansi--&gt;utf-8
     return (LPCSTR)charstrtemp;
 &#125;
 </code></pre>
+<h2 id="一种-Linux-下的实现"><a href="#一种-Linux-下的实现" class="headerlink" title="一种 Linux 下的实现"></a>一种 Linux 下的实现</h2><p>使用 C++17 的 filesystem</p>
+<p>CMakeLists.txt 配置（使用 <code>git clone</code> 获取对应的 miniz 项目）：</p>
+<pre><code class="cmake">cmake_minimum_required(VERSION 3.10)
+project(test)
+
+set(CMAKE_CXX_STANDARD 17)
+
+add_subdirectory(vendor/miniz)
+
+add_executable(test main.cpp MY_Zip.h MY_Zip.cpp)
+
+target_link_libraries(test miniz)
+</code></pre>
+<p>代码部分改动实现即可：</p>
+<pre><code class="cpp">#include &quot;MY_Zip.h&quot;
+#include &quot;miniz.h&quot;
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;memory&gt;
+#include &lt;filesystem&gt;
+
+namespace fs = std::filesystem;
+
+class MY_Zip::Impl &#123;
+public:
+  std::string errMsg;
+  int errCode;
+
+  bool IsDirectory(const std::string&amp; path) &#123;
+    return !path.empty() &amp;&amp; (path.back() == &#39;/&#39; || path.back() == &#39;\\&#39;);
+  &#125;
+
+  bool CreateDirectory(const std::string&amp; path) &#123;
+    std::error_code ec;
+    return fs::create_directories(fs::path(path), ec) || ec.value() == 0;
+  &#125;
+&#125;;
+
+MY_Zip::MY_Zip() : m_pImpl(new Impl) &#123;&#125;
+MY_Zip::~MY_Zip() &#123;&#125;
+
+bool MY_Zip::unzip(const char* in, const char* out) &#123;
+  mz_zip_archive archive&#123;&#125;;
+  if (!mz_zip_reader_init_file(&amp;archive, in, 0)) &#123;
+    m_pImpl-&gt;errMsg = &quot;can not open zip file: &quot; + std::string(in);
+    std::cerr &lt;&lt; m_pImpl-&gt;errMsg &lt;&lt; std::endl;
+    return false;
+  &#125;
+
+  int file_cnt = static_cast&lt;int&gt;(mz_zip_reader_get_num_files(&amp;archive));
+  if (file_cnt == 0) &#123;
+    m_pImpl-&gt;errMsg = &quot;zip file is empty&quot;;
+    std::cerr &lt;&lt; m_pImpl-&gt;errMsg &lt;&lt; std::endl;
+    mz_zip_reader_end(&amp;archive);
+    return false;
+  &#125;
+
+  for (int i = 0; i &lt; file_cnt; ++i) &#123;
+    mz_zip_archive_file_stat file_stat;
+    if (!mz_zip_reader_file_stat(&amp;archive, i, &amp;file_stat)) &#123;
+      m_pImpl-&gt;errMsg = &quot;can&#39;t get file info in zip&quot;;
+      mz_zip_reader_end(&amp;archive);
+      return false;
+    &#125;
+
+    fs::path targetPath = fs::path(out) / file_stat.m_filename;
+
+    if (m_pImpl-&gt;IsDirectory(file_stat.m_filename)) &#123;
+      m_pImpl-&gt;CreateDirectory(targetPath.string());
+      continue;
+    &#125;
+
+    fs::path parentDir = targetPath.parent_path();
+    m_pImpl-&gt;CreateDirectory(parentDir.string());
+
+    if (!mz_zip_reader_extract_to_file(&amp;archive, i, targetPath.string().c_str(), 0)) &#123;
+      m_pImpl-&gt;errMsg = &quot;unzip failed: &quot; + targetPath.string();
+      m_pImpl-&gt;errCode = archive.m_last_error;
+      std::cerr &lt;&lt; m_pImpl-&gt;errMsg &lt;&lt; std::endl;
+      mz_zip_reader_end(&amp;archive);
+      return false;
+    &#125;
+  &#125;
+
+  mz_zip_reader_end(&amp;archive);
+  m_pImpl-&gt;errMsg = &quot;&quot;;
+  std::cout &lt;&lt; &quot;unzip complete.&quot; &lt;&lt; std::endl;
+  return true;
+&#125;
+
+const char* MY_Zip::error() &#123;
+  return m_pImpl-&gt;errMsg.c_str();
+&#125;
+
+int MY_Zip::code() &#123;
+  return m_pImpl-&gt;errCode;
+&#125;
+</code></pre>
+<p><img src="/test_on_linux.jpg" alt="test_on_linux"></p>
 
     
     <hr>
