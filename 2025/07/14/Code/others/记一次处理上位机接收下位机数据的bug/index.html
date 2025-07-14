@@ -1,0 +1,419 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>记一次处理上位机接收下位机数据的bug [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" id="highlight-link" href="/lib/highlight/style/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<link rel="stylesheet" id="shceme-link" href="/css/theme/default.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk">
+    <div class="milk-header">
+       
+
+  <nav class="header-nav">
+     
+    <div class="nav-menu">
+      
+        <div id="Home" class="menu-item">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </div>
+      
+        <div id="Archives" class="menu-item">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </div>
+      
+        <div id="About" class="menu-item">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </div>
+      
+    </div>
+    
+    
+      <div class="nav-date">
+        <div id="date-ymd"></div>
+        <div id="date-week"></div>
+        <div id="date-time"></div>
+      </div>
+    
+    
+    
+      <div class="nav-system" id="nav-system"></div>
+    
+    
+    <div class="nav-layout" id="nav-layout" data-layout="tile">
+      <div id="layout-show">
+        <div class="show-icon"></div>
+        <div class="show-text"></div>
+      </div>
+    </div>
+    
+    <div class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+        <div>
+          <label for="scheme-select">Color scheme: </label>
+          <select id="scheme-select">
+            <option value='default'>default</option>
+          </select>
+          <label for="highlight-select">Code highlight: </label>
+          <select id="highlight-select">
+            <option value='railscasts'>railscasts</option>
+          </select>
+        </div>
+        <div>
+          <label for="ffolders-select">ffolders scheme: </label>
+          <select name="size" id="size-select">
+            <option value='medium'>medium</option>
+          </select>
+          <select name="color" id="color-select">
+            <option value='pink'>pink</option>
+          </select>
+        </div>
+        <div>
+          <label for="blur-slider">background blur
+            <span id="blur-value">10</span> px
+          </label>
+          <input type="range" id="blur-slider" min="0" max="20" data-value='10'>
+        </div>
+        <div>
+          <label for="font-enable">font</label>
+          <input type="checkbox" id="font-check" name="font-check" data-check="fun.ttf">
+        </div>
+      </div>
+    </div>
+  </nav>
+ 
+    </div>
+    <div class="milk-body">
+      
+<div class="draggable-toc">
+  <div class="toc-title">记一次处理上位机接收下位机数据的bug</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E6%8E%92%E6%9F%A5%E6%AD%A5%E9%AA%A4"><span class="toc-text">具体排查步骤</span></a></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">记一次处理上位机接收下位机数据的bug</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Code/">
+          Code
+        </a>
+          </li>
+      
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Code/others/">
+          others
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <p>记录上位机本应通过串口持续接收 1990 字节长度的数据，但出现不足 1990 字节。正确排查过程。</p>
+<span id="more"></span>
+
+<p>下位机使用正点原子接收如下</p>
+<p><img src="/correct_recv.jpg" alt="correct recv"></p>
+<p>其中收到 20634310 个字节，每个包 1990 个字节。20634310 &#x2F; 1990 是 10369，能整除，说明没有丢包</p>
+<p>但是上位机发现丢包</p>
+<p><img src="/wrong_recv.jpg" alt="wrong recv"></p>
+<h2 id="具体排查步骤"><a href="#具体排查步骤" class="headerlink" title="具体排查步骤"></a>具体排查步骤</h2><p>排查上位机接收算法，使用的是先找包头，后找包尾。进一步判断原始数据下包头之间的距离和包尾之间的距离</p>
+<p>其中包头是<code>DE3A096631</code>，包尾是<code>CEFF</code></p>
+<p>查找包尾并写入对应的 CSV 文件</p>
+<details>
+    <summary>find_ceff.py</summary>
+
+<pre><code class="python">import argparse
+import csv
+
+def find_ceff_offsets(filename):
+    with open(filename, &#39;rb&#39;) as f:
+        data = f.read()
+
+    target = b&#39;\xCE\xFF&#39;
+    offset = 0
+    count = 0
+    offsets = []
+
+    while True:
+        idx = data.find(target, offset)
+        if idx == -1:
+            break
+
+        offsets.append(idx)
+        offset = idx + 1  # 继续查找下一个
+        count += 1
+
+    if count == 0:
+        print(&quot;未找到任何 CE FF 序列。&quot;)
+        return
+
+    print(f&quot;总共找到 &#123;count&#125; 个 CE FF。正在写入 distance.csv...&quot;)
+
+    with open(&quot;distance.csv&quot;, &quot;w&quot;, newline=&#39;&#39;) as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow([&quot;index&quot;, &quot;start_offset&quot;, &quot;end_offset&quot;, &quot;distance&quot;, &quot;is_1990&quot;])
+        for i in range(1, len(offsets)):
+            start = offsets[i - 1]
+            end = offsets[i]
+            distance = end - start
+            writer.writerow([
+                i,
+                f&quot;0x&#123;start:08X&#125;&quot;,
+                f&quot;0x&#123;end:08X&#125;&quot;,
+                distance,
+                &quot;YES&quot; if distance == 1990 else &quot;NO&quot;
+            ])
+
+    print(&quot;写入完成：distance.csv&quot;)
+
+if __name__ == &quot;__main__&quot;:
+    parser = argparse.ArgumentParser(description=&quot;查找二进制文件中所有 CE FF 的偏移量，并输出间距到 CSV&quot;)
+    parser.add_argument(&quot;file&quot;, help=&quot;要分析的二进制文件路径&quot;)
+    args = parser.parse_args()
+
+    find_ceff_offsets(args.file)
+</code></pre>
+</details>
+
+<p>运行</p>
+<pre><code class="bash">python find_ceff.py valid_test/helper/data.raw
+</code></pre>
+<p>绘制对应包尾的距离</p>
+<details>
+    <summary>find_ceff.py</summary>
+
+<pre><code class="python">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 读取 CSV 文件
+df = pd.read_csv(&quot;distance.csv&quot;)
+
+# 提取 index 和 distance 列
+index = df[&quot;index&quot;]
+distance = df[&quot;distance&quot;]
+
+# 计算常见帧距
+expected = distance.mode()[0]
+
+# 绘图
+plt.figure(figsize=(12, 6))
+plt.plot(index, distance, label=&#39;frame distance&#39;, marker=&#39;o&#39;, linewidth=1)
+
+# 标出异常帧距
+abnormal = df[distance != expected]
+if not abnormal.empty:
+    plt.plot(abnormal[&quot;index&quot;], abnormal[&quot;distance&quot;], &#39;rx&#39;, label=&#39;abnormal&#39;, markersize=8)
+
+# 添加图形信息
+plt.xlabel(&quot;frame idx&quot;)
+plt.ylabel(&quot;frame distance&quot;)
+plt.title(&quot;CE FF distance&quot;)
+plt.grid(True)
+plt.legend()
+plt.tight_layout()
+
+# 显示或保存图像
+plt.savefig(&quot;distance_plot.png&quot;, dpi=300)  # 可选保存
+plt.show()
+</code></pre>
+</details>
+
+<p><img src="/distance_ceff.jpeg" alt="distance CEFF"></p>
+<p>发现很多异常距离点</p>
+<p>进一步查看包头距离，只要将找包尾代码中的<code>CEFF</code>换成包头的<code>DE3A096631</code>，然后进行查找</p>
+<p><img src="/distance_de3a096631.jpeg" alt="distance DE3A096631"></p>
+<p>发现一切正常</p>
+<p>说明单纯根据包尾进行查找存在问题，额外增加条件：数据长度。即我找到了包尾，再判断是否满足 1990 长度，不满足继续查找下一个包尾。</p>
+<p>我用 ESP32 写一个平移正弦波曲线，持续发送给上位机，上位机持续接收连续曲线，验证正常了。</p>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/others/">
+          others
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+    <canvas id="sprite-canvas" width="100" height="100"></canvas>
+  </div>
+</div>
+    </div>
+  </div>
+</body>
+
+
+
+    
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+    
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+    
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+    
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+    
+<script src="/js/milk.js"></script>
+
+
+
+</html>
