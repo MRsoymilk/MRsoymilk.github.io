@@ -1,0 +1,366 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>一种软件升级方案 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" id="highlight-link" href="/lib/highlight/style/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<link rel="stylesheet" id="shceme-link" href="/css/theme/default.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk">
+    <div class="milk-header">
+       
+
+  <nav class="header-nav">
+     
+    <div class="nav-menu">
+      
+        <div id="Home" class="menu-item">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </div>
+      
+        <div id="Archives" class="menu-item">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </div>
+      
+        <div id="About" class="menu-item">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </div>
+      
+    </div>
+    
+    
+      <div class="nav-date">
+        <div id="date-ymd"></div>
+        <div id="date-week"></div>
+        <div id="date-time"></div>
+      </div>
+    
+    
+    
+      <div class="nav-system" id="nav-system"></div>
+    
+    
+    <div class="nav-layout" id="nav-layout" data-layout="tile">
+      <div id="layout-show">
+        <div class="show-icon"></div>
+        <div class="show-text"></div>
+      </div>
+    </div>
+    
+    <div class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+        <div>
+          <label for="scheme-select">Color scheme: </label>
+          <select id="scheme-select">
+            <option value='default'>default</option>
+          </select>
+          <label for="highlight-select">Code highlight: </label>
+          <select id="highlight-select">
+            <option value='railscasts'>railscasts</option>
+          </select>
+        </div>
+        <div>
+          <label for="ffolders-select">ffolders scheme: </label>
+          <select name="size" id="size-select">
+            <option value='medium'>medium</option>
+          </select>
+          <select name="color" id="color-select">
+            <option value='pink'>pink</option>
+          </select>
+        </div>
+        <div>
+          <label for="blur-slider">background blur
+            <span id="blur-value">10</span> px
+          </label>
+          <input type="range" id="blur-slider" min="0" max="20" data-value='10'>
+        </div>
+        <div>
+          <label for="font-enable">font</label>
+          <input type="checkbox" id="font-check" name="font-check" data-check="fun.ttf">
+        </div>
+      </div>
+    </div>
+  </nav>
+ 
+    </div>
+    <div class="milk-body">
+      
+<div class="draggable-toc">
+  <div class="toc-title">一种软件升级方案</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#nginx-%E9%85%8D%E7%BD%AE"><span class="toc-text">nginx 配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-text">客户端</span></a></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">一种软件升级方案</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/others/">
+          others
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <p>使用 QtWidgets 构建的客户端软件，添加升级相关。其中局域网中一台电脑启动 nginx 的静态服务相关，下载对应的文件进行单体（单独的 exe 文件）和全量更新。</p>
+<p>当前操作系统为 Windows11。</p>
+<p>个人项目 KnowIt 为例</p>
+<ul>
+<li>其中半自动打包部分见：<a target="_blank" rel="noopener" href="https://github.com/MRsoymilk/KnowIt/tree/master/autobuild">autobuild</a></li>
+<li>客户端升级部分见：<a target="_blank" rel="noopener" href="https://github.com/MRsoymilk/KnowIt/tree/master/src/IndependentWindow/AutoUpdate">AutoUpdate</a></li>
+</ul>
+<span id="more"></span>
+
+<h2 id="nginx-配置"><a href="#nginx-配置" class="headerlink" title="nginx 配置"></a>nginx 配置</h2><p>添加 nginx.conf 配置：</p>
+<pre><code class="conf">http &#123;
+
+    charset utf-8;  # 设置默认编码为utf-8
+
+    # 端口 8010 -&gt; KnowIt
+    server &#123;
+        listen       8010;
+        server_name  localhost;
+
+        location / &#123;
+            root   D:\work\output\KnowIt;
+            autoindex on;
+            autoindex_exact_size off;
+            autoindex_localtime on;
+            charset utf-8;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p><code>root</code>指向对应的目录，<code>charset utf-8;</code>防止乱码</p>
+<p>然后启动 nginx.exe，访问目标端口</p>
+<p><img src="/nginx_server_dir.jpg" alt="nginx server dir"></p>
+<ul>
+<li>latest 目录 是最新的组织好的未压缩的完整文件包</li>
+<li><code>KnowIt_version_timestamp.exe</code> 是使用 NSIS 进行打包的输出文件</li>
+<li><code>update.json</code> 是最新的更新内容，主要用于更新</li>
+<li><code>update.txt</code> 是所有更新记录，主要用于记录和展示</li>
+</ul>
+<p><code>update.json</code> 文件示例：</p>
+<pre><code class="json">&#123;
+  &quot;url&quot;: &quot;http://192.168.123.233:8010&quot;,
+  &quot;file&quot;: &quot;KnowIt_0.1.10_20250730_140427.exe&quot;,
+  &quot;timestamp&quot;: &quot;20250730_140427&quot;,
+  &quot;description&quot;: &quot;1. 修正DownloadHelper在Windows11下无法正常下载图片问题&quot;,
+  &quot;version&quot;: &quot;0.1.10&quot;
+&#125;
+</code></pre>
+<p><code>update.txt</code> 文件示例：</p>
+<pre><code class="txt">
+时间戳：20250730_131649
+版本号：0.1.09
+更新：1. 修复进入系统后的无ID编辑问题; 2. 修复单独exe无法更新问题; 3. 增加下载助手Tools-DownloadHelper，拖入网页图片进行下载
+
+时间戳：20250730_140427
+版本号：0.1.10
+更新：1. 修正DownloadHelper在Windows11下无法正常下载图片问题
+</code></pre>
+<h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><p><img src="/autoupdate.jpg" alt="autoupdate"></p>
+<p>操作逻辑：</p>
+<ol>
+<li><strong>下载路径的设置：</strong></li>
+</ol>
+<p>如果选择单独的 exe 进行更新，直接定位到服务下的 <code>latest/KnowIt.exe</code> 文件进行下载；如果选择全量更新，获取对应的 <code>update.json</code> 内容，从中提取 <code>file</code> 和 <code>url</code> 字段进行组合</p>
+<ol start="2">
+<li><strong>单独的 exe 更新代码逻辑</strong></li>
+</ol>
+<p>首先创建一个延时执行的<code>bat</code>脚本，写入对应 exe 的路径和当前 exe 的路径，执行覆盖操作，然后使用<code>exit(0)</code>立即退出当前程序（也可以使用<code>bat</code>脚本，个人认为使用<code>exit</code>简化操作）。</p>
+<ol start="3">
+<li><strong>全量更新逻辑</strong></li>
+</ol>
+<p>直接使用 <code>QProcess</code> 启动安装包，后续安装交给安装包，包括当前程序的关闭，路径的查找等</p>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/others/">
+          others
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+    <canvas id="sprite-canvas" width="100" height="100"></canvas>
+  </div>
+</div>
+    </div>
+  </div>
+</body>
+
+
+
+    
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+    
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+    
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+    
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+    
+<script src="/js/milk.js"></script>
+
+
+
+</html>
