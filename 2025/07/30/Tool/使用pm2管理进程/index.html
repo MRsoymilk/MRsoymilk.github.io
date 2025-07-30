@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Qt半自动编译设置 [ Soymilk ]</title>
+  <title>使用pm2管理进程 [ Soymilk ]</title>
   
 <link rel="shortcut icon" href="/favicon/favicon.ico">
 
@@ -130,16 +130,16 @@
     <div class="milk-body">
       
 <div class="draggable-toc">
-  <div class="toc-title">Qt半自动编译设置</div>
+  <div class="toc-title">使用pm2管理进程</div>
   <p>process: <span>0</span></p>
   <div class="progress-container">
     <div class="progress-bar" id="bar"></div>
   </div>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BC%E5%87%BA%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">导出环境变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%AA%E4%BA%BA%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="toc-text">个人使用示例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#main-ps1"><span class="toc-text">main.ps1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#build-ps1"><span class="toc-text">build.ps1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#code-update-ps1"><span class="toc-text">code-update.ps1</span></a></li></ol></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%EF%BC%9AWindows11-%E4%B8%8B%E7%9A%84-WMIC"><span class="toc-text">其他：Windows11 下的 WMIC</span></a></li></ol>
 </div>
 
 <div class="post-content" id="post-content">
-  <div id="top">Qt半自动编译设置</div>
+  <div id="top">使用pm2管理进程</div>
   <div class="post">
     
     <div class="content-categories">
@@ -150,15 +150,8 @@
         
           <li>&gt;</li>
           <li>
-            <a href="/categories/Code/">
-          Code
-        </a>
-          </li>
-      
-          <li>&gt;</li>
-          <li>
-            <a href="/categories/Code/Qt/">
-          Qt
+            <a href="/categories/Tool/">
+          Tool
         </a>
           </li>
       
@@ -167,82 +160,43 @@
     </div>
     <hr>
     
-    <h2 id="导出环境变量"><a href="#导出环境变量" class="headerlink" title="导出环境变量"></a>导出环境变量</h2><p>首先确保 Qt 环境下代码正常编译，然后导出对应的环境变量，否则会出现环境相关的问题，比如：</p>
-<p><img src="/EnvError.jpg" alt="env error"></p>
-<p>相关配置说明：使用的是<code>pwsh</code>（powershell 7），直接使用<code>cmd</code>会有问题</p>
-<p>比如设置：</p>
-<p><img src="/SetShell.jpg" alt="set shell"></p>
-<p>打开对应的控制台：</p>
-<p><img src="/OpenTerminal.jpg" alt="open terminal"></p>
-<p>执行导出</p>
-<pre><code class="powershell">Get-ChildItem Env: | ForEach-Object &#123;
-    $name = $_.Name
-    $value = $_.Value -replace &#39;&quot;&#39;, &#39;`&quot;&#39;
-    if ($name -match &#39;[^a-zA-Z0-9_]&#39;) &#123;
-        &#39;$&#123;env:&#39; + $name + &#39;&#125; = &quot;&#39; + $value + &#39;&quot;&#39;
-     &#125; else &#123;
-        &#39;$env:&#39; + $name + &#39; = &quot;&#39; + $value + &#39;&quot;&#39;
-     &#125;
- &#125; | Set-Content -Encoding UTF8 &quot;qt_env.ps1&quot;
-</code></pre>
-<p>使用方式</p>
-<pre><code class="powershell">. .\qt_env.ps1
-</code></pre>
-<h2 id="个人使用示例"><a href="#个人使用示例" class="headerlink" title="个人使用示例"></a>个人使用示例</h2><p>项目结构</p>
-<p>分为了三个文件：</p>
+    <p><a target="_blank" rel="noopener" href="https://pm2.keymetrics.io/">pm2</a></p>
 <ul>
-<li>main.ps1，控制流程</li>
-<li>build.ps1，控制构建</li>
-<li>code-update.ps1，控制代码获取</li>
+<li><p>中文文档：<a target="_blank" rel="noopener" href="https://pm2.fenxianglu.cn/docs/start">PM2 中文网</a></p>
+</li>
+<li><p>官方文档：<a target="_blank" rel="noopener" href="https://pm2.keymetrics.io/docs/usage/quick-start/">PM2 Process Management Quick Start</a></p>
+<p>PM2 是一个守护进程管理工具，帮助您管理和守护您的应用程序。它以简单直观的 C​​LI 命令行方式进行工作。</p>
+</li>
 </ul>
-<h3 id="main-ps1"><a href="#main-ps1" class="headerlink" title="main.ps1"></a><code>main.ps1</code></h3><pre><code class="powershell">param (
-    [string]$Note = &quot;无更新说明&quot;
-)
+<span id="more"></span>
 
-./auto_build/code-update.ps1
-
-./auto_build/build.ps1
-
-# 时间戳
-$timestamp = Get-Date -Format &quot;yyyyMMdd_HHmmss&quot;
-
-# 路径配置
-$exeSource = &quot;D:\work\project\my-serial\build\Desktop_Qt_6_9_1_MSVC2022_64bit-Release\MySerial.exe&quot;
-$latestDir = &quot;C:\Users\vv\Desktop\output\latest&quot;
-$outputDir = &quot;C:\Users\vv\Desktop\output&quot;
-$updateFile = Join-Path $outputDir &quot;update.txt&quot;
-
-# 创建目标目录（如不存在）
-if (-Not (Test-Path $latestDir)) &#123;
-    New-Item -Path $latestDir -ItemType Directory | Out-Null
-&#125;
-
-# 复制可执行文件
-Write-Host &quot;&gt;&gt; 正在复制 MySerial.exe 到 latest 文件夹...&quot;
-Copy-Item -Path $exeSource -Destination $latestDir -Force
-
-# 压缩 latest 文件夹为 zip
-$zipFileName = &quot;MySerial_$timestamp.zip&quot;
-$zipFilePath = Join-Path $outputDir $zipFileName
-
-Write-Host &quot;&gt;&gt; 正在压缩为 $zipFileName...&quot;
-Compress-Archive -Path &quot;$latestDir\*&quot; -DestinationPath $zipFilePath -Force
-
-# 写入更新说明
-Write-Host &quot;&gt;&gt; 写入更新说明到 update.txt...&quot;
-Add-Content -Path $updateFile -Value &quot;`n时间戳：$timestamp&quot;
-Add-Content -Path $updateFile -Value &quot;更新：$Note&quot;
-
-Write-Host &quot;✅ 打包完成：$zipFilePath&quot;
-Write-Host &quot;📝 更新说明：$&#123;updateFile&#125;&quot;
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><pre><code class="bash">npm install pm2 -g
 </code></pre>
-<h3 id="build-ps1"><a href="#build-ps1" class="headerlink" title="build.ps1"></a><code>build.ps1</code></h3><pre><code class="powershell">. .\qt_env.ps1
-
-&amp;&quot;D:\Qt\Tools\CMake_64\bin\cmake.exe&quot; --build D:/work/project/my-serial/build/Desktop_Qt_6_9_1_MSVC2022_64bit-Release --target all
+<p>常用命令：</p>
+<pre><code class="sh">pm2 list              # 查看所有服务
+pm2 restart my_app    # 重启指定服务
+pm2 logs              # 查看所有日志
+pm2 stop all          # 停止全部服务
+pm2 save              # 保存配置用于重启自动恢复
+pm2 startup           # 设置系统开机自启
 </code></pre>
-<h3 id="code-update-ps1"><a href="#code-update-ps1" class="headerlink" title="code-update.ps1"></a><code>code-update.ps1</code></h3><pre><code class="powershell">git -C &quot;D:\work\project\my-serial&quot; pull
+<p>一些参数：</p>
+<pre><code class="sh">--cwd path	                # 从路径 path 运行目标脚本
+-n --name name	            # 在进程列表中为进程设置一个名称
+--interpreter interpreter	# 设置一个特定的解释器用于执行应用程序， 默认值：node
 </code></pre>
-<p><img src="/ProjectStruct.jpg" alt="project struct"></p>
+<p>我启动了多个服务，使用 powershell 进行控制，下面是<code>start_all.ps1</code></p>
+<pre><code class="powershell">pm2 delete all
+pm2 start fit_sin.py --name fit_sin --interpreter python --cwd ./fit_sin
+pm2 start knn_predict.py --name knn_predict --interpreter python --cwd ./knn_predict
+pm2 start KnowIt.py --name KnowIt --interpreter python --cwd ./KnowIt
+pm2 start KnowIt_Dev.py --name KnowIt_Dev --interpreter python --cwd ./KnowIt_Dev
+</code></pre>
+<pre><code class="sh">pm2 imonit
+</code></pre>
+<p><img src="/imonit.jpg" alt="imonit"></p>
+<h2 id="其他：Windows11-下的-WMIC"><a href="#其他：Windows11-下的-WMIC" class="headerlink" title="其他：Windows11 下的 WMIC"></a>其他：Windows11 下的 WMIC</h2><p>WMIC 已经废弃，Windows11 已移除<a target="_blank" rel="noopener" href="https://techcommunity.microsoft.com/blog/windows-itpro-blog/wmi-command-line-wmic-utility-deprecation-next-steps/4039242">WMI command line (WMIC) utility deprecation: Next steps</a></p>
+<p><img src="/install_wmic.jpg" alt="install wmic"></p>
 
     
     <hr>
@@ -251,8 +205,8 @@ Write-Host &quot;📝 更新说明：$&#123;updateFile&#125;&quot;
       <i class="fas fa-tags"></i>
       <ul>
         
-        <li><a href="/tags/Qt/">
-          Qt
+        <li><a href="/tags/Tool/">
+          Tool
         </a></li>
       
       </ul>
