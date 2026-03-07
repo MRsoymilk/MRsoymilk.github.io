@@ -1,0 +1,420 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Markdown基本语法 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" id="highlight-link" href="/lib/highlight/style/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<link rel="stylesheet" id="shceme-link" href="/css/theme/default.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk">
+    <div class="milk-header">
+       
+
+  <nav class="header-nav">
+     
+    <div class="nav-menu">
+      
+        <div id="Home" class="menu-item">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </div>
+      
+        <div id="Archives" class="menu-item">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </div>
+      
+        <div id="About" class="menu-item">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </div>
+      
+    </div>
+    
+    
+      <div class="nav-date">
+        <div id="date-ymd"></div>
+        <div id="date-week"></div>
+        <div id="date-time"></div>
+      </div>
+    
+    
+    
+      <div class="nav-system" id="nav-system"></div>
+    
+    
+    <div class="nav-layout" id="nav-layout" data-layout="tile">
+      <div id="layout-show">
+        <div class="show-icon"></div>
+        <div class="show-text"></div>
+      </div>
+    </div>
+    
+    <div class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+        <div>
+          <label for="scheme-select">Color scheme: </label>
+          <select id="scheme-select">
+            <option value='default'>default</option>
+          </select>
+          <label for="highlight-select">Code highlight: </label>
+          <select id="highlight-select">
+            <option value='railscasts'>railscasts</option>
+          </select>
+        </div>
+        <div>
+          <label for="ffolders-select">ffolders scheme: </label>
+          <select name="size" id="size-select">
+            <option value='medium'>medium</option>
+          </select>
+          <select name="color" id="color-select">
+            <option value='pink'>pink</option>
+          </select>
+        </div>
+        <div>
+          <label for="blur-slider">background blur
+            <span id="blur-value">10</span> px
+          </label>
+          <input type="range" id="blur-slider" min="0" max="20" data-value='10'>
+        </div>
+        <div>
+          <label for="font-enable">font</label>
+          <input type="checkbox" id="font-check" name="font-check" data-check="fun.ttf">
+        </div>
+      </div>
+    </div>
+  </nav>
+ 
+    </div>
+    <div class="milk-body">
+      
+<div class="draggable-toc">
+  <div class="toc-title">Markdown基本语法</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-text">介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E9%A2%98"><span class="toc-text">标题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%95%88%E6%9E%9C"><span class="toc-text">实现效果</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%88%91%E6%98%AF%E4%B8%80%E7%BA%A7%E6%A0%87%E9%A2%98"><span class="toc-text">我是一级标题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%91%E6%98%AF%E4%BA%8C%E7%BA%A7%E6%A0%87%E9%A2%98"><span class="toc-text">我是二级标题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Setext-%E6%A0%B7%E5%BC%8F%E6%A0%87%E9%A2%98"><span class="toc-text">Setext 样式标题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%95%88%E6%9E%9C-1"><span class="toc-text">实现效果</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E7%BA%A7%E6%A0%87%E9%A2%98"><span class="toc-text">一级标题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E7%BA%A7%E6%A0%87%E9%A2%98"><span class="toc-text">二级标题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AE%B5%E8%90%BD"><span class="toc-text">段落</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%95%88%E6%9E%9C-2"><span class="toc-text">实现效果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E4%BD%93"><span class="toc-text">字体</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%95%88%E6%9E%9C-3"><span class="toc-text">实现效果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%89%B2%E7%BA%BF"><span class="toc-text">分割线</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%95%88%E6%9E%9C-4"><span class="toc-text">实现效果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%97%E8%A1%A8"><span class="toc-text">列表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%95%88%E6%9E%9C-5"><span class="toc-text">实现效果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E7%94%A8"><span class="toc-text">引用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%95%88%E6%9E%9C-6"><span class="toc-text">实现效果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%8C%E5%86%85%E4%BB%A3%E7%A0%81"><span class="toc-text">行内代码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%95%88%E6%9E%9C-7"><span class="toc-text">实现效果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="toc-text">代码块</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%95%88%E6%9E%9C-8"><span class="toc-text">实现效果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E4%BA%AE%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="toc-text">高亮代码块</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%95%88%E6%9E%9C-9"><span class="toc-text">实现效果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%93%BE%E6%8E%A5"><span class="toc-text">链接</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%95%88%E6%9E%9C-10"><span class="toc-text">实现效果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E7%89%87"><span class="toc-text">图片</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%95%88%E6%9E%9C-11"><span class="toc-text">实现效果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E6%A0%BC"><span class="toc-text">表格</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%95%88%E6%9E%9C-12"><span class="toc-text">实现效果</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-text">其他</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Markdown-%E8%A7%A3%E6%9E%90%E6%95%88%E6%9E%9C%E5%AD%98%E5%9C%A8%E5%B7%AE%E5%BC%82"><span class="toc-text">Markdown 解析效果存在差异</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%9B%BE%E7%89%87"><span class="toc-text">添加图片</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-GitHub-%E7%BD%91%E7%BB%9C%E4%B8%8D%E5%A5%BD%EF%BC%8C%E4%BC%9A%E6%98%BE%E7%A4%BA%E4%B8%8D%E5%87%BA%E6%9D%A5"><span class="toc-text">使用 GitHub &#x2F;&#x2F; 网络不好，会显示不出来</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9C%80%E8%A6%81%EF%BC%9A"><span class="toc-text">需要：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%A7%E6%A6%82%E8%AE%B2%E8%A7%A3"><span class="toc-text">大概讲解</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84"><span class="toc-text">本地相对路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84"><span class="toc-text">本地绝对路径</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%AA%E4%BA%BA%E7%9C%8B%E6%B3%95"><span class="toc-text">个人看法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%91%E4%BD%BF%E7%94%A8%E7%9A%84-Markdown-%E7%BC%96%E8%BE%91%E5%99%A8"><span class="toc-text">我使用的 Markdown 编辑器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%8E%A8%E8%8D%90"><span class="toc-text">其他推荐</span></a></li></ol></li></ol></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">Markdown基本语法</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/博客/">
+          博客
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Markdown">介绍</a></h2><blockquote>
+<p>Markdown 是一种轻量级标记语言，创始人为 John Gruber</p>
+</blockquote>
+<span id="more"></span>
+
+<h3 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h3><p>Atx 样式标题</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 一级标题</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 二级标题</span></span><br><span class="line"></span><br><span class="line"><span class="section">### 三级标题</span></span><br><span class="line"></span><br><span class="line"><span class="section">#### 四级标题</span></span><br><span class="line"></span><br><span class="line"><span class="section">##### 五级标题</span></span><br><span class="line"></span><br><span class="line"><span class="section">###### 六级标题</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h3><h1 id="我是一级标题"><a href="#我是一级标题" class="headerlink" title="我是一级标题"></a>我是一级标题</h1><h2 id="我是二级标题"><a href="#我是二级标题" class="headerlink" title="我是二级标题"></a>我是二级标题</h2><p>…<br><em>防止破坏目录树, 省略多级标题</em></p>
+<h2 id="Setext-样式标题"><a href="#Setext-样式标题" class="headerlink" title="Setext 样式标题"></a>Setext 样式标题</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 一级标题</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 二级标题</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="实现效果-1"><a href="#实现效果-1" class="headerlink" title="实现效果"></a>实现效果</h4><h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><p><em>建议 ‘&#x3D;’ 与 ‘-’ 长度 &gt;&#x3D; 3</em></p>
+<h3 id="段落"><a href="#段落" class="headerlink" title="段落"></a>段落</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">换行即为一段，emm</span><br><span class="line">第二段</span><br></pre></td></tr></table></figure>
+
+<h4 id="实现效果-2"><a href="#实现效果-2" class="headerlink" title="实现效果"></a>实现效果</h4><p>换行即为一段，emm<br>第二段</p>
+<h3 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="emphasis">_斜体_</span>, <span class="emphasis">_斜体_</span></span><br><span class="line"><span class="strong">**加粗**</span>, <span class="strong">**加粗**</span></span><br><span class="line"><span class="strong">**<span class="emphasis">_斜体加粗_</span>**</span>, <span class="strong">**<span class="emphasis">_斜体加粗_</span>**</span></span><br><span class="line">～删除线~</span><br></pre></td></tr></table></figure>
+
+<h4 id="实现效果-3"><a href="#实现效果-3" class="headerlink" title="实现效果"></a>实现效果</h4><p><em>斜体</em>, <em>斜体</em><br><strong>加粗</strong>, <strong>加粗</strong><br><strong><em>斜体加粗</em></strong>, <strong><em>斜体加粗</em></strong><br>～删除线~</p>
+<h3 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">---</span></span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<h4 id="实现效果-4"><a href="#实现效果-4" class="headerlink" title="实现效果"></a>实现效果</h4><hr>
+<hr>
+<p><em>建议 ‘&#x3D;’ 与 ‘-’ 长度 &gt;&#x3D; 3</em></p>
+<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">无序列表: 使用\<span class="emphasis">*、+、-</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">- A</span></span><br><span class="line"><span class="emphasis">  - a</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">有序列表:</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">1. A</span></span><br><span class="line"><span class="emphasis">   1. a</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="实现效果-5"><a href="#实现效果-5" class="headerlink" title="实现效果"></a>实现效果</h4><p>无序列表</p>
+<ul>
+<li>A<ul>
+<li>a</li>
+</ul>
+</li>
+</ul>
+<p>有序列表:</p>
+<ol>
+<li>A</li>
+</ol>
+<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="quote">&gt; 我是引用</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="实现效果-6"><a href="#实现效果-6" class="headerlink" title="实现效果"></a>实现效果</h4><blockquote>
+<p>我是引用</p>
+</blockquote>
+<h3 id="行内代码"><a href="#行内代码" class="headerlink" title="行内代码"></a>行内代码</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">我是<span class="code">`行内代码`</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="实现效果-7"><a href="#实现效果-7" class="headerlink" title="实现效果"></a>实现效果</h4><p>我是<code>行内代码</code></p>
+<h3 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">🈳🈳🈳🈳 我是代码// 使用缩进,Tab 键或 4 个空格 🈳</span><br></pre></td></tr></table></figure>
+
+<p>或</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="code">```markdown</span></span><br><span class="line"><span class="code">包裹着我</span></span><br><span class="line"><span class="code">```</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="实现效果-8"><a href="#实现效果-8" class="headerlink" title="实现效果"></a>实现效果</h4><pre><code>我是代码  // 使用缩进,Tab键或4个空格
+</code></pre>
+<p>或</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">包裹中</span><br></pre></td></tr></table></figure>
+
+<h3 id="高亮代码块"><a href="#高亮代码块" class="headerlink" title="高亮代码块"></a>高亮代码块</h3><p><em>以 C++为例</em></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="code">```C++</span></span><br><span class="line"><span class="code">#include &lt;iostream&gt;</span></span><br><span class="line"><span class="code">int main() &#123;</span></span><br><span class="line"><span class="code">  std::cout &lt;&lt; &quot;hello&quot; &lt;&lt; std::endl;</span></span><br><span class="line"><span class="code">  return 0;</span></span><br><span class="line"><span class="code">&#125;</span></span><br><span class="line"><span class="code">```</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="实现效果-9"><a href="#实现效果-9" class="headerlink" title="实现效果"></a>实现效果</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  std::cout &lt;&lt; <span class="string">&quot;hello&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">链接名</span>](<span class="link">链接url &quot;鼠标悬浮显示提示信息&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="实现效果-10"><a href="#实现效果-10" class="headerlink" title="实现效果"></a>实现效果</h4><p><a target="_blank" rel="noopener" href="https://blog.soymilk.fun/2019/08/16/Blog/Markdown%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/">Milk</a></p>
+<h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">图片替代文本</span>](<span class="link">图片url</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="实现效果-11"><a href="#实现效果-11" class="headerlink" title="实现效果"></a>实现效果</h4><p><img src="/lena.jpeg" alt="lena"></p>
+<h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">| table  |  A  |   B |</span><br><span class="line">| :----- | :-: | --: |</span><br><span class="line">| line 1 |  1  |   2 |</span><br><span class="line">| line 2 |  1  |   2 |</span><br><span class="line"></span><br><span class="line">:-- 左对齐</span><br><span class="line">:--: 居中</span><br><span class="line">--: 右对齐</span><br></pre></td></tr></table></figure>
+
+<h4 id="实现效果-12"><a href="#实现效果-12" class="headerlink" title="实现效果"></a>实现效果</h4><table>
+<thead>
+<tr>
+<th align="left">table</th>
+<th align="center">A</th>
+<th align="right">B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">line 1</td>
+<td align="center">1</td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td align="left">line 2</td>
+<td align="center">1</td>
+<td align="right">2</td>
+</tr>
+</tbody></table>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>Markdown 基本形式：标签+内容, <strong>注意空格</strong>！<br>Markdwon 兼容 HTML， 下划线实现：<code>&lt;u&gt;下划线&lt;/u&gt;</code><br>Markdown 转义符号:<code>\\</code><br>Markdwon 代码块嵌套:</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="code">````markdown</span></span><br><span class="line"><span class="code">外层</span></span><br><span class="line"><span class="code">    ```markdown</span></span><br><span class="line"><span class="code">    内层</span></span><br><span class="line"><span class="code">    ```</span></span><br><span class="line"><span class="code">````</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Markdown-解析效果存在差异"><a href="#Markdown-解析效果存在差异" class="headerlink" title="Markdown 解析效果存在差异"></a>Markdown 解析效果存在差异</h3><p>Markdown 的解析效果可能不同</p>
+<p><a target="_blank" rel="noopener" href="https://markdown-zh.readthedocs.io/en/latest/">Markdown 的实现不止一种，有兴趣可以参考 Markdown 中文文档</a></p>
+<h2 id="添加图片"><a href="#添加图片" class="headerlink" title="添加图片"></a>添加图片</h2><h3 id="使用-GitHub-网络不好，会显示不出来"><a href="#使用-GitHub-网络不好，会显示不出来" class="headerlink" title="使用 GitHub &#x2F;&#x2F; 网络不好，会显示不出来"></a>使用 GitHub &#x2F;&#x2F; 网络不好，会显示不出来</h3><h4 id="需要："><a href="#需要：" class="headerlink" title="需要："></a>需要：</h4><p><a target="_blank" rel="noopener" href="https://github.com/explore">GitHub 账号</a><br>大概了解 Git 的基本使用</p>
+<h4 id="大概讲解"><a href="#大概讲解" class="headerlink" title="大概讲解"></a>大概讲解</h4><ol>
+<li><p>GitHub 中创建仓库</p>
+</li>
+<li><p>本地 Git 与 GitHub 建立连接</p>
+</li>
+<li><p>将需要的图片放到仓库中，然后 push 到 GitHub</p>
+</li>
+<li><p>查看你的 GitHub 仓库，找到图片，获取图片链接即可使用</p>
+</li>
+</ol>
+<h3 id="本地相对路径"><a href="#本地相对路径" class="headerlink" title="本地相对路径"></a>本地相对路径</h3><p>放置在文章自己的目录中。</p>
+<ul>
+<li>修改<code>hexo_blog/_config.yml</code>文件</li>
+</ul>
+<p>修改<code>post_asset_folder: false</code>为<code>post_asset_folder: true</code></p>
+<ul>
+<li>新建文章<code>hexo new article</code></li>
+</ul>
+<p>此时将会生成<code>article</code>目录和<code>article.md</code>文件，<code>article</code>目录即为图片根目录</p>
+<p><em>此时文件: article&#x2F;Rola.jpg</em></p>
+<p>对<code>article.md</code>使用方式: <code>![Rola](Rola.jpg)</code></p>
+<p><img src="/Rola.jpg" alt="Rola"></p>
+<p><code>hexo new</code>并不是必须命令，只要有同名目录即可。</p>
+<h3 id="本地绝对路径"><a href="#本地绝对路径" class="headerlink" title="本地绝对路径"></a>本地绝对路径</h3><p>资源放置在<code>hexo_blog/source/images</code>文件夹中，多级目录也行访问到。</p>
+<p>访问方式: <code>![banner](/images/blog/Takizawa.jpg)</code><br><img src="/images/blog/Takizawa.jpg" alt="banner"></p>
+<h4 id="个人看法"><a href="#个人看法" class="headerlink" title="个人看法"></a>个人看法</h4><p>可能不是最好的办法，但是它能用。</p>
+<h3 id="我使用的-Markdown-编辑器"><a href="#我使用的-Markdown-编辑器" class="headerlink" title="我使用的 Markdown 编辑器"></a>我使用的 Markdown 编辑器</h3><p>编辑器: <a target="_blank" rel="noopener" href="https://code.visualstudio.com/">Visual Studio Code</a></p>
+<p>插件： Markdown All in One</p>
+<h4 id="其他推荐"><a href="#其他推荐" class="headerlink" title="其他推荐"></a>其他推荐</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://www.sublimetext.com/">Sublime Text</a>自带 Markdown 格式高亮</li>
+<li><a target="_blank" rel="noopener" href="https://pandao.github.io/editor.md/">Editor.md</a>开源在线 Markdown 编辑器</li>
+<li><a target="_blank" rel="noopener" href="https://www.mdeditor.com/">Markdown 在线编辑器</a>简洁的在线 Markdown 编辑器</li>
+</ul>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/博客/">
+          博客
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+    <canvas id="sprite-canvas" width="100" height="100"></canvas>
+  </div>
+</div>
+    </div>
+  </div>
+</body>
+
+
+
+    
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+    
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+    
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+    
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+    
+<script src="/js/milk.js"></script>
+
+
+
+</html>

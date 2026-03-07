@@ -1,0 +1,566 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" id="highlight-link" href="/lib/highlight/style/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<link rel="stylesheet" id="shceme-link" href="/css/theme/default.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk">
+    <div class="milk-header">
+       
+
+  <nav class="header-nav">
+     
+    <div class="nav-menu">
+      
+        <div id="Home" class="menu-item">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </div>
+      
+        <div id="Archives" class="menu-item">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </div>
+      
+        <div id="About" class="menu-item">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </div>
+      
+    </div>
+    
+    
+      <div class="nav-date">
+        <div id="date-ymd"></div>
+        <div id="date-week"></div>
+        <div id="date-time"></div>
+      </div>
+    
+    
+    
+      <div class="nav-system" id="nav-system"></div>
+    
+    
+    <div class="nav-layout" id="nav-layout" data-layout="tile">
+      <div id="layout-show">
+        <div class="show-icon"></div>
+        <div class="show-text"></div>
+      </div>
+    </div>
+    
+    <div class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+        <div>
+          <label for="scheme-select">Color scheme: </label>
+          <select id="scheme-select">
+            <option value='default'>default</option>
+          </select>
+          <label for="highlight-select">Code highlight: </label>
+          <select id="highlight-select">
+            <option value='railscasts'>railscasts</option>
+          </select>
+        </div>
+        <div>
+          <label for="ffolders-select">ffolders scheme: </label>
+          <select name="size" id="size-select">
+            <option value='medium'>medium</option>
+          </select>
+          <select name="color" id="color-select">
+            <option value='pink'>pink</option>
+          </select>
+        </div>
+        <div>
+          <label for="blur-slider">background blur
+            <span id="blur-value">10</span> px
+          </label>
+          <input type="range" id="blur-slider" min="0" max="20" data-value='10'>
+        </div>
+        <div>
+          <label for="font-enable">font</label>
+          <input type="checkbox" id="font-check" name="font-check" data-check="fun.ttf">
+        </div>
+      </div>
+    </div>
+  </nav>
+ 
+    </div>
+    <div class="milk-body">
+      <div id="layout">
+  
+  <div class="window" id="w-content">
+    <div class="desktop-content">
+       
+<ul>
+  
+     
+    
+    <li>
+       
+      <ul class="breadcrumbs" id="post-source">
+        <li><a href="#"><i class="fas fa-file-word"></i></a></li>
+        
+          
+          <li><a href="#">Microcomputer</a></li>
+        
+          
+          <li><a href="#">Raspberry</a></li>
+        
+        
+        <li id="post-title"><a href="/2020/03/15/Microcomputer/Raspberry/RaspberrySettings/" title="树莓派配置">树莓派配置</a></li> 
+      </ul>
+       
+      <div class="post-table">
+        <table>
+          <tr>
+            <th></th>
+            <th>
+              <span class="table-title">File: 树莓派配置</span>
+              <span>2020-03-15</span>
+            </th>
+          </tr>
+          <tr>
+            <td class="table-linenum" id="table-linenum">content</td>
+            <td><p>树莓派的一些常用设置</p></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+     
+    
+    <li>
+       
+      <ul class="breadcrumbs" id="post-source">
+        <li><a href="#"><i class="fas fa-file-word"></i></a></li>
+        
+          
+          <li><a href="#">Blog</a></li>
+        
+        
+        <li id="post-title"><a href="/2020/02/24/Blog/HexoGitee/" title="Hexo+Gitee部署">Hexo+Gitee部署</a></li> 
+      </ul>
+       
+      <div class="post-table">
+        <table>
+          <tr>
+            <th></th>
+            <th>
+              <span class="table-title">File: Hexo+Gitee部署</span>
+              <span>2020-02-24</span>
+            </th>
+          </tr>
+          <tr>
+            <td class="table-linenum" id="table-linenum">content</td>
+            <td><h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p><code>Github</code>本来挺好用的，奈何网速太慢，于是尝试了一下<code>Gitee</code>。</p>
+<p><code>Gitee</code>的优点：国内访问速度快。</p>
+<p><code>Gitee</code>的缺点：</p>
+<ul>
+<li>无法免费使用个性化域名。</li>
+<li><code>hexo d</code>无法实现自动部署(<code>Gitee Pages</code>服务手动更新)。</li>
+</ul>
+<p>不过，如果你愿意花费 99 元&#x2F;年购买<code>Gitee Page</code>服务，缺点就都没了。</p>
+<p>我的方法不是最好的，但是能用。</p></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+     
+    
+    <li>
+       
+      <ul class="breadcrumbs" id="post-source">
+        <li><a href="#"><i class="fas fa-file-word"></i></a></li>
+        
+          
+          <li><a href="#">Linux</a></li>
+        
+          
+          <li><a href="#">Gentoo</a></li>
+        
+        
+        <li id="post-title"><a href="/2020/02/23/Linux/Gentoo/Gentoo桌面使用配置/" title="Gentoo桌面使用配置">Gentoo桌面使用配置</a></li> 
+      </ul>
+       
+      <div class="post-table">
+        <table>
+          <tr>
+            <th></th>
+            <th>
+              <span class="table-title">File: Gentoo桌面使用配置</span>
+              <span>2020-02-23</span>
+            </th>
+          </tr>
+          <tr>
+            <td class="table-linenum" id="table-linenum">content</td>
+            <td><p>Gentoo 桌面配置一条龙。</p></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+     
+    
+    <li>
+       
+      <ul class="breadcrumbs" id="post-source">
+        <li><a href="#"><i class="fas fa-file-word"></i></a></li>
+        
+          
+          <li><a href="#">Literature</a></li>
+        
+        
+        <li id="post-title"><a href="/2020/02/22/Literature/一棵开花的树/" title="一棵开花的树">一棵开花的树</a></li> 
+      </ul>
+       
+      <div class="post-table">
+        <table>
+          <tr>
+            <th></th>
+            <th>
+              <span class="table-title">File: 一棵开花的树</span>
+              <span>2020-02-22</span>
+            </th>
+          </tr>
+          <tr>
+            <td class="table-linenum" id="table-linenum">content</td>
+            <td><h3 id="摘录"><a href="#摘录" class="headerlink" title="摘录"></a>摘录</h3></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+     
+    
+    <li>
+       
+      <ul class="breadcrumbs" id="post-source">
+        <li><a href="#"><i class="fas fa-file-word"></i></a></li>
+        
+          
+          <li><a href="#">Literature</a></li>
+        
+        
+        <li id="post-title"><a href="/2020/02/16/Literature/诗两首/" title="诗两首">诗两首</a></li> 
+      </ul>
+       
+      <div class="post-table">
+        <table>
+          <tr>
+            <th></th>
+            <th>
+              <span class="table-title">File: 诗两首</span>
+              <span>2020-02-16</span>
+            </th>
+          </tr>
+          <tr>
+            <td class="table-linenum" id="table-linenum">content</td>
+            <td><h3 id="摘录"><a href="#摘录" class="headerlink" title="摘录"></a>摘录</h3><p>来自网络</p></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+     
+    
+    <li>
+       
+      <ul class="breadcrumbs" id="post-source">
+        <li><a href="#"><i class="fas fa-file-word"></i></a></li>
+        
+          
+          <li><a href="#">Others</a></li>
+        
+        
+        <li id="post-title"><a href="/2020/02/14/Others/特殊字符/" title="特殊字符">特殊字符</a></li> 
+      </ul>
+       
+      <div class="post-table">
+        <table>
+          <tr>
+            <th></th>
+            <th>
+              <span class="table-title">File: 特殊字符</span>
+              <span>2020-02-14</span>
+            </th>
+          </tr>
+          <tr>
+            <td class="table-linenum" id="table-linenum">content</td>
+            <td><h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>特殊字符，大多用于美化。</p>
+<p>参考:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.sioe.cn/zifu.htm">特殊字符大全</a></li>
+<li><a target="_blank" rel="noopener" href="http://m.fhdq.net/">符号大全手机版</a></li>
+</ul></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+     
+    
+    <li>
+       
+      <ul class="breadcrumbs" id="post-source">
+        <li><a href="#"><i class="fas fa-file-word"></i></a></li>
+        
+          
+          <li><a href="#">Code</a></li>
+        
+          
+          <li><a href="#">Java</a></li>
+        
+        
+        <li id="post-title"><a href="/2020/02/14/Code/Java/Maven镜像配置/" title="Maven镜像配置">Maven镜像配置</a></li> 
+      </ul>
+       
+      <div class="post-table">
+        <table>
+          <tr>
+            <th></th>
+            <th>
+              <span class="table-title">File: Maven镜像配置</span>
+              <span>2020-02-14</span>
+            </th>
+          </tr>
+          <tr>
+            <td class="table-linenum" id="table-linenum">content</td>
+            <td><h2 id="镜像服务"><a href="#镜像服务" class="headerlink" title="镜像服务"></a>镜像服务</h2><p><a target="_blank" rel="noopener" href="https://maven.aliyun.com/mvn/view">阿里 maven 服务</a></p></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+     
+    
+    <li>
+       
+      <ul class="breadcrumbs" id="post-source">
+        <li><a href="#"><i class="fas fa-file-word"></i></a></li>
+        
+          
+          <li><a href="#">Linux</a></li>
+        
+          
+          <li><a href="#">Common</a></li>
+        
+          
+          <li><a href="#">tmux</a></li>
+        
+        
+        <li id="post-title"><a href="/2020/01/25/Linux/Common/tmux/tmux快捷键配置/" title="tmux快捷键配置">tmux快捷键配置</a></li> 
+      </ul>
+       
+      <div class="post-table">
+        <table>
+          <tr>
+            <th></th>
+            <th>
+              <span class="table-title">File: tmux快捷键配置</span>
+              <span>2020-01-25</span>
+            </th>
+          </tr>
+          <tr>
+            <td class="table-linenum" id="table-linenum">content</td>
+            <td><h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>为什么需要配置文件:</p>
+<ul>
+<li>tmux 默认快捷键不方便</li>
+<li>tmux 默认视图不美观</li>
+</ul>
+<p>参考:</p>
+<p><a target="_blank" rel="noopener" href="https://www.kancloud.cn/kancloud/tmux/62459">tmux: Productive Mouse-Free Development</a></p></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+     
+    
+    <li>
+       
+      <ul class="breadcrumbs" id="post-source">
+        <li><a href="#"><i class="fas fa-file-word"></i></a></li>
+        
+          
+          <li><a href="#">Linux</a></li>
+        
+          
+          <li><a href="#">Common</a></li>
+        
+          
+          <li><a href="#">tmux</a></li>
+        
+        
+        <li id="post-title"><a href="/2020/01/25/Linux/Common/tmux/tmux美化/" title="tmux美化">tmux美化</a></li> 
+      </ul>
+       
+      <div class="post-table">
+        <table>
+          <tr>
+            <th></th>
+            <th>
+              <span class="table-title">File: tmux美化</span>
+              <span>2020-01-25</span>
+            </th>
+          </tr>
+          <tr>
+            <td class="table-linenum" id="table-linenum">content</td>
+            <td><h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>更美观的 tmux 界面</p>
+<p>参考:</p>
+<p><a target="_blank" rel="noopener" href="https://www.kancloud.cn/kancloud/tmux/62459">tmux: Productive Mouse-Free Development</a></p>
+<p>&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</p>
+<p>直接<code>oh my tmux</code>，懒人配置。一个字：赞！</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/gpakosz/.tmux">链接</a></p></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+     
+    
+    <li>
+       
+      <ul class="breadcrumbs" id="post-source">
+        <li><a href="#"><i class="fas fa-file-word"></i></a></li>
+        
+          
+          <li><a href="#">Linux</a></li>
+        
+          
+          <li><a href="#">Common</a></li>
+        
+          
+          <li><a href="#">tmux</a></li>
+        
+        
+        <li id="post-title"><a href="/2020/01/23/Linux/Common/tmux/tmux基本使用/" title="tmux基本使用">tmux基本使用</a></li> 
+      </ul>
+       
+      <div class="post-table">
+        <table>
+          <tr>
+            <th></th>
+            <th>
+              <span class="table-title">File: tmux基本使用</span>
+              <span>2020-01-23</span>
+            </th>
+          </tr>
+          <tr>
+            <td class="table-linenum" id="table-linenum">content</td>
+            <td><h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>参考:</p>
+<p><a target="_blank" rel="noopener" href="https://www.kancloud.cn/kancloud/tmux/62459">tmux: Productive Mouse-Free Development</a></p></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+</ul>
+       
+<div class="paginator">
+  <a class="extend prev" rel="prev" href="/page/7/">Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/9/">Next</a>
+</div>
+    </div>
+  </div>
+  
+  <div class="window" id="w-category">
+    <div class="desktop-category">
+      <ul class="breadcrumbs">
+        <li><a href="#"><i class="fas fa-list"></i></a></li>
+        <li><a href="#">category</a></li>
+        <li><a href="#">tree</a></li>
+      </ul>
+       
+
+  <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AI/">AI</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/BigData/">BigData</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/BigData/Hadoop/">Hadoop</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CV/">CV</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Code/">Code</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Code/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Code/Assembly/">Assembly</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Code/CPP/">CPP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Code/GUI/">GUI</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Code/GUI/Qt/">Qt</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Code/Java/">Java</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Code/Java/maven/">maven</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Code/OpenGL/">OpenGL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Code/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Code/Qt/">Qt</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Code/SDK/">SDK</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Code/SDK/ArcSoft/">ArcSoft</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Code/others/">others</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/DesignPattern/">DesignPattern</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Game/">Game</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hardware/">Hardware</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/CentOS/">CentOS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/Gentoo/">Gentoo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/Problem/">Problem</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/Shell/">Shell</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/Ubuntu/">Ubuntu</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/common/">common</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/common/tmux/">tmux</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Media/">Media</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Microcomputer/">Microcomputer</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Microcomputer/51/">51</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Microcomputer/Arduino/">Arduino</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Microcomputer/ESP32/">ESP32</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Microcomputer/Pi/">Pi</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/NeuralNetwork/">NeuralNetwork</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/NeuralNetwork/OpenVINO/">OpenVINO</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/NeuralNetwork/yolov5/">yolov5</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OpenCV/">OpenCV</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/OpenCV/QRCode/">QRCode</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Others/">Others</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Python/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/pyqt5/">pyqt5</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/">Tool</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/Intellij-IDEA/">Intellij IDEA</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/Plugs/">Plugs</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/VSCode/">VSCode</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/Visual-Studio/">Visual Studio</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/gitbook/">gitbook</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/jupyter/">jupyter</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB/">WEB</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/WEB/AMap/">AMap</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB/Server/">Server</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB/Spring/">Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB/others/">others</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/others/">others</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/">others</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%9A%E5%AE%A2/">博客</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%96%87%E7%AB%A0/">文章</a></li></ul>
+
+    </div>
+  </div>
+  
+  <div class="window" id="w-tag">
+    <div class="desktop-tag">
+      <ul class="breadcrumbs">
+        <li><a href="#"><i class="far fa-folder"></i></a></li>
+        <li><a href="#">tag</a></li>
+        <li><a href="#">dir</a></li>
+      </ul>
+         
+
+  <div id="list-cloud" class="list-cloud" data-size='medium' data-color='pink'>
+    <a href="/tags/51/" style="font-size: 10px;">51</a> <a href="/tags/AI/" style="font-size: 11.25px;">AI</a> <a href="/tags/AMap/" style="font-size: 10px;">AMap</a> <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/ArcSoft/" style="font-size: 13.75px;">ArcSoft</a> <a href="/tags/Arduino/" style="font-size: 12.5px;">Arduino</a> <a href="/tags/Assembly/" style="font-size: 10px;">Assembly</a> <a href="/tags/CImg/" style="font-size: 10px;">CImg</a> <a href="/tags/CPP/" style="font-size: 18.75px;">CPP</a> <a href="/tags/CV/" style="font-size: 10px;">CV</a> <a href="/tags/CentOS/" style="font-size: 11.25px;">CentOS</a> <a href="/tags/DesignPattern/" style="font-size: 10px;">DesignPattern</a> <a href="/tags/ESP32/" style="font-size: 10px;">ESP32</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/Game/" style="font-size: 10px;">Game</a> <a href="/tags/Gentoo/" style="font-size: 12.5px;">Gentoo</a> <a href="/tags/Hadoop/" style="font-size: 10px;">Hadoop</a> <a href="/tags/Hardware/" style="font-size: 10px;">Hardware</a> <a href="/tags/IDEA/" style="font-size: 10px;">IDEA</a> <a href="/tags/Legend-of-Mir2/" style="font-size: 10px;">Legend of Mir2</a> <a href="/tags/Linux/" style="font-size: 12.5px;">Linux</a> <a href="/tags/Media/" style="font-size: 11.25px;">Media</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/NeuralNetwork/" style="font-size: 11.25px;">NeuralNetwork</a> <a href="/tags/OS/" style="font-size: 11.25px;">OS</a> <a href="/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/tags/OpenGL/" style="font-size: 10px;">OpenGL</a> <a href="/tags/Others/" style="font-size: 10px;">Others</a> <a href="/tags/Pi/" style="font-size: 18.75px;">Pi</a> <a href="/tags/Plugs/" style="font-size: 10px;">Plugs</a> <a href="/tags/Python/" style="font-size: 13.75px;">Python</a> <a href="/tags/QRCode/" style="font-size: 10px;">QRCode</a> <a href="/tags/Qt/" style="font-size: 11.25px;">Qt</a> <a href="/tags/Shell/" style="font-size: 15px;">Shell</a> <a href="/tags/Test/" style="font-size: 10px;">Test</a> <a href="/tags/Tool/" style="font-size: 11.25px;">Tool</a> <a href="/tags/Ubuntu/" style="font-size: 15px;">Ubuntu</a> <a href="/tags/VSCode/" style="font-size: 10px;">VSCode</a> <a href="/tags/Visual-Studio/" style="font-size: 11.25px;">Visual Studio</a> <a href="/tags/WEB/" style="font-size: 16.25px;">WEB</a> <a href="/tags/Windows/" style="font-size: 15px;">Windows</a> <a href="/tags/cmake/" style="font-size: 15px;">cmake</a> <a href="/tags/cmus/" style="font-size: 10px;">cmus</a> <a href="/tags/common/" style="font-size: 11.25px;">common</a> <a href="/tags/gitbook/" style="font-size: 12.5px;">gitbook</a> <a href="/tags/jupyter/" style="font-size: 10px;">jupyter</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/others/" style="font-size: 18.75px;">others</a> <a href="/tags/pyqt5/" style="font-size: 10px;">pyqt5</a> <a href="/tags/tmux/" style="font-size: 12.5px;">tmux</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 17.5px;">博客</a> <a href="/tags/%E6%96%87%E7%AB%A0/" style="font-size: 18.75px;">文章</a>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+    </div>
+  </div>
+</body>
+
+
+
+    
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+    
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+    
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+    
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+    
+<script src="/js/milk.js"></script>
+
+
+
+</html>

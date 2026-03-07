@@ -1,0 +1,306 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OpenCV直方图 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" id="highlight-link" href="/lib/highlight/style/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<link rel="stylesheet" id="shceme-link" href="/css/theme/default.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk">
+    <div class="milk-header">
+       
+
+  <nav class="header-nav">
+     
+    <div class="nav-menu">
+      
+        <div id="Home" class="menu-item">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </div>
+      
+        <div id="Archives" class="menu-item">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </div>
+      
+        <div id="About" class="menu-item">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </div>
+      
+    </div>
+    
+    
+      <div class="nav-date">
+        <div id="date-ymd"></div>
+        <div id="date-week"></div>
+        <div id="date-time"></div>
+      </div>
+    
+    
+    
+      <div class="nav-system" id="nav-system"></div>
+    
+    
+    <div class="nav-layout" id="nav-layout" data-layout="tile">
+      <div id="layout-show">
+        <div class="show-icon"></div>
+        <div class="show-text"></div>
+      </div>
+    </div>
+    
+    <div class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+        <div>
+          <label for="scheme-select">Color scheme: </label>
+          <select id="scheme-select">
+            <option value='default'>default</option>
+          </select>
+          <label for="highlight-select">Code highlight: </label>
+          <select id="highlight-select">
+            <option value='railscasts'>railscasts</option>
+          </select>
+        </div>
+        <div>
+          <label for="ffolders-select">ffolders scheme: </label>
+          <select name="size" id="size-select">
+            <option value='medium'>medium</option>
+          </select>
+          <select name="color" id="color-select">
+            <option value='pink'>pink</option>
+          </select>
+        </div>
+        <div>
+          <label for="blur-slider">background blur
+            <span id="blur-value">10</span> px
+          </label>
+          <input type="range" id="blur-slider" min="0" max="20" data-value='10'>
+        </div>
+        <div>
+          <label for="font-enable">font</label>
+          <input type="checkbox" id="font-check" name="font-check" data-check="fun.ttf">
+        </div>
+      </div>
+    </div>
+  </nav>
+ 
+    </div>
+    <div class="milk-body">
+      
+<div class="draggable-toc">
+  <div class="toc-title">OpenCV直方图</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B4%E6%96%B9%E5%9B%BE"><span class="toc-text">直方图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-text">代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E5%87%BD%E6%95%B0"><span class="toc-text">测试函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C"><span class="toc-text">执行结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%90%8E%E9%9D%A2"><span class="toc-text">写在后面</span></a></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">OpenCV直方图</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/OpenCV/">
+          OpenCV
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>没有发现 OpenCV 自带的直方图，只能自己动手。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://docs.opencv.org/2.4/doc/tutorials/imgproc/histograms/histogram_calculation/histogram_calculation.html">Histogram Calculation</a></p>
+<span id="more"></span>
+
+<h2 id="直方图"><a href="#直方图" class="headerlink" title="直方图"></a>直方图</h2><p>直方图：简单的表格，表示一幅图像中具有某个值的像素的数量。<br>灰度图像的直方图有 256 个项目，也称箱子(bin)。0 号箱子提供值为 0 的像素数量，1 号箱子提供值为 1 的像素数量…<br>RGB 图像每个通道有 256 个项目</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"></span><br><span class="line"><span class="function">Mat <span class="title">imhist</span><span class="params">(Mat image)</span></span>&#123;</span><br><span class="line">  Mat img = image.<span class="built_in">clone</span>();</span><br><span class="line"></span><br><span class="line">  <span class="type">bool</span> uniform = <span class="literal">true</span>;  <span class="comment">// 是否均匀</span></span><br><span class="line">  <span class="type">bool</span> accumulate = <span class="literal">false</span>;  <span class="comment">// 是否累积</span></span><br><span class="line">  <span class="type">int</span> histSize = <span class="number">256</span>;  <span class="comment">// 直方图箱子数量</span></span><br><span class="line">  <span class="type">float</span> range[] = &#123;<span class="number">0</span>, <span class="number">256</span>&#125;;  <span class="comment">// 像素范围</span></span><br><span class="line">  <span class="type">const</span> <span class="type">float</span>* histRange = &#123;range&#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 直方图图像属性</span></span><br><span class="line">  <span class="type">int</span> hist_w = <span class="number">512</span>;  <span class="comment">// 宽度</span></span><br><span class="line">  <span class="type">int</span> hist_h = <span class="number">400</span>;  <span class="comment">// 高度</span></span><br><span class="line">  <span class="type">int</span> bin_w = <span class="built_in">cvRound</span>((<span class="type">double</span>)hist_w / histSize);  <span class="comment">// 每个箱子所占宽度</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(img.<span class="built_in">channels</span>() == <span class="number">1</span>)&#123;  <span class="comment">// 处理灰度图像</span></span><br><span class="line">  Mat plane = img.<span class="built_in">clone</span>();</span><br><span class="line"></span><br><span class="line">  Mat hist;  <span class="comment">// 存储灰度图像直方图</span></span><br><span class="line">  <span class="built_in">calcHist</span>(&amp;plane,  <span class="comment">// 需要计算的图像</span></span><br><span class="line">    <span class="number">1</span>,  <span class="comment">// 图像数量</span></span><br><span class="line">    <span class="number">0</span>,</span><br><span class="line">    <span class="comment">// 官方定义：The channel (dim) to be measured. In this case it is just the intensity (each array is single-channel) so we just write 0.</span></span><br><span class="line">    <span class="comment">// 个人理解 数组都是单通道的，索引从0开始（个人看法）</span></span><br><span class="line">    <span class="built_in">Mat</span>(),  <span class="comment">// 掩码，Mat()不使用</span></span><br><span class="line">    hist,  <span class="comment">// 作为结果的直方图</span></span><br><span class="line">    <span class="number">1</span>,  <span class="comment">// 直方图维度</span></span><br><span class="line">    &amp;histSize,  <span class="comment">// 箱子数量</span></span><br><span class="line">    &amp;histRange,  <span class="comment">// 像素值范围</span></span><br><span class="line">    uniform,</span><br><span class="line">    accumulate);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 定义直方图图像(高度，宽度，数据类型，颜色(0为黑色))</span></span><br><span class="line">  <span class="function">Mat <span class="title">histImage</span><span class="params">(hist_h, hist_w, CV_8UC1, Scalar(<span class="number">0</span>))</span></span>;</span><br><span class="line">  <span class="comment">// 归一化，即所有箱子的数量相加为1</span></span><br><span class="line">  <span class="built_in">normalize</span>(hist, hist, <span class="number">0</span>, histImage.rows, NORM_MINMAX, <span class="number">-1</span>, <span class="built_in">Mat</span>());</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 绘制直方图</span></span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;histSize;++i)&#123;</span><br><span class="line">    <span class="built_in">line</span>(histImage, <span class="built_in">Point</span>(bin_w*(i<span class="number">-1</span>), hist_h-<span class="built_in">cvRound</span>(hist.<span class="built_in">at</span>&lt;<span class="type">float</span>&gt;(i<span class="number">-1</span>))),</span><br><span class="line">                      <span class="built_in">Point</span>(bin_w*(i), hist_h - <span class="built_in">cvRound</span>(hist.<span class="built_in">at</span>&lt;<span class="type">float</span>&gt;(i))),</span><br><span class="line">                      <span class="built_in">Scalar</span>(<span class="number">255</span>), <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> histImage;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">  vector&lt;Mat&gt; bgr_planes;</span><br><span class="line">  <span class="built_in">split</span>(img, bgr_planes);  <span class="comment">// 划分为B、G、R通道</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 蓝色通道直方图，绿色通道直方图，红色通道直方图</span></span><br><span class="line">  Mat b_hist, g_hist, r_hist;</span><br><span class="line">  <span class="built_in">calcHist</span>(&amp;bgr_planes[<span class="number">0</span>], <span class="number">1</span>, <span class="number">0</span>, <span class="built_in">Mat</span>(), b_hist, <span class="number">1</span>, &amp;histSize, &amp;histRange, uniform, accumulate);</span><br><span class="line">  <span class="built_in">calcHist</span>(&amp;bgr_planes[<span class="number">1</span>], <span class="number">1</span>, <span class="number">0</span>, <span class="built_in">Mat</span>(), g_hist, <span class="number">1</span>, &amp;histSize, &amp;histRange, uniform, accumulate);</span><br><span class="line">  <span class="built_in">calcHist</span>(&amp;bgr_planes[<span class="number">2</span>], <span class="number">1</span>, <span class="number">0</span>, <span class="built_in">Mat</span>(), r_hist, <span class="number">1</span>, &amp;histSize, &amp;histRange, uniform, accumulate);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 直方图图像</span></span><br><span class="line">  <span class="function">Mat <span class="title">histImages</span><span class="params">(hist_h, hist_w, CV_8UC3, Scalar(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>))</span></span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 归一化</span></span><br><span class="line">  <span class="built_in">normalize</span>(b_hist, b_hist, <span class="number">0</span>, histImages.rows, NORM_MINMAX, <span class="number">-1</span>, <span class="built_in">Mat</span>());</span><br><span class="line">  <span class="built_in">normalize</span>(g_hist, g_hist, <span class="number">0</span>, histImages.rows, NORM_MINMAX, <span class="number">-1</span>, <span class="built_in">Mat</span>());</span><br><span class="line">  <span class="built_in">normalize</span>(r_hist, r_hist, <span class="number">0</span>, histImages.rows, NORM_MINMAX, <span class="number">-1</span>, <span class="built_in">Mat</span>());</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 绘制直方图</span></span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;histSize; ++i)&#123;</span><br><span class="line">    <span class="built_in">line</span>(histImages, <span class="built_in">Point</span>(bin_w*(i<span class="number">-1</span>), hist_h-<span class="built_in">cvRound</span>(b_hist.<span class="built_in">at</span>&lt;<span class="type">float</span>&gt;(i<span class="number">-1</span>))),</span><br><span class="line">                    <span class="built_in">Point</span>(bin_w*(i), hist_h - <span class="built_in">cvRound</span>(b_hist.<span class="built_in">at</span>&lt;<span class="type">float</span>&gt;(i))),</span><br><span class="line">                    <span class="built_in">Scalar</span>(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>), <span class="number">2</span>, <span class="number">8</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">line</span>(histImages, <span class="built_in">Point</span>(bin_w*(i<span class="number">-1</span>), hist_h-<span class="built_in">cvRound</span>(g_hist.<span class="built_in">at</span>&lt;<span class="type">float</span>&gt;(i<span class="number">-1</span>))),</span><br><span class="line">                    <span class="built_in">Point</span>(bin_w*(i), hist_h - <span class="built_in">cvRound</span>(g_hist.<span class="built_in">at</span>&lt;<span class="type">float</span>&gt;(i))),</span><br><span class="line">                    <span class="built_in">Scalar</span>(<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>), <span class="number">2</span>, <span class="number">8</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">line</span>(histImages, <span class="built_in">Point</span>(bin_w*(i<span class="number">-1</span>), hist_h-<span class="built_in">cvRound</span>(r_hist.<span class="built_in">at</span>&lt;<span class="type">float</span>&gt;(i<span class="number">-1</span>))),</span><br><span class="line">                    <span class="built_in">Point</span>(bin_w*(i), hist_h - <span class="built_in">cvRound</span>(r_hist.<span class="built_in">at</span>&lt;<span class="type">float</span>&gt;(i))),</span><br><span class="line">                    <span class="built_in">Scalar</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>), <span class="number">2</span>, <span class="number">8</span>, <span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> histImages;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="测试函数"><a href="#测试函数" class="headerlink" title="测试函数"></a>测试函数</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">  cv::Mat img = cv::<span class="built_in">imread</span>(<span class="string">&quot;lena.jpeg&quot;</span>);</span><br><span class="line">  cv::<span class="built_in">imshow</span>(<span class="string">&quot;lena&quot;</span>, img);</span><br><span class="line">  cv::<span class="built_in">imshow</span>(<span class="string">&quot;lena imhist&quot;</span>, <span class="built_in">imhist</span>(img));</span><br><span class="line">  cv::<span class="built_in">cvtColor</span>(img, img, cv::COLOR_BGR2GRAY);</span><br><span class="line">  cv::<span class="built_in">imshow</span>(<span class="string">&quot;lena gray imhist&quot;</span>, <span class="built_in">imhist</span>(img));</span><br><span class="line">  cv::<span class="built_in">waitKey</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="执行结果"><a href="#执行结果" class="headerlink" title="执行结果"></a>执行结果</h2><p><img src="/imhist.png" alt="imhist"></p>
+<h2 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h2><p>至少能画出直方图。<br>如有错误、更优方法，欢迎指正。</p>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/OpenCV/">
+          OpenCV
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+    <canvas id="sprite-canvas" width="100" height="100"></canvas>
+  </div>
+</div>
+    </div>
+  </div>
+</body>
+
+
+
+    
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+    
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+    
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+    
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+    
+<script src="/js/milk.js"></script>
+
+
+
+</html>

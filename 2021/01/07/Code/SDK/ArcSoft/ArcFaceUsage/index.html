@@ -1,0 +1,403 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>虹软人脸识别SDK使用 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" id="highlight-link" href="/lib/highlight/style/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<link rel="stylesheet" id="shceme-link" href="/css/theme/default.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk">
+    <div class="milk-header">
+       
+
+  <nav class="header-nav">
+     
+    <div class="nav-menu">
+      
+        <div id="Home" class="menu-item">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </div>
+      
+        <div id="Archives" class="menu-item">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </div>
+      
+        <div id="About" class="menu-item">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </div>
+      
+    </div>
+    
+    
+      <div class="nav-date">
+        <div id="date-ymd"></div>
+        <div id="date-week"></div>
+        <div id="date-time"></div>
+      </div>
+    
+    
+    
+      <div class="nav-system" id="nav-system"></div>
+    
+    
+    <div class="nav-layout" id="nav-layout" data-layout="tile">
+      <div id="layout-show">
+        <div class="show-icon"></div>
+        <div class="show-text"></div>
+      </div>
+    </div>
+    
+    <div class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+        <div>
+          <label for="scheme-select">Color scheme: </label>
+          <select id="scheme-select">
+            <option value='default'>default</option>
+          </select>
+          <label for="highlight-select">Code highlight: </label>
+          <select id="highlight-select">
+            <option value='railscasts'>railscasts</option>
+          </select>
+        </div>
+        <div>
+          <label for="ffolders-select">ffolders scheme: </label>
+          <select name="size" id="size-select">
+            <option value='medium'>medium</option>
+          </select>
+          <select name="color" id="color-select">
+            <option value='pink'>pink</option>
+          </select>
+        </div>
+        <div>
+          <label for="blur-slider">background blur
+            <span id="blur-value">10</span> px
+          </label>
+          <input type="range" id="blur-slider" min="0" max="20" data-value='10'>
+        </div>
+        <div>
+          <label for="font-enable">font</label>
+          <input type="checkbox" id="font-check" name="font-check" data-check="fun.ttf">
+        </div>
+      </div>
+    </div>
+  </nav>
+ 
+    </div>
+    <div class="milk-body">
+      
+<div class="draggable-toc">
+  <div class="toc-title">虹软人脸识别SDK使用</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D"><span class="toc-text">简单介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E5%8E%9F%E7%90%86"><span class="toc-text">基础原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SDK%E5%8C%85%E7%BB%93%E6%9E%84"><span class="toc-text">SDK包结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD"><span class="toc-text">性能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%88%E5%80%BC%E6%8E%A8%E8%8D%90"><span class="toc-text">阈值推荐</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows-10-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-text">Windows 10 开发环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-text">创建项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E6%96%87%E4%BB%B6%E9%85%8D%E7%BD%AE"><span class="toc-text">基础文件配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%99%B9%E8%BD%AFSDK"><span class="toc-text">虹软SDK</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#OpenCV"><span class="toc-text">OpenCV</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dll%E6%96%87%E4%BB%B6%E9%85%8D%E7%BD%AE"><span class="toc-text">.dll文件配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E4%BE%9D%E8%B5%96"><span class="toc-text">添加依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E9%AA%8C%E8%AF%81"><span class="toc-text">运行验证</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-text">Linux 开发环境搭建</span></a></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">虹软人脸识别SDK使用</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Code/">
+          Code
+        </a>
+          </li>
+      
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Code/SDK/">
+          SDK
+        </a>
+          </li>
+      
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Code/SDK/ArcSoft/">
+          ArcSoft
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <p>基于官方说明文档的简单介绍。</p>
+<p>Windows开发环境配置：Visual Studio 2019，虹软SDK Windows 64位 3.0版本。<br>Linux开发环境配置：CLion（使用cmake即可），虹软SDK Linux64 3.0版本。</p>
+<span id="more"></span>
+
+<h2 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h2><p><img src="/function.png" alt="function"></p>
+<p><em>基础版本不支持<code>图像质量检测</code>和<code>离线激活</code></em></p>
+<p><img src="/workflow.png" alt="workflow"></p>
+<h3 id="基础原理"><a href="#基础原理" class="headerlink" title="基础原理"></a>基础原理</h3><ul>
+<li><p>RGB可见光活体：主要基于图片破绽，判断目标对象是否为活体。例如图像中的屏幕反光、成像畸形、二次翻拍边框背景等。RGB活体检测基于单目摄像头，采用静默式识别方式，用户体验较好。同时RGB活体受光线以及成像质量影响较大，在强光、暗光等场景，容易影响检测结果，可通过适当的补光、使用宽动态镜头抵消逆光等方式缓解。</p>
+</li>
+<li><p>IR红外活体：主要基于红外光线反射成像原理，通过人脸成像甄别是否为活体。基于红外成像特点，对于屏幕类攻击，基本可以达到近100%的活体防御。IR采用静默式识别方式，体验较好，但需要增加红外摄像头成本，同时要结合场景考虑红外成像距离。</p>
+</li>
+</ul>
+<h3 id="SDK包结构"><a href="#SDK包结构" class="headerlink" title="SDK包结构"></a>SDK包结构</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">SDK</span><br><span class="line">|---demo</span><br><span class="line">|   |---ArcFaceDemo                                 Demo工程</span><br><span class="line">|---doc</span><br><span class="line">|   |---ARCSOFT_ARC_FACE_DEVELOPER&#x27;S_GUIDE.PDF      开发说明文档</span><br><span class="line">|---inc</span><br><span class="line">|   |---amcomdef.h                                  平台文件</span><br><span class="line">|   |---asvloffscreen.h                             平台文件</span><br><span class="line">|   |---arcsoft_face_sdk.h                          接口文件</span><br><span class="line">|   |---merror.h                                    错误码文件</span><br><span class="line">|---lib </span><br><span class="line">|---|---Win32/x64</span><br><span class="line">|   |---|---libarcsoft_face.dll                     算法库</span><br><span class="line">|   |---|---libarcsoft_face_engine.dll              引擎库</span><br><span class="line">|   |---|---libarcsoft_face_engine.lib              引擎库</span><br><span class="line">|---samplecode</span><br><span class="line">|   |---samplecode.cpp                              示例代码</span><br><span class="line">|---releasenotes.txt                                说明文件</span><br></pre></td></tr></table></figure>
+
+<h3 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h3><p>处理器：Intel® Core™ i5-8500 3.0GHz<br>安装内存(RAM)：16.0GB(15.9GB可用)<br>系统类型：win10 64位操作系统</p>
+<p>分辨率：1280 x 720不同人脸库条件下人脸比对+RGB活体检测全流程体感耗时</p>
+<table>
+<thead>
+<tr>
+<th align="left">人脸库</th>
+<th align="left">性能(ms)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1000</td>
+<td align="left">&lt;200</td>
+</tr>
+<tr>
+<td align="left">5000</td>
+<td align="left">&lt;300</td>
+</tr>
+<tr>
+<td align="left">10000</td>
+<td align="left">&lt;600</td>
+</tr>
+</tbody></table>
+<h3 id="阈值推荐"><a href="#阈值推荐" class="headerlink" title="阈值推荐"></a>阈值推荐</h3><p>活体取值范围为[0~1]，推荐阈值如下，高于此阈值的即可判断为活体。</p>
+<ul>
+<li>RGB 活体：0.5</li>
+<li>IR 活体：0.7</li>
+</ul>
+<p>人脸比对取值范围为[0~1]，推荐阈值如下，高于此阈值的即可判断为同一人。</p>
+<ul>
+<li>用于生活照之间的特征比对，推荐阈值0.80</li>
+<li>用于证件照或生活照与证件照之间的特征比对，推荐阈值0.82</li>
+</ul>
+<h2 id="Windows-10-开发环境搭建"><a href="#Windows-10-开发环境搭建" class="headerlink" title="Windows 10 开发环境搭建"></a>Windows 10 开发环境搭建</h2><p>项目目录结构：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">FACE</span><br><span class="line">|----- .vs</span><br><span class="line">|----- inc</span><br><span class="line">|----- |----- opencv2</span><br><span class="line">|----- |----- |----- ...</span><br><span class="line">|----- |----- amcomdef.h</span><br><span class="line">|----- |----- arcsoft_face_sdk.h</span><br><span class="line">|----- |----- asvloffscreen.h</span><br><span class="line">|----- |----- merror.h</span><br><span class="line">|----- lib</span><br><span class="line">|----- |----- X64</span><br><span class="line">|----- |----- |----- libarcsoft_face_engine.lib</span><br><span class="line">|----- |----- |----- opencv_world451.lib</span><br><span class="line">|----- |----- |----- opencv_world451d.lib</span><br><span class="line">|----- x64</span><br><span class="line">|----- |----- Debug</span><br><span class="line">|----- |----- |----- FACE.exe</span><br><span class="line">|----- |----- |----- libarcsoft_face.dll</span><br><span class="line">|----- |----- |----- libarcsoft_face_engine.dll</span><br><span class="line">|----- |----- |----- opencv_world451.dll</span><br><span class="line">|----- |----- |----- opencv_world451d.dll</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h3><p><code>Create a new project</code> -&gt; <code>Console App</code>，项目名称为<code>FACE</code>。</p>
+<h3 id="基础文件配置"><a href="#基础文件配置" class="headerlink" title="基础文件配置"></a>基础文件配置</h3><p>在<code>FACE</code>目录下创建<code>inc</code>和<code>lib/X64</code>目录。</p>
+<h4 id="虹软SDK"><a href="#虹软SDK" class="headerlink" title="虹软SDK"></a>虹软SDK</h4><p>下载虹软SDK。</p>
+<ul>
+<li>将SDK包下<code>inc/</code>内<code>.h</code>头文件放置在<code>FACE/inc/</code>目录下</li>
+<li>将SDK包下<code>lib/</code>内<code>libarcsoft_face_engine.lib</code>文件放置在<code>FACE/lib/X64/</code>目录下</li>
+</ul>
+<h4 id="OpenCV"><a href="#OpenCV" class="headerlink" title="OpenCV"></a>OpenCV</h4><p>下载OpenCV Windows版，我下载的是4.5.1版本，解压得到<code>opencv</code>目录。</p>
+<ul>
+<li>将<code>opencv/build/include/</code>目录下<code>opencv2</code>文件夹复制到<code>FACE/inc/</code>目录下</li>
+<li>将<code>opencv/build/x64/vc15/lib/</code>目录下<code>.lib</code>文件夹复制到<code>FACE/lib/X64</code>目录下</li>
+</ul>
+<p><em><code>vc14</code>与<code>vc15</code>的区别是支持Visual Studio版本不同，<code>vc15</code>支持较新的版本。</em></p>
+<p>其中<code>opencv_world451.lib</code>是<code>Release</code>模式使用，<code>opencv_world451d.lib</code>是<code>Debug</code>模式使用。</p>
+<p><strong>注意：</strong> 先完成依赖配置，运行程序，此时会报告相应<code>.dll</code>未找到的错误，可以根据提示配置相应<code>.dll</code>文件。</p>
+<p>在生成<code>exe</code>文件目录中放入虹软SDK的<code>libarcsoft_face.dll</code>和<code>libarcsoft_face_engine.dll</code>；OpenCV的<code>opencv_world451.dll</code>或<code>opencv_world451d.dll</code>。</p>
+<h3 id="dll文件配置"><a href="#dll文件配置" class="headerlink" title=".dll文件配置"></a><code>.dll</code>文件配置</h3><ul>
+<li><code>libarcsoft_face.dll</code>和<code>libarcsoft_face_engine.dll</code>在SDK包下<code>lib/</code>目录下</li>
+<li><code>opencv_world451.dll</code>和<code>opencv_world451.dll</code>在<code>opencv/build/x64/vc15/lib/</code>目录下</li>
+</ul>
+<p>其中<code>opencv_world451.dll</code>是<code>Release</code>模式生成的<code>.exe</code>文件使用，<code>opencv_world451d.dll</code>是<code>Debug</code>模式生成的<code>.exe</code>使用。</p>
+<h3 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h3><p><img src="/configurations.png" alt="configurations"></p>
+<p>在<code>Solution Explorer</code>中右击<code>FACE</code> -&gt; <code>Properties</code></p>
+<p>注意选择相应平台<code>X64</code></p>
+<p><code>Configuration Properties</code> -&gt; <code>VC++ Directories</code>中配置<code>Include Directories</code>和<code>Library Directories</code>。</p>
+<ul>
+<li><code>Include Directories</code>导向<code>FACE/inc/opencv2</code>和<code>FACE/inc</code>。</li>
+<li><code>Library Directories</code>导向<code>FACE/lib/X64</code></li>
+</ul>
+<p><em>可选配置：在<code>Configuration Properties</code> -&gt; <code>Linker</code> -&gt; <code>Input</code>中的<code>Additional Dependencies</code>中添加相应<code>.lib文件</code>以替换在程序中使用<code>#pragma comment(lib, &quot;your.lib&quot;)</code></em></p>
+<h3 id="运行验证"><a href="#运行验证" class="headerlink" title="运行验证"></a>运行验证</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;arcsoft_face_sdk.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;merror.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> comment(lib, <span class="string">&quot;libarcsoft_face_engine.lib&quot;</span>)</span></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> comment(lib, <span class="string">&quot;opencv_world451.lib&quot;</span>)</span></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> comment(lib, <span class="string">&quot;opencv_world451d.lib&quot;</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	ASF_VERSION version = <span class="built_in">ASFGetVersion</span>();</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;SDK Version:\t&quot;</span> &lt;&lt; version.Version &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;SDK BuildDate:\t&quot;</span> &lt;&lt; version.BuildDate &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;SDK CopyRight:\y&quot;</span> &lt;&lt; version.CopyRight &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;OpenCV Version:\t&quot;</span> &lt;&lt; CV_VERSION &lt;&lt; endl;</span><br><span class="line">	<span class="built_in">getchar</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/result.png" alt="result"></p>
+<h2 id="Linux-开发环境搭建"><a href="#Linux-开发环境搭建" class="headerlink" title="Linux 开发环境搭建"></a>Linux 开发环境搭建</h2><p>下载相应SDK。</p>
+<p>ArcSoft Linux x64 SDK目录结构：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">├── doc</span><br><span class="line">│   └── ARCSOFT_ARC_FACE_DEVELOPER&#x27;S_GUIDE.pdf</span><br><span class="line">├── inc</span><br><span class="line">│   ├── amcomdef.h</span><br><span class="line">│   ├── arcsoft_face_sdk.h</span><br><span class="line">│   ├── asvloffscreen.h</span><br><span class="line">│   └── merror.h</span><br><span class="line">├── lib</span><br><span class="line">│   └── linux_x64</span><br><span class="line">│       ├── libarcsoft_face_engine.so</span><br><span class="line">│       └── libarcsoft_face.so</span><br><span class="line">├── releasenotes.txt</span><br><span class="line">└── samplecode</span><br><span class="line">    ├── ASFTestDemo</span><br><span class="line">    └── ReadMe.txt</span><br></pre></td></tr></table></figure>
+
+<p>项目结构：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">├── cmake-build-debug</span><br><span class="line">│   ├── ArcFace64.dat</span><br><span class="line">│   ├── CMakeCache.txt</span><br><span class="line">│   ├── CMakeFiles</span><br><span class="line">│   ├── cmake_install.cmake</span><br><span class="line">│   ├── Makefile</span><br><span class="line">│   ├── MilkFace_Linux</span><br><span class="line">│   └── MilkFace_Linux.cbp</span><br><span class="line">├── CMakeLists.txt</span><br><span class="line">├── inc</span><br><span class="line">│   ├── amcomdef.h</span><br><span class="line">│   ├── arcsoft_face_sdk.h</span><br><span class="line">│   ├── asvloffscreen.h</span><br><span class="line">│   └── merror.h</span><br><span class="line">├── lib</span><br><span class="line">│   ├── libarcsoft_face_engine.so</span><br><span class="line">│   └── libarcsoft_face.so</span><br><span class="line">└── main.cpp</span><br></pre></td></tr></table></figure>
+
+<p>将SDK下<code>lib/</code>目录内文件移入项目<code>lib</code>目录下。</p>
+<p>将SDK下<code>inc/</code>目录内文件移入项目<code>inc</code>目录下。</p>
+<p><code>CMakeLists.txt</code>内容：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.17</span>)</span><br><span class="line"><span class="keyword">project</span>(MilkFace_Linux)</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">14</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># OpenCV</span></span><br><span class="line"><span class="keyword">find_package</span>( OpenCV REQUIRED )</span><br><span class="line"><span class="keyword">include_directories</span>( <span class="variable">$&#123;OpenCV_INCLUDE_DIRS&#125;</span> )</span><br><span class="line"></span><br><span class="line"><span class="comment"># ArcSoft</span></span><br><span class="line"><span class="keyword">include_directories</span>(./inc)</span><br><span class="line"><span class="keyword">link_directories</span>(./lib)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_executable</span>(<span class="variable">$&#123;PROJECT_NAME&#125;</span> main.cpp)</span><br><span class="line"><span class="keyword">target_link_libraries</span>( <span class="variable">$&#123;PROJECT_NAME&#125;</span></span><br><span class="line">        <span class="variable">$&#123;OpenCV_LIBS&#125;</span></span><br><span class="line">        arcsoft_face</span><br><span class="line">        arcsoft_face_engine</span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/ArcSoft/">
+          ArcSoft
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+    <canvas id="sprite-canvas" width="100" height="100"></canvas>
+  </div>
+</div>
+    </div>
+  </div>
+</body>
+
+
+
+    
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+    
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+    
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+    
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+    
+<script src="/js/milk.js"></script>
+
+
+
+</html>

@@ -1,0 +1,333 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SSH下文件传输 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" id="highlight-link" href="/lib/highlight/style/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<link rel="stylesheet" id="shceme-link" href="/css/theme/default.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk">
+    <div class="milk-header">
+       
+
+  <nav class="header-nav">
+     
+    <div class="nav-menu">
+      
+        <div id="Home" class="menu-item">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </div>
+      
+        <div id="Archives" class="menu-item">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </div>
+      
+        <div id="About" class="menu-item">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </div>
+      
+    </div>
+    
+    
+      <div class="nav-date">
+        <div id="date-ymd"></div>
+        <div id="date-week"></div>
+        <div id="date-time"></div>
+      </div>
+    
+    
+    
+      <div class="nav-system" id="nav-system"></div>
+    
+    
+    <div class="nav-layout" id="nav-layout" data-layout="tile">
+      <div id="layout-show">
+        <div class="show-icon"></div>
+        <div class="show-text"></div>
+      </div>
+    </div>
+    
+    <div class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+        <div>
+          <label for="scheme-select">Color scheme: </label>
+          <select id="scheme-select">
+            <option value='default'>default</option>
+          </select>
+          <label for="highlight-select">Code highlight: </label>
+          <select id="highlight-select">
+            <option value='railscasts'>railscasts</option>
+          </select>
+        </div>
+        <div>
+          <label for="ffolders-select">ffolders scheme: </label>
+          <select name="size" id="size-select">
+            <option value='medium'>medium</option>
+          </select>
+          <select name="color" id="color-select">
+            <option value='pink'>pink</option>
+          </select>
+        </div>
+        <div>
+          <label for="blur-slider">background blur
+            <span id="blur-value">10</span> px
+          </label>
+          <input type="range" id="blur-slider" min="0" max="20" data-value='10'>
+        </div>
+        <div>
+          <label for="font-enable">font</label>
+          <input type="checkbox" id="font-check" name="font-check" data-check="fun.ttf">
+        </div>
+      </div>
+    </div>
+  </nav>
+ 
+    </div>
+    <div class="milk-body">
+      
+<div class="draggable-toc">
+  <div class="toc-title">SSH下文件传输</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#scp"><span class="toc-text">scp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lrzsz"><span class="toc-text">lrzsz</span></a></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">SSH下文件传输</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Tool/">
+          Tool
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <p>使用 scp 和 lrzsz</p>
+<span id="more"></span>
+
+<h2 id="scp"><a href="#scp" class="headerlink" title="scp"></a>scp</h2><p>scp — OpenSSH secure file copy</p>
+<p>本地-&gt;远程</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp file remote_username@remote_ip:/path/to/file</span><br></pre></td></tr></table></figure>
+
+<p>远程-&gt;本地</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp file remote_username@remote_ip:/path/to/file</span><br></pre></td></tr></table></figure>
+
+<p>如果是整个目录，添加选项<code>-r</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp -r folder remote_username@remote_ip:/path/to/file</span><br></pre></td></tr></table></figure>
+
+<h2 id="lrzsz"><a href="#lrzsz" class="headerlink" title="lrzsz"></a>lrzsz</h2><p>用于在远程 Linux 服务器和本地 Windows 系统之间传输文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install lrzsz</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>发送文件到远程服务器</li>
+</ul>
+<p>在远程服务器的终端（如 ssh 连接）中运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rz</span><br></pre></td></tr></table></figure>
+
+<p>然后在本地 选择要上传的文件，终端会自动接收并存储到当前目录。</p>
+<p>或者直接：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rz -y  <span class="comment"># 自动覆盖同名文件</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>从远程服务器下载文件</li>
+</ul>
+<p>在远程服务器上运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sz filename</span><br></pre></td></tr></table></figure>
+
+<p>然后在本地 接收文件，默认存储在终端软件的下载目录中。</p>
+<p>如果需要 批量下载多个文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sz file1 file2 file3</span><br></pre></td></tr></table></figure>
+
+<p>或者：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sz -y file1 file2  <span class="comment"># 自动覆盖本地文件</span></span><br></pre></td></tr></table></figure>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/Tool/">
+          Tool
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+    <canvas id="sprite-canvas" width="100" height="100"></canvas>
+  </div>
+</div>
+    </div>
+  </div>
+</body>
+
+
+
+    
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+    
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+    
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+    
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+    
+<script src="/js/milk.js"></script>
+
+
+
+</html>

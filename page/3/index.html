@@ -1,0 +1,539 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" id="highlight-link" href="/lib/highlight/style/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<link rel="stylesheet" id="shceme-link" href="/css/theme/default.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk">
+    <div class="milk-header">
+       
+
+  <nav class="header-nav">
+     
+    <div class="nav-menu">
+      
+        <div id="Home" class="menu-item">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </div>
+      
+        <div id="Archives" class="menu-item">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </div>
+      
+        <div id="About" class="menu-item">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </div>
+      
+    </div>
+    
+    
+      <div class="nav-date">
+        <div id="date-ymd"></div>
+        <div id="date-week"></div>
+        <div id="date-time"></div>
+      </div>
+    
+    
+    
+      <div class="nav-system" id="nav-system"></div>
+    
+    
+    <div class="nav-layout" id="nav-layout" data-layout="tile">
+      <div id="layout-show">
+        <div class="show-icon"></div>
+        <div class="show-text"></div>
+      </div>
+    </div>
+    
+    <div class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+        <div>
+          <label for="scheme-select">Color scheme: </label>
+          <select id="scheme-select">
+            <option value='default'>default</option>
+          </select>
+          <label for="highlight-select">Code highlight: </label>
+          <select id="highlight-select">
+            <option value='railscasts'>railscasts</option>
+          </select>
+        </div>
+        <div>
+          <label for="ffolders-select">ffolders scheme: </label>
+          <select name="size" id="size-select">
+            <option value='medium'>medium</option>
+          </select>
+          <select name="color" id="color-select">
+            <option value='pink'>pink</option>
+          </select>
+        </div>
+        <div>
+          <label for="blur-slider">background blur
+            <span id="blur-value">10</span> px
+          </label>
+          <input type="range" id="blur-slider" min="0" max="20" data-value='10'>
+        </div>
+        <div>
+          <label for="font-enable">font</label>
+          <input type="checkbox" id="font-check" name="font-check" data-check="fun.ttf">
+        </div>
+      </div>
+    </div>
+  </nav>
+ 
+    </div>
+    <div class="milk-body">
+      <div id="layout">
+  
+  <div class="window" id="w-content">
+    <div class="desktop-content">
+       
+<ul>
+  
+     
+    
+    <li>
+       
+      <ul class="breadcrumbs" id="post-source">
+        <li><a href="#"><i class="fas fa-file-word"></i></a></li>
+        
+          
+          <li><a href="#">Tool</a></li>
+        
+          
+          <li><a href="#">Plugs</a></li>
+        
+        
+        <li id="post-title"><a href="/2025/01/29/Tool/Plugs/OnlineWatch/" title="一种在线观看视频的方式">一种在线观看视频的方式</a></li> 
+      </ul>
+       
+      <div class="post-table">
+        <table>
+          <tr>
+            <th></th>
+            <th>
+              <span class="table-title">File: 一种在线观看视频的方式</span>
+              <span>2025-01-29</span>
+            </th>
+          </tr>
+          <tr>
+            <td class="table-linenum" id="table-linenum">content</td>
+            <td><h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>一种在线看视频的方式（个人电脑 + 浏览器 + 广告拦截插件）</p>
+<ul>
+<li>浏览器使用 Firefox（其他类似，比如Edge，Chrome）</li>
+<li>广告拦截插件 uBlock Origin</li>
+</ul>
+<p>附：<a target="_blank" rel="noopener" href="https://apps.apple.com/hk/app/adblock-pro-%E7%80%8F%E8%A6%BD%E5%99%A8%E9%98%BB%E6%93%8B%E5%BB%A3%E5%91%8A/id1018301773">苹果手机广告拦截 AdBlock Pro</a></p></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+     
+    
+    <li>
+       
+      <ul class="breadcrumbs" id="post-source">
+        <li><a href="#"><i class="fas fa-file-word"></i></a></li>
+        
+          
+          <li><a href="#">Others</a></li>
+        
+        
+        <li id="post-title"><a href="/2025/01/01/Others/控制台设置代理/" title="控制台设置代理">控制台设置代理</a></li> 
+      </ul>
+       
+      <div class="post-table">
+        <table>
+          <tr>
+            <th></th>
+            <th>
+              <span class="table-title">File: 控制台设置代理</span>
+              <span>2025-01-01</span>
+            </th>
+          </tr>
+          <tr>
+            <td class="table-linenum" id="table-linenum">content</td>
+            <td><ul>
+<li>Windows cmd</li>
+<li>Windows powershell</li>
+<li>Linux bash</li>
+</ul></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+     
+    
+    <li>
+       
+      <ul class="breadcrumbs" id="post-source">
+        <li><a href="#"><i class="fas fa-file-word"></i></a></li>
+        
+          
+          <li><a href="#">Code</a></li>
+        
+          
+          <li><a href="#">CPP</a></li>
+        
+        
+        <li id="post-title"><a href="/2024/12/29/Code/CPP/spdlog/" title="一种简单的 spdlog 封装">一种简单的 spdlog...</a></li> 
+      </ul>
+       
+      <div class="post-table">
+        <table>
+          <tr>
+            <th></th>
+            <th>
+              <span class="table-title">File: 一种简单的 spdlog 封装</span>
+              <span>2024-12-29</span>
+            </th>
+          </tr>
+          <tr>
+            <td class="table-linenum" id="table-linenum">content</td>
+            <td><p>记录一种简单的 spdlog 封装</p>
+<p>TODO: 如何在<code>.h</code>中隐藏 spdlog 依赖</p></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+     
+    
+    <li>
+       
+      <ul class="breadcrumbs" id="post-source">
+        <li><a href="#"><i class="fas fa-file-word"></i></a></li>
+        
+          
+          <li><a href="#">Game</a></li>
+        
+        
+        <li id="post-title"><a href="/2024/10/27/Game/legend-of-mir2/" title="搭建热血传奇">搭建热血传奇</a></li> 
+      </ul>
+       
+      <div class="post-table">
+        <table>
+          <tr>
+            <th></th>
+            <th>
+              <span class="table-title">File: 搭建热血传奇</span>
+              <span>2024-10-27</span>
+            </th>
+          </tr>
+          <tr>
+            <td class="table-linenum" id="table-linenum">content</td>
+            <td><p>是兄弟就来砍我！</p>
+<p>主要网址：</p>
+<ul>
+<li>官方 Wiki：<a target="_blank" rel="noopener" href="https://www.lomcn.net/wiki/index.php/Crystal">https://www.lomcn.net/wiki/index.php/Crystal</a></li>
+<li>源代码：<a target="_blank" rel="noopener" href="https://github.com/Suprcode/Crystal">https://github.com/Suprcode/Crystal</a></li>
+<li>数据文件：<a target="_blank" rel="noopener" href="https://github.com/Suprcode/Crystal.Database">https://github.com/Suprcode/Crystal.Database</a></li>
+<li>黑屏问题解决方案：<a target="_blank" rel="noopener" href="https://github.com/JevLOMCN/BlackScreenIssues">https://github.com/JevLOMCN/BlackScreenIssues</a></li>
+</ul>
+<p>视频步骤：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV13X14YHERd">https://www.bilibili.com/video/BV13X14YHERd</a></p></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+     
+    
+    <li>
+       
+      <ul class="breadcrumbs" id="post-source">
+        <li><a href="#"><i class="fas fa-file-word"></i></a></li>
+        
+          
+          <li><a href="#">Others</a></li>
+        
+        
+        <li id="post-title"><a href="/2024/10/02/Others/remote_desktop/" title="远程桌面">远程桌面</a></li> 
+      </ul>
+       
+      <div class="post-table">
+        <table>
+          <tr>
+            <th></th>
+            <th>
+              <span class="table-title">File: 远程桌面</span>
+              <span>2024-10-02</span>
+            </th>
+          </tr>
+          <tr>
+            <td class="table-linenum" id="table-linenum">content</td>
+            <td><p>Linux 系统下使用 Remmina 远程桌面控制 Windows 系统</p>
+<p>Remmina 需要启用 RDP（远程桌面协议）</p></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+     
+    
+    <li>
+       
+      <ul class="breadcrumbs" id="post-source">
+        <li><a href="#"><i class="fas fa-file-word"></i></a></li>
+        
+          
+          <li><a href="#">Web</a></li>
+        
+        
+        <li id="post-title"><a href="/2024/10/01/Web/flarum_setup/" title="flarum 论坛搭建">flarum 论坛搭建</a></li> 
+      </ul>
+       
+      <div class="post-table">
+        <table>
+          <tr>
+            <th></th>
+            <th>
+              <span class="table-title">File: flarum 论坛搭建</span>
+              <span>2024-10-01</span>
+            </th>
+          </tr>
+          <tr>
+            <td class="table-linenum" id="table-linenum">content</td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+     
+    
+    <li>
+       
+      <ul class="breadcrumbs" id="post-source">
+        <li><a href="#"><i class="fas fa-file-word"></i></a></li>
+        
+          
+          <li><a href="#">Hardware</a></li>
+        
+        
+        <li id="post-title"><a href="/2024/09/30/Hardware/DELL服务器/" title="DELL 服务器产品">DELL 服务器产品</a></li> 
+      </ul>
+       
+      <div class="post-table">
+        <table>
+          <tr>
+            <th></th>
+            <th>
+              <span class="table-title">File: DELL 服务器产品</span>
+              <span>2024-09-30</span>
+            </th>
+          </tr>
+          <tr>
+            <td class="table-linenum" id="table-linenum">content</td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+     
+    
+    <li>
+       
+      <ul class="breadcrumbs" id="post-source">
+        <li><a href="#"><i class="fas fa-file-word"></i></a></li>
+        
+          
+          <li><a href="#">Media</a></li>
+        
+        
+        <li id="post-title"><a href="/2024/09/30/Media/ffmpeg_basic/" title="FFmpeg基础知识">FFmpeg基础知识</a></li> 
+      </ul>
+       
+      <div class="post-table">
+        <table>
+          <tr>
+            <th></th>
+            <th>
+              <span class="table-title">File: FFmpeg基础知识</span>
+              <span>2024-09-30</span>
+            </th>
+          </tr>
+          <tr>
+            <td class="table-linenum" id="table-linenum">content</td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+     
+    
+    <li>
+       
+      <ul class="breadcrumbs" id="post-source">
+        <li><a href="#"><i class="fas fa-file-word"></i></a></li>
+        
+          
+          <li><a href="#">Media</a></li>
+        
+        
+        <li id="post-title"><a href="/2024/09/30/Media/media/" title="多媒体基础知识">多媒体基础知识</a></li> 
+      </ul>
+       
+      <div class="post-table">
+        <table>
+          <tr>
+            <th></th>
+            <th>
+              <span class="table-title">File: 多媒体基础知识</span>
+              <span>2024-09-30</span>
+            </th>
+          </tr>
+          <tr>
+            <td class="table-linenum" id="table-linenum">content</td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+     
+    
+    <li>
+       
+      <ul class="breadcrumbs" id="post-source">
+        <li><a href="#"><i class="fas fa-file-word"></i></a></li>
+        
+          
+          <li><a href="#">Windows</a></li>
+        
+        
+        <li id="post-title"><a href="/2024/09/30/Windows/WMIC/" title="WMIC 使用相关问题">WMIC 使用相关问题</a></li> 
+      </ul>
+       
+      <div class="post-table">
+        <table>
+          <tr>
+            <th></th>
+            <th>
+              <span class="table-title">File: WMIC 使用相关问题</span>
+              <span>2024-09-30</span>
+            </th>
+          </tr>
+          <tr>
+            <td class="table-linenum" id="table-linenum">content</td>
+            <td><p>WMIC（Windows Management Instrumentation Command-line）是 Windows 系统中用于管理和监控系统的工具。可以通过命令行访问 WMIC。</p></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+</ul>
+       
+<div class="paginator">
+  <a class="extend prev" rel="prev" href="/page/2/">Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/4/">Next</a>
+</div>
+    </div>
+  </div>
+  
+  <div class="window" id="w-category">
+    <div class="desktop-category">
+      <ul class="breadcrumbs">
+        <li><a href="#"><i class="fas fa-list"></i></a></li>
+        <li><a href="#">category</a></li>
+        <li><a href="#">tree</a></li>
+      </ul>
+       
+
+  <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AI/">AI</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/BigData/">BigData</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/BigData/Hadoop/">Hadoop</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CV/">CV</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Code/">Code</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Code/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Code/Assembly/">Assembly</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Code/CPP/">CPP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Code/GUI/">GUI</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Code/GUI/Qt/">Qt</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Code/Java/">Java</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Code/Java/maven/">maven</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Code/OpenGL/">OpenGL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Code/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Code/Qt/">Qt</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Code/SDK/">SDK</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Code/SDK/ArcSoft/">ArcSoft</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Code/others/">others</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/DesignPattern/">DesignPattern</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Game/">Game</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hardware/">Hardware</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/CentOS/">CentOS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/Gentoo/">Gentoo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/Problem/">Problem</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/Shell/">Shell</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/Ubuntu/">Ubuntu</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/common/">common</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/common/tmux/">tmux</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Media/">Media</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Microcomputer/">Microcomputer</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Microcomputer/51/">51</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Microcomputer/Arduino/">Arduino</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Microcomputer/ESP32/">ESP32</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Microcomputer/Pi/">Pi</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/NeuralNetwork/">NeuralNetwork</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/NeuralNetwork/OpenVINO/">OpenVINO</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/NeuralNetwork/yolov5/">yolov5</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OpenCV/">OpenCV</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/OpenCV/QRCode/">QRCode</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Others/">Others</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Python/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/pyqt5/">pyqt5</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/">Tool</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/Intellij-IDEA/">Intellij IDEA</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/Plugs/">Plugs</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/VSCode/">VSCode</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/Visual-Studio/">Visual Studio</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/gitbook/">gitbook</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/jupyter/">jupyter</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB/">WEB</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/WEB/AMap/">AMap</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB/Server/">Server</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB/Spring/">Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB/others/">others</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/others/">others</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/">others</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%9A%E5%AE%A2/">博客</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%96%87%E7%AB%A0/">文章</a></li></ul>
+
+    </div>
+  </div>
+  
+  <div class="window" id="w-tag">
+    <div class="desktop-tag">
+      <ul class="breadcrumbs">
+        <li><a href="#"><i class="far fa-folder"></i></a></li>
+        <li><a href="#">tag</a></li>
+        <li><a href="#">dir</a></li>
+      </ul>
+         
+
+  <div id="list-cloud" class="list-cloud" data-size='medium' data-color='pink'>
+    <a href="/tags/51/" style="font-size: 10px;">51</a> <a href="/tags/AI/" style="font-size: 11.25px;">AI</a> <a href="/tags/AMap/" style="font-size: 10px;">AMap</a> <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/ArcSoft/" style="font-size: 13.75px;">ArcSoft</a> <a href="/tags/Arduino/" style="font-size: 12.5px;">Arduino</a> <a href="/tags/Assembly/" style="font-size: 10px;">Assembly</a> <a href="/tags/CImg/" style="font-size: 10px;">CImg</a> <a href="/tags/CPP/" style="font-size: 18.75px;">CPP</a> <a href="/tags/CV/" style="font-size: 10px;">CV</a> <a href="/tags/CentOS/" style="font-size: 11.25px;">CentOS</a> <a href="/tags/DesignPattern/" style="font-size: 10px;">DesignPattern</a> <a href="/tags/ESP32/" style="font-size: 10px;">ESP32</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/Game/" style="font-size: 10px;">Game</a> <a href="/tags/Gentoo/" style="font-size: 12.5px;">Gentoo</a> <a href="/tags/Hadoop/" style="font-size: 10px;">Hadoop</a> <a href="/tags/Hardware/" style="font-size: 10px;">Hardware</a> <a href="/tags/IDEA/" style="font-size: 10px;">IDEA</a> <a href="/tags/Legend-of-Mir2/" style="font-size: 10px;">Legend of Mir2</a> <a href="/tags/Linux/" style="font-size: 12.5px;">Linux</a> <a href="/tags/Media/" style="font-size: 11.25px;">Media</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/NeuralNetwork/" style="font-size: 11.25px;">NeuralNetwork</a> <a href="/tags/OS/" style="font-size: 11.25px;">OS</a> <a href="/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/tags/OpenGL/" style="font-size: 10px;">OpenGL</a> <a href="/tags/Others/" style="font-size: 10px;">Others</a> <a href="/tags/Pi/" style="font-size: 18.75px;">Pi</a> <a href="/tags/Plugs/" style="font-size: 10px;">Plugs</a> <a href="/tags/Python/" style="font-size: 13.75px;">Python</a> <a href="/tags/QRCode/" style="font-size: 10px;">QRCode</a> <a href="/tags/Qt/" style="font-size: 11.25px;">Qt</a> <a href="/tags/Shell/" style="font-size: 15px;">Shell</a> <a href="/tags/Test/" style="font-size: 10px;">Test</a> <a href="/tags/Tool/" style="font-size: 11.25px;">Tool</a> <a href="/tags/Ubuntu/" style="font-size: 15px;">Ubuntu</a> <a href="/tags/VSCode/" style="font-size: 10px;">VSCode</a> <a href="/tags/Visual-Studio/" style="font-size: 11.25px;">Visual Studio</a> <a href="/tags/WEB/" style="font-size: 16.25px;">WEB</a> <a href="/tags/Windows/" style="font-size: 15px;">Windows</a> <a href="/tags/cmake/" style="font-size: 15px;">cmake</a> <a href="/tags/cmus/" style="font-size: 10px;">cmus</a> <a href="/tags/common/" style="font-size: 11.25px;">common</a> <a href="/tags/gitbook/" style="font-size: 12.5px;">gitbook</a> <a href="/tags/jupyter/" style="font-size: 10px;">jupyter</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/others/" style="font-size: 18.75px;">others</a> <a href="/tags/pyqt5/" style="font-size: 10px;">pyqt5</a> <a href="/tags/tmux/" style="font-size: 12.5px;">tmux</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 17.5px;">博客</a> <a href="/tags/%E6%96%87%E7%AB%A0/" style="font-size: 18.75px;">文章</a>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+    </div>
+  </div>
+</body>
+
+
+
+    
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+    
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+    
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+    
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+    
+<script src="/js/milk.js"></script>
+
+
+
+</html>

@@ -1,0 +1,328 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>测试框架 Google Test [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" id="highlight-link" href="/lib/highlight/style/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<link rel="stylesheet" id="shceme-link" href="/css/theme/default.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk">
+    <div class="milk-header">
+       
+
+  <nav class="header-nav">
+     
+    <div class="nav-menu">
+      
+        <div id="Home" class="menu-item">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </div>
+      
+        <div id="Archives" class="menu-item">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </div>
+      
+        <div id="About" class="menu-item">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </div>
+      
+    </div>
+    
+    
+      <div class="nav-date">
+        <div id="date-ymd"></div>
+        <div id="date-week"></div>
+        <div id="date-time"></div>
+      </div>
+    
+    
+    
+      <div class="nav-system" id="nav-system"></div>
+    
+    
+    <div class="nav-layout" id="nav-layout" data-layout="tile">
+      <div id="layout-show">
+        <div class="show-icon"></div>
+        <div class="show-text"></div>
+      </div>
+    </div>
+    
+    <div class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+        <div>
+          <label for="scheme-select">Color scheme: </label>
+          <select id="scheme-select">
+            <option value='default'>default</option>
+          </select>
+          <label for="highlight-select">Code highlight: </label>
+          <select id="highlight-select">
+            <option value='railscasts'>railscasts</option>
+          </select>
+        </div>
+        <div>
+          <label for="ffolders-select">ffolders scheme: </label>
+          <select name="size" id="size-select">
+            <option value='medium'>medium</option>
+          </select>
+          <select name="color" id="color-select">
+            <option value='pink'>pink</option>
+          </select>
+        </div>
+        <div>
+          <label for="blur-slider">background blur
+            <span id="blur-value">10</span> px
+          </label>
+          <input type="range" id="blur-slider" min="0" max="20" data-value='10'>
+        </div>
+        <div>
+          <label for="font-enable">font</label>
+          <input type="checkbox" id="font-check" name="font-check" data-check="fun.ttf">
+        </div>
+      </div>
+    </div>
+  </nav>
+ 
+    </div>
+    <div class="milk-body">
+      
+<div class="draggable-toc">
+  <div class="toc-title">测试框架 Google Test</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E4%B8%8E%E8%BF%90%E8%A1%8C"><span class="toc-text">编译与运行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A2%9E%E5%8A%A0%E5%87%BD%E6%95%B0"><span class="toc-text">增加函数</span></a></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">测试框架 Google Test</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Code/">
+          Code
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <p>一个简单的使用 Google Test 测试框架的加减乘除示例</p>
+<span id="more"></span>
+
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>使用包管理器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> emerge -av gtest</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>简单的 C++ 代码 <code>my_math.cpp</code>，实现 <code>add()</code> 函数</p>
+<p>头文件<code>my_math.h</code></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// my_math.h</span></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> once</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> my &#123;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>源文件<code>my_math.cpp</code></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// my_math.cpp</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;my_math.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> my &#123;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编写单元测试<code>test_my_math.cpp</code>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// test_my_math.cpp</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;gtest/gtest.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;my_math.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试 add() 函数</span></span><br><span class="line"><span class="built_in">TEST</span>(TestMyMath, AddFunction) &#123;</span><br><span class="line">    <span class="built_in">EXPECT_EQ</span>(my::<span class="built_in">add</span>(<span class="number">2</span>, <span class="number">3</span>), <span class="number">5</span>);</span><br><span class="line">    <span class="built_in">EXPECT_EQ</span>(my::<span class="built_in">add</span>(<span class="number">-1</span>, <span class="number">1</span>), <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">EXPECT_EQ</span>(my::<span class="built_in">add</span>(<span class="number">0</span>, <span class="number">0</span>), <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 主函数</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> **argv)</span> </span>&#123;</span><br><span class="line">    ::testing::<span class="built_in">InitGoogleTest</span>(&amp;argc, argv);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">RUN_ALL_TESTS</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="编译与运行"><a href="#编译与运行" class="headerlink" title="编译与运行"></a>编译与运行</h2><p>使用<code>g++</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ -o test_my_math test_my_math.cpp my_math.cpp -lgtest -lgtest_main -pthread</span><br><span class="line">./test_my_math</span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>cmake</code></p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.10</span>)</span><br><span class="line"><span class="keyword">project</span>(test_my_math)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启用 Google Test</span></span><br><span class="line"><span class="keyword">find_package</span>(GTest REQUIRED)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加测试可执行文件</span></span><br><span class="line"><span class="keyword">add_executable</span>(test_my_math test_my_math.cpp my_math.cpp)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 链接 Google Test 库</span></span><br><span class="line"><span class="keyword">target_link_libraries</span>(test_my_math GTest::GTest GTest::Main)</span><br></pre></td></tr></table></figure>
+
+<p>测试结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[==========] Running 1 <span class="built_in">test</span> from 1 <span class="built_in">test</span> suite.</span><br><span class="line">[----------] Global <span class="built_in">test</span> environment set-up.</span><br><span class="line">[----------] 1 <span class="built_in">test</span> from TestMyMath</span><br><span class="line">[ RUN      ] TestMyMath.AddFunction</span><br><span class="line">[       OK ] TestMyMath.AddFunction (0 ms)</span><br><span class="line">[----------] 1 <span class="built_in">test</span> from TestMyMath (0 ms total)</span><br><span class="line"></span><br><span class="line">[----------] Global <span class="built_in">test</span> environment tear-down</span><br><span class="line">[==========] 1 <span class="built_in">test</span> from 1 <span class="built_in">test</span> suite ran. (0 ms total)</span><br><span class="line">[  PASSED  ] 1 <span class="built_in">test</span>.</span><br></pre></td></tr></table></figure>
+
+<h2 id="增加函数"><a href="#增加函数" class="headerlink" title="增加函数"></a>增加函数</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// my_math.h</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> my &#123;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">sub</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">mul</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>;</span><br><span class="line">    <span class="function"><span class="type">double</span> <span class="title">div</span><span class="params">(<span class="type">double</span> a, <span class="type">double</span> b)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// my_math.cpp</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> my &#123;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">sub</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a - b;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">mul</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a * b;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">double</span> <span class="title">div</span><span class="params">(<span class="type">double</span> a, <span class="type">double</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (b == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> std::<span class="built_in">runtime_error</span>(<span class="string">&quot;Division by zero&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a / b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 测试减法</span></span><br><span class="line"><span class="built_in">TEST</span>(MyMathTest, SubTest) &#123;</span><br><span class="line">    <span class="built_in">EXPECT_EQ</span>(my::<span class="built_in">sub</span>(<span class="number">5</span>, <span class="number">3</span>), <span class="number">2</span>);</span><br><span class="line">    <span class="built_in">EXPECT_EQ</span>(my::<span class="built_in">sub</span>(<span class="number">3</span>, <span class="number">5</span>), <span class="number">-2</span>);</span><br><span class="line">    <span class="built_in">EXPECT_EQ</span>(my::<span class="built_in">sub</span>(<span class="number">0</span>, <span class="number">0</span>), <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试乘法</span></span><br><span class="line"><span class="built_in">TEST</span>(MyMathTest, MulTest) &#123;</span><br><span class="line">    <span class="built_in">EXPECT_EQ</span>(my::<span class="built_in">mul</span>(<span class="number">2</span>, <span class="number">3</span>), <span class="number">6</span>);</span><br><span class="line">    <span class="built_in">EXPECT_EQ</span>(my::<span class="built_in">mul</span>(<span class="number">-2</span>, <span class="number">3</span>), <span class="number">-6</span>);</span><br><span class="line">    <span class="built_in">EXPECT_EQ</span>(my::<span class="built_in">mul</span>(<span class="number">0</span>, <span class="number">5</span>), <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试除法</span></span><br><span class="line"><span class="built_in">TEST</span>(MyMathTest, DivTest) &#123;</span><br><span class="line">    <span class="built_in">EXPECT_DOUBLE_EQ</span>(my::<span class="built_in">div</span>(<span class="number">6</span>, <span class="number">2</span>), <span class="number">3.0</span>);</span><br><span class="line">    <span class="built_in">EXPECT_DOUBLE_EQ</span>(my::<span class="built_in">div</span>(<span class="number">5</span>, <span class="number">2</span>), <span class="number">2.5</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试除零</span></span><br><span class="line"><span class="built_in">TEST</span>(MyMathTest, DivByZeroTest) &#123;</span><br><span class="line">    <span class="built_in">EXPECT_THROW</span>(my::<span class="built_in">div</span>(<span class="number">1</span>, <span class="number">0</span>), std::runtime_error);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[==========] Running 5 tests from 1 <span class="built_in">test</span> suite.</span><br><span class="line">[----------] Global <span class="built_in">test</span> environment set-up.</span><br><span class="line">[----------] 5 tests from MyMathTest</span><br><span class="line">[ RUN      ] MyMathTest.AddTest</span><br><span class="line">[       OK ] MyMathTest.AddTest (0 ms)</span><br><span class="line">[ RUN      ] MyMathTest.SubTest</span><br><span class="line">[       OK ] MyMathTest.SubTest (0 ms)</span><br><span class="line">[ RUN      ] MyMathTest.MulTest</span><br><span class="line">[       OK ] MyMathTest.MulTest (0 ms)</span><br><span class="line">[ RUN      ] MyMathTest.DivTest</span><br><span class="line">[       OK ] MyMathTest.DivTest (0 ms)</span><br><span class="line">[ RUN      ] MyMathTest.DivByZeroTest</span><br><span class="line">[       OK ] MyMathTest.DivByZeroTest (0 ms)</span><br><span class="line">[----------] 5 tests from MyMathTest (0 ms total)</span><br><span class="line"></span><br><span class="line">[----------] Global <span class="built_in">test</span> environment tear-down</span><br><span class="line">[==========] 5 tests from 1 <span class="built_in">test</span> suite ran. (0 ms total)</span><br><span class="line">[  PASSED  ] 5 tests.</span><br></pre></td></tr></table></figure>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/Test/">
+          Test
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+    <canvas id="sprite-canvas" width="100" height="100"></canvas>
+  </div>
+</div>
+    </div>
+  </div>
+</body>
+
+
+
+    
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+    
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+    
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+    
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+    
+<script src="/js/milk.js"></script>
+
+
+
+</html>

@@ -1,0 +1,372 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Linux交换分区修改 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" id="highlight-link" href="/lib/highlight/style/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<link rel="stylesheet" id="shceme-link" href="/css/theme/default.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk">
+    <div class="milk-header">
+       
+
+  <nav class="header-nav">
+     
+    <div class="nav-menu">
+      
+        <div id="Home" class="menu-item">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </div>
+      
+        <div id="Archives" class="menu-item">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </div>
+      
+        <div id="About" class="menu-item">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </div>
+      
+    </div>
+    
+    
+      <div class="nav-date">
+        <div id="date-ymd"></div>
+        <div id="date-week"></div>
+        <div id="date-time"></div>
+      </div>
+    
+    
+    
+      <div class="nav-system" id="nav-system"></div>
+    
+    
+    <div class="nav-layout" id="nav-layout" data-layout="tile">
+      <div id="layout-show">
+        <div class="show-icon"></div>
+        <div class="show-text"></div>
+      </div>
+    </div>
+    
+    <div class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+        <div>
+          <label for="scheme-select">Color scheme: </label>
+          <select id="scheme-select">
+            <option value='default'>default</option>
+          </select>
+          <label for="highlight-select">Code highlight: </label>
+          <select id="highlight-select">
+            <option value='railscasts'>railscasts</option>
+          </select>
+        </div>
+        <div>
+          <label for="ffolders-select">ffolders scheme: </label>
+          <select name="size" id="size-select">
+            <option value='medium'>medium</option>
+          </select>
+          <select name="color" id="color-select">
+            <option value='pink'>pink</option>
+          </select>
+        </div>
+        <div>
+          <label for="blur-slider">background blur
+            <span id="blur-value">10</span> px
+          </label>
+          <input type="range" id="blur-slider" min="0" max="20" data-value='10'>
+        </div>
+        <div>
+          <label for="font-enable">font</label>
+          <input type="checkbox" id="font-check" name="font-check" data-check="fun.ttf">
+        </div>
+      </div>
+    </div>
+  </nav>
+ 
+    </div>
+    <div class="milk-body">
+      
+<div class="draggable-toc">
+  <div class="toc-title">Linux交换分区修改</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E5%BD%93%E5%89%8D%E4%BA%A4%E6%8D%A2%E5%88%86%E5%8C%BA%E5%A4%A7%E5%B0%8F"><span class="toc-text">显示当前交换分区大小</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#swap-%E6%89%A9%E5%AE%B9"><span class="toc-text">swap 扩容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E5%86%85%E5%AD%98%E7%8A%B6%E6%80%81"><span class="toc-text">查看当前内存状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A7%BB%E9%99%A4%E4%BA%A4%E6%8D%A2%E5%88%86%E5%8C%BA"><span class="toc-text">移除交换分区</span></a></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">Linux交换分区修改</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Linux/">
+          Linux
+        </a>
+          </li>
+      
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Linux/common/">
+          common
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <p>参考：<a target="_blank" rel="noopener" href="https://www.baeldung.com/linux/increase-swap-space">https://www.baeldung.com/linux/increase-swap-space</a></p>
+<span id="more"></span>
+
+<h2 id="显示当前交换分区大小"><a href="#显示当前交换分区大小" class="headerlink" title="显示当前交换分区大小"></a>显示当前交换分区大小</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swapon --show</span><br></pre></td></tr></table></figure>
+
+<p>显示为空则表示没有交换分区</p>
+<h2 id="swap-扩容"><a href="#swap-扩容" class="headerlink" title="swap 扩容"></a>swap 扩容</h2><details>
+    <summary>btrfs 文件系统</summary>
+
+<p>参考：<a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/599949/swapfile-swapon-invalid-argument">https://unix.stackexchange.com/questions/599949/swapfile-swapon-invalid-argument</a></p>
+<p>使用如下命令创建对应的 swap 文件，否则出现错误<code>swapon: /home/swap_extend: swapon failed: Invalid argument</code>。仅替换增加交换分区部分。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> btrfs filesystem mkswapfile --size 16g --uuid clear /path/to/swap_extend</span><br></pre></td></tr></table></figure>
+
+</details>
+
+<ol>
+<li>增加交换分区</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> fallocate -l 8G /path/to/swap_extend</span><br><span class="line"><span class="comment"># or</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">dd</span> <span class="keyword">if</span>=/dev/zeo of=/path/to/swap_extend bs=1G count=8</span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>dd</code> 速度比较慢</p>
+<ol start="2">
+<li>改变 swap 权限</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> 600 /path/to/swap_extend</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>创建 swap 分区</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> mkswap /path/to/swap_extend</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>开启 swap 分区</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> swapon /path/to/swap_extend</span><br></pre></td></tr></table></figure>
+
+<p>为了确保开机启动生效，编辑<code>/etc/fstab</code>，加入新创建的<code>swap_extend</code>文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/path/to/swap_extend none swap sw 0 0</span><br></pre></td></tr></table></figure>
+
+<p>确保挂载顺序正确</p>
+<p>一个示例如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/dev/sda2		/home		btrfs		defaults,noatime	0 1</span><br><span class="line">/home/swap_extend none    swap    sw    0 0</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>确认</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ swapon --show</span><br><span class="line">NAME              TYPE      SIZE  USED PRIO</span><br><span class="line">/dev/nvme0n1p2    partition   4G  546M   -2</span><br><span class="line">/home/swap_extend file       16G 64.4M   -3</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看当前内存状态"><a href="#查看当前内存状态" class="headerlink" title="查看当前内存状态"></a>查看当前内存状态</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ free -h</span><br><span class="line">               total        used        free      shared  buff/cache   available</span><br><span class="line">Mem:            15Gi       4.5Gi       7.2Gi        36Mi       4.1Gi        10Gi</span><br><span class="line">Swap:           19Gi       609Mi        19Gi</span><br></pre></td></tr></table></figure>
+
+<h2 id="移除交换分区"><a href="#移除交换分区" class="headerlink" title="移除交换分区"></a>移除交换分区</h2><ol>
+<li>停止 swap</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swapoff -v /path/to/swap_extend</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>修改<code>/etc/fstab</code></li>
+</ol>
+<p>移除<code>/path/to/swap_extend none swap swap defaults 0 0</code></p>
+<ol start="3">
+<li>删除 swapfile 文件</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">rm</span> /path/to/swap_extend</span><br></pre></td></tr></table></figure>
+
+<p>我的系统上并不能生效，即<code>/etc/fstab</code>中<code>/home/swap_extend</code>并未生效，因此采用<code>openrc</code>进行管理</p>
+<p>创建<code>/etc/init.d/late_swap</code>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/sbin/openrc-run</span></span><br><span class="line"><span class="comment"># Copyright 2025 Gentoo Authors</span></span><br><span class="line"><span class="comment"># Distributed under the terms of the GNU General Public License v2</span></span><br><span class="line"></span><br><span class="line">name=<span class="string">&quot;late_swap daemon&quot;</span></span><br><span class="line">description=<span class="string">&quot;Enable swap file in /home after /home is mounted&quot;</span></span><br><span class="line"><span class="built_in">command</span>=/usr/bin/late_swap</span><br><span class="line">command_args=<span class="string">&quot;<span class="variable">$&#123;late_swap_args&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">depend</span></span>() &#123;</span><br><span class="line">  need localmount</span><br><span class="line">  after localmount</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">start</span></span>() &#123;</span><br><span class="line">    ebegin <span class="string">&quot;Enabling late swap file&quot;</span></span><br><span class="line">    swapon /home/swap_extend</span><br><span class="line">    eend $?</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>添加到默认启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> rc-update add late_swap default</span><br></pre></td></tr></table></figure>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/common/">
+          common
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+    <canvas id="sprite-canvas" width="100" height="100"></canvas>
+  </div>
+</div>
+    </div>
+  </div>
+</body>
+
+
+
+    
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+    
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+    
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+    
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+    
+<script src="/js/milk.js"></script>
+
+
+
+</html>

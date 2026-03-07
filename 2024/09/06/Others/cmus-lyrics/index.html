@@ -1,0 +1,370 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>cmus外部歌词 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" id="highlight-link" href="/lib/highlight/style/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<link rel="stylesheet" id="shceme-link" href="/css/theme/default.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk">
+    <div class="milk-header">
+       
+
+  <nav class="header-nav">
+     
+    <div class="nav-menu">
+      
+        <div id="Home" class="menu-item">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </div>
+      
+        <div id="Archives" class="menu-item">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </div>
+      
+        <div id="About" class="menu-item">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </div>
+      
+    </div>
+    
+    
+      <div class="nav-date">
+        <div id="date-ymd"></div>
+        <div id="date-week"></div>
+        <div id="date-time"></div>
+      </div>
+    
+    
+    
+      <div class="nav-system" id="nav-system"></div>
+    
+    
+    <div class="nav-layout" id="nav-layout" data-layout="tile">
+      <div id="layout-show">
+        <div class="show-icon"></div>
+        <div class="show-text"></div>
+      </div>
+    </div>
+    
+    <div class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+        <div>
+          <label for="scheme-select">Color scheme: </label>
+          <select id="scheme-select">
+            <option value='default'>default</option>
+          </select>
+          <label for="highlight-select">Code highlight: </label>
+          <select id="highlight-select">
+            <option value='railscasts'>railscasts</option>
+          </select>
+        </div>
+        <div>
+          <label for="ffolders-select">ffolders scheme: </label>
+          <select name="size" id="size-select">
+            <option value='medium'>medium</option>
+          </select>
+          <select name="color" id="color-select">
+            <option value='pink'>pink</option>
+          </select>
+        </div>
+        <div>
+          <label for="blur-slider">background blur
+            <span id="blur-value">10</span> px
+          </label>
+          <input type="range" id="blur-slider" min="0" max="20" data-value='10'>
+        </div>
+        <div>
+          <label for="font-enable">font</label>
+          <input type="checkbox" id="font-check" name="font-check" data-check="fun.ttf">
+        </div>
+      </div>
+    </div>
+  </nav>
+ 
+    </div>
+    <div class="milk-body">
+      
+<div class="draggable-toc">
+  <div class="toc-title">cmus外部歌词</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%8C%E8%AF%8D%E7%9A%84%E8%8E%B7%E5%8F%96"><span class="toc-text">歌词的获取</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E7%9B%AE%E6%A0%87%E6%AD%8C%E6%9B%B2"><span class="toc-text">设置目标歌曲</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lrc-%E6%96%87%E4%BB%B6%E7%9A%84%E8%8E%B7%E5%8F%96"><span class="toc-text">lrc 文件的获取</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%8C%E8%AF%8D%E7%9A%84%E6%98%BE%E7%A4%BA"><span class="toc-text">歌词的显示</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#lrc-%E6%96%87%E4%BB%B6%E7%9A%84%E5%8A%A0%E8%BD%BD"><span class="toc-text">lrc 文件的加载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%8F%E5%B9%95%E7%BB%98%E5%88%B6"><span class="toc-text">屏幕绘制</span></a></li></ol></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">cmus外部歌词</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Others/">
+          Others
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>使用<code>python</code>的<code>curses</code>库进行终端歌词显示</p>
+<p>原理是持续使用<code>cmus-remote -Q</code>查询当前音乐状态，然后进行歌词的时间轴匹配</p>
+<p>Github 地址: <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk/ctlyrics">ctlyrics</a></p>
+<p><img src="/play.png" alt="显示效果"></p>
+<span id="more"></span>
+
+<h2 id="歌词的获取"><a href="#歌词的获取" class="headerlink" title="歌词的获取"></a>歌词的获取</h2><h3 id="设置目标歌曲"><a href="#设置目标歌曲" class="headerlink" title="设置目标歌曲"></a>设置目标歌曲</h3><p>首先将要查找的歌曲存入<code>songs_list.txt</code>文件，最终保存的格式为<code>名称 - 歌手</code>，从文件中读取目标歌曲便于组织和管理歌曲</p>
+<p>结果举例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">島みやえい子 - 宇宙の花</span><br><span class="line">潘辰 - 流泪</span><br><span class="line">如果这都不算爱 - 张学友</span><br><span class="line">Brilliant days - moumoon</span><br><span class="line">女恶魔人op</span><br></pre></td></tr></table></figure>
+
+<p>其中前两首存在问题，矫正后如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">宇宙の花 - 島みやえい子</span><br><span class="line">流泪 - 潘辰</span><br><span class="line">如果这都不算爱 - 张学友</span><br><span class="line">Brilliant days - moumoon</span><br><span class="line">女恶魔人op</span><br></pre></td></tr></table></figure>
+
+<p>相邻两行的去重操作（仅限 vim）：<code>:g/^\(.*\)$\n\1/d</code></p>
+<p>获取目标歌曲流程：</p>
+<p><img src="/flowchart_get_songs_from_directory.png" alt="流程图 get songs from directory"></p>
+<p>具体程序：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_songs_from_directory</span>(<span class="params">directory</span>):</span><br><span class="line">    valid_extensions = (<span class="string">&#x27;.mp3&#x27;</span>, <span class="string">&#x27;.flac&#x27;</span>, <span class="string">&#x27;.wav&#x27;</span>)</span><br><span class="line">    songs = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> filename <span class="keyword">in</span> os.listdir(directory):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> filename.endswith(valid_extensions):</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">if</span> <span class="string">&#x27;-&#x27;</span> <span class="keyword">in</span> filename:</span><br><span class="line">                song_name, song_artist = filename.split(<span class="string">&#x27;-&#x27;</span>, <span class="number">1</span>)</span><br><span class="line">                song_name = song_name.strip()</span><br><span class="line">                song_artist = (song_artist.rsplit(<span class="string">&#x27;.&#x27;</span>, <span class="number">1</span>)[<span class="number">0</span>]).strip()</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                song_name = (filename.rsplit(<span class="string">&#x27;.&#x27;</span>, <span class="number">1</span>)[<span class="number">0</span>]).strip()</span><br><span class="line">                song_artist = <span class="string">&quot;&quot;</span></span><br><span class="line">            songs.append((song_name, song_artist))</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;Error processing <span class="subst">&#123;filename&#125;</span>: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">    <span class="keyword">return</span> songs</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">save_songs_to_file</span>(<span class="params">songs, file_path</span>):</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">        <span class="keyword">for</span> song_name, song_artist <span class="keyword">in</span> songs:</span><br><span class="line">            <span class="keyword">if</span>(song_artist == <span class="string">&quot;&quot;</span>):</span><br><span class="line">                file.write(<span class="string">f&quot;<span class="subst">&#123;song_name&#125;</span>\n&quot;</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                file.write(<span class="string">f&quot;<span class="subst">&#123;song_name&#125;</span> - <span class="subst">&#123;song_artist&#125;</span>\n&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    music_dir = <span class="string">&quot;/home/_warehouse/music/&quot;</span></span><br><span class="line">    output_file = <span class="string">&quot;songs_list.txt&quot;</span></span><br><span class="line">    songs = get_songs_from_directory(music_dir)</span><br><span class="line">    save_songs_to_file(songs, output_file)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="lrc-文件的获取"><a href="#lrc-文件的获取" class="headerlink" title="lrc 文件的获取"></a>lrc 文件的获取</h3><p>我是在无损音乐网获取的歌词<code>https://www.sq0527.cn/</code></p>
+<p>假设查找半生缘的歌词，点击搜索后发现网址变更如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.sq0527.cn/search?ac=半生缘</span><br></pre></td></tr></table></figure>
+
+<p><img src="/search_result.png" alt="search result"></p>
+<p>可以得出，获取结果可以使用<code>requests</code>直接访问<code>https://www.sq0527.cn/search?ac=半生缘</code>，得到对应结果</p>
+<p>接着处理搜索结果，理论上歌词大差不差，默认选择第一个作为目标</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;mul&quot;</span> <span class="attr">style</span>=<span class="string">&quot;background:#fff;overflow:hidden;&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span></span></span><br><span class="line"><span class="tag">    <span class="attr">style</span>=<span class="string">&quot;line-height: 30px; height: 30px; float: left; width: 210px; margin: 0px 10px; white-space: nowrap; overflow: hidden; background-color: rgb(255, 255, 255);&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">onmouseover</span>=<span class="string">&quot;this.style.backgroundColor=&#x27;#eee&#x27;&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">onmouseout</span>=<span class="string">&quot;this.style.backgroundColor=&#x27;#FFF&#x27;&quot;</span></span></span><br><span class="line"><span class="tag">  &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/music/557628382.html&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span> <span class="attr">title</span>=<span class="string">&quot;&quot;</span></span></span><br><span class="line"><span class="tag">      &gt;</span>莫文蔚 - <span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">&quot;red&quot;</span>&gt;</span>半生缘<span class="tag">&lt;/<span class="name">font</span>&gt;</span> (我们在这里相遇)&lt;/a</span><br><span class="line">    &gt;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span></span></span><br><span class="line"><span class="tag">    <span class="attr">style</span>=<span class="string">&quot;line-height: 30px; height: 30px; float: left; width: 210px; margin: 0px 10px; white-space: nowrap; overflow: hidden; background-color: rgb(255, 255, 255);&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">onmouseover</span>=<span class="string">&quot;this.style.backgroundColor=&#x27;#eee&#x27;&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">onmouseout</span>=<span class="string">&quot;this.style.backgroundColor=&#x27;#FFF&#x27;&quot;</span></span></span><br><span class="line"><span class="tag">  &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/music/2073816158.html&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span> <span class="attr">title</span>=<span class="string">&quot;&quot;</span></span></span><br><span class="line"><span class="tag">      &gt;</span>莫文蔚 - <span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">&quot;red&quot;</span>&gt;</span>半生缘<span class="tag">&lt;/<span class="name">font</span>&gt;</span>&lt;/a</span><br><span class="line">    &gt;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>只要将包裹在<code>ul</code>下每个<code>li</code>提取出来即可，可以获取链接（用于进一步获取目标）、名称（用于可能的展示）</p>
+<p>使用<code>BeautifulSoup</code>的<code>select</code>进行提取：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">soup = BeautifulSoup(response.text, <span class="string">&#x27;html.parser&#x27;</span>)</span><br><span class="line">search_results = soup.select(<span class="string">&#x27;ul.mul li a&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>默认进入第一个链接<code>/music/557628382.html</code></p>
+<p><img src="/result_of_lrc.png" alt="result of lrc"></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">textarea</span> <span class="attr">placeholder</span>=<span class="string">&quot;歌词&quot;</span> <span class="attr">class</span>=<span class="string">&quot;layui-textarea&quot;</span>&gt;</span></span><br><span class="line">[00:00.00] 作词 : 李焯雄</span><br><span class="line">[00:00.79] 作曲 : 华晨宇</span><br><span class="line">[00:01.59] 编曲 : Ruth Ling</span><br><span class="line">[00:02.38] 制作人 : 荒井十一</span><br><span class="line">[00:03.18]</span><br><span class="line">[00:15.05]后半从前半分裂</span><br><span class="line">[00:22.43]人生是连环失窃</span><br><span class="line">[00:29.72]你爱的不告而别</span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>textarea</code>标签内即为歌词，保存为对应的<code>lrc</code>文件即可</p>
+<p>使用<code>BeautifulSoup</code>的<code>select_one</code>进行提取：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">soup = BeautifulSoup(response.text, <span class="string">&#x27;html.parser&#x27;</span>)</span><br><span class="line">lyrics = soup.select_one(<span class="string">&#x27;textarea.layui-textarea&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>流程：</p>
+<p><img src="/flowchart_get_lyrics.png" alt="流程图 get lyrics"></p>
+<p>完整程序：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">search_song</span>(<span class="params">song_name</span>):</span><br><span class="line">    search_url = <span class="string">f&#x27;https://www.sq0527.cn/search?ac=<span class="subst">&#123;song_name&#125;</span>&#x27;</span></span><br><span class="line">    response = requests.get(search_url)</span><br><span class="line">    <span class="keyword">if</span> response.status_code != <span class="number">200</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;request failed: <span class="subst">&#123;response.status_code&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    soup = BeautifulSoup(response.text, <span class="string">&#x27;html.parser&#x27;</span>)</span><br><span class="line">    search_results = soup.select(<span class="string">&#x27;ul.mul li a&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> search_results:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;can&#x27;t find <span class="subst">&#123;song_name&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    <span class="keyword">return</span> search_results</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">choose_search_result</span>(<span class="params">search_results, limit=<span class="number">15</span>, by_self=<span class="literal">False</span></span>):</span><br><span class="line">    limited_results = search_results[:limit]</span><br><span class="line">    <span class="keyword">for</span> index, result <span class="keyword">in</span> <span class="built_in">enumerate</span>(limited_results, <span class="number">1</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;index&#125;</span>. <span class="subst">&#123;result.text.strip()&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> by_self:</span><br><span class="line">        choice = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&quot;your choice: &quot;</span>)) - <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> <span class="number">0</span> &lt;= choice &lt; <span class="built_in">len</span>(limited_results):</span><br><span class="line">            <span class="keyword">return</span> limited_results[choice][<span class="string">&#x27;href&#x27;</span>]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;invalid choice!&quot;</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> limited_results[<span class="number">0</span>][<span class="string">&#x27;href&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_lyrics</span>(<span class="params">lyrics_url</span>):</span><br><span class="line">    response = requests.get(lyrics_url)</span><br><span class="line">    <span class="keyword">if</span> response.status_code != <span class="number">200</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;request failed, error code: <span class="subst">&#123;response.status_code&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    soup = BeautifulSoup(response.text, <span class="string">&#x27;html.parser&#x27;</span>)</span><br><span class="line">    lyrics = soup.select_one(<span class="string">&#x27;textarea.layui-textarea&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> lyrics.text <span class="keyword">if</span> lyrics <span class="keyword">else</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">save_lyrics</span>(<span class="params">lyrics, filename, save_directory=<span class="string">&quot;./lyrics&quot;</span></span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(save_directory):</span><br><span class="line">        os.makedirs(save_directory)</span><br><span class="line">    file_path = os.path.join(save_directory, filename)</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">        file.write(lyrics)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;lyrics saved to <span class="subst">&#123;file_path&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_songs_from_file</span>(<span class="params">file_path</span>):</span><br><span class="line">    songs = []</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> file:</span><br><span class="line">            line = line.strip()</span><br><span class="line">            <span class="keyword">if</span> <span class="string">&#x27; - &#x27;</span> <span class="keyword">in</span> line:</span><br><span class="line">                song_name = line.split(<span class="string">&#x27; - &#x27;</span>, <span class="number">1</span>)[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                song_name = line</span><br><span class="line">            songs.append((song_name, line))</span><br><span class="line">    <span class="keyword">return</span> songs</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">log_error</span>(<span class="params">file, message</span>):</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(file, <span class="string">&#x27;a&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">        file.write(<span class="string">f&quot;<span class="subst">&#123;message&#125;</span>\n&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    songs_list = <span class="string">&quot;songs_list.txt&quot;</span></span><br><span class="line">    lyrics_dir = <span class="string">&quot;./lyrics&quot;</span></span><br><span class="line">    is_self = <span class="literal">False</span></span><br><span class="line">    res_limit = <span class="number">15</span></span><br><span class="line">    songs = get_songs_from_file(songs_list)</span><br><span class="line">    total_songs = <span class="built_in">len</span>(songs)</span><br><span class="line">    index = <span class="number">1</span></span><br><span class="line">    error_log = <span class="string">&quot;error.txt&quot;</span></span><br><span class="line">    <span class="keyword">for</span> song_name, original_filename <span class="keyword">in</span> songs:</span><br><span class="line">        os.system(<span class="string">&#x27;clear&#x27;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;\n(<span class="subst">&#123;index&#125;</span>/<span class="subst">&#123;total_songs&#125;</span>) searching: <span class="subst">&#123;song_name&#125;</span>&quot;</span>)</span><br><span class="line">        index += <span class="number">1</span></span><br><span class="line">        search_results = search_song(song_name)</span><br><span class="line">        is_success = <span class="literal">True</span></span><br><span class="line">        error_msg = song_name</span><br><span class="line">        <span class="keyword">if</span> search_results:</span><br><span class="line">            selected_result = choose_search_result(search_results, res_limit, is_self)</span><br><span class="line">            <span class="keyword">if</span> selected_result:</span><br><span class="line">                lyrics_url = <span class="string">f&#x27;https://www.sq0527.cn<span class="subst">&#123;selected_result&#125;</span>&#x27;</span></span><br><span class="line">                lyrics = get_lyrics(lyrics_url)</span><br><span class="line">                <span class="keyword">if</span> lyrics:</span><br><span class="line">                    save_lyrics(lyrics, <span class="string">f&quot;<span class="subst">&#123;original_filename&#125;</span>.lrc&quot;</span>, lyrics_dir)</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&quot;lyrics not found&quot;</span>)</span><br><span class="line">                    is_success = <span class="literal">False</span></span><br><span class="line">                    error_msg += <span class="string">&quot;|lyrics not found&quot;</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot;selected result not found&quot;</span>)</span><br><span class="line">                is_success = <span class="literal">False</span></span><br><span class="line">                error_msg += <span class="string">&quot;|selected result not found&quot;</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;search results not found&quot;</span>)</span><br><span class="line">            is_success = <span class="literal">False</span></span><br><span class="line">            error_msg += <span class="string">&quot;|search results not found&quot;</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> is_success:</span><br><span class="line">            log_error(error_log, error_msg)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>songs_list</code>定义了获取歌曲的文件</li>
+<li><code>lyrics_dir</code>定义了保存文件的目标</li>
+<li><code>is_self</code>定义了是否手动筛选歌词的搜索结果</li>
+<li><code>res_limit</code>定义了歌词搜索结果的展示数量</li>
+</ul>
+<p>程序执行效果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">(1/881) searching: ALL KILL</span><br><span class="line">1. T-ara - ALL KILL</span><br><span class="line">2. 白永 - All-Kill</span><br><span class="line">3. Rosie - All Kill</span><br><span class="line">4. 忆唏 - ALL KILL</span><br><span class="line">5. Zico/Crush - BERMUDA TRIANGLE</span><br><span class="line">6. 智柠 - ALL KILL</span><br><span class="line">7. 国民之子 - NEVER</span><br><span class="line">8. Truedy - ALL KILL</span><br><span class="line">9. 崔姨母/智贤贤 - ALL KILL</span><br><span class="line">10. IU - 밤편지</span><br><span class="line">11. 咖菲 - ALL KILL</span><br><span class="line">12. MG_木九九九 - ALL KILL</span><br><span class="line">13. 无可乐不乐 - ALL KILL</span><br><span class="line">14. 4ROSE - All Kill</span><br><span class="line">15. Alina铭/猫人 - All Kill</span><br><span class="line">lyrics saved to ./lyrics/ALL KILL - T-ara.lrc</span><br></pre></td></tr></table></figure>
+
+<h2 id="歌词的显示"><a href="#歌词的显示" class="headerlink" title="歌词的显示"></a>歌词的显示</h2><p>流程：<br><img src="/flowchart_display_lyrics.png" alt="流程图 display lyrics"></p>
+<p>首先使用<code>cmus-remote -Q</code>获取当前音乐信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">status paused</span><br><span class="line">file /home/_warehouse/music/Brilliant days - moumoon.mp3</span><br><span class="line">duration 246</span><br><span class="line">position 159</span><br><span class="line"><span class="built_in">set</span> aaa_mode all</span><br><span class="line"><span class="built_in">set</span> <span class="built_in">continue</span> <span class="literal">true</span></span><br><span class="line"><span class="built_in">set</span> play_library <span class="literal">true</span></span><br><span class="line"><span class="built_in">set</span> play_sorted <span class="literal">false</span></span><br><span class="line"><span class="built_in">set</span> replaygain disabled</span><br><span class="line"><span class="built_in">set</span> replaygain_limit <span class="literal">true</span></span><br><span class="line"><span class="built_in">set</span> replaygain_preamp 0.000000</span><br><span class="line"><span class="built_in">set</span> repeat <span class="literal">false</span></span><br><span class="line"><span class="built_in">set</span> repeat_current <span class="literal">false</span></span><br><span class="line"><span class="built_in">set</span> shuffle off</span><br><span class="line"><span class="built_in">set</span> softvol <span class="literal">false</span></span><br><span class="line"><span class="built_in">set</span> vol_left 70</span><br><span class="line"><span class="built_in">set</span> vol_right 70</span><br></pre></td></tr></table></figure>
+
+<p>主要获取<code>file</code>, <code>position</code><br>其中<code>file</code>用于歌词的查找，<code>postion</code>用于歌词的定位</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> subprocess</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_cmus_info</span>():</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        output = subprocess.check_output([<span class="string">&#x27;cmus-remote&#x27;</span>, <span class="string">&#x27;-Q&#x27;</span>]).decode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">        <span class="comment"># get position</span></span><br><span class="line">        position_match = re.search(<span class="string">r&#x27;position (\d+)&#x27;</span>, output)</span><br><span class="line">        position = <span class="built_in">int</span>(position_match.group(<span class="number">1</span>)) <span class="keyword">if</span> position_match <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">        <span class="comment"># get duration</span></span><br><span class="line">        duration_match = re.search(<span class="string">r&#x27;duration (\d+)&#x27;</span>, output)</span><br><span class="line">        duration = <span class="built_in">int</span>(duration_match.group(<span class="number">1</span>)) <span class="keyword">if</span> duration_match <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">        <span class="comment"># get status</span></span><br><span class="line">        status_match = re.search(<span class="string">r&#x27;status (\w+)&#x27;</span>, output)</span><br><span class="line">        status = status_match.group(<span class="number">1</span>) <span class="keyword">if</span> status_match <span class="keyword">else</span> <span class="string">&#x27;stopped&#x27;</span></span><br><span class="line">        <span class="comment"># get title and artist</span></span><br><span class="line">        song_match = re.search(<span class="string">r&#x27;/([^/]+?)(?:\s*-\s*([^/.]+))?\.&#x27;</span>, output)</span><br><span class="line">        title = song_match.group(<span class="number">1</span>).strip() <span class="keyword">if</span> song_match.group(<span class="number">1</span>) <span class="keyword">else</span> <span class="string">&quot;unknown&quot;</span></span><br><span class="line">        artist = song_match.group(<span class="number">2</span>).strip() <span class="keyword">if</span> song_match.group(<span class="number">2</span>) <span class="keyword">else</span> <span class="string">&quot;unknown&quot;</span></span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="string">&quot;position&quot;</span>: position,</span><br><span class="line">            <span class="string">&quot;duration&quot;</span>: duration,</span><br><span class="line">            <span class="string">&quot;status&quot;</span>: status,</span><br><span class="line">            <span class="string">&quot;title&quot;</span>: title,</span><br><span class="line">            <span class="string">&quot;artist&quot;</span>: artist</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">except</span> subprocess.CalledProcessError:</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="string">&quot;position&quot;</span>: <span class="number">0</span>,</span><br><span class="line">            <span class="string">&quot;duration&quot;</span>: <span class="number">0</span>,</span><br><span class="line">            <span class="string">&quot;status&quot;</span>: <span class="string">&quot;unknown&quot;</span>,</span><br><span class="line">            <span class="string">&quot;title&quot;</span>: <span class="string">&quot;unknown&quot;</span>,</span><br><span class="line">            <span class="string">&quot;artist&quot;</span>: <span class="string">&quot;unknown&quot;</span></span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="lrc-文件的加载"><a href="#lrc-文件的加载" class="headerlink" title="lrc 文件的加载"></a>lrc 文件的加载</h3><p>然后查找对应的<code>lrc</code>文件：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">load_lyrics_and_info</span>(<span class="params">self, info</span>):</span><br><span class="line">    current_title = info.get(<span class="string">&#x27;title&#x27;</span>)</span><br><span class="line">    artist = info.get(<span class="string">&#x27;artist&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> current_title == <span class="variable language_">self</span>.last_title:</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.last_lyrics, <span class="variable language_">self</span>.last_total_lines</span><br><span class="line">    lyrics_path = find_lrc_file(<span class="string">&#x27;lyrics&#x27;</span>, current_title, artist)</span><br><span class="line">    <span class="keyword">if</span> lyrics_path:</span><br><span class="line">        <span class="variable language_">self</span>.last_lyrics = parse_lrc(lyrics_path)</span><br><span class="line">        <span class="variable language_">self</span>.last_total_lines = <span class="built_in">len</span>(<span class="variable language_">self</span>.last_lyrics)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="variable language_">self</span>.last_lyrics = []</span><br><span class="line">        <span class="variable language_">self</span>.last_total_lines = <span class="number">0</span></span><br><span class="line">    <span class="variable language_">self</span>.last_title = current_title</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">self</span>.last_lyrics, <span class="variable language_">self</span>.last_total_lines</span><br></pre></td></tr></table></figure>
+
+<p>其中<code>info</code>信息即<code>get_cmus_info()</code>得到，为了减少性能损耗，创建了<code>LyricsCache</code>类，只有音乐不同于上一首时才遍历文件夹进行歌词的查找。以上代码只是<code>LyricsCache</code>中的加载函数</p>
+<p>歌词的查找：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">find_lrc_file</span>(<span class="params"><span class="built_in">dir</span>, title, artist=<span class="literal">None</span></span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> title:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    title_pattern = re.<span class="built_in">compile</span>(re.escape(title), re.IGNORECASE)</span><br><span class="line">    files = os.listdir(<span class="built_in">dir</span>)</span><br><span class="line">    matching_files = [file <span class="keyword">for</span> file <span class="keyword">in</span> files <span class="keyword">if</span> title_pattern.search(file) <span class="keyword">and</span> file.endswith(<span class="string">&#x27;.lrc&#x27;</span>)]</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(matching_files) == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(matching_files) == <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> os.path.join(<span class="built_in">dir</span>, matching_files[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">if</span> artist:</span><br><span class="line">        artist_pattern = re.<span class="built_in">compile</span>(re.escape(artist), re.IGNORECASE)</span><br><span class="line">        <span class="keyword">for</span> file <span class="keyword">in</span> matching_files:</span><br><span class="line">            <span class="keyword">if</span> artist_pattern.search(file):</span><br><span class="line">                <span class="keyword">return</span> os.path.join(<span class="built_in">dir</span>, file)</span><br><span class="line">    <span class="keyword">return</span> os.path.join(<span class="built_in">dir</span>, matching_files[<span class="number">0</span>]) <span class="keyword">if</span> matching_files <span class="keyword">else</span> <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+
+<p>首先判断<code>title</code>是否相同，如果相同则进一步比较<code>artist</code>，如果一首歌存在多个演唱家的歌词，则返回最后一个结果</p>
+<h3 id="屏幕绘制"><a href="#屏幕绘制" class="headerlink" title="屏幕绘制"></a>屏幕绘制</h3><p>使用<code>curses.newpad()</code>创建双缓冲的歌词显示，避免刷新闪烁</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">display_lyrics</span>(<span class="params">stdscr, info, lyrics, total_lines, offset</span>):</span><br><span class="line">    current_line = <span class="number">0</span></span><br><span class="line">    adjusted_position = info[<span class="string">&#x27;position&#x27;</span>] + offset</span><br><span class="line">    <span class="keyword">for</span> i, (timestamp, _) <span class="keyword">in</span> <span class="built_in">enumerate</span>(lyrics):</span><br><span class="line">        <span class="keyword">if</span> adjusted_position &gt;= timestamp:</span><br><span class="line">            current_line = i</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    height, width = stdscr.getmaxyx()</span><br><span class="line">    <span class="keyword">if</span> width &lt;= <span class="number">0</span> <span class="keyword">or</span> height &lt;= <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    start_line = <span class="built_in">max</span>(<span class="number">0</span>, current_line - height // <span class="number">2</span>)</span><br><span class="line">    end_line = <span class="built_in">min</span>(total_lines, start_line + height)</span><br><span class="line">    pad = curses.newpad(total_lines + <span class="number">1</span>, width)</span><br><span class="line">    song_info = <span class="string">f&quot;<span class="subst">&#123;info[<span class="string">&#x27;title&#x27;</span>]&#125;</span> - <span class="subst">&#123;info[<span class="string">&#x27;artist&#x27;</span>]&#125;</span> [<span class="subst">&#123;info[<span class="string">&#x27;status&#x27;</span>]&#125;</span>] (Offset: <span class="subst">&#123;offset:<span class="number">.1</span>f&#125;</span>s)&quot;</span></span><br><span class="line">    pad.addstr(<span class="number">0</span>, <span class="number">0</span>, song_info, curses.A_BOLD)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(end_line - start_line):</span><br><span class="line">        display_line = start_line + i</span><br><span class="line">        <span class="keyword">if</span> display_line &gt;= total_lines:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        text = lyrics[display_line][<span class="number">1</span>]</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">if</span> display_line == current_line:</span><br><span class="line">                pad.addstr(i + <span class="number">1</span>, <span class="number">0</span>, text, curses.color_pair(<span class="number">1</span>) | curses.A_BOLD)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                pad.addstr(i + <span class="number">1</span>, <span class="number">0</span>, text)</span><br><span class="line">        <span class="keyword">except</span> curses.error:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;Failed to display line <span class="subst">&#123;i + <span class="number">1</span>&#125;</span>: <span class="subst">&#123;text&#125;</span>&quot;</span>)</span><br><span class="line">    pad.refresh(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, height - <span class="number">1</span>, width - <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/cmus/">
+          cmus
+        </a></li>
+      
+        <li><a href="/tags/Python/">
+          Python
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+    <canvas id="sprite-canvas" width="100" height="100"></canvas>
+  </div>
+</div>
+    </div>
+  </div>
+</body>
+
+
+
+    
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+    
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+    
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+    
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+    
+<script src="/js/milk.js"></script>
+
+
+
+</html>

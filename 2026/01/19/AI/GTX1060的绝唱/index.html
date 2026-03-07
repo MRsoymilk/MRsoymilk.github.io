@@ -1,0 +1,414 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GTX1060的绝唱 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" id="highlight-link" href="/lib/highlight/style/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<link rel="stylesheet" id="shceme-link" href="/css/theme/default.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk">
+    <div class="milk-header">
+       
+
+  <nav class="header-nav">
+     
+    <div class="nav-menu">
+      
+        <div id="Home" class="menu-item">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </div>
+      
+        <div id="Archives" class="menu-item">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </div>
+      
+        <div id="About" class="menu-item">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </div>
+      
+    </div>
+    
+    
+      <div class="nav-date">
+        <div id="date-ymd"></div>
+        <div id="date-week"></div>
+        <div id="date-time"></div>
+      </div>
+    
+    
+    
+      <div class="nav-system" id="nav-system"></div>
+    
+    
+    <div class="nav-layout" id="nav-layout" data-layout="tile">
+      <div id="layout-show">
+        <div class="show-icon"></div>
+        <div class="show-text"></div>
+      </div>
+    </div>
+    
+    <div class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+        <div>
+          <label for="scheme-select">Color scheme: </label>
+          <select id="scheme-select">
+            <option value='default'>default</option>
+          </select>
+          <label for="highlight-select">Code highlight: </label>
+          <select id="highlight-select">
+            <option value='railscasts'>railscasts</option>
+          </select>
+        </div>
+        <div>
+          <label for="ffolders-select">ffolders scheme: </label>
+          <select name="size" id="size-select">
+            <option value='medium'>medium</option>
+          </select>
+          <select name="color" id="color-select">
+            <option value='pink'>pink</option>
+          </select>
+        </div>
+        <div>
+          <label for="blur-slider">background blur
+            <span id="blur-value">10</span> px
+          </label>
+          <input type="range" id="blur-slider" min="0" max="20" data-value='10'>
+        </div>
+        <div>
+          <label for="font-enable">font</label>
+          <input type="checkbox" id="font-check" name="font-check" data-check="fun.ttf">
+        </div>
+      </div>
+    </div>
+  </nav>
+ 
+    </div>
+    <div class="milk-body">
+      
+<div class="draggable-toc">
+  <div class="toc-title">GTX1060的绝唱</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A9%B1%E5%8A%A8%E9%99%90%E5%88%B6"><span class="toc-text">驱动限制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PyTorch%E9%99%90%E5%88%B6"><span class="toc-text">PyTorch限制</span></a></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">GTX1060的绝唱</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/AI/">
+          AI
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>GTX 1060 作为一款 2016 年发布的显卡，到 2026 年已经经过了 10 年的历程。NVIDIA 已宣布 Pascal（包括 GTX 1060）在 2025 年 10 月停止 Game Ready 驱动支持(<a target="_blank" rel="noopener" href="https://www.windowscentral.com/hardware/nvidia/nvidia-end-of-life-pascal-maxwell-volta-windows-10">NVIDIA announces end-of-life support for many of its GTX cards — but it’s not all bad news</a>)。但是生活还得继续，我还希望笔记本再战 5 年，因此总结一些驱动和 CUDA 相关。</p>
+<span id="more"></span>
+
+<h2 id="驱动限制"><a href="#驱动限制" class="headerlink" title="驱动限制"></a>驱动限制</h2><p>某日升级系统（Gentoo）后再启动后无法进入桌面系统。<code>startx</code> 报错：<code>No devices detected</code>，查看 <code>xorg</code> 的日志发现：</p>
+<pre><code class="log">98 [   709.244] (II) modeset(G0): using drv /dev/dri/card0
+ 99 [   709.244] (WW) Falling back to old probe method for modesetting
+100 [   709.244] (WW) NVIDIA(0): The NVIDIA NVIDIA GeForce GTX 1060 with Max-Q Design GPU
+101 [   709.244] (WW) NVIDIA(0):     installed in this system is supported through the NVIDIA
+102 [   709.244] (WW) NVIDIA(0):     580.xx Legacy drivers. Please visit
+103 [   709.244] (WW) NVIDIA(0):     http://www.nvidia.com/object/unix.html for more
+104 [   709.244] (WW) NVIDIA(0):     information.  The 590.48.01 NVIDIA driver will ignore this
+105 [   709.244] (WW) NVIDIA(0):     GPU.  Continuing probe...
+106 [   709.244] (WW) Falling back to old probe method for modesetting
+107 [   709.244] (EE) No devices detected.
+108 [   709.244] (EE)
+109 Fatal server error:
+110 [   709.244] (EE) no screens found(EE)
+111 [   709.244] (EE)
+</code></pre>
+<p>原因：错误安装了驱动，不支持590及以上驱动</p>
+<pre><code class="bash">sudo vim /etc/portage/package.mask/nvidia-drivers
+</code></pre>
+<p>设置屏蔽</p>
+<pre><code class="bash">&gt;=x11-drivers/nvidia-drivers-581
+</code></pre>
+<p>重启后正常进入系统</p>
+<h2 id="PyTorch限制"><a href="#PyTorch限制" class="headerlink" title="PyTorch限制"></a>PyTorch限制</h2><p>Python3.12在使用yolo12的过程中，尽管pip安装没有任何报错，但不能使用GPU进行训练。</p>
+<pre><code class="bash">CUDA available: True
+/home/vv/tmp/py_video/venv/lib/python3.12/site-packages/torch/cuda/**init**.py:283: UserWarning:
+    Found GPU0 NVIDIA GeForce GTX 1060 which is of cuda capability 6.1.
+    Minimum and Maximum cuda capability supported by this version of PyTorch is
+    (7.0) - (12.0)
+  warnings.warn(
+/home/vv/tmp/py_video/venv/lib/python3.12/site-packages/torch/cuda/**init**.py:304: UserWarning:
+    Please install PyTorch with a following CUDA
+    configurations: 12.6 following instructions at
+    https://pytorch.org/get-started/locally/
+  warnings.warn(matched_cuda_warn.format(matched_arches))
+/home/vv/tmp/py_video/venv/lib/python3.12/site-packages/torch/cuda/**init**.py:326: UserWarning:
+NVIDIA GeForce GTX 1060 with CUDA capability sm_61 is not compatible with the current PyTorch installation.
+The current PyTorch install supports CUDA capabilities sm_70 sm_75 sm_80 sm_86 sm_90 sm_100 sm_120.
+If you want to use the NVIDIA GeForce GTX 1060 GPU with PyTorch, please check the instructions at https://pytorch.org/get-started/locally/
+  warnings.warn(
+Device: NVIDIA GeForce GTX 1060
+CUDA runtime: 12.8
+</code></pre>
+<p>主要是因为2024 年底～2025 年开始，PyTorch 官方的新版本已经逐步放弃了对 sm_61 的支持，目前（2026年1月）主流版本最低要求通常是 sm_70 或 sm_75，所以才会看到这样的警告：</p>
+<pre><code class="bash">NVIDIA GeForce GTX 1060 with CUDA capability sm_61 is not compatible with the current PyTorch installation.
+</code></pre>
+<p>一些显卡与架构如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">显卡</th>
+<th align="left">架构</th>
+<th align="left">SM</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">GTX 750 &#x2F; 750Ti</td>
+<td align="left">Maxwell</td>
+<td align="left">sm_50</td>
+</tr>
+<tr>
+<td align="left">GTX 9xx</td>
+<td align="left">Maxwell</td>
+<td align="left">sm_52</td>
+</tr>
+<tr>
+<td align="left">GTX 10xx</td>
+<td align="left">Pascal</td>
+<td align="left">sm_61</td>
+</tr>
+<tr>
+<td align="left">GTX 16xx</td>
+<td align="left">Turing</td>
+<td align="left">sm_75</td>
+</tr>
+<tr>
+<td align="left">RTX 20xx</td>
+<td align="left">Turing</td>
+<td align="left">sm_75</td>
+</tr>
+<tr>
+<td align="left">RTX 30xx</td>
+<td align="left">Ampere</td>
+<td align="left">sm_86</td>
+</tr>
+<tr>
+<td align="left">RTX 40xx</td>
+<td align="left">Ada</td>
+<td align="left">sm_89</td>
+</tr>
+</tbody></table>
+<p>测试脚本：</p>
+<pre><code class="python">import torch
+
+print(&quot;PyTorch version:&quot;, torch.__version__)
+print(&quot;CUDA available:&quot;, torch.cuda.is_available())
+print(&quot;Device count:&quot;, torch.cuda.device_count())
+print(&quot;Current device:&quot;, torch.cuda.get_device_name(0) if torch.cuda.is_available() else &quot;CPU&quot;)
+print(&quot;Supported architectures:&quot;, torch.cuda.get_arch_list())
+</code></pre>
+<p>输出如下无报警即成功：</p>
+<pre><code class="bash">PyTorch version: 2.7.1+cu126
+CUDA available: True
+Device count: 1
+Current device: NVIDIA GeForce GTX 1060
+Supported architectures: [&#39;sm_50&#39;, &#39;sm_60&#39;, &#39;sm_70&#39;, &#39;sm_75&#39;, &#39;sm_80&#39;, &#39;sm_86&#39;, &#39;sm_90&#39;]
+</code></pre>
+<p>结合GPT，Grok后测出的符合的版本是：</p>
+<p>Python3.12在CUDA版本12.6的情况下需要安装</p>
+<ul>
+<li>torch 2.7.1</li>
+<li>torchvision 0.22.1</li>
+<li>torchaudio 2.7.1</li>
+</ul>
+<pre><code class="bash">pip install torch==2.7.1 torchvision==0.22.1 torchaudio==2.7.1 --index-url https://download.pytorch.org/whl/cu126
+</code></pre>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/AI/">
+          AI
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+    <canvas id="sprite-canvas" width="100" height="100"></canvas>
+  </div>
+</div>
+    </div>
+  </div>
+</body>
+
+
+
+    
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+    
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+    
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+    
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+    
+<script src="/js/milk.js"></script>
+
+
+
+</html>

@@ -1,0 +1,381 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hexo配置，Landscape主题 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" id="highlight-link" href="/lib/highlight/style/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<link rel="stylesheet" id="shceme-link" href="/css/theme/default.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk">
+    <div class="milk-header">
+       
+
+  <nav class="header-nav">
+     
+    <div class="nav-menu">
+      
+        <div id="Home" class="menu-item">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </div>
+      
+        <div id="Archives" class="menu-item">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </div>
+      
+        <div id="About" class="menu-item">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </div>
+      
+    </div>
+    
+    
+      <div class="nav-date">
+        <div id="date-ymd"></div>
+        <div id="date-week"></div>
+        <div id="date-time"></div>
+      </div>
+    
+    
+    
+      <div class="nav-system" id="nav-system"></div>
+    
+    
+    <div class="nav-layout" id="nav-layout" data-layout="tile">
+      <div id="layout-show">
+        <div class="show-icon"></div>
+        <div class="show-text"></div>
+      </div>
+    </div>
+    
+    <div class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+        <div>
+          <label for="scheme-select">Color scheme: </label>
+          <select id="scheme-select">
+            <option value='default'>default</option>
+          </select>
+          <label for="highlight-select">Code highlight: </label>
+          <select id="highlight-select">
+            <option value='railscasts'>railscasts</option>
+          </select>
+        </div>
+        <div>
+          <label for="ffolders-select">ffolders scheme: </label>
+          <select name="size" id="size-select">
+            <option value='medium'>medium</option>
+          </select>
+          <select name="color" id="color-select">
+            <option value='pink'>pink</option>
+          </select>
+        </div>
+        <div>
+          <label for="blur-slider">background blur
+            <span id="blur-value">10</span> px
+          </label>
+          <input type="range" id="blur-slider" min="0" max="20" data-value='10'>
+        </div>
+        <div>
+          <label for="font-enable">font</label>
+          <input type="checkbox" id="font-check" name="font-check" data-check="fun.ttf">
+        </div>
+      </div>
+    </div>
+  </nav>
+ 
+    </div>
+    <div class="milk-body">
+      
+<div class="draggable-toc">
+  <div class="toc-title">Hexo配置，Landscape主题</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D"><span class="toc-text">Hexo绑定域名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E7%BD%91%E9%A1%B5%E5%9B%BE%E6%A0%87"><span class="toc-text">添加网页图标</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E8%AE%A1%E6%95%B0"><span class="toc-text">添加计数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E8%AF%84%E8%AE%BA"><span class="toc-text">添加评论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E9%85%8D%E7%BD%AE"><span class="toc-text">开始配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%90%8E%E9%9D%A2"><span class="toc-text">写在后面</span></a></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">Hexo配置，Landscape主题</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/博客/">
+          博客
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>一些配置，更好地使用Hexo</p>
+<span id="more"></span>
+
+<h2 id="Hexo绑定域名"><a href="#Hexo绑定域名" class="headerlink" title="Hexo绑定域名"></a>Hexo绑定域名</h2><p>Hexo 推送到 Github 时每次都会清除域名，那么需要做啥？</p>
+<p><strong>前提</strong>：我的博客文件夹：hexo_blog</p>
+<ol>
+<li>在<code>hexo_blog/source</code>新建文件<code>CNAME</code>，注意就是单纯的<code>CNAME</code>, 无杂质</li>
+<li>在<code>CNAME</code>文件中加入你的域名</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> CNAME</span><br><span class="line">https://blog.soymilk.fun</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>部署到远端即可</li>
+</ol>
+<hr>
+
+<h2 id="添加网页图标"><a href="#添加网页图标" class="headerlink" title="添加网页图标"></a>添加网页图标</h2><p>我的博客文件夹：<code>hexo_blog</code></p>
+<ol>
+<li><p>网页图标位置：<code>hexo_blog/themes/landscape/source/css/images/</code>eye.ico</p>
+</li>
+<li><p>修改文件：<code>hexo_blog/themes/landscape/_config.yml</code></p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改favicon: /favicon</span></span><br><span class="line">favicon: /css/images/eyes.ico</span><br></pre></td></tr></table></figure>
+
+<p>通过修改可以知道<strong>favicon</strong>的查找路径是相对于<strong>主题目录</strong>下的<strong>source</strong>文件夹</p>
+<hr>
+
+<h3 id="添加计数"><a href="#添加计数" class="headerlink" title="添加计数"></a>添加计数</h3><p>参考：<a target="_blank" rel="noopener" href="http://ibruce.info/2015/04/04/busuanzi/">使用的是不蒜子提供的脚本</a></p>
+<p>我的博客文件夹: hexo_blog</p>
+<ol>
+<li>安装脚本 <strong>必要</strong><br>文件: <code>footer.ejs</code>或<code>header.ejs</code><br>文件位置: <code>hexo_blog/themes/landscape/layout/_partial/</code>footer.ejs</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">async</span> <span class="attr">src</span>=<span class="string">&quot;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>安装标签</li>
+</ol>
+<ul>
+<li>显示站点总访问量<br>修改文件: <code>footer.ejs</code>或<code>header.ejs</code><br>文件位置: <code>hexo_blog/themes/landscape/layout/_partial/</code>footer.ejs</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- pv的方式，单个用户连续点击n篇文章，记录n次访问量 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;busuanzi_container_site_pv&quot;</span>&gt;</span></span><br><span class="line">    本站总访问量<span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;busuanzi_value_site_pv&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>次</span><br><span class="line"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- uv的方式，单个用户连续点击n篇文章，只记录1次访客数 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;busuanzi_container_site_uv&quot;</span>&gt;</span></span><br><span class="line">  本站访客数<span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;busuanzi_value_site_uv&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>人次</span><br><span class="line"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><em>不蒜子提供了两种方式，任意选择</em></p>
+<ul>
+<li>显示单页访问量<br>修改文件: <code>date.ejs</code><br>文件位置: <code>hexo_blog/themes/landscape/layout/_partial/post/</code>data.ejs</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;busuanzi_container_page_pv&quot;</span>&gt;</span></span><br><span class="line">  本文总阅读量<span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;busuanzi_value_page_pv&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>次</span><br><span class="line"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>其他：</strong></p>
+<p>本机运行时候可能出现数字混乱，但是部署到远端是正常的<br>个人测试: 单页访问测试只有 pv 算法，uv 算法不能成功，小伙伴发现了其他算法欢迎交流 🙏🙏</p>
+<p>归档显示阅读量有问题(阅读次数叠加到第一篇文章)，暂时放弃使用</p>
+<hr>
+
+
+<h2 id="添加评论"><a href="#添加评论" class="headerlink" title="添加评论"></a>添加评论</h2><p>使用来必力不算太麻烦，个人感觉还挺不错，关键是免费。</p>
+<p><a target="_blank" rel="noopener" href="https://www.livere.com/">来必力官网</a></p>
+<p>参考：<a target="_blank" rel="noopener" href="http://www.hohode.com/2018/04/25/%E4%B8%BAHexo%E4%B8%BB%E9%A2%98Landscape%E6%B7%BB%E5%8A%A0livere-%E6%9D%A5%E5%BF%85%E5%8A%9B-%E8%AF%84%E8%AE%BA%E6%94%AF%E6%8C%81/">某位博主</a></p>
+<p>&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;2020-02-22&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</p>
+<p>来必力在国内用太慢了，切换为搜狐畅言。</p>
+<p>&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</p>
+<h3 id="开始配置"><a href="#开始配置" class="headerlink" title="开始配置"></a>开始配置</h3><p><strong>定义</strong>：博客文件夹名为 hexo_blog</p>
+<ol>
+<li>首先需要在来必力官网注册账号，得到来必力安装代码，对于博客 City 版本的就够用了</li>
+</ol>
+<p><img src="/install.png" alt="现在安装"></p>
+<ol start="2">
+<li>修改 hexo_blog&#x2F;_config.yml 文件</li>
+</ol>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加内容, 注意空格</span></span><br><span class="line"><span class="attr">livere:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>添加代码到 livere.ejs 文件</li>
+</ol>
+<p>文件位置：<code>hexo_blog/themes/landscape/layout/_partial/post/</code>livere.ejs</p>
+<p><img src="/you_get.png" alt="Gerneral web site"></p>
+<p><em>将安装代码复制到 livere.ejs 文件中</em></p>
+<ol start="3">
+<li>修改 article.ejs 文件</li>
+</ol>
+<p>文件位置：<code>hexo_blog/themes/landscape/layout/_partial/</code>article.ejs</p>
+<p>修改位置：<code>&lt;% if (!index)&#123; %&gt;</code>下直接添加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if (theme.livere)&#123; %&gt;</span><br><span class="line">	&lt;%- partial(&#x27;post/livere&#x27;, &#123;</span><br><span class="line">		key: post.slug,</span><br><span class="line">		title: post.title,</span><br><span class="line">		url: config.url+url_for(post.path)</span><br><span class="line">	&#125;) %&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/liveRe.png" alt="edit"></p>
+<h2 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h2><p>感觉选主题很重要啊，如果不想折腾，就选择其他主题，很多都是帮你配置好的，只需要在<code>yml</code>文件中填参数即可。</p>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/博客/">
+          博客
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+    <canvas id="sprite-canvas" width="100" height="100"></canvas>
+  </div>
+</div>
+    </div>
+  </div>
+</body>
+
+
+
+    
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+    
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+    
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+    
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+    
+<script src="/js/milk.js"></script>
+
+
+
+</html>

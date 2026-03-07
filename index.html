@@ -1,0 +1,564 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" id="highlight-link" href="/lib/highlight/style/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<link rel="stylesheet" id="shceme-link" href="/css/theme/default.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk">
+    <div class="milk-header">
+       
+
+  <nav class="header-nav">
+     
+    <div class="nav-menu">
+      
+        <div id="Home" class="menu-item">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </div>
+      
+        <div id="Archives" class="menu-item">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </div>
+      
+        <div id="About" class="menu-item">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </div>
+      
+    </div>
+    
+    
+      <div class="nav-date">
+        <div id="date-ymd"></div>
+        <div id="date-week"></div>
+        <div id="date-time"></div>
+      </div>
+    
+    
+    
+      <div class="nav-system" id="nav-system"></div>
+    
+    
+    <div class="nav-layout" id="nav-layout" data-layout="tile">
+      <div id="layout-show">
+        <div class="show-icon"></div>
+        <div class="show-text"></div>
+      </div>
+    </div>
+    
+    <div class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+        <div>
+          <label for="scheme-select">Color scheme: </label>
+          <select id="scheme-select">
+            <option value='default'>default</option>
+          </select>
+          <label for="highlight-select">Code highlight: </label>
+          <select id="highlight-select">
+            <option value='railscasts'>railscasts</option>
+          </select>
+        </div>
+        <div>
+          <label for="ffolders-select">ffolders scheme: </label>
+          <select name="size" id="size-select">
+            <option value='medium'>medium</option>
+          </select>
+          <select name="color" id="color-select">
+            <option value='pink'>pink</option>
+          </select>
+        </div>
+        <div>
+          <label for="blur-slider">background blur
+            <span id="blur-value">10</span> px
+          </label>
+          <input type="range" id="blur-slider" min="0" max="20" data-value='10'>
+        </div>
+        <div>
+          <label for="font-enable">font</label>
+          <input type="checkbox" id="font-check" name="font-check" data-check="fun.ttf">
+        </div>
+      </div>
+    </div>
+  </nav>
+ 
+    </div>
+    <div class="milk-body">
+      <div id="layout">
+  
+  <div class="window" id="w-content">
+    <div class="desktop-content">
+       
+<ul>
+  
+     
+    
+    <li>
+       
+      <ul class="breadcrumbs" id="post-source">
+        <li><a href="#"><i class="fas fa-file-word"></i></a></li>
+        
+          
+          <li><a href="#">AI</a></li>
+        
+        
+        <li id="post-title"><a href="/2026/01/19/AI/GTX1060的绝唱/" title="GTX1060的绝唱">GTX1060的绝唱</a></li> 
+      </ul>
+       
+      <div class="post-table">
+        <table>
+          <tr>
+            <th></th>
+            <th>
+              <span class="table-title">File: GTX1060的绝唱</span>
+              <span>2026-01-19</span>
+            </th>
+          </tr>
+          <tr>
+            <td class="table-linenum" id="table-linenum">content</td>
+            <td><h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>GTX 1060 作为一款 2016 年发布的显卡，到 2026 年已经经过了 10 年的历程。NVIDIA 已宣布 Pascal（包括 GTX 1060）在 2025 年 10 月停止 Game Ready 驱动支持(<a target="_blank" rel="noopener" href="https://www.windowscentral.com/hardware/nvidia/nvidia-end-of-life-pascal-maxwell-volta-windows-10">NVIDIA announces end-of-life support for many of its GTX cards — but it’s not all bad news</a>)。但是生活还得继续，我还希望笔记本再战 5 年，因此总结一些驱动和 CUDA 相关。</p></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+     
+    
+    <li>
+       
+      <ul class="breadcrumbs" id="post-source">
+        <li><a href="#"><i class="fas fa-file-word"></i></a></li>
+        
+          
+          <li><a href="#">Code</a></li>
+        
+          
+          <li><a href="#">CPP</a></li>
+        
+        
+        <li id="post-title"><a href="/2025/09/25/Code/CPP/cpp混合python编程/" title="cpp混合python编程">cpp混合python编程</a></li> 
+      </ul>
+       
+      <div class="post-table">
+        <table>
+          <tr>
+            <th></th>
+            <th>
+              <span class="table-title">File: cpp混合python编程</span>
+              <span>2025-09-25</span>
+            </th>
+          </tr>
+          <tr>
+            <td class="table-linenum" id="table-linenum">content</td>
+            <td><h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><pre><code class="bash">.
+├── CMakeLists.txt
+├── main.cpp
+├── scripts
+│   ├── __pycache__
+│   └── test.py
+└── vendor
+    └── python_env
+</code></pre>
+<p>注意点：不要把 <code>venv</code> 当作 <code>PYTHONHOME</code>，只用作依赖库存放，并在运行时将它加入 <code>sys.path</code></p></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+     
+    
+    <li>
+       
+      <ul class="breadcrumbs" id="post-source">
+        <li><a href="#"><i class="fas fa-file-word"></i></a></li>
+        
+          
+          <li><a href="#">Others</a></li>
+        
+        
+        <li id="post-title"><a href="/2025/07/30/Others/一种软件升级方案/" title="一种软件升级方案">一种软件升级方案</a></li> 
+      </ul>
+       
+      <div class="post-table">
+        <table>
+          <tr>
+            <th></th>
+            <th>
+              <span class="table-title">File: 一种软件升级方案</span>
+              <span>2025-07-30</span>
+            </th>
+          </tr>
+          <tr>
+            <td class="table-linenum" id="table-linenum">content</td>
+            <td><p>使用 QtWidgets 构建的客户端软件，添加升级相关。其中局域网中一台电脑启动 nginx 的静态服务相关，下载对应的文件进行单体（单独的 exe 文件）和全量更新。</p>
+<p>当前操作系统为 Windows11。</p>
+<p>以个人项目 KnowIt 为例</p>
+<ul>
+<li>其中半自动打包部分见：<a target="_blank" rel="noopener" href="https://github.com/MRsoymilk/KnowIt/tree/master/autobuild">autobuild</a></li>
+<li>客户端升级部分见：<a target="_blank" rel="noopener" href="https://github.com/MRsoymilk/KnowIt/tree/master/src/IndependentWindow/AutoUpdate">AutoUpdate</a></li>
+</ul></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+     
+    
+    <li>
+       
+      <ul class="breadcrumbs" id="post-source">
+        <li><a href="#"><i class="fas fa-file-word"></i></a></li>
+        
+          
+          <li><a href="#">Tool</a></li>
+        
+        
+        <li id="post-title"><a href="/2025/07/30/Tool/使用pm2管理进程/" title="使用pm2管理进程">使用pm2管理进程</a></li> 
+      </ul>
+       
+      <div class="post-table">
+        <table>
+          <tr>
+            <th></th>
+            <th>
+              <span class="table-title">File: 使用pm2管理进程</span>
+              <span>2025-07-30</span>
+            </th>
+          </tr>
+          <tr>
+            <td class="table-linenum" id="table-linenum">content</td>
+            <td><p><a target="_blank" rel="noopener" href="https://pm2.keymetrics.io/">pm2</a></p>
+<ul>
+<li>中文文档：<a target="_blank" rel="noopener" href="https://pm2.fenxianglu.cn/docs/start">PM2 中文网</a></li>
+<li>官方文档：<a target="_blank" rel="noopener" href="https://pm2.keymetrics.io/docs/usage/quick-start/">PM2 Process Management Quick Start</a></li>
+</ul>
+<p>PM2 是一个守护进程管理工具，帮助您管理和守护您的应用程序。它以简单直观的 C​​LI 命令行方式进行工作。</p></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+     
+    
+    <li>
+       
+      <ul class="breadcrumbs" id="post-source">
+        <li><a href="#"><i class="fas fa-file-word"></i></a></li>
+        
+          
+          <li><a href="#">Code</a></li>
+        
+          
+          <li><a href="#">Qt</a></li>
+        
+        
+        <li id="post-title"><a href="/2025/07/14/Code/Qt/Qt半自动编译设置/" title="Qt半自动编译设置">Qt半自动编译设置</a></li> 
+      </ul>
+       
+      <div class="post-table">
+        <table>
+          <tr>
+            <th></th>
+            <th>
+              <span class="table-title">File: Qt半自动编译设置</span>
+              <span>2025-07-14</span>
+            </th>
+          </tr>
+          <tr>
+            <td class="table-linenum" id="table-linenum">content</td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+     
+    
+    <li>
+       
+      <ul class="breadcrumbs" id="post-source">
+        <li><a href="#"><i class="fas fa-file-word"></i></a></li>
+        
+          
+          <li><a href="#">Code</a></li>
+        
+          
+          <li><a href="#">others</a></li>
+        
+        
+        <li id="post-title"><a href="/2025/07/14/Code/others/记一次处理上位机接收下位机数据的bug/" title="记一次处理上位机接收下位机数据的bug">记一次处理上位机接收下位...</a></li> 
+      </ul>
+       
+      <div class="post-table">
+        <table>
+          <tr>
+            <th></th>
+            <th>
+              <span class="table-title">File: 记一次处理上位机接收下位机数据的bug</span>
+              <span>2025-07-14</span>
+            </th>
+          </tr>
+          <tr>
+            <td class="table-linenum" id="table-linenum">content</td>
+            <td><p>记录上位机本应通过串口持续接收 1990 字节长度的数据，但出现不足 1990 字节。正确排查过程。</p></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+     
+    
+    <li>
+       
+      <ul class="breadcrumbs" id="post-source">
+        <li><a href="#"><i class="fas fa-file-word"></i></a></li>
+        
+          
+          <li><a href="#">Code</a></li>
+        
+          
+          <li><a href="#">CPP</a></li>
+        
+        
+        <li id="post-title"><a href="/2025/06/12/Code/CPP/cpp集成quickjs/" title="cpp集成quickjs">cpp集成quickjs</a></li> 
+      </ul>
+       
+      <div class="post-table">
+        <table>
+          <tr>
+            <th></th>
+            <th>
+              <span class="table-title">File: cpp集成quickjs</span>
+              <span>2025-06-12</span>
+            </th>
+          </tr>
+          <tr>
+            <td class="table-linenum" id="table-linenum">content</td>
+            <td><p>使用 <code>cmake</code> 集成 <code>quickjs</code></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/quickjs-ng/quickjs">Github QuickJS</a></li>
+<li><a target="_blank" rel="noopener" href="https://quickjs-ng.github.io/quickjs/">QuickJS-NG Documentation</a></li>
+</ul></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+     
+    
+    <li>
+       
+      <ul class="breadcrumbs" id="post-source">
+        <li><a href="#"><i class="fas fa-file-word"></i></a></li>
+        
+          
+          <li><a href="#">Code</a></li>
+        
+          
+          <li><a href="#">CPP</a></li>
+        
+        
+        <li id="post-title"><a href="/2025/06/06/Code/CPP/cpp集成nng/" title="cpp集成nng">cpp集成nng</a></li> 
+      </ul>
+       
+      <div class="post-table">
+        <table>
+          <tr>
+            <th></th>
+            <th>
+              <span class="table-title">File: cpp集成nng</span>
+              <span>2025-06-06</span>
+            </th>
+          </tr>
+          <tr>
+            <td class="table-linenum" id="table-linenum">content</td>
+            <td><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/nanomsg/nng">nng github</a></li>
+<li><a target="_blank" rel="noopener" href="https://nanomsg.org/gettingstarted/nng/index.html">Getting Started with ‘nng’</a></li>
+</ul></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+     
+    
+    <li>
+       
+      <ul class="breadcrumbs" id="post-source">
+        <li><a href="#"><i class="fas fa-file-word"></i></a></li>
+        
+          
+          <li><a href="#">Code</a></li>
+        
+          
+          <li><a href="#">CPP</a></li>
+        
+        
+        <li id="post-title"><a href="/2025/06/06/Code/CPP/使用miniz解压zip/" title="使用minzi解压zip">使用minzi解压zip</a></li> 
+      </ul>
+       
+      <div class="post-table">
+        <table>
+          <tr>
+            <th></th>
+            <th>
+              <span class="table-title">File: 使用minzi解压zip</span>
+              <span>2025-06-06</span>
+            </th>
+          </tr>
+          <tr>
+            <td class="table-linenum" id="table-linenum">content</td>
+            <td><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><img src="https://github.com/richgel999/miniz" alt="miniz">，一个轻量的 zlib (RFC 1950) and Deflate (RFC 1951) 实现库。</p></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+     
+    
+    <li>
+       
+      <ul class="breadcrumbs" id="post-source">
+        <li><a href="#"><i class="fas fa-file-word"></i></a></li>
+        
+          
+          <li><a href="#">Code</a></li>
+        
+          
+          <li><a href="#">CPP</a></li>
+        
+        
+        <li id="post-title"><a href="/2025/06/04/Code/CPP/cpp集成gflags/" title="cpp集成gflags">cpp集成gflags</a></li> 
+      </ul>
+       
+      <div class="post-table">
+        <table>
+          <tr>
+            <th></th>
+            <th>
+              <span class="table-title">File: cpp集成gflags</span>
+              <span>2025-06-04</span>
+            </th>
+          </tr>
+          <tr>
+            <td class="table-linenum" id="table-linenum">content</td>
+            <td><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><a target="_blank" rel="noopener" href="https://github.com/gflags/gflags">gflags</a> 是 Google 开源的命令行参数解析库，主要用于 C++项目中提供灵活、强大的命令行参数定义与解析功能</p>
+<p>gflags 通过宏定义全局变量并自动处理命令行参数传参，例如<code>DEFINE_int32(port, 8080, &quot;Port to listen on&quot;);</code></p>
+<p>更多用法：<a target="_blank" rel="noopener" href="https://gflags.github.io/gflags/">How To Use gflags (formerly Google Commandline Flags)</a></p></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  
+</ul>
+       
+<div class="paginator">
+  <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/2/">Next</a>
+</div>
+    </div>
+  </div>
+  
+  <div class="window" id="w-category">
+    <div class="desktop-category">
+      <ul class="breadcrumbs">
+        <li><a href="#"><i class="fas fa-list"></i></a></li>
+        <li><a href="#">category</a></li>
+        <li><a href="#">tree</a></li>
+      </ul>
+       
+
+  <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AI/">AI</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/BigData/">BigData</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/BigData/Hadoop/">Hadoop</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CV/">CV</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Code/">Code</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Code/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Code/Assembly/">Assembly</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Code/CPP/">CPP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Code/GUI/">GUI</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Code/GUI/Qt/">Qt</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Code/Java/">Java</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Code/Java/maven/">maven</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Code/OpenGL/">OpenGL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Code/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Code/Qt/">Qt</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Code/SDK/">SDK</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Code/SDK/ArcSoft/">ArcSoft</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Code/others/">others</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/DesignPattern/">DesignPattern</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Game/">Game</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hardware/">Hardware</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/CentOS/">CentOS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/Gentoo/">Gentoo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/Problem/">Problem</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/Shell/">Shell</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/Ubuntu/">Ubuntu</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/common/">common</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/common/tmux/">tmux</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Media/">Media</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Microcomputer/">Microcomputer</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Microcomputer/51/">51</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Microcomputer/Arduino/">Arduino</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Microcomputer/ESP32/">ESP32</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Microcomputer/Pi/">Pi</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/NeuralNetwork/">NeuralNetwork</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/NeuralNetwork/OpenVINO/">OpenVINO</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/NeuralNetwork/yolov5/">yolov5</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OpenCV/">OpenCV</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/OpenCV/QRCode/">QRCode</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Others/">Others</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Python/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/pyqt5/">pyqt5</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/">Tool</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/Intellij-IDEA/">Intellij IDEA</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/Plugs/">Plugs</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/VSCode/">VSCode</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/Visual-Studio/">Visual Studio</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/gitbook/">gitbook</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/jupyter/">jupyter</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB/">WEB</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/WEB/AMap/">AMap</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB/Server/">Server</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB/Spring/">Spring</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB/others/">others</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/others/">others</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/">others</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%9A%E5%AE%A2/">博客</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%96%87%E7%AB%A0/">文章</a></li></ul>
+
+    </div>
+  </div>
+  
+  <div class="window" id="w-tag">
+    <div class="desktop-tag">
+      <ul class="breadcrumbs">
+        <li><a href="#"><i class="far fa-folder"></i></a></li>
+        <li><a href="#">tag</a></li>
+        <li><a href="#">dir</a></li>
+      </ul>
+         
+
+  <div id="list-cloud" class="list-cloud" data-size='medium' data-color='pink'>
+    <a href="/tags/51/" style="font-size: 10px;">51</a> <a href="/tags/AI/" style="font-size: 11.25px;">AI</a> <a href="/tags/AMap/" style="font-size: 10px;">AMap</a> <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/ArcSoft/" style="font-size: 13.75px;">ArcSoft</a> <a href="/tags/Arduino/" style="font-size: 12.5px;">Arduino</a> <a href="/tags/Assembly/" style="font-size: 10px;">Assembly</a> <a href="/tags/CImg/" style="font-size: 10px;">CImg</a> <a href="/tags/CPP/" style="font-size: 18.75px;">CPP</a> <a href="/tags/CV/" style="font-size: 10px;">CV</a> <a href="/tags/CentOS/" style="font-size: 11.25px;">CentOS</a> <a href="/tags/DesignPattern/" style="font-size: 10px;">DesignPattern</a> <a href="/tags/ESP32/" style="font-size: 10px;">ESP32</a> <a href="/tags/FFmpeg/" style="font-size: 10px;">FFmpeg</a> <a href="/tags/Game/" style="font-size: 10px;">Game</a> <a href="/tags/Gentoo/" style="font-size: 12.5px;">Gentoo</a> <a href="/tags/Hadoop/" style="font-size: 10px;">Hadoop</a> <a href="/tags/Hardware/" style="font-size: 10px;">Hardware</a> <a href="/tags/IDEA/" style="font-size: 10px;">IDEA</a> <a href="/tags/Legend-of-Mir2/" style="font-size: 10px;">Legend of Mir2</a> <a href="/tags/Linux/" style="font-size: 12.5px;">Linux</a> <a href="/tags/Media/" style="font-size: 11.25px;">Media</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/NeuralNetwork/" style="font-size: 11.25px;">NeuralNetwork</a> <a href="/tags/OS/" style="font-size: 11.25px;">OS</a> <a href="/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/tags/OpenGL/" style="font-size: 10px;">OpenGL</a> <a href="/tags/Others/" style="font-size: 10px;">Others</a> <a href="/tags/Pi/" style="font-size: 18.75px;">Pi</a> <a href="/tags/Plugs/" style="font-size: 10px;">Plugs</a> <a href="/tags/Python/" style="font-size: 13.75px;">Python</a> <a href="/tags/QRCode/" style="font-size: 10px;">QRCode</a> <a href="/tags/Qt/" style="font-size: 11.25px;">Qt</a> <a href="/tags/Shell/" style="font-size: 15px;">Shell</a> <a href="/tags/Test/" style="font-size: 10px;">Test</a> <a href="/tags/Tool/" style="font-size: 11.25px;">Tool</a> <a href="/tags/Ubuntu/" style="font-size: 15px;">Ubuntu</a> <a href="/tags/VSCode/" style="font-size: 10px;">VSCode</a> <a href="/tags/Visual-Studio/" style="font-size: 11.25px;">Visual Studio</a> <a href="/tags/WEB/" style="font-size: 16.25px;">WEB</a> <a href="/tags/Windows/" style="font-size: 15px;">Windows</a> <a href="/tags/cmake/" style="font-size: 15px;">cmake</a> <a href="/tags/cmus/" style="font-size: 10px;">cmus</a> <a href="/tags/common/" style="font-size: 11.25px;">common</a> <a href="/tags/gitbook/" style="font-size: 12.5px;">gitbook</a> <a href="/tags/jupyter/" style="font-size: 10px;">jupyter</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/others/" style="font-size: 18.75px;">others</a> <a href="/tags/pyqt5/" style="font-size: 10px;">pyqt5</a> <a href="/tags/tmux/" style="font-size: 12.5px;">tmux</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 17.5px;">博客</a> <a href="/tags/%E6%96%87%E7%AB%A0/" style="font-size: 18.75px;">文章</a>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+    </div>
+  </div>
+</body>
+
+
+
+    
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+    
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+    
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+    
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+    
+<script src="/js/milk.js"></script>
+
+
+
+</html>

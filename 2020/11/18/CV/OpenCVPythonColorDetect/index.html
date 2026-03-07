@@ -1,0 +1,319 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OpenCV Python 颜色检测 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" id="highlight-link" href="/lib/highlight/style/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<link rel="stylesheet" id="shceme-link" href="/css/theme/default.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk">
+    <div class="milk-header">
+       
+
+  <nav class="header-nav">
+     
+    <div class="nav-menu">
+      
+        <div id="Home" class="menu-item">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </div>
+      
+        <div id="Archives" class="menu-item">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </div>
+      
+        <div id="About" class="menu-item">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </div>
+      
+    </div>
+    
+    
+      <div class="nav-date">
+        <div id="date-ymd"></div>
+        <div id="date-week"></div>
+        <div id="date-time"></div>
+      </div>
+    
+    
+    
+      <div class="nav-system" id="nav-system"></div>
+    
+    
+    <div class="nav-layout" id="nav-layout" data-layout="tile">
+      <div id="layout-show">
+        <div class="show-icon"></div>
+        <div class="show-text"></div>
+      </div>
+    </div>
+    
+    <div class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+        <div>
+          <label for="scheme-select">Color scheme: </label>
+          <select id="scheme-select">
+            <option value='default'>default</option>
+          </select>
+          <label for="highlight-select">Code highlight: </label>
+          <select id="highlight-select">
+            <option value='railscasts'>railscasts</option>
+          </select>
+        </div>
+        <div>
+          <label for="ffolders-select">ffolders scheme: </label>
+          <select name="size" id="size-select">
+            <option value='medium'>medium</option>
+          </select>
+          <select name="color" id="color-select">
+            <option value='pink'>pink</option>
+          </select>
+        </div>
+        <div>
+          <label for="blur-slider">background blur
+            <span id="blur-value">10</span> px
+          </label>
+          <input type="range" id="blur-slider" min="0" max="20" data-value='10'>
+        </div>
+        <div>
+          <label for="font-enable">font</label>
+          <input type="checkbox" id="font-check" name="font-check" data-check="fun.ttf">
+        </div>
+      </div>
+    </div>
+  </nav>
+ 
+    </div>
+    <div class="milk-body">
+      
+<div class="draggable-toc">
+  <div class="toc-title">OpenCV Python 颜色检测</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E7%9D%80%E8%89%B2"><span class="toc-text">图像着色</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%9C"><span class="toc-text">结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E6%97%B6%E9%A2%9C%E8%89%B2%E6%A3%80%E6%B5%8B"><span class="toc-text">实时颜色检测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%9C-1"><span class="toc-text">结果</span></a></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">OpenCV Python 颜色检测</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/OpenCV/">
+          OpenCV
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/32269942">用色彩空间做图像处理，让颜色提取更高效</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.opencv.org/3.4/d4/d73/tutorial_py_contours_begin.html">Contours : Getting Started</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.opencv.org/3.4/d3/dc0/group__imgproc__shape.html#ga95f5b48d01abc7c2e0732db24689837b">Structural Analysis and Shape Descriptors</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/multiple-color-detection-in-real-time-using-python-opencv/">Multiple Color Detection in Real-Time using Python-OpenCV</a></li>
+</ul>
+<p>使用HSV（色相Hue, 饱和度Saturation, 明亮度Value, 有时也称为Brightness）色彩空间。HSV将颜色信息与亮度信息分开，减小了光线对特定颜色识别的影响。</p>
+<span id="more"></span>
+
+<p><img src="/hsv_color.png" alt="HSV color"></p>
+<p>颜色阈值参考</p>
+<p><img src="/color.jpg" alt="Color quantization strategy in HSV space"></p>
+<h2 id="图像着色"><a href="#图像着色" class="headerlink" title="图像着色"></a>图像着色</h2><p>提取蓝色：H通道选取100~124，S通道选取43~255，V通道选取35~255。</p>
+<p>提取绿色：H通道选取35~77，S通道选取43~255，V通道选取35~255。</p>
+<p>提取红色：H通道选取156~180和0~10（可能需要做两次运算，取相加结果），S通道选取43~255，V通道选取35~255。</p>
+<p>实现代码:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"></span><br><span class="line">img = cv2.imread(<span class="string">&quot;./ball.jpg&quot;</span>)</span><br><span class="line">img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)</span><br><span class="line"></span><br><span class="line">blue_lower = np.array([<span class="number">100</span>, <span class="number">43</span>, <span class="number">35</span>])</span><br><span class="line">blue_higher = np.array([<span class="number">124</span>, <span class="number">255</span>, <span class="number">255</span>])</span><br><span class="line"></span><br><span class="line">green_lower = np.array([<span class="number">35</span>, <span class="number">43</span>, <span class="number">35</span>])</span><br><span class="line">green_higher = np.array([<span class="number">77</span>, <span class="number">255</span>, <span class="number">255</span>])</span><br><span class="line"></span><br><span class="line">red_lower_1 = np.array([<span class="number">0</span>, <span class="number">43</span>, <span class="number">35</span>])</span><br><span class="line">red_higher_1 = np.array([<span class="number">10</span>, <span class="number">255</span>, <span class="number">255</span>])</span><br><span class="line">red_lower_2 = np.array([<span class="number">156</span>, <span class="number">43</span>, <span class="number">35</span>])</span><br><span class="line">red_higher_2 = np.array([<span class="number">180</span>, <span class="number">255</span>, <span class="number">255</span>])</span><br><span class="line"></span><br><span class="line">blue_part = cv2.inRange(img_hsv, blue_lower, blue_higher)</span><br><span class="line">green_part = cv2.inRange(img_hsv, green_lower, green_higher)</span><br><span class="line">red_part_1 = cv2.inRange(img_hsv, red_lower_1, red_higher_1)</span><br><span class="line">red_part_2 = cv2.inRange(img_hsv, red_lower_2, red_higher_2)</span><br><span class="line">red_part = red_part_1 + red_part_2</span><br><span class="line"></span><br><span class="line">blank_for_color = np.zeros(shape=img.shape, dtype=np.uint8)</span><br><span class="line"><span class="comment">#################################################</span></span><br><span class="line"><span class="comment"># 着色开始</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">color_img</span>(<span class="params">img, part, color</span>):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(img.shape[<span class="number">0</span>]):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(img.shape[<span class="number">1</span>]):</span><br><span class="line">            <span class="keyword">if</span> part[i, j] == <span class="number">255</span>:</span><br><span class="line">                img[i, j] = color</span><br><span class="line">    <span class="keyword">return</span> img</span><br><span class="line"></span><br><span class="line">blank_for_color = color_img(blank_for_color, blue_part, (<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>))</span><br><span class="line">blank_for_color = color_img(blank_for_color, green_part, (<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>))</span><br><span class="line">blank_for_color = color_img(blank_for_color, red_part, (<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>))</span><br><span class="line"><span class="comment"># 着色结束</span></span><br><span class="line"><span class="comment">#################################################</span></span><br><span class="line"></span><br><span class="line">cv2.imshow(<span class="string">&#x27;color&#x27;</span>, blank_for_color)</span><br><span class="line">cv2.imshow(<span class="string">&#x27;original&#x27;</span>, img)</span><br><span class="line"></span><br><span class="line">cv2.waitKey(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="/result.png" alt="result"></p>
+<h2 id="实时颜色检测"><a href="#实时颜色检测" class="headerlink" title="实时颜色检测"></a>实时颜色检测</h2><p>由于摄像头的原因，红色可能检测不太准确（偏橘色），根据个人情况更改。</p>
+<p>实现代码:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line">  </span><br><span class="line">capture = cv2.VideoCapture(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">red_lower_1 = np.array([<span class="number">150</span>, <span class="number">50</span>, <span class="number">35</span>], np.uint8)</span><br><span class="line">red_upper_1 = np.array([<span class="number">190</span>, <span class="number">255</span>, <span class="number">255</span>], np.uint8)</span><br><span class="line">red_lower_2 = np.array([<span class="number">0</span>, <span class="number">50</span>, <span class="number">35</span>], np.uint8)</span><br><span class="line">red_upper_2 = np.array([<span class="number">15</span>, <span class="number">255</span>, <span class="number">255</span>], np.uint8)</span><br><span class="line"></span><br><span class="line">green_lower = np.array([<span class="number">30</span>, <span class="number">50</span>, <span class="number">35</span>], np.uint8)</span><br><span class="line">green_upper = np.array([<span class="number">80</span>, <span class="number">255</span>, <span class="number">255</span>], np.uint8)</span><br><span class="line"></span><br><span class="line">blue_lower = np.array([<span class="number">90</span>, <span class="number">50</span>, <span class="number">35</span>], np.uint8)</span><br><span class="line">blue_upper = np.array([<span class="number">130</span>, <span class="number">255</span>, <span class="number">255</span>], np.uint8)</span><br><span class="line"></span><br><span class="line">AREA = <span class="number">2500</span>  <span class="comment"># 50x50</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    _, frame = capture.read()</span><br><span class="line">    hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)</span><br><span class="line"></span><br><span class="line">    red_mask_1 = cv2.inRange(hsv_frame, red_lower_1, red_upper_1)</span><br><span class="line">    red_mask_2 = cv2.inRange(hsv_frame, red_lower_2, red_upper_2)</span><br><span class="line">    green_mask = cv2.inRange(hsv_frame, green_lower, green_upper)</span><br><span class="line">    blue_mask = cv2.inRange(hsv_frame, blue_lower, blue_upper)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 腐蚀膨胀卷积核</span></span><br><span class="line">    kernel = np.ones((<span class="number">5</span>, <span class="number">5</span>), <span class="string">&quot;uint8&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 红色</span></span><br><span class="line">    red_mask_1 = cv2.erode(red_mask_1, kernel)</span><br><span class="line">    red_mask_1 = cv2.dilate(red_mask_1, kernel)</span><br><span class="line">    res_red_1 = cv2.bitwise_and(frame, frame, mask=red_mask_1)</span><br><span class="line">    red_mask_2 = cv2.erode(red_mask_2, kernel)</span><br><span class="line">    red_mask_2 = cv2.dilate(red_mask_2, kernel)</span><br><span class="line">    res_red_2 = cv2.bitwise_and(frame, frame, mask=red_mask_2)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 绿色</span></span><br><span class="line">    green_mask = cv2.erode(green_mask, kernel)</span><br><span class="line">    green_mask = cv2.dilate(green_mask, kernel)</span><br><span class="line">    res_green = cv2.bitwise_and(frame, frame, mask=green_mask)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># For blue color</span></span><br><span class="line">    blue_mask = cv2.erode(blue_mask, kernel)</span><br><span class="line">    blue_mask = cv2.dilate(blue_mask, kernel)</span><br><span class="line">    res_blue = cv2.bitwise_and(frame, frame, mask=blue_mask)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 画红色边框</span></span><br><span class="line">    contours, _ = cv2.findContours(red_mask_1, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)</span><br><span class="line">    <span class="keyword">for</span> pic, contour <span class="keyword">in</span> <span class="built_in">enumerate</span>(contours):</span><br><span class="line">        area = cv2.contourArea(contour)</span><br><span class="line">        <span class="keyword">if</span>(area &gt; AREA):</span><br><span class="line">            x, y, w, h = cv2.boundingRect(contour)</span><br><span class="line">            frame = cv2.rectangle(frame, (x, y), (x + w, y + h), (<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>), <span class="number">2</span>)</span><br><span class="line">            cv2.putText(frame, <span class="string">&quot;Red&quot;</span>, (x, y), cv2.FONT_HERSHEY_SIMPLEX, <span class="number">1.0</span>, (<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>))</span><br><span class="line"></span><br><span class="line">    contours, _ = cv2.findContours(red_mask_2, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)</span><br><span class="line">    <span class="keyword">for</span> pic, contour <span class="keyword">in</span> <span class="built_in">enumerate</span>(contours):</span><br><span class="line">        area = cv2.contourArea(contour)</span><br><span class="line">        <span class="keyword">if</span>(area &gt; AREA):</span><br><span class="line">            x, y, w, h = cv2.boundingRect(contour)</span><br><span class="line">            frame = cv2.rectangle(frame, (x, y), (x + w, y + h), (<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>), <span class="number">2</span>)</span><br><span class="line">            cv2.putText(frame, <span class="string">&quot;Red&quot;</span>, (x, y), cv2.FONT_HERSHEY_SIMPLEX, <span class="number">1.0</span>, (<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 画绿色边框</span></span><br><span class="line">    contours, _ = cv2.findContours(green_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)</span><br><span class="line">    <span class="keyword">for</span> pic, contour <span class="keyword">in</span> <span class="built_in">enumerate</span>(contours):</span><br><span class="line">        area = cv2.contourArea(contour)</span><br><span class="line">        <span class="keyword">if</span>(area &gt; AREA):</span><br><span class="line">            x, y, w, h = cv2.boundingRect(contour)</span><br><span class="line">            frame = cv2.rectangle(frame, (x, y), (x + w, y + h), (<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>), <span class="number">2</span>)</span><br><span class="line">            cv2.putText(frame, <span class="string">&quot;Green&quot;</span>, (x, y), cv2.FONT_HERSHEY_SIMPLEX, <span class="number">1.0</span>, (<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>))</span><br><span class="line">  </span><br><span class="line">    <span class="comment"># 画蓝色边框</span></span><br><span class="line">    contours, _ = cv2.findContours(blue_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)</span><br><span class="line">    <span class="keyword">for</span> pic, contour <span class="keyword">in</span> <span class="built_in">enumerate</span>(contours):</span><br><span class="line">        area = cv2.contourArea(contour)</span><br><span class="line">        <span class="keyword">if</span>(area &gt; AREA):</span><br><span class="line">            x, y, w, h = cv2.boundingRect(contour)</span><br><span class="line">            frame = cv2.rectangle(frame, (x, y), (x + w, y + h), (<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>), <span class="number">2</span>)</span><br><span class="line">            cv2.putText(frame, <span class="string">&quot;Blue&quot;</span>, (x, y), cv2.FONT_HERSHEY_SIMPLEX, <span class="number">1.0</span>, (<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 释放资源</span></span><br><span class="line">    cv2.imshow(<span class="string">&quot;color detect&quot;</span>, frame)</span><br><span class="line">    <span class="keyword">if</span> cv2.waitKey(<span class="number">10</span>) &amp; <span class="number">0xFF</span> == <span class="built_in">ord</span>(<span class="string">&#x27;q&#x27;</span>):</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">capture.release()</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+
+<h2 id="结果-1"><a href="#结果-1" class="headerlink" title="结果"></a>结果</h2><p><img src="/color_detect.jpg" alt="result"></p>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/OpenCV/">
+          OpenCV
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+    <canvas id="sprite-canvas" width="100" height="100"></canvas>
+  </div>
+</div>
+    </div>
+  </div>
+</body>
+
+
+
+    
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+    
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+    
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+    
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+    
+<script src="/js/milk.js"></script>
+
+
+
+</html>

@@ -1,0 +1,377 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Linux常见问题 [ Soymilk ]</title>
+  
+<link rel="shortcut icon" href="/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
+
+<link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
+
+
+
+<link rel="stylesheet" id="highlight-link" href="/lib/highlight/style/railscasts.css">
+
+
+
+<link rel="stylesheet" href="/css/milk.css">
+
+
+<link rel="stylesheet" id="shceme-link" href="/css/theme/default.css">
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+  <div class="milk">
+    <div class="milk-header">
+       
+
+  <nav class="header-nav">
+     
+    <div class="nav-menu">
+      
+        <div id="Home" class="menu-item">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <a href="/ ">Home</a>
+        </div>
+      
+        <div id="Archives" class="menu-item">
+          <i class="fas fa-archive" aria-hidden="true"></i>
+          <a href="/archives ">Archives</a>
+        </div>
+      
+        <div id="About" class="menu-item">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <a href="/about ">About</a>
+        </div>
+      
+    </div>
+    
+    
+      <div class="nav-date">
+        <div id="date-ymd"></div>
+        <div id="date-week"></div>
+        <div id="date-time"></div>
+      </div>
+    
+    
+    
+      <div class="nav-system" id="nav-system"></div>
+    
+    
+    <div class="nav-layout" id="nav-layout" data-layout="tile">
+      <div id="layout-show">
+        <div class="show-icon"></div>
+        <div class="show-text"></div>
+      </div>
+    </div>
+    
+    <div class="nav-access">
+      <i class="fas fa-toggle-off" id="nav-access"></i>
+      <div class="dropdown-content" id="dropdown-content">
+        <ul class="social">
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/MRsoymilk">
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+            <li>
+              <a href="mailto:codermrsoymilk@gmail.com">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </li>
+          
+        </ul>
+        <ul>
+          <li><span>Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a></span></li>
+        </ul>
+        <div>
+          <label for="scheme-select">Color scheme: </label>
+          <select id="scheme-select">
+            <option value='default'>default</option>
+          </select>
+          <label for="highlight-select">Code highlight: </label>
+          <select id="highlight-select">
+            <option value='railscasts'>railscasts</option>
+          </select>
+        </div>
+        <div>
+          <label for="ffolders-select">ffolders scheme: </label>
+          <select name="size" id="size-select">
+            <option value='medium'>medium</option>
+          </select>
+          <select name="color" id="color-select">
+            <option value='pink'>pink</option>
+          </select>
+        </div>
+        <div>
+          <label for="blur-slider">background blur
+            <span id="blur-value">10</span> px
+          </label>
+          <input type="range" id="blur-slider" min="0" max="20" data-value='10'>
+        </div>
+        <div>
+          <label for="font-enable">font</label>
+          <input type="checkbox" id="font-check" name="font-check" data-check="fun.ttf">
+        </div>
+      </div>
+    </div>
+  </nav>
+ 
+    </div>
+    <div class="milk-body">
+      
+<div class="draggable-toc">
+  <div class="toc-title">Linux常见问题</div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-text">问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSH%E6%9C%AA%E7%9F%A5%E7%BB%88%E7%AB%AF"><span class="toc-text">SSH未知终端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSH%E6%9C%8D%E5%8A%A1%E5%AE%89%E8%A3%85"><span class="toc-text">SSH服务安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#apt%E6%8A%A5%E9%94%99"><span class="toc-text">apt报错</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ubuntu-Snap-%E6%8A%A5%E9%94%99"><span class="toc-text">Ubuntu Snap 报错</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ubuntu-%E6%9B%B4%E6%94%B9tty%E7%95%8C%E9%9D%A2%E5%AD%97%E4%BD%93%E5%A4%A7%E5%B0%8F"><span class="toc-text">Ubuntu 更改tty界面字体大小</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#apt%E4%BD%BF%E7%94%A8-rpm%E5%8C%85"><span class="toc-text">apt使用.rpm包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CentOS%E5%A4%A7%E5%A4%9A%E8%BD%AF%E4%BB%B6%E5%8C%85%E4%B8%8D%E8%83%BD%E6%89%BE%E5%88%B0"><span class="toc-text">CentOS大多软件包不能找到</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows%E5%8F%91%E6%9D%A5%E6%96%87%E4%BB%B6%E4%B9%B1%E7%A0%81"><span class="toc-text">Windows发来文件乱码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ubuntu-18-04-useradd%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E4%B8%BB%E7%9B%AE%E5%BD%95"><span class="toc-text">Ubuntu 18.04 useradd无法创建用户主目录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95"><span class="toc-text">解决办法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ubuntu-%E5%9B%BE%E5%BD%A2%E5%8C%96%E7%95%8C%E9%9D%A2-%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%95%8C%E9%9D%A2"><span class="toc-text">Ubuntu 图形化界面&#x2F;命令行界面</span></a></li></ol>
+</div>
+
+<div class="post-content" id="post-content">
+  <div id="top">Linux常见问题</div>
+  <div class="post">
+    
+    <div class="content-categories">
+      
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Linux/">
+          Linux
+        </a>
+          </li>
+      
+          <li>&gt;</li>
+          <li>
+            <a href="/categories/Linux/Problem/">
+          Problem
+        </a>
+          </li>
+      
+      </ul>
+    
+    </div>
+    <hr>
+    
+    <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><ul>
+<li>SSH未知终端: <code>&#39;alacritty&#39;: unknown terminal type.</code></li>
+<li>SSH 服务安装: <code>openssh-client</code>和<code>openssh-server</code></li>
+<li>apt 报错: <code>Could not get lock /var/lib/dpkg/lock-open</code></li>
+<li>Ubuntu Snap 报错: <code>error: cannot install &quot;douban-fm&quot;: snap &quot;core&quot; has changes in progress</code></li>
+<li>Ubuntu 更改tty界面字体大小</li>
+<li>apt使用<code>.rpm</code>包</li>
+<li>CentOS大多软件包不能找到</li>
+<li>Windows发来文件乱码</li>
+<li>Ubuntu 18.04 useradd无法创建用户主目录</li>
+<li>Ubuntu 图形化界面&#x2F;命令行界面</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="SSH未知终端"><a href="#SSH未知终端" class="headerlink" title="SSH未知终端"></a>SSH未知终端</h2><p>我使用的终端是<code>alacritty</code>(客户端)，服务器端无法识别非主流终端，解决方法:</p>
+<p>在服务器端的<code>.bashrc</code>文件中加入以下命令:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> TERM=xterm-256color  <span class="comment"># 或其他可识别终端</span></span><br></pre></td></tr></table></figure>
+
+<p>每次启动shell默认执行<code>export</code>命令。</p>
+<h2 id="SSH服务安装"><a href="#SSH服务安装" class="headerlink" title="SSH服务安装"></a>SSH服务安装</h2><p>以Ubuntu为例:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install -y openssh-client openssh-server</span><br></pre></td></tr></table></figure>
+
+<h2 id="apt报错"><a href="#apt报错" class="headerlink" title="apt报错"></a>apt报错</h2><p><code>Could not get lock /var/lib/dpkg/lock-open</code></p>
+<p>报错原因: 因为apt锁机制，只允许一个apt进程存在</p>
+<p>解决方法:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">rm</span> /var/lib/apt/lists/lock</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">rm</span> /var/cache/apt/archives/lock</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">rm</span> /var/lib/dpkg/lock</span><br></pre></td></tr></table></figure>
+
+<h2 id="Ubuntu-Snap-报错"><a href="#Ubuntu-Snap-报错" class="headerlink" title="Ubuntu Snap 报错"></a>Ubuntu Snap 报错</h2><p><code>error: cannot install &quot;douban-fm&quot;: snap &quot;core&quot; has c       hanges in progress</code></p>
+<p>解决方法:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> snap changes    <span class="comment"># 查看正在进行的change</span></span><br><span class="line"><span class="built_in">sudo</span> snap abort num  <span class="comment"># 终止编号为num的进程</span></span><br></pre></td></tr></table></figure>
+
+<p>其他:</p>
+<p>snap类似容器操作，拥有应用程序所有的文件和库，各个应用程序完全独立</p>
+<ul>
+<li>应用程序更容易管理</li>
+<li>占用更多的磁盘空间</li>
+</ul>
+<p>snap软件安装：一般安装在<code>/snap</code>目录下</p>
+<p>snap常用操作:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> snap list                    <span class="comment"># 查看已安装</span></span><br><span class="line"><span class="built_in">sudo</span> snap find &lt;text to search&gt;   <span class="comment"># 搜索要安装的snap包</span></span><br><span class="line"><span class="built_in">sudo</span> snap install &lt;snap name&gt;     <span class="comment"># 安装snap包</span></span><br><span class="line"><span class="built_in">sudo</span> snap refresh &lt;snap name&gt;     <span class="comment"># 更新一个snap包</span></span><br><span class="line"><span class="built_in">sudo</span> snap revert &lt;snap name&gt;      <span class="comment"># 包还原到以前安装的版本</span></span><br><span class="line"><span class="built_in">sudo</span> snap remove &lt;snap name&gt;      <span class="comment"># 删除已安装的snap包</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Ubuntu-更改tty界面字体大小"><a href="#Ubuntu-更改tty界面字体大小" class="headerlink" title="Ubuntu 更改tty界面字体大小"></a>Ubuntu 更改tty界面字体大小</h2><p>文件<code>console-setup</code>指定编码和字体</p>
+<p><code>setupcon</code>程序实现字体大小</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> dpkg-reconfigure console-setup  <span class="comment"># 根据提示进行操作即可</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="apt使用-rpm包"><a href="#apt使用-rpm包" class="headerlink" title="apt使用.rpm包"></a>apt使用<code>.rpm</code>包</h2><p>使用转换工具<code>alien</code></p>
+<p>安装:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install alien</span><br></pre></td></tr></table></figure>
+
+<p>转换:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alien --scripts name.rpm</span><br></pre></td></tr></table></figure>
+
+<h2 id="CentOS大多软件包不能找到"><a href="#CentOS大多软件包不能找到" class="headerlink" title="CentOS大多软件包不能找到"></a>CentOS大多软件包不能找到</h2><p>需要启用EPEL</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> yum install epel-release</span><br><span class="line"><span class="built_in">sudo</span> yum update</span><br></pre></td></tr></table></figure>
+
+<h2 id="Windows发来文件乱码"><a href="#Windows发来文件乱码" class="headerlink" title="Windows发来文件乱码"></a>Windows发来文件乱码</h2><p>一般是由于编码不同引起的。</p>
+<p>使用<code>iconv</code>进行格式转换。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iconv -f GB2312 -t UTF-8 your_file &gt; target_file</span><br></pre></td></tr></table></figure>
+
+<h2 id="Ubuntu-18-04-useradd无法创建用户主目录"><a href="#Ubuntu-18-04-useradd无法创建用户主目录" class="headerlink" title="Ubuntu 18.04 useradd无法创建用户主目录"></a>Ubuntu 18.04 useradd无法创建用户主目录</h2><p>使用 useradd 添加用户，-d 指定用户家目录，&#x2F;home 目录下并没有创建用户 🏠 目录</p>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>方法一：在<code>/etc/login.defs</code>文件中添加或修改为<code>CREATE_HOME yes</code></p>
+<p>方法二：<code>useradd</code>使用<code>-m</code>参数,例如<code>useradd -m apple</code></p>
+<h2 id="Ubuntu-图形化界面-命令行界面"><a href="#Ubuntu-图形化界面-命令行界面" class="headerlink" title="Ubuntu 图形化界面&#x2F;命令行界面"></a>Ubuntu 图形化界面&#x2F;命令行界面</h2><ul>
+<li>默认进入命令行界面</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl set-default multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p>重启生效，进入命令行界面</p>
+<p>从命令行界面进入GUI界面一般情况下只需要执行<code>startx</code>即可。</p>
+<ul>
+<li>默认进入图形化界面</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl set-default graphical.target</span><br></pre></td></tr></table></figure>
+
+<p>重启生效</p>
+
+    
+    <hr>
+    <div class="content-tags">
+      
+      <i class="fas fa-tags"></i>
+      <ul>
+        
+        <li><a href="/tags/Linux/">
+          Linux
+        </a></li>
+      
+      </ul>
+    
+    </div>
+    
+     
+<div class="comment-tabs" id="comment-tabs">
+  comment:
+  <ul>
+    
+      <li><a href="#Valine">Valine</a></li>
+    
+    
+      <li><a href="#LiveRe">LiveRe</a></li>
+    
+    
+      <li><a href="#ChangYan">ChangYan</a></li>
+    
+  </ul>
+  
+  
+    <div id="ChangYan">
+      <!--PC和WAP自适应版-->
+      <div id="SOHUCS" ></div> 
+      <script type="text/javascript"> 
+      (function(){ 
+      var appid = 'cyuGH4lBk'; 
+      var conf = 'ae32d85e4ca99348209aedfd3ae01478'; 
+      var width = window.innerWidth || document.documentElement.clientWidth; 
+      if (width < 960) {
+      var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.id = 'changyan_mobile_js';
+      script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+      head.appendChild(script);
+      } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+      </script>
+    </div>
+   
+  
+  
+    <div id="LiveRe">
+      
+        <!-- LiveRe City install code -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80NjA4MS8yMjU5Mg==">
+          <script type="text/javascript">
+            (function(d, s) {
+              var j, e = d.getElementsByTagName(s)[0];
+              if (typeof LivereTower === 'function') { return; }
+              j = d.createElement(s);
+              j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+              j.async = true;
+              e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+          </script>
+          <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+          </div>
+          <!-- completed City install code -->
+        
+    </div>
+  
+  
+  
+    <div id="Valine">
+      <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+      <div id="vcomments"></div>
+      <script>
+        new Valine({
+          el: '#vcomments',
+          appId: '5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz',
+          appKey: '2q4UgVDTmeJf9Phe8VbnNKyC',
+          avatar: 'monsterid',
+          enableQQ: true
+        })
+      </script>
+    </div>
+   
+</div>
+
+  </div>
+</div>
+ 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='/2top/out_1.png'
+    data-mouse-hover-ani='/2top/hover_1.png,/2top/hover_2.png'
+    data-mouse-click-ani='/2top/click_1.png,/2top/click_2.png,/2top/click_3.png'
+    >
+    <canvas id="sprite-canvas" width="100" height="100"></canvas>
+  </div>
+</div>
+    </div>
+  </div>
+</body>
+
+
+
+    
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+    
+<script src="/lib/jquery/jquery-ui.min.js"></script>
+
+
+    
+<script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+
+
+    
+<script src="/lib/highlight/highlight.min.js"></script>
+
+
+    
+<script src="/js/milk.js"></script>
+
+
+
+</html>
