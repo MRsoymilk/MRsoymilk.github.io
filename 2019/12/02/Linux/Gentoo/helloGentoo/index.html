@@ -135,7 +135,7 @@
   <div class="progress-container">
     <div class="progress-bar" id="bar"></div>
   </div>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Gentoo-%E4%B9%8B%E6%97%85"><span class="toc-text">Gentoo 之旅</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E8%A7%81"><span class="toc-text">初见</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%8D%E9%81%87"><span class="toc-text">再遇</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%88%E4%B8%80%E6%AC%A1%E2%80%A6"><span class="toc-text">又一次…</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A8%B3%E5%AE%9A%E4%BA%86"><span class="toc-text">稳定了</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%91%E4%BB%AC%E5%BE%81%E7%A8%8B%E6%98%AF%E6%98%9F%E8%BE%B0%E5%A4%A7%E6%B5%B7"><span class="toc-text">我们征程是星辰大海</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Gentoo-%E4%B9%8B%E6%97%85"><span class="toc-text">Gentoo 之旅</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E8%A7%81"><span class="toc-text">初见</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%8D%E9%81%87"><span class="toc-text">再遇</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%88%E4%B8%80%E6%AC%A1%E2%80%A6"><span class="toc-text">又一次…</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A8%B3%E5%AE%9A%E4%BA%86"><span class="toc-text">稳定了</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E4%BA%86%E5%BE%88%E9%95%BF%E6%97%B6%E9%97%B4%E7%9A%84"><span class="toc-text">用了很长时间的</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%91%E4%BB%AC%E5%BE%81%E7%A8%8B%E6%98%AF%E6%98%9F%E8%BE%B0%E5%A4%A7%E6%B5%B7"><span class="toc-text">我们征程是星辰大海</span></a></li></ol>
 </div>
 
 <div class="post-content" id="post-content">
@@ -179,23 +179,41 @@
 <p><img src="/nice.png" alt="nice Gentoo"></p>
 <p>配置：</p>
 <ul>
-<li>桌面环境：Xfce4</li>
-<li>窗口管理：i3wm</li>
-<li>Shell：zsh(通过 oh-my-zsh 配置)</li>
+<li>桌面环境：<code>Xfce4</code></li>
+<li>窗口管理：<code>i3wm</code></li>
+<li>Shell：<code>zsh</code>(通过 <code>oh-my-zsh</code> 配置)</li>
 </ul>
 <h3 id="又一次…"><a href="#又一次…" class="headerlink" title="又一次…"></a>又一次…</h3><p>为什么又一次，这还要从删除了<code>/var/db</code>说起，当我删除此目录后，外存-2G，然后再也无法使用<code>emerge</code>了，使用<code>stage3</code>包也没有重建成功。</p>
 <p><img src="/desktop.jpg" alt="again Gentoo"></p>
 <h3 id="稳定了"><a href="#稳定了" class="headerlink" title="稳定了"></a>稳定了</h3><p>配置：</p>
 <ul>
-<li>不特别安装桌面环境，例如Xfce4</li>
-<li>xorg-server</li>
-<li>窗口管理器：i3wm，锁屏i3-block，状态显示i3blocks</li>
-<li>音乐播放器：cmus</li>
-<li>视频播放器：mpv</li>
-<li>Shell：zsh</li>
-<li>terminal：alacritty</li>
-<li>文件管理器：图形化界面的PCManFM，命令行下使用的ranger</li>
+<li>不特别安装桌面环境，例如 <code>Xfce4</code></li>
+<li><code>xorg-server</code></li>
+<li>窗口管理器：<code>i3wm</code>，锁屏 <code>i3-block</code>，状态显示 <code>i3blocks</code></li>
+<li>音乐播放器：<code>cmus</code></li>
+<li>视频播放器：<code>mpv</code></li>
+<li>Shell：<code>zsh</code></li>
+<li>terminal：<code>alacritty</code></li>
+<li>文件管理器：图形化界面的 <code>PCManFM</code>，命令行下使用的 <code>ranger</code></li>
 </ul>
+<h3 id="用了很长时间的"><a href="#用了很长时间的" class="headerlink" title="用了很长时间的"></a>用了很长时间的</h3><p>伴随 <code>/var</code> 和 <code>/home</code> 所在的固态硬盘损坏，个人数据全丢，虽然 <code>/var</code> 也被摧毁，但是经过重建包，系统依然能够正常使用。</p>
+<pre><code class="bash">lsblk
+NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+sda           8:0    0 119.2G  0 disk
+├─sda1        8:1    0    32G  0 part /var
+└─sda2        8:2    0  87.2G  0 part /home
+nvme0n1     259:0    0 238.5G  0 disk
+├─nvme0n1p1 259:1    0   512M  0 part /boot
+├─nvme0n1p2 259:2    0     4G  0 part [SWAP]
+└─nvme0n1p3 259:3    0 229.3G  0 part /
+</code></pre>
+<p>配置：</p>
+<ul>
+<li>窗口管理器从 <code>i3wm</code> 换成了 <code>awesomewm</code></li>
+<li>文件管理器现在使用 <code>xfe</code></li>
+<li>中文字体使用 <code>lxgw-wenkai</code></li>
+</ul>
+<p><img src="/long_use_gentoo.jpg" alt="long use Gentoo"></p>
 <h2 id="我们征程是星辰大海"><a href="#我们征程是星辰大海" class="headerlink" title="我们征程是星辰大海"></a>我们征程是星辰大海</h2>
     
     <hr>

@@ -180,6 +180,18 @@ Failed to create GBM buffer of size 893x740: Permission denied
 </code></pre>
 <span id="more"></span>
 
+<p>如果通过命令行进行启动，需要修改 <code>foliate</code> 对应的桌面配置相关文件。</p>
+<p>将系统配置 <code>/usr/share/applications/com.github.johnfactotum.Foliate.desktop</code> 复制到 <code>~/.local/share/applications</code> 目录下</p>
+<p>修改</p>
+<pre><code class="desktop">Exec=foliate %U
+</code></pre>
+<p>为</p>
+<pre><code class="desktop">Exec=env WEBKIT_DISABLE_DMABUF_RENDERER=1 foliate %U
+</code></pre>
+<p>更新桌面资料库</p>
+<pre><code class="bash">update-desktop-database ~/.local/share/applications
+</code></pre>
+
     
     <hr>
     <div class="content-tags">
