@@ -162,18 +162,43 @@
     
     <h2 id="下载-ollama"><a href="#下载-ollama" class="headerlink" title="下载 ollama"></a>下载 ollama</h2><p><img src="/download.jpg" alt="download ollama"></p>
 <p>启动命令行：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">ollama</span><br><span class="line">Usage:</span><br><span class="line">  ollama [flags]</span><br><span class="line">  ollama [<span class="built_in">command</span>]</span><br><span class="line"></span><br><span class="line">Available Commands:</span><br><span class="line">  serve       Start ollama</span><br><span class="line">  create      Create a model from a Modelfile</span><br><span class="line">  show        Show information <span class="keyword">for</span> a model</span><br><span class="line">  run         Run a model</span><br><span class="line">  stop        Stop a running model</span><br><span class="line">  pull        Pull a model from a registry</span><br><span class="line">  push        Push a model to a registry</span><br><span class="line">  list        List models</span><br><span class="line">  ps          List running models</span><br><span class="line">  <span class="built_in">cp</span>          Copy a model</span><br><span class="line">  <span class="built_in">rm</span>          Remove a model</span><br><span class="line">  <span class="built_in">help</span>        Help about any <span class="built_in">command</span></span><br><span class="line"></span><br><span class="line">Flags:</span><br><span class="line">  -h, --<span class="built_in">help</span>      <span class="built_in">help</span> <span class="keyword">for</span> ollama</span><br><span class="line">  -v, --version   Show version information</span><br><span class="line"></span><br><span class="line">Use <span class="string">&quot;ollama [command] --help&quot;</span> <span class="keyword">for</span> more information about a <span class="built_in">command</span>.</span><br></pre></td></tr></table></figure>
+<pre><code class="sh">ollama
+Usage:
+  ollama [flags]
+  ollama [command]
 
+Available Commands:
+  serve       Start ollama
+  create      Create a model from a Modelfile
+  show        Show information for a model
+  run         Run a model
+  stop        Stop a running model
+  pull        Pull a model from a registry
+  push        Push a model to a registry
+  list        List models
+  ps          List running models
+  cp          Copy a model
+  rm          Remove a model
+  help        Help about any command
+
+Flags:
+  -h, --help      help for ollama
+  -v, --version   Show version information
+
+Use &quot;ollama [command] --help&quot; for more information about a command.
+</code></pre>
 <h2 id="下载模型"><a href="#下载模型" class="headerlink" title="下载模型"></a>下载模型</h2><p>模型网站：<a target="_blank" rel="noopener" href="https://ollama.com/search">https://ollama.com/search</a></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ollama pull llama3.2</span><br><span class="line"><span class="comment"># or</span></span><br><span class="line">ollama run llama3.2</span><br></pre></td></tr></table></figure>
-
+<pre><code class="sh">ollama pull llama3.2
+# or
+ollama run llama3.2
+</code></pre>
 <p><img src="/usage.jpg" alt="usage"></p>
 <h2 id="安装-web-ui"><a href="#安装-web-ui" class="headerlink" title="安装 web ui"></a>安装 web ui</h2><p>需要 python 版本&gt;&#x3D;3.11</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install open-webui</span><br></pre></td></tr></table></figure>
-
+<pre><code class="sh">pip install open-webui
+</code></pre>
 <p>运行</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open-webui serve</span><br></pre></td></tr></table></figure>
-
+<pre><code class="sh">open-webui serve
+</code></pre>
 <p>默认网址：<a target="_blank" rel="noopener" href="http://localhost:8080/">http://localhost:8080</a></p>
 <p><img src="/webui.jpg" alt="webui"></p>
 

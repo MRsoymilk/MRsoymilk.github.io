@@ -160,12 +160,40 @@
     </div>
     <hr>
     
-    <h2 id="第一个-OpenCV-示例"><a href="#第一个-OpenCV-示例" class="headerlink" title="第一个 OpenCV 示例"></a>第一个 OpenCV 示例</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">  cv::Mat img = cv::<span class="built_in">imread</span>(<span class="string">&quot;lena.jpeg&quot;</span>);</span><br><span class="line">  cv::<span class="built_in">imshow</span>(<span class="string">&quot;lena&quot;</span>, img);</span><br><span class="line">  cv::<span class="built_in">waitKey</span>(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <h2 id="第一个-OpenCV-示例"><a href="#第一个-OpenCV-示例" class="headerlink" title="第一个 OpenCV 示例"></a>第一个 OpenCV 示例</h2><pre><code class="C++">#include &lt;opencv2/opencv.hpp&gt;
 
+int main()&#123;
+  cv::Mat img = cv::imread(&quot;lena.jpeg&quot;);
+  cv::imshow(&quot;lena&quot;, img);
+  cv::waitKey(0);
+  return 0;
+&#125;
+</code></pre>
 <span id="more"></span>
 
-<h3 id="代码解释"><a href="#代码解释" class="headerlink" title="代码解释"></a>代码解释</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">`<span class="meta">#<span class="keyword">include</span> <span class="string">&lt;opencv2/opencv.hpp&gt;</span>`：</span></span><br><span class="line">        类型：OpenCV头文件</span><br><span class="line">        功能：包含了所有的OpenCV</span><br><span class="line">        说明：一次引入，后续无忧🎉</span><br><span class="line">`cv`：</span><br><span class="line">        类型：OpenCV命名空间</span><br><span class="line">`Mat`：</span><br><span class="line">        类型：OpenCV自定义类型，matrix矩阵</span><br><span class="line">        功能：定义一个矩阵容器，存放图像</span><br><span class="line">        说明：计算机中图像为矩阵存储</span><br><span class="line">`imread`:</span><br><span class="line">        类型：OpenCV函数</span><br><span class="line">        功能：从文件中加载图像</span><br><span class="line">        说明：<span class="built_in">imread</span>(图片地址)</span><br><span class="line">`imshow`：</span><br><span class="line">        类型：OpenCV函数</span><br><span class="line">        功能：显示图片</span><br><span class="line">        说明：<span class="built_in">imshow</span>(<span class="string">&quot;窗体名称&quot;</span>, 展示的图片)</span><br><span class="line">`waitKey`：</span><br><span class="line">        类型：OpenCV函数</span><br><span class="line">        功能：等待按键</span><br><span class="line">        说明：<span class="number">0</span>表示永久等待，正数表示毫米级时间，负数效果和<span class="number">0</span>一样(个人测试结果)</span><br></pre></td></tr></table></figure>
-
+<h3 id="代码解释"><a href="#代码解释" class="headerlink" title="代码解释"></a>代码解释</h3><pre><code class="CPP">`#include &lt;opencv2/opencv.hpp&gt;`：
+        类型：OpenCV头文件
+        功能：包含了所有的OpenCV
+        说明：一次引入，后续无忧🎉
+`cv`：
+        类型：OpenCV命名空间
+`Mat`：
+        类型：OpenCV自定义类型，matrix矩阵
+        功能：定义一个矩阵容器，存放图像
+        说明：计算机中图像为矩阵存储
+`imread`:
+        类型：OpenCV函数
+        功能：从文件中加载图像
+        说明：imread(图片地址)
+`imshow`：
+        类型：OpenCV函数
+        功能：显示图片
+        说明：imshow(&quot;窗体名称&quot;, 展示的图片)
+`waitKey`：
+        类型：OpenCV函数
+        功能：等待按键
+        说明：0表示永久等待，正数表示毫米级时间，负数效果和0一样(个人测试结果)
+</code></pre>
 <h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="窗口命名"><a href="#窗口命名" class="headerlink" title="窗口命名"></a>窗口命名</h3><p><code>namedWindow</code>:<br>cv::namedWindow(“windows name”, 窗口参数)</p>
 <p><strong>窗口参数</strong>:</p>
 <ul>

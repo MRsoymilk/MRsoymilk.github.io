@@ -171,8 +171,15 @@
 <span id="more"></span>
 
 <h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="进入-pom-xml-所在目录中"><a href="#进入-pom-xml-所在目录中" class="headerlink" title="进入 pom.xml 所在目录中"></a>进入 pom.xml 所在目录中</h3><p>JHipster 已经帮我们做好了绝大部分工作<br>如果是普通 Spring Boot 项目<br>添加 Maven 依赖插件</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>组织名.项目名.模块<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="xml">&lt;build&gt;
+    &lt;plugins&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;组织名.项目名.模块&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;
+</code></pre>
 <p><em>完全参考博客</em></p>
 <h3 id="运行-Maven-命令"><a href="#运行-Maven-命令" class="headerlink" title="运行 Maven 命令"></a>运行 Maven 命令</h3><p><code>mvn clean package -Dmaven.test.skip=true</code></p>
 <h3 id="运行文件"><a href="#运行文件" class="headerlink" title="运行文件"></a>运行文件</h3><p>打包完成后进入<code>target</code>目录, 执行：<br><code>java -jar your_project.jar</code><br>此时可以认为部署在此台主机</p>

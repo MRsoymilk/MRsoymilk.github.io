@@ -179,35 +179,82 @@
 <li><a target="_blank" rel="noopener" href="https://blog.soymilk.fun/2019/09/18/Linux/Shell/Shell%E5%87%BD%E6%95%B0/">Shell 函数</a></li>
 </ul>
 <h2 id="for"><a href="#for" class="headerlink" title="for"></a>for</h2><p><em>关键字</em>: <code>for</code> <code>in</code> <code>do</code> <code>done</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">遍历列表</span></span><br><span class="line">for i in item_1 item_2</span><br><span class="line">do</span><br><span class="line">  do_something...</span><br><span class="line">done</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">---中文解释---</span></span><br><span class="line">for 变量 in 取值列表</span><br><span class="line">do</span><br><span class="line">  命令序列</span><br><span class="line">done</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">循环指定次数</span></span><br><span class="line">for (( i=1; i&lt;=5; ++i )); do</span><br><span class="line">  echo $i</span><br><span class="line">done</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">将会输出1 ~ 5</span></span><br></pre></td></tr></table></figure>
+<pre><code class="Shell"># 遍历列表
+for i in item_1 item_2
+do
+  do_something...
+done
+# ---中文解释---
+for 变量 in 取值列表
+do
+  命令序列
+done
 
+# 循环指定次数
+for (( i=1; i&lt;=5; ++i )); do
+  echo $i
+done
+# 将会输出1 ~ 5
+</code></pre>
 <p>for 遍历列表示例</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for i in 1 2 3 4 5</span><br><span class="line">do</span><br><span class="line">  echo $i</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
-
+<pre><code class="Shell">for i in 1 2 3 4 5
+do
+  echo $i
+done
+</code></pre>
 <p>for 的无限循环</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for (( ; ; )); do</span><br><span class="line">  do_something...</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
-
+<pre><code class="Shell">for (( ; ; )); do
+  do_something...
+done
+</code></pre>
 <p><em>格式控制</em>: <code>for</code>与<code>do</code>与<code>done</code>需要分开</p>
 <h2 id="while"><a href="#while" class="headerlink" title="while"></a>while</h2><p>关键字: <code>while</code> <code>do</code> <code>done</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while condition</span><br><span class="line">do</span><br><span class="line">  do_something...</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
-
+<pre><code class="Shell">while condition
+do
+  do_something...
+done
+</code></pre>
 <p>while 无限循环</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">while true</span><br><span class="line">  do_something...</span><br><span class="line">done</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">or</span></span><br><span class="line">while :</span><br><span class="line">do</span><br><span class="line">  do_something...</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
-
+<pre><code class="Shell">while true
+  do_something...
+done
+# or
+while :
+do
+  do_something...
+done
+</code></pre>
 <p><em>格式控制</em>: <code>while</code>与<code>do</code>与<code>done</code>需要分开</p>
 <h2 id="until"><a href="#until" class="headerlink" title="until"></a>until</h2><p>循环执行直到条件为 true 时停止<br>关键字: <code>until</code> <code>do</code> <code>done</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">until condition</span><br><span class="line">do</span><br><span class="line">  do_something</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
-
+<pre><code class="Shell">until condition
+do
+  do_something
+done
+</code></pre>
 <p>until 无限循环</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">until false</span><br><span class="line">do</span><br><span class="line">  do_something...</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
-
+<pre><code class="Shell">until false
+do
+  do_something...
+done
+</code></pre>
 <p><em>格式控制</em>: <code>until</code>与<code>do</code>与<code>done</code>需要分开</p>
 <h2 id="break"><a href="#break" class="headerlink" title="break"></a>break</h2><p>跳出 break 所在循环代码块</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">for (( i=1; i&lt;=5; ++i )); do</span><br><span class="line">  if [ $i -eq 3 ]; then</span><br><span class="line">    break</span><br><span class="line">  fi</span><br><span class="line">  echo $i</span><br><span class="line">done</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">将输出1 2</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="Shell">for (( i=1; i&lt;=5; ++i )); do
+  if [ $i -eq 3 ]; then
+    break
+  fi
+  echo $i
+done
+# 将输出1 2
+</code></pre>
 <h2 id="continue"><a href="#continue" class="headerlink" title="continue"></a>continue</h2><p>直接进行<code>下一次</code>循环</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">for (( i=1; i&lt;=5; ++i )); do</span><br><span class="line">  if [$i -eq 3 ]; then</span><br><span class="line">    continue</span><br><span class="line">  fi</span><br><span class="line">done</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">将输出1 2 4 5</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="Shell">for (( i=1; i&lt;=5; ++i )); do
+  if [$i -eq 3 ]; then
+    continue
+  fi
+done
+# 将输出1 2 4 5
+</code></pre>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>循环基本语法大体为<code>循环名称</code> + <code>do</code> + <code>执行语句</code> + <code>done</code></p>
 
     

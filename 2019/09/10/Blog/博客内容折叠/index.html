@@ -160,8 +160,13 @@
     </div>
     <hr>
     
-    <h2 id="内容折叠"><a href="#内容折叠" class="headerlink" title="内容折叠"></a>内容折叠</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">details</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">summary</span>&gt;</span>more<span class="tag">&lt;/<span class="name">summary</span>&gt;</span></span><br><span class="line"></span><br><span class="line">what&#x27;s more?</span><br><span class="line">this is more.</span><br><span class="line"><span class="tag">&lt;/<span class="name">details</span>&gt;</span></span><br></pre></td></tr></table></figure>
+    <h2 id="内容折叠"><a href="#内容折叠" class="headerlink" title="内容折叠"></a>内容折叠</h2><pre><code class="HTML">&lt;details&gt;
+&lt;summary&gt;more&lt;/summary&gt;
 
+what&#39;s more?
+this is more.
+&lt;/details&gt;
+</code></pre>
 <span id="more"></span>
 
 <p><strong>注意</strong>：<code>&lt;summary&gt;</code>标签下需要空一行否则显示原始文本。</p>
@@ -174,13 +179,20 @@
 <p><code>&lt;details&gt;</code>：HTML 元素，切换为展开状态时显示内含内容</p>
 <p><code>&lt;summary&gt;</code>：为<code>&lt;details&gt;</code>提供概要或标签</p>
 <h3 id="个人使用"><a href="#个人使用" class="headerlink" title="个人使用"></a>个人使用</h3><p>主要是压缩一些代码。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">details</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">summary</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">summary</span>&gt;</span></span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line">  echo &quot;hello world&quot;</span><br><span class="line">```</span><br><span class="line"><span class="tag">&lt;/<span class="name">details</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="HTML">&lt;details&gt;
+  &lt;summary&gt;hello&lt;/summary&gt;
 
+```bash
+  echo &quot;hello world&quot;
+```
+&lt;/details&gt;
+</code></pre>
 <p>效果：</p>
 <details>
   <summary>hello</summary>
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;hello world&quot;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="bash">  echo &quot;hello world&quot;
+</code></pre>
 </details>
 
 

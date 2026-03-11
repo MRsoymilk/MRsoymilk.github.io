@@ -169,7 +169,47 @@
     
     <p>效果</p>
 <p><img src="/clock.png" alt="clock"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> PyQt5.QtCore <span class="keyword">import</span> QTimer, QTime</span><br><span class="line"><span class="keyword">from</span> PyQt5.QtWidgets <span class="keyword">import</span> QWidget, QLCDNumber, QVBoxLayout, QApplication</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Clock</span>(<span class="title class_ inherited__">QWidget</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        QWidget.__init__(<span class="variable language_">self</span>)</span><br><span class="line">        <span class="comment"># set layout</span></span><br><span class="line">        <span class="variable language_">self</span>.resize(<span class="number">600</span>, <span class="number">300</span>)</span><br><span class="line">        <span class="variable language_">self</span>.v_layout = QVBoxLayout()</span><br><span class="line">        <span class="variable language_">self</span>.setLayout(<span class="variable language_">self</span>.v_layout)</span><br><span class="line"></span><br><span class="line">        <span class="variable language_">self</span>.lcd = QLCDNumber()</span><br><span class="line">        <span class="variable language_">self</span>.lcd.setDigitCount(<span class="number">8</span>)</span><br><span class="line">        <span class="variable language_">self</span>.v_layout.addWidget(<span class="variable language_">self</span>.lcd)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># data</span></span><br><span class="line">        <span class="variable language_">self</span>.dot = <span class="literal">True</span></span><br><span class="line">        <span class="variable language_">self</span>.timer = QTimer(<span class="variable language_">self</span>)</span><br><span class="line">        <span class="variable language_">self</span>.timer.timeout.connect(<span class="variable language_">self</span>.updateTime)</span><br><span class="line">        <span class="variable language_">self</span>.timer.start(<span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># update</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">updateTime</span>(<span class="params">self</span>):</span><br><span class="line">        time = QTime.currentTime()</span><br><span class="line">        time_text = time.toString()</span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>.dot:</span><br><span class="line">            time_text.replace(<span class="string">&quot;:&quot;</span>, <span class="string">&quot; &quot;</span>)</span><br><span class="line">            <span class="variable language_">self</span>.dot = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="variable language_">self</span>.dot = <span class="literal">True</span></span><br><span class="line">        <span class="variable language_">self</span>.lcd.display(time_text)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app = QApplication(sys.argv)</span><br><span class="line">    clock = Clock()</span><br><span class="line">    clock.show()</span><br><span class="line">    sys.exit(app.exec_())</span><br></pre></td></tr></table></figure>
+<pre><code class="python">import sys
+
+from PyQt5.QtCore import QTimer, QTime
+from PyQt5.QtWidgets import QWidget, QLCDNumber, QVBoxLayout, QApplication
+
+class Clock(QWidget):
+    def __init__(self):
+        QWidget.__init__(self)
+        # set layout
+        self.resize(600, 300)
+        self.v_layout = QVBoxLayout()
+        self.setLayout(self.v_layout)
+
+        self.lcd = QLCDNumber()
+        self.lcd.setDigitCount(8)
+        self.v_layout.addWidget(self.lcd)
+
+        # data
+        self.dot = True
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.updateTime)
+        self.timer.start(1000)
+
+    # update
+    def updateTime(self):
+        time = QTime.currentTime()
+        time_text = time.toString()
+        if self.dot:
+            time_text.replace(&quot;:&quot;, &quot; &quot;)
+            self.dot = False
+        else:
+            self.dot = True
+        self.lcd.display(time_text)
+
+
+if __name__ == &#39;__main__&#39;:
+    app = QApplication(sys.argv)
+    clock = Clock()
+    clock.show()
+    sys.exit(app.exec_())
+</code></pre>
 
     
     <hr>

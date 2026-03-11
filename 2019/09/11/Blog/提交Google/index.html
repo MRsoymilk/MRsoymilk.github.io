@@ -171,8 +171,8 @@
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/9c2d6db2f855">简书 viggoz</a></p>
 <h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>确认网页是否被收录</p>
 <p>搜索格式：</p>
-<figure class="highlight profile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">site:url</span><br></pre></td></tr></table></figure>
-
+<pre><code class="profile">site:url
+</code></pre>
 <p><img src="/site_search.png" alt="search"></p>
 <p>点击<code>尝试使用Google Search Console</code>即可进入 Google 控制台</p>
 <p>在此之前你需要:</p>
@@ -201,8 +201,8 @@
 </ol>
 <p>稍等一会即可</p>
 <p>搜索, 以我的博客为例</p>
-<figure class="highlight profile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">site:blog.soymilk.fun</span><br></pre></td></tr></table></figure>
-
+<pre><code class="profile">site:blog.soymilk.fun
+</code></pre>
 <p><img src="/site_get.png" alt="find it!"></p>
 <h2 id="百度提交"><a href="#百度提交" class="headerlink" title="百度提交"></a>百度提交</h2><ol>
 <li>相同的操作</li>
@@ -224,16 +224,20 @@
 <li>安装站点地图生成插件</li>
 </ol>
 <p>位置: hexo_blog&#x2F;</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install hexo-generator-sitemap --save</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">cnpm install hexo-generator-sitemap --save
+</code></pre>
 <p><em><code>cnpm</code>和<code>npm</code>功能一致，使用的是国内源，速度更快</em></p>
 <ol start="2">
 <li>修改_config.yml 文件</li>
 </ol>
 <p>位置: hexo_blog&#x2F;</p>
 <p>添加代码:</p>
-<figure class="highlight profile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Plugins:</span><br><span class="line">- hexo-generator-sitemap</span><br><span class="line"></span><br><span class="line">sitemap:</span><br><span class="line">  path: sitemap.xml</span><br></pre></td></tr></table></figure>
+<pre><code class="profile">Plugins:
+- hexo-generator-sitemap
 
+sitemap:
+  path: sitemap.xml
+</code></pre>
 <ol start="3">
 <li>生成站点地图</li>
 </ol>

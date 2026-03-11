@@ -175,23 +175,23 @@
 <ol>
 <li>如果是移动端开发，请在 head 标签内添加 viewport meta 标签，以达到最佳的绘制性能；</li>
 </ol>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;initial-scale=1.0, user-scalable=no&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="HTML">&lt;meta name=&quot;viewport&quot; content=&quot;initial-scale=1.0, user-scalable=no&quot;&gt;
+</code></pre>
 <ol start="2">
 <li>添加 div 标签作为地图容器，同时为该 div 指定 id 属性；</li>
 </ol>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;container&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="HTML">&lt;div id=&quot;container&quot;&gt;&lt;/div&gt;
+</code></pre>
 <ol start="3">
 <li>通过 css 为地图容器指定高度、宽度；</li>
 </ol>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#container</span> &#123;<span class="attribute">width</span>:<span class="number">300px</span>; <span class="attribute">height</span>: <span class="number">180px</span>; &#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="CSS">#container &#123;width:300px; height: 180px; &#125;
+</code></pre>
 <ol start="4">
 <li>引入地图 JSAPI 脚本，<a target="_blank" rel="noopener" href="https://developer.amap.com/api/jsapi-v2/guide/abc/load">更多 JSAPI 加载方式</a>。</li>
 </ol>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;https://webapi.amap.com/maps?v=2.0&amp;key=你申请的key值&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="HTML">&lt;script type=&quot;text/javascript&quot; src=&quot;https://webapi.amap.com/maps?v=2.0&amp;key=你申请的key值&quot;&gt;&lt;/script&gt;
+</code></pre>
 <ol start="5">
 <li>在完成如上准备工作之后便可以开始进行开发了。</li>
 </ol>
@@ -199,19 +199,54 @@
 <ol>
 <li>在当前目录下执行</li>
 </ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m http.server <span class="number">8000</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="python">python3 -m http.server 8000
+</code></pre>
 <p>访问：<code>localhost:8000/AMap.html</code>即可</p>
 <ol start="2">
 <li>直接使用浏览器打开相应文件，直接通过文件形式访问可能会出现其他问题。</li>
 </ol>
 <h2 id="完整文件"><a href="#完整文件" class="headerlink" title="完整文件"></a>完整文件</h2><p>需要将<code>your_key</code>替换为你自己的 key：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>AMap<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">      <span class="selector-id">#container</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">width</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">height</span>: <span class="number">180px</span>;</span></span><br><span class="line"><span class="language-css">      &#125;</span></span><br><span class="line"><span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;container&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://webapi.amap.com/loader.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="title class_">AMapLoader</span>.<span class="title function_">load</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="attr">key</span>: <span class="string">&quot;your_key&quot;</span>, <span class="comment">// 申请好的Web端开发者Key，首次调用 load 时必填</span></span></span><br><span class="line"><span class="language-javascript">      <span class="attr">version</span>: <span class="string">&quot;2.0&quot;</span>, <span class="comment">// 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15</span></span></span><br><span class="line"><span class="language-javascript">      <span class="attr">plugins</span>: [], <span class="comment">// 需要使用的的插件列表，如比例尺&#x27;AMap.Scale&#x27;等</span></span></span><br><span class="line"><span class="language-javascript">    &#125;)</span></span><br><span class="line"><span class="language-javascript">      .<span class="title function_">then</span>(<span class="function">(<span class="params">AMap</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">var</span> map = <span class="keyword">new</span> <span class="title class_">AMap</span>.<span class="title class_">Map</span>(<span class="string">&quot;container&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">      &#125;)</span></span><br><span class="line"><span class="language-javascript">      .<span class="title function_">catch</span>(<span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">console</span>.<span class="title function_">error</span>(e); <span class="comment">// 加载错误提示</span></span></span><br><span class="line"><span class="language-javascript">      &#125;);</span></span><br><span class="line"><span class="language-javascript">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot; /&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;title&gt;AMap&lt;/title&gt;
+    &lt;style&gt;
+      #container &#123;
+        width: 300px;
+        height: 180px;
+      &#125;
+    &lt;/style&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&quot;container&quot;&gt;&lt;/div&gt;
+  &lt;/body&gt;
+  &lt;script src=&quot;https://webapi.amap.com/loader.js&quot;&gt;&lt;/script&gt;
+  &lt;script type=&quot;text/javascript&quot;&gt;
+    AMapLoader.load(&#123;
+      key: &quot;your_key&quot;, // 申请好的Web端开发者Key，首次调用 load 时必填
+      version: &quot;2.0&quot;, // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
+      plugins: [], // 需要使用的的插件列表，如比例尺&#39;AMap.Scale&#39;等
+    &#125;)
+      .then((AMap) =&gt; &#123;
+        var map = new AMap.Map(&quot;container&quot;);
+      &#125;)
+      .catch((e) =&gt; &#123;
+        console.error(e); // 加载错误提示
+      &#125;);
+  &lt;/script&gt;
+&lt;/html&gt;
+</code></pre>
 <p>效果：</p>
 <p><img src="/result.png" alt="result"></p>
-<h2 id="简单拓展"><a href="#简单拓展" class="headerlink" title="简单拓展"></a>简单拓展</h2><h3 id="初始"><a href="#初始" class="headerlink" title="初始"></a>初始</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> map = <span class="keyword">new</span> <span class="title class_">AMap</span>.<span class="title class_">Map</span>(<span class="string">&quot;container&quot;</span>, &#123;</span><br><span class="line">  <span class="attr">zoom</span>: <span class="number">11</span>, <span class="comment">// 缩放级别</span></span><br><span class="line">  <span class="attr">center</span>: [<span class="number">116</span>, <span class="number">39</span>], <span class="comment">// 中心点坐标</span></span><br><span class="line">  <span class="attr">viewMode</span>: <span class="string">&quot;3D&quot;</span>, <span class="comment">// 使用3D视图</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
+<h2 id="简单拓展"><a href="#简单拓展" class="headerlink" title="简单拓展"></a>简单拓展</h2><h3 id="初始"><a href="#初始" class="headerlink" title="初始"></a>初始</h3><pre><code class="javascript">var map = new AMap.Map(&quot;container&quot;, &#123;
+  zoom: 11, // 缩放级别
+  center: [116, 39], // 中心点坐标
+  viewMode: &quot;3D&quot;, // 使用3D视图
+&#125;);
+</code></pre>
 <h3 id="图层"><a href="#图层" class="headerlink" title="图层"></a>图层</h3><p>官方提供图层：</p>
 <ul>
 <li>标准</li>
@@ -222,19 +257,67 @@
 <li>…</li>
 </ul>
 <p>默认只显示标准底图，可以使用<code>map.add</code>方法添加图层。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> map = <span class="keyword">new</span> <span class="title class_">AMap</span>.<span class="title class_">Map</span>(<span class="string">&quot;container&quot;</span>, &#123;</span><br><span class="line">  <span class="attr">zoom</span>: <span class="number">11</span>, <span class="comment">// 缩放级别</span></span><br><span class="line">  <span class="attr">center</span>: [<span class="number">116</span>, <span class="number">39</span>] <span class="comment">// 中心点坐标</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实时路况图层</span></span><br><span class="line"><span class="keyword">var</span> traffic = <span class="keyword">new</span> <span class="title class_">AMap</span>.<span class="property">TileLayer</span>.<span class="title class_">Traffic</span>(&#123;</span><br><span class="line">    <span class="attr">zIndex</span>: <span class="number">10</span></span><br><span class="line">&#125;);</span><br><span class="line">map.<span class="title function_">add</span>(traffic)</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">var map = new AMap.Map(&quot;container&quot;, &#123;
+  zoom: 11, // 缩放级别
+  center: [116, 39] // 中心点坐标
+&#125;);
 
+// 实时路况图层
+var traffic = new AMap.TileLayer.Traffic(&#123;
+    zIndex: 10
+&#125;);
+map.add(traffic)
+</code></pre>
 <p>初始化时添加图层：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> map = <span class="keyword">new</span> <span class="title class_">AMap</span>.<span class="title class_">Map</span>(<span class="string">&quot;container&quot;</span>, &#123;</span><br><span class="line">  <span class="attr">zoom</span>: <span class="number">11</span>, <span class="comment">// 缩放级别</span></span><br><span class="line">  <span class="attr">center</span>: [<span class="number">116</span>, <span class="number">39</span>], <span class="comment">// 中心点坐标</span></span><br><span class="line">  <span class="attr">layers</span>: [</span><br><span class="line">      <span class="keyword">new</span> <span class="title class_">AMap</span>.<span class="property">TileLayer</span>.<span class="title class_">Satellite</span>(),</span><br><span class="line">      <span class="keyword">new</span> <span class="title class_">AMap</span>.<span class="property">TileLayer</span>.<span class="title class_">RoadNet</span>()</span><br><span class="line">  ]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
+<pre><code class="javascript">var map = new AMap.Map(&quot;container&quot;, &#123;
+  zoom: 11, // 缩放级别
+  center: [116, 39], // 中心点坐标
+  layers: [
+      new AMap.TileLayer.Satellite(),
+      new AMap.TileLayer.RoadNet()
+  ]
+&#125;);
+</code></pre>
 <h3 id="点标记"><a href="#点标记" class="headerlink" title="点标记"></a>点标记</h3><p>默认样式Marker</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> marker = <span class="keyword">new</span> <span class="title class_">AMap</span>.<span class="title class_">Marker</span>(&#123;</span><br><span class="line">    <span class="attr">position</span>: [<span class="number">116</span>, <span class="number">39</span>]</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 添加点标记</span></span><br><span class="line">map.<span class="title function_">add</span>(marker)</span><br><span class="line"><span class="comment">// 移除点标记</span></span><br><span class="line">map.<span class="title function_">remove</span>(marker)</span><br></pre></td></tr></table></figure>
+<pre><code class="js">var marker = new AMap.Marker(&#123;
+    position: [116, 39]
+&#125;)
 
+// 添加点标记
+map.add(marker)
+// 移除点标记
+map.remove(marker)
+</code></pre>
 <p>矢量图形标记</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> lineArr = [</span><br><span class="line">    [<span class="number">110</span>, <span class="number">30</span>],</span><br><span class="line">    [<span class="number">111</span>, <span class="number">29</span>],</span><br><span class="line">    [<span class="number">112</span>, <span class="number">28</span>]</span><br><span class="line">]</span><br><span class="line"><span class="keyword">var</span> polyline = <span class="keyword">new</span> <span class="title class_">AMap</span>.<span class="title class_">Polyline</span>(&#123;</span><br><span class="line">    <span class="attr">path</span>: lineArr,</span><br><span class="line">    <span class="attr">strokeColor</span>: <span class="string">&quot;#ff0000&quot;</span>,</span><br><span class="line">    <span class="attr">strokeWeight</span>: <span class="number">5</span>,</span><br><span class="line">    <span class="attr">strokeStyle</span>: <span class="string">&quot;solid&quot;</span></span><br><span class="line">&#125;);</span><br><span class="line">map.<span class="title function_">add</span>(polyline)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="js">var lineArr = [
+    [110, 30],
+    [111, 29],
+    [112, 28]
+]
+var polyline = new AMap.Polyline(&#123;
+    path: lineArr,
+    strokeColor: &quot;#ff0000&quot;,
+    strokeWeight: 5,
+    strokeStyle: &quot;solid&quot;
+&#125;);
+map.add(polyline)
+</code></pre>
 <h3 id="事件与信息窗口"><a href="#事件与信息窗口" class="headerlink" title="事件与信息窗口"></a>事件与信息窗口</h3><p>Map、点标记、矢量图形的实例均支持事件，鼠标或触摸操作。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> infoWindow = <span class="keyword">new</span> <span class="title class_">AMap</span>.<span class="title class_">InfoWindow</span>(&#123;</span><br><span class="line">    <span class="attr">content</span>:<span class="string">&#x27;hello&#x27;</span>,</span><br><span class="line">    <span class="attr">offset</span>: <span class="keyword">new</span> <span class="title class_">AMap</span>.<span class="title class_">Pixel</span>(<span class="number">16</span>, -<span class="number">45</span>)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> onMarkerClick = <span class="keyword">function</span>(<span class="params">e</span>)&#123;</span><br><span class="line">    infoWindow.<span class="title function_">open</span>(map, e.<span class="property">target</span>.<span class="title function_">getPosition</span>());</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> marker = <span class="keyword">new</span> <span class="title class_">AMap</span>.<span class="title class_">Marker</span>(&#123;</span><br><span class="line">    <span class="attr">position</span>: [<span class="number">116</span>, <span class="number">39</span>]</span><br><span class="line">&#125;)</span><br><span class="line">map.<span class="title function_">add</span>(marker)</span><br><span class="line">marker.<span class="title function_">on</span>(<span class="string">&#x27;click&#x27;</span>, onMarkerClick);  <span class="comment">// 绑定click事件</span></span><br></pre></td></tr></table></figure>
+<pre><code class="js">var infoWindow = new AMap.InfoWindow(&#123;
+    content:&#39;hello&#39;,
+    offset: new AMap.Pixel(16, -45)
+&#125;);
+
+var onMarkerClick = function(e)&#123;
+    infoWindow.open(map, e.target.getPosition());
+&#125;
+var marker = new AMap.Marker(&#123;
+    position: [116, 39]
+&#125;)
+map.add(marker)
+marker.on(&#39;click&#39;, onMarkerClick);  // 绑定click事件
+</code></pre>
+
     
     <hr>
     <div class="content-tags">

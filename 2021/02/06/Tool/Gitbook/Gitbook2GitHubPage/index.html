@@ -174,26 +174,26 @@
 <h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><ol>
 <li>在<code>main</code>分支上生成静态页面</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitbook build</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">gitbook build
+</code></pre>
 <p>默认在<code>_book</code>目录中生成。</p>
 <ol start="2">
 <li>创建分支<code>book</code>：</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch book</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">git branch book
+</code></pre>
 <ol start="3">
 <li>切换分支<code>book</code>：</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout book</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">git checkout book
+</code></pre>
 <p>删除所有文件<br>将<code>_book</code>中文件转移至根目录</p>
 <ol start="4">
 <li>在不同分支下<code>git push</code></li>
 </ol>
 <p>可能需要执行<code>--set-upstream</code>指令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push --set-upstream origin book</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">git push --set-upstream origin book
+</code></pre>
 <p>登录Github相应项目 -&gt; Settings -&gt; GitHub Page -&gt; 选择相应分支</p>
 
     

@@ -171,12 +171,33 @@
 <span id="more"></span>
 
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><img src="/file.png" alt="file"></p>
-<h3 id="配置book-json文件"><a href="#配置book-json文件" class="headerlink" title="配置book.json文件"></a>配置<code>book.json</code>文件</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;style&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;website&quot;</span><span class="punctuation">:</span> <span class="string">&quot;styles/website.css&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="配置book-json文件"><a href="#配置book-json文件" class="headerlink" title="配置book.json文件"></a>配置<code>book.json</code>文件</h3><pre><code class="json">&#123;
+    &quot;style&quot;: &#123;
+        &quot;website&quot;: &quot;styles/website.css&quot;
+    &#125;
+&#125;
+</code></pre>
+<h3 id="设置自定义CSS"><a href="#设置自定义CSS" class="headerlink" title="设置自定义CSS"></a>设置自定义CSS</h3><pre><code class="css">.alert &#123;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+  border-radius: 4px;
+&#125;
 
-<h3 id="设置自定义CSS"><a href="#设置自定义CSS" class="headerlink" title="设置自定义CSS"></a>设置自定义CSS</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.alert</span> &#123;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">15px</span>;</span><br><span class="line">  <span class="attribute">margin-bottom</span>: <span class="number">20px</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid transparent;</span><br><span class="line">  <span class="attribute">border-top-color</span>: transparent;</span><br><span class="line">  <span class="attribute">border-right-color</span>: transparent;</span><br><span class="line">  <span class="attribute">border-bottom-color</span>: transparent;</span><br><span class="line">  <span class="attribute">border-left-color</span>: transparent;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">4px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.alert-warning</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#8a6d3b</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#fcf8e3</span>;</span><br><span class="line">  <span class="attribute">border-color</span>: <span class="number">#faebcc</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;alert alert-warning&quot;</span>&gt;</span></span></span><br><span class="line">重要说明：在继续之前， 您应该重新阅读[<span class="string">Overlay和Eclasses</span>](<span class="link"></span>) 和[<span class="string">Portage Cache</span>](<span class="link"></span>)部分。</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-
+.alert-warning &#123;
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+&#125;
+</code></pre>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><pre><code class="markdown">&lt;div class=&quot;alert alert-warning&quot;&gt;
+重要说明：在继续之前， 您应该重新阅读[Overlay和Eclasses]() 和[Portage Cache]()部分。
+&lt;/div&gt;
+</code></pre>
 <p><strong>注意</strong>: HTML标签内的Markdown标签会失效</p>
 <h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="/effect.png" alt="effect"></p>
 

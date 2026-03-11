@@ -179,14 +179,15 @@
 <li>xmodmap 参数的意义</li>
 </ul>
 <p>本质上是使用工具修改键盘映射<br>使用<code>xev</code>查看键盘映射， <code>xev</code>可能需要安装(根据个人系统决定)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xev  <span class="comment"># 启动xev</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">xev  # 启动xev
+</code></pre>
 <p>通过 xev 的输出可以得出: 当敲击键盘，会产生两个事件，一个按下，一个释放<br>目标按键输出信息<br><img src="/key_a.jpg" alt="键盘"><br><img src="/key_b.jpg" alt="键盘"><br>backslash 为”\“的名称<br>bar 为”|”的名称<br>相对应的 94 其实就是当前按键对应的映射值</p>
 <h2 id="命令问题"><a href="#命令问题" class="headerlink" title="命令问题"></a>命令问题</h2><p>只能在图形化界面使用<br>重启失效，建议作为启动项或者写成 shell 文件</p>
 <h2 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h2><p>键盘问题可以有多种解决，比如外接一个键盘也能有效</p>
 <p>由于<code>xmodmap</code>只能在图形界面使用，因此在 tty 界面会报错。</p>
 <p>使用重定向隐藏。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xmodmap -e <span class="string">&quot;keycode 94 = backslash bar&quot;</span> &gt; /dev/null 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">xmodmap -e &quot;keycode 94 = backslash bar&quot; &gt; /dev/null 2&gt;&amp;1
+</code></pre>
 
     
     <hr>

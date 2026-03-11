@@ -175,8 +175,8 @@
 <ol>
 <li>网卡位置确定</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/sysconfig/network-scripts/</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">cd /etc/sysconfig/network-scripts/
+</code></pre>
 <p>网卡命名无一定规范</p>
 <ul>
 <li>eth0：一般用于以太网(Ethernet)接口，0 表示为第一块网卡</li>
@@ -190,17 +190,21 @@
 <ol start="2">
 <li>编辑你的网卡</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi ifcfg-eth0  <span class="comment"># 编辑网卡文件，取决于本机网卡</span></span><br><span class="line"><span class="comment"># 修改`ONBOOT=no`为`ONBOOT=yes`</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">vi ifcfg-eth0  # 编辑网卡文件，取决于本机网卡
+# 修改`ONBOOT=no`为`ONBOOT=yes`
+</code></pre>
 <ol start="3">
 <li>重启网络以应用(多种方法)</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">reboot  <span class="comment"># 重启计算机</span></span><br><span class="line">service network restart  <span class="comment"># 重启网卡</span></span><br><span class="line">systemctl restart network  <span class="comment"># 重启网卡，CentOS7后功能</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">reboot  # 重启计算机
+service network restart  # 重启网卡
+systemctl restart network  # 重启网卡，CentOS7后功能
+</code></pre>
 <ol start="4">
 <li>检验是否联网成功</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping www.baidu.com</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">ping www.baidu.com
+</code></pre>
 
     
     <hr>

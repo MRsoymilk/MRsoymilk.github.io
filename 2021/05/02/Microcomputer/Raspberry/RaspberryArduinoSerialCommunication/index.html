@@ -167,9 +167,38 @@
     </div>
     <hr>
     
-    <h2 id="Arduino"><a href="#Arduino" class="headerlink" title="Arduino"></a>Arduino</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> cmd;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span></span>&#123;</span><br><span class="line">  Serial.<span class="built_in">begin</span>(<span class="number">9600</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span></span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(Serial.<span class="built_in">available</span>())&#123;</span><br><span class="line">    cmd = Serial.<span class="built_in">read</span>();</span><br><span class="line">    <span class="keyword">switch</span>(cmd)&#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;1&#x27;</span>:</span><br><span class="line">        Serial.<span class="built_in">print</span>(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <h2 id="Arduino"><a href="#Arduino" class="headerlink" title="Arduino"></a>Arduino</h2><pre><code class="CPP">char cmd;
 
-<h2 id="Raspberry"><a href="#Raspberry" class="headerlink" title="Raspberry"></a>Raspberry</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> serial</span><br><span class="line"></span><br><span class="line">ser = serial.Serial(<span class="string">&quot;/dev/ttyUSB0&quot;</span>, <span class="number">9600</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">  ser.write(<span class="built_in">str</span>.encode(<span class="string">&#x27;1&#x27;</span>))</span><br><span class="line">  <span class="keyword">if</span> ser.in_waiting:</span><br><span class="line">    msg = ser.readline().decode()</span><br><span class="line">    <span class="built_in">print</span>(msg)</span><br><span class="line">    <span class="comment"># 没什么用的退出语句</span></span><br><span class="line">    <span class="keyword">if</span> msg == <span class="string">&quot;close&quot;</span>:</span><br><span class="line">      <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">ser.close()</span><br></pre></td></tr></table></figure>
+void setup()&#123;
+  Serial.begin(9600);
+&#125;
+
+void loop()&#123;
+  if(Serial.available())&#123;
+    cmd = Serial.read();
+    switch(cmd)&#123;
+      case &#39;1&#39;:
+        Serial.print(&quot;hello&quot;);
+      break;
+    &#125;
+  &#125;
+&#125;
+</code></pre>
+<h2 id="Raspberry"><a href="#Raspberry" class="headerlink" title="Raspberry"></a>Raspberry</h2><pre><code class="python">import serial
+
+ser = serial.Serial(&quot;/dev/ttyUSB0&quot;, 9600)
+
+while True:
+  ser.write(str.encode(&#39;1&#39;))
+  if ser.in_waiting:
+    msg = ser.readline().decode()
+    print(msg)
+    # 没什么用的退出语句
+    if msg == &quot;close&quot;:
+      break
+
+ser.close()
+</code></pre>
 
     
     <hr>

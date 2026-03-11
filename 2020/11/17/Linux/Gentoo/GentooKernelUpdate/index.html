@@ -168,21 +168,22 @@
     <hr>
     
     <h2 id="升级内核"><a href="#升级内核" class="headerlink" title="升级内核"></a>升级内核</h2><p>建议在<code>make.conf</code>中添加<code>USE=&#39;symlink&#39;</code>，然后更新系统。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> emerge --ask --verbose --update --deep --newuse @world</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">sudo emerge --ask --verbose --update --deep --newuse @world
+</code></pre>
 <span id="more"></span>
 
-<h2 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> make menuconfig</span><br></pre></td></tr></table></figure>
-
-<h2 id="Build"><a href="#Build" class="headerlink" title="Build"></a>Build</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> make -j4</span><br></pre></td></tr></table></figure>
-
-<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> make modules_install</span><br><span class="line"><span class="built_in">sudo</span> make install</span><br></pre></td></tr></table></figure>
-
-<h2 id="BootLoader"><a href="#BootLoader" class="headerlink" title="BootLoader"></a>BootLoader</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> grub-mkconfig -o /boot/grub/grub.cfg</span><br></pre></td></tr></table></figure>
-
+<h2 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h2><pre><code class="bash">sudo make menuconfig
+</code></pre>
+<h2 id="Build"><a href="#Build" class="headerlink" title="Build"></a>Build</h2><pre><code class="bash">sudo make -j4
+</code></pre>
+<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><pre><code class="bash">sudo make modules_install
+sudo make install
+</code></pre>
+<h2 id="BootLoader"><a href="#BootLoader" class="headerlink" title="BootLoader"></a>BootLoader</h2><pre><code class="bash">sudo grub-mkconfig -o /boot/grub/grub.cfg
+</code></pre>
 <p>重启以应用新的内核。</p>
-<h2 id="Clean"><a href="#Clean" class="headerlink" title="Clean"></a>Clean</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> eclean-kernel -n 1</span><br></pre></td></tr></table></figure>
-
+<h2 id="Clean"><a href="#Clean" class="headerlink" title="Clean"></a>Clean</h2><pre><code class="bash">sudo eclean-kernel -n 1
+</code></pre>
 <p>仅保留当前内核。</p>
 
     

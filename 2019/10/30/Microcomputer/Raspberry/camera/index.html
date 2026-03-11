@@ -179,11 +179,11 @@
 <li><a target="_blank" rel="noopener" href="https://www.raspberrypi.org/documentation/usage/camera/raspicam/raspivid.md">raspivid</a></li>
 </ul>
 <h3 id="连接摄像模块"><a href="#连接摄像模块" class="headerlink" title="连接摄像模块"></a>连接摄像模块</h3><p><img src="/camera.jpg" alt="camera"><br>设置 -&gt; <code>enable camera</code>，开启摄像机</p>
-<h3 id="raspistill-使用"><a href="#raspistill-使用" class="headerlink" title="raspistill 使用"></a>raspistill 使用</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">raspistill -o ./Desktop/img.jpg</span><br></pre></td></tr></table></figure>
-
+<h3 id="raspistill-使用"><a href="#raspistill-使用" class="headerlink" title="raspistill 使用"></a>raspistill 使用</h3><pre><code class="bash">raspistill -o ./Desktop/img.jpg
+</code></pre>
 <p>拍摄一张相片，存放在 Desktop 下(路径)，名称为 img.jpg<br>垂直反转命令<code>-vf</code>, 水平翻转命令<code>-hf</code>，可同时使用</p>
-<h3 id="raspivid-使用"><a href="#raspivid-使用" class="headerlink" title="raspivid 使用"></a>raspivid 使用</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">raspivid -o video.h264</span><br></pre></td></tr></table></figure>
-
+<h3 id="raspivid-使用"><a href="#raspivid-使用" class="headerlink" title="raspivid 使用"></a>raspivid 使用</h3><pre><code class="bash">raspivid -o video.h264
+</code></pre>
 <p>拍摄一段视频，保存为 video.h264<br>视频长度控制：<code>-t</code>毫秒单位。例：<code>raspivid -o video.h264 -t 10000</code></p>
 <p>个人测试：树莓派开启后再插入摄像头模块将无法检测到，重启即可</p>
 <hr>
@@ -198,8 +198,16 @@
 <p>修改文件&#x2F;etc&#x2F;modules</p>
 <p>在文件中添加一行<code>bcm2835-v4l2</code><br><strong>注意：是小写的 L，不是 1，如果是 1 可能导致无法正常启动</strong></p>
 <h2 id="Python库Picamera"><a href="#Python库Picamera" class="headerlink" title="Python库Picamera"></a>Python库Picamera</h2><p>参考：<a target="_blank" rel="noopener" href="https://picamera.readthedocs.io/en/release-1.13/">Picamera</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from time import sleep</span><br><span class="line">from picamera import PiCamera</span><br><span class="line"></span><br><span class="line">camera = PiCamera()</span><br><span class="line">camera.resolution = (1024, 768)</span><br><span class="line">camera.start_preview()</span><br><span class="line"># Camera warm-up time</span><br><span class="line">sleep(2)</span><br><span class="line">camera.capture(&#x27;foo.jpg&#x27;)</span><br></pre></td></tr></table></figure>
+<pre><code class="python3">from time import sleep
+from picamera import PiCamera
 
+camera = PiCamera()
+camera.resolution = (1024, 768)
+camera.start_preview()
+# Camera warm-up time
+sleep(2)
+camera.capture(&#39;foo.jpg&#39;)
+</code></pre>
 <h2 id="使用通过USB连接的普通摄像头"><a href="#使用通过USB连接的普通摄像头" class="headerlink" title="使用通过USB连接的普通摄像头"></a>使用通过USB连接的普通摄像头</h2><p>使用OpenCV。通用编程方法。</p>
 
     

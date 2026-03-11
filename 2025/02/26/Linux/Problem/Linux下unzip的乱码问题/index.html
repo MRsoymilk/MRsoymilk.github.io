@@ -172,11 +172,12 @@
 <p>Linux 系统默认使用 <code>UTF-8</code> 编码</p>
 <span id="more"></span>
 
-<h2 id="使用-unzip-的-O-指定编码"><a href="#使用-unzip-的-O-指定编码" class="headerlink" title="使用 unzip 的-O 指定编码"></a>使用 unzip 的-O 指定编码</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip -O CP936 your_file.zip</span><br></pre></td></tr></table></figure>
-
-<h2 id="使用-7z"><a href="#使用-7z" class="headerlink" title="使用 7z"></a>使用 7z</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">7z x your_file.zip</span><br></pre></td></tr></table></figure>
-
-<h2 id="使用-iconv"><a href="#使用-iconv" class="headerlink" title="使用 iconv"></a>使用 iconv</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">convmv -f GBK -t UTF-8 --notest --recursive your_folder</span><br></pre></td></tr></table></figure>
+<h2 id="使用-unzip-的-O-指定编码"><a href="#使用-unzip-的-O-指定编码" class="headerlink" title="使用 unzip 的-O 指定编码"></a>使用 unzip 的-O 指定编码</h2><pre><code class="sh">unzip -O CP936 your_file.zip
+</code></pre>
+<h2 id="使用-7z"><a href="#使用-7z" class="headerlink" title="使用 7z"></a>使用 7z</h2><pre><code class="sh">7z x your_file.zip
+</code></pre>
+<h2 id="使用-iconv"><a href="#使用-iconv" class="headerlink" title="使用 iconv"></a>使用 iconv</h2><pre><code class="sh">convmv -f GBK -t UTF-8 --notest --recursive your_folder
+</code></pre>
 
     
     <hr>

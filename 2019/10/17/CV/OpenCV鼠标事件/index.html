@@ -164,11 +164,48 @@
 <span id="more"></span>
 
 <h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p><strong>操作系统</strong>: Ubuntu 18.04<br><strong>OpenCV 版本</strong>: 4.1.0</p>
-<h2 id="基础代码"><a href="#基础代码" class="headerlink" title="基础代码"></a>基础代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 处理灰度图像</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">onMouseGray</span><span class="params">(<span class="type">int</span> event, <span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> flags, <span class="type">void</span> *param)</span></span>&#123;</span><br><span class="line">  cv::Mat *img = <span class="built_in">reinterpret_cast</span>&lt;cv::Mat*&gt;(param);</span><br><span class="line">  <span class="keyword">switch</span>(event)&#123;</span><br><span class="line">    <span class="keyword">case</span> cv::EVENT_LBUTTONDOWN:</span><br><span class="line">      std::cout &lt;&lt; <span class="string">&quot;(&quot;</span> &lt;&lt; x &lt;&lt; <span class="string">&quot;, &quot;</span> &lt;&lt; y &lt;&lt; <span class="string">&quot;) value: &quot;</span></span><br><span class="line">            &lt;&lt; <span class="built_in">static_cast</span>&lt;<span class="type">int</span>&gt;(img-&gt;<span class="built_in">at</span>&lt;uchar&gt;(cv::<span class="built_in">Point</span>(x, y))) &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 处理彩色图像</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">onMouseColor</span><span class="params">(<span class="type">int</span> event, <span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> flags, <span class="type">void</span> *param)</span></span>&#123;</span><br><span class="line">  cv::Mat *img = <span class="built_in">reinterpret_cast</span>&lt;cv::Mat*&gt;(param);</span><br><span class="line">  <span class="keyword">switch</span>(event)&#123;</span><br><span class="line">    <span class="keyword">case</span> cv::EVENT_LBUTTONDOWN:</span><br><span class="line">      std::cout &lt;&lt; <span class="string">&quot;(&quot;</span> &lt;&lt; x &lt;&lt; <span class="string">&quot;, &quot;</span> &lt;&lt; y &lt;&lt; <span class="string">&quot;) value: &quot;</span></span><br><span class="line">            &lt;&lt; <span class="built_in">static_cast</span>&lt;<span class="type">int</span>&gt;(img-&gt;<span class="built_in">at</span>&lt;Vec3b&gt;(cv::<span class="built_in">Point</span>(x, y))[<span class="number">0</span>]) &lt;&lt; <span class="string">&quot;, &quot;</span></span><br><span class="line">            &lt;&lt; <span class="built_in">static_cast</span>&lt;<span class="type">int</span>&gt;(img-&gt;<span class="built_in">at</span>&lt;Vec3b&gt;(cv::<span class="built_in">Point</span>(x, y))[<span class="number">1</span>]) &lt;&lt; <span class="string">&quot;, &quot;</span></span><br><span class="line">            &lt;&lt; <span class="built_in">static_cast</span>&lt;<span class="type">int</span>&gt;(img-&gt;<span class="built_in">at</span>&lt;Vec3b&gt;(cv::<span class="built_in">Point</span>(x, y))[<span class="number">2</span>]) &lt;&lt; endl;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">mutual</span><span class="params">()</span></span>&#123;</span><br><span class="line">  cv::Mat img = cv::<span class="built_in">imread</span>(<span class="string">&quot;lena.jpeg&quot;</span>);</span><br><span class="line">  <span class="comment">// 命名窗口</span></span><br><span class="line">  cv::<span class="built_in">namedWindow</span>(<span class="string">&quot;mutual&quot;</span>);</span><br><span class="line">  <span class="comment">// img图像与“mutual”窗口建立联系</span></span><br><span class="line">  cv::<span class="built_in">setMouseCallback</span>(<span class="string">&quot;mutual&quot;</span>, onMouseColor, &amp;img);</span><br><span class="line">  cv::<span class="built_in">imshow</span>(<span class="string">&quot;mutual&quot;</span>, img);</span><br><span class="line">  cv::<span class="built_in">waitKey</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="基础代码"><a href="#基础代码" class="headerlink" title="基础代码"></a>基础代码</h2><pre><code class="C++">
+// 处理灰度图像
+void onMouseGray(int event, int x, int y, int flags, void *param)&#123;
+  cv::Mat *img = reinterpret_cast&lt;cv::Mat*&gt;(param);
+  switch(event)&#123;
+    case cv::EVENT_LBUTTONDOWN:
+      std::cout &lt;&lt; &quot;(&quot; &lt;&lt; x &lt;&lt; &quot;, &quot; &lt;&lt; y &lt;&lt; &quot;) value: &quot;
+            &lt;&lt; static_cast&lt;int&gt;(img-&gt;at&lt;uchar&gt;(cv::Point(x, y))) &lt;&lt; std::endl;
+    break;
+  &#125;
+&#125;
 
+// 处理彩色图像
+void onMouseColor(int event, int x, int y, int flags, void *param)&#123;
+  cv::Mat *img = reinterpret_cast&lt;cv::Mat*&gt;(param);
+  switch(event)&#123;
+    case cv::EVENT_LBUTTONDOWN:
+      std::cout &lt;&lt; &quot;(&quot; &lt;&lt; x &lt;&lt; &quot;, &quot; &lt;&lt; y &lt;&lt; &quot;) value: &quot;
+            &lt;&lt; static_cast&lt;int&gt;(img-&gt;at&lt;Vec3b&gt;(cv::Point(x, y))[0]) &lt;&lt; &quot;, &quot;
+            &lt;&lt; static_cast&lt;int&gt;(img-&gt;at&lt;Vec3b&gt;(cv::Point(x, y))[1]) &lt;&lt; &quot;, &quot;
+            &lt;&lt; static_cast&lt;int&gt;(img-&gt;at&lt;Vec3b&gt;(cv::Point(x, y))[2]) &lt;&lt; endl;
+      break;
+  &#125;
+&#125;
+
+void mutual()&#123;
+  cv::Mat img = cv::imread(&quot;lena.jpeg&quot;);
+  // 命名窗口
+  cv::namedWindow(&quot;mutual&quot;);
+  // img图像与“mutual”窗口建立联系
+  cv::setMouseCallback(&quot;mutual&quot;, onMouseColor, &amp;img);
+  cv::imshow(&quot;mutual&quot;, img);
+  cv::waitKey();
+&#125;
+</code></pre>
 <p>实现效果<br><img src="/mutual.png" alt="click"><br>其中，event 还有很多其他事件:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cv::EVENT_MOUSEMOVE</span><br><span class="line">cv::EVENT_LBUTTONUP</span><br><span class="line">cv::EVENT_RBUTTONDOWN</span><br><span class="line">cv::EVENT_RBUTTONUP</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
+<pre><code class="C++">cv::EVENT_MOUSEMOVE
+cv::EVENT_LBUTTONUP
+cv::EVENT_RBUTTONDOWN
+cv::EVENT_RBUTTONUP
+...
+</code></pre>
 <h2 id="更多"><a href="#更多" class="headerlink" title="更多"></a>更多</h2><p>通过与图像进行交互，可以实现更多的有趣功能。</p>
 
     

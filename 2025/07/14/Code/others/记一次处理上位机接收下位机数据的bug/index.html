@@ -181,19 +181,100 @@
 <details>
     <summary>find_ceff.py</summary>
 
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">find_ceff_offsets</span>(<span class="params">filename</span>):</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(filename, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        data = f.read()</span><br><span class="line"></span><br><span class="line">    target = <span class="string">b&#x27;\xCE\xFF&#x27;</span></span><br><span class="line">    offset = <span class="number">0</span></span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    offsets = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        idx = data.find(target, offset)</span><br><span class="line">        <span class="keyword">if</span> idx == -<span class="number">1</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">        offsets.append(idx)</span><br><span class="line">        offset = idx + <span class="number">1</span>  <span class="comment"># 继续查找下一个</span></span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> count == <span class="number">0</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;未找到任何 CE FF 序列。&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;总共找到 <span class="subst">&#123;count&#125;</span> 个 CE FF。正在写入 distance.csv...&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;distance.csv&quot;</span>, <span class="string">&quot;w&quot;</span>, newline=<span class="string">&#x27;&#x27;</span>) <span class="keyword">as</span> csvfile:</span><br><span class="line">        writer = csv.writer(csvfile)</span><br><span class="line">        writer.writerow([<span class="string">&quot;index&quot;</span>, <span class="string">&quot;start_offset&quot;</span>, <span class="string">&quot;end_offset&quot;</span>, <span class="string">&quot;distance&quot;</span>, <span class="string">&quot;is_1990&quot;</span>])</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(offsets)):</span><br><span class="line">            start = offsets[i - <span class="number">1</span>]</span><br><span class="line">            end = offsets[i]</span><br><span class="line">            distance = end - start</span><br><span class="line">            writer.writerow([</span><br><span class="line">                i,</span><br><span class="line">                <span class="string">f&quot;0x<span class="subst">&#123;start:08X&#125;</span>&quot;</span>,</span><br><span class="line">                <span class="string">f&quot;0x<span class="subst">&#123;end:08X&#125;</span>&quot;</span>,</span><br><span class="line">                distance,</span><br><span class="line">                <span class="string">&quot;YES&quot;</span> <span class="keyword">if</span> distance == <span class="number">1990</span> <span class="keyword">else</span> <span class="string">&quot;NO&quot;</span></span><br><span class="line">            ])</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;写入完成：distance.csv&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    parser = argparse.ArgumentParser(description=<span class="string">&quot;查找二进制文件中所有 CE FF 的偏移量，并输出间距到 CSV&quot;</span>)</span><br><span class="line">    parser.add_argument(<span class="string">&quot;file&quot;</span>, <span class="built_in">help</span>=<span class="string">&quot;要分析的二进制文件路径&quot;</span>)</span><br><span class="line">    args = parser.parse_args()</span><br><span class="line"></span><br><span class="line">    find_ceff_offsets(args.file)</span><br></pre></td></tr></table></figure>
+<pre><code class="python">import argparse
+import csv
 
+def find_ceff_offsets(filename):
+    with open(filename, &#39;rb&#39;) as f:
+        data = f.read()
+
+    target = b&#39;\xCE\xFF&#39;
+    offset = 0
+    count = 0
+    offsets = []
+
+    while True:
+        idx = data.find(target, offset)
+        if idx == -1:
+            break
+
+        offsets.append(idx)
+        offset = idx + 1  # 继续查找下一个
+        count += 1
+
+    if count == 0:
+        print(&quot;未找到任何 CE FF 序列。&quot;)
+        return
+
+    print(f&quot;总共找到 &#123;count&#125; 个 CE FF。正在写入 distance.csv...&quot;)
+
+    with open(&quot;distance.csv&quot;, &quot;w&quot;, newline=&#39;&#39;) as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow([&quot;index&quot;, &quot;start_offset&quot;, &quot;end_offset&quot;, &quot;distance&quot;, &quot;is_1990&quot;])
+        for i in range(1, len(offsets)):
+            start = offsets[i - 1]
+            end = offsets[i]
+            distance = end - start
+            writer.writerow([
+                i,
+                f&quot;0x&#123;start:08X&#125;&quot;,
+                f&quot;0x&#123;end:08X&#125;&quot;,
+                distance,
+                &quot;YES&quot; if distance == 1990 else &quot;NO&quot;
+            ])
+
+    print(&quot;写入完成：distance.csv&quot;)
+
+if __name__ == &quot;__main__&quot;:
+    parser = argparse.ArgumentParser(description=&quot;查找二进制文件中所有 CE FF 的偏移量，并输出间距到 CSV&quot;)
+    parser.add_argument(&quot;file&quot;, help=&quot;要分析的二进制文件路径&quot;)
+    args = parser.parse_args()
+
+    find_ceff_offsets(args.file)
+</code></pre>
 </details>
 
 <p>运行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python find_ceff.py valid_test/helper/data.raw</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">python find_ceff.py valid_test/helper/data.raw
+</code></pre>
 <p>绘制对应包尾的距离</p>
 <details>
     <summary>find_ceff.py</summary>
 
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取 CSV 文件</span></span><br><span class="line">df = pd.read_csv(<span class="string">&quot;distance.csv&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 提取 index 和 distance 列</span></span><br><span class="line">index = df[<span class="string">&quot;index&quot;</span>]</span><br><span class="line">distance = df[<span class="string">&quot;distance&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算常见帧距</span></span><br><span class="line">expected = distance.mode()[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘图</span></span><br><span class="line">plt.figure(figsize=(<span class="number">12</span>, <span class="number">6</span>))</span><br><span class="line">plt.plot(index, distance, label=<span class="string">&#x27;frame distance&#x27;</span>, marker=<span class="string">&#x27;o&#x27;</span>, linewidth=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 标出异常帧距</span></span><br><span class="line">abnormal = df[distance != expected]</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> abnormal.empty:</span><br><span class="line">    plt.plot(abnormal[<span class="string">&quot;index&quot;</span>], abnormal[<span class="string">&quot;distance&quot;</span>], <span class="string">&#x27;rx&#x27;</span>, label=<span class="string">&#x27;abnormal&#x27;</span>, markersize=<span class="number">8</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加图形信息</span></span><br><span class="line">plt.xlabel(<span class="string">&quot;frame idx&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;frame distance&quot;</span>)</span><br><span class="line">plt.title(<span class="string">&quot;CE FF distance&quot;</span>)</span><br><span class="line">plt.grid(<span class="literal">True</span>)</span><br><span class="line">plt.legend()</span><br><span class="line">plt.tight_layout()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示或保存图像</span></span><br><span class="line">plt.savefig(<span class="string">&quot;distance_plot.png&quot;</span>, dpi=<span class="number">300</span>)  <span class="comment"># 可选保存</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<pre><code class="python">import pandas as pd
+import matplotlib.pyplot as plt
 
+# 读取 CSV 文件
+df = pd.read_csv(&quot;distance.csv&quot;)
+
+# 提取 index 和 distance 列
+index = df[&quot;index&quot;]
+distance = df[&quot;distance&quot;]
+
+# 计算常见帧距
+expected = distance.mode()[0]
+
+# 绘图
+plt.figure(figsize=(12, 6))
+plt.plot(index, distance, label=&#39;frame distance&#39;, marker=&#39;o&#39;, linewidth=1)
+
+# 标出异常帧距
+abnormal = df[distance != expected]
+if not abnormal.empty:
+    plt.plot(abnormal[&quot;index&quot;], abnormal[&quot;distance&quot;], &#39;rx&#39;, label=&#39;abnormal&#39;, markersize=8)
+
+# 添加图形信息
+plt.xlabel(&quot;frame idx&quot;)
+plt.ylabel(&quot;frame distance&quot;)
+plt.title(&quot;CE FF distance&quot;)
+plt.grid(True)
+plt.legend()
+plt.tight_layout()
+
+# 显示或保存图像
+plt.savefig(&quot;distance_plot.png&quot;, dpi=300)  # 可选保存
+plt.show()
+</code></pre>
 </details>
 
 <p><img src="/distance_ceff.jpeg" alt="distance CEFF"></p>

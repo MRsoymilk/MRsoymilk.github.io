@@ -167,11 +167,21 @@
 <h3 id="cv-Mat-重要属性"><a href="#cv-Mat-重要属性" class="headerlink" title="cv::Mat 重要属性:"></a>cv::Mat 重要属性:</h3><p>只有在明确要求时内存块才会被复制。大多数操作仅仅复制了 cv::Mat 的头部。<br><strong>优点</strong>： 提高应用程序的运行效率，避免内存泄漏。<br><strong>缺点</strong>: 个人认为操作上稍微需要注意。</p>
 <p><em>浅复制</em>与<em>深复制</em>概念:<br>浅复制共享同一个数据块，对数据块的修改会影响到其他的引用。<br>深复制生成数据块的副本，对原数据块的修改与新的数据块副本无关。</p>
 <h3 id="cv-Mat-深复制和浅复制"><a href="#cv-Mat-深复制和浅复制" class="headerlink" title="cv::Mat 深复制和浅复制"></a>cv::Mat 深复制和浅复制</h3><p><strong>Mat 浅复制</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Mat <span class="title">new_img</span><span class="params">(img)</span></span>;</span><br><span class="line">Mat new_img&#123;img&#125;;</span><br><span class="line">Mat new_img = img;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在函数中：</span></span><br><span class="line"><span class="built_in">func</span>(Mat &amp;img);</span><br><span class="line"><span class="built_in">func</span>(Mat img);</span><br><span class="line"><span class="built_in">func</span>(<span class="type">const</span> Mat &amp;img);</span><br><span class="line"><span class="built_in">func</span>(<span class="type">const</span> Mat <span class="type">const</span> img);  <span class="comment">// 报错</span></span><br><span class="line"><span class="built_in">func</span>(<span class="type">const</span> Mat <span class="type">const</span> &amp;img);  <span class="comment">// 报错</span></span><br></pre></td></tr></table></figure>
+<pre><code class="C++">Mat new_img(img);
+Mat new_img&#123;img&#125;;
+Mat new_img = img;
 
+// 在函数中：
+func(Mat &amp;img);
+func(Mat img);
+func(const Mat &amp;img);
+func(const Mat const img);  // 报错
+func(const Mat const &amp;img);  // 报错
+</code></pre>
 <p><strong>Mat 深复制</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Mat new_img = img.<span class="built_in">clone</span>();</span><br><span class="line">Mat new_img; img.<span class="built_in">copyTo</span>(new_img);</span><br></pre></td></tr></table></figure>
-
+<pre><code class="C++">Mat new_img = img.clone();
+Mat new_img; img.copyTo(new_img);
+</code></pre>
 <h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><details>
 <summary>验证()和{}</summary>
 <img src="cv_brack.png" alt="()">

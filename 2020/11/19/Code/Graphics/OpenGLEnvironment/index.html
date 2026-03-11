@@ -180,20 +180,255 @@
 </ul>
 <p>Windows下需要下载相应版本的依赖库，pip默认下载32位，个人平台Windows64使用32位库文件会报错。（Linux平台未发现问题）</p>
 <p>在<a target="_blank" rel="noopener" href="https://www.lfd.uci.edu/~gohlke/pythonlibs/">https://www.lfd.uci.edu/~gohlke&#x2F;pythonlibs&#x2F;</a>上找到python版本相对应的库文件:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PyOpenGL-3.1.5-cp38-cp38-win_amd64.whl  <span class="comment"># cp38表示python3.8版本</span></span><br><span class="line">PyOpenGL_accelerate-3.1.5-cp38-cp38-win_amd64.whl</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">PyOpenGL-3.1.5-cp38-cp38-win_amd64.whl  # cp38表示python3.8版本
+PyOpenGL_accelerate-3.1.5-cp38-cp38-win_amd64.whl
+</code></pre>
 <p>本地安装。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install PyOpenGL PyOpenGL_accelerate</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">pip install PyOpenGL PyOpenGL_accelerate
+</code></pre>
 <p>测试文件:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> OpenGL.GL <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> OpenGL.GLUT <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> OpenGL.GLU <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">w, h= <span class="number">500</span>,<span class="number">500</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">DDALine</span>(<span class="params">x0, y0, x1, y1</span>):</span><br><span class="line">    dx = x1 - x0</span><br><span class="line">    dy = y1 - y0</span><br><span class="line"></span><br><span class="line">    x = x0</span><br><span class="line">    y = y0</span><br><span class="line"></span><br><span class="line">    eps1 = <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">abs</span>(dx) &gt; <span class="built_in">abs</span>(dy):</span><br><span class="line">        eps1 = <span class="built_in">abs</span>(dx)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        eps1 = <span class="built_in">abs</span>(dy)</span><br><span class="line"></span><br><span class="line">    xIncre = dx / eps1</span><br><span class="line">    yIncre = dy / eps1</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, eps1 + <span class="number">1</span>):</span><br><span class="line">        point(x + <span class="number">0.5</span>, y + <span class="number">0.5</span>)</span><br><span class="line">        x+= xIncre</span><br><span class="line">        y+=yIncre</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">point</span>(<span class="params">x, y</span>):</span><br><span class="line">    glBegin(GL_POINTS)</span><br><span class="line">    glVertex2f(x, y)</span><br><span class="line">    glEnd()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">square</span>():</span><br><span class="line">    glBegin(GL_QUADS)</span><br><span class="line">    glVertex2f(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">    glVertex2f(<span class="number">0</span>, <span class="number">100</span>)</span><br><span class="line">    glVertex2f(<span class="number">100</span>, <span class="number">100</span>)</span><br><span class="line">    glVertex2f(<span class="number">100</span>, <span class="number">0</span>)</span><br><span class="line">    glEnd()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">iterate</span>():</span><br><span class="line">    glViewport(<span class="number">0</span>, <span class="number">0</span>, <span class="number">500</span>, <span class="number">500</span>)</span><br><span class="line">    glMatrixMode(GL_PROJECTION)</span><br><span class="line">    glLoadIdentity()</span><br><span class="line">    glOrtho(<span class="number">0.0</span>, w, <span class="number">0.0</span>, h, <span class="number">0.0</span>, <span class="number">1.0</span>)</span><br><span class="line">    glMatrixMode (GL_MODELVIEW)</span><br><span class="line">    glLoadIdentity()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">display</span>():</span><br><span class="line">    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)</span><br><span class="line">    glLoadIdentity()</span><br><span class="line">    iterate()</span><br><span class="line">    glColor3f(<span class="number">1.0</span>, <span class="number">0.0</span>, <span class="number">3.0</span>)</span><br><span class="line">    square()</span><br><span class="line">    point(<span class="number">200</span>, <span class="number">100</span>)</span><br><span class="line">    DDALine(<span class="number">300</span>, <span class="number">300</span>, <span class="number">350</span>, <span class="number">400</span>)</span><br><span class="line">    glutSwapBuffers()</span><br><span class="line"></span><br><span class="line">glutInit()</span><br><span class="line">glutInitDisplayMode(GLUT_RGBA)</span><br><span class="line">glutInitWindowSize(w, h)</span><br><span class="line">glutCreateWindow(<span class="string">&quot;OpenGL&quot;</span>)</span><br><span class="line">glutDisplayFunc(display)</span><br><span class="line">glutMainLoop()</span><br></pre></td></tr></table></figure>
+<pre><code class="python">from OpenGL.GL import *
+from OpenGL.GLUT import *
+from OpenGL.GLU import *
 
+w, h= 500,500
+
+def DDALine(x0, y0, x1, y1):
+    dx = x1 - x0
+    dy = y1 - y0
+
+    x = x0
+    y = y0
+
+    eps1 = 0
+    if abs(dx) &gt; abs(dy):
+        eps1 = abs(dx)
+    else:
+        eps1 = abs(dy)
+
+    xIncre = dx / eps1
+    yIncre = dy / eps1
+
+    for k in range(0, eps1 + 1):
+        point(x + 0.5, y + 0.5)
+        x+= xIncre
+        y+=yIncre
+
+
+def point(x, y):
+    glBegin(GL_POINTS)
+    glVertex2f(x, y)
+    glEnd()
+
+
+def square():
+    glBegin(GL_QUADS)
+    glVertex2f(0, 0)
+    glVertex2f(0, 100)
+    glVertex2f(100, 100)
+    glVertex2f(100, 0)
+    glEnd()
+
+def iterate():
+    glViewport(0, 0, 500, 500)
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    glOrtho(0.0, w, 0.0, h, 0.0, 1.0)
+    glMatrixMode (GL_MODELVIEW)
+    glLoadIdentity()
+
+def display():
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glLoadIdentity()
+    iterate()
+    glColor3f(1.0, 0.0, 3.0)
+    square()
+    point(200, 100)
+    DDALine(300, 300, 350, 400)
+    glutSwapBuffers()
+
+glutInit()
+glutInitDisplayMode(GLUT_RGBA)
+glutInitWindowSize(w, h)
+glutCreateWindow(&quot;OpenGL&quot;)
+glutDisplayFunc(display)
+glutMainLoop()
+</code></pre>
 <h2 id="基于CMake"><a href="#基于CMake" class="headerlink" title="基于CMake"></a>基于CMake</h2><p>CMake文件:</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.10</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">11</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">project</span>(blood)</span><br><span class="line"></span><br><span class="line"><span class="keyword">find_package</span>(GLUT REQUIRED)</span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">$&#123;GLUT_INCLUDE_DIRS&#125;</span>)</span><br><span class="line"><span class="keyword">link_directories</span>(<span class="variable">$&#123;GLUT_LIBRARY_DIRS&#125;</span>)</span><br><span class="line"><span class="keyword">add_definitions</span>(<span class="variable">$&#123;GLUT_DEFINITIONS&#125;</span>)</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">NOT</span> GLUT_FOUND)</span><br><span class="line">  <span class="keyword">message</span>(ERROR<span class="string">&quot;GLUT not found&quot;</span>)</span><br><span class="line"><span class="keyword">endif</span>(<span class="keyword">NOT</span> GLUT_FOUND)</span><br><span class="line"></span><br><span class="line"><span class="keyword">find_package</span>(OpenGL REQUIRED)</span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">$&#123;OpenGL_INCLUDE_DIRS&#125;</span>)</span><br><span class="line"><span class="keyword">link_directories</span>(<span class="variable">$&#123;OpenGL_LIBRARY_DIRS&#125;</span>)</span><br><span class="line"><span class="keyword">add_definitions</span>(<span class="variable">$&#123;OpenGL_DEFINITIONS&#125;</span>)</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">NOT</span> OpenGL_FOUND)</span><br><span class="line">  <span class="keyword">message</span>(ERROR<span class="string">&quot;OpenGL not found&quot;</span>)</span><br><span class="line"><span class="keyword">endif</span>(<span class="keyword">NOT</span> OpenGL_FOUND)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">file</span>(GLOB_RECURSE SOURCES <span class="string">&quot;code/*.cpp&quot;</span>)</span><br><span class="line"><span class="keyword">file</span>(GLOB_RECURSE HEADERS <span class="string">&quot;code/*.h&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_executable</span>(<span class="variable">$&#123;PROJECT_NAME&#125;</span> <span class="variable">$&#123;HEADERS&#125;</span> <span class="variable">$&#123;SOURCES&#125;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(CMAKE_RUNTIME_OUTPUT_DIRECTORY <span class="string">&quot;$&#123;CMAKE_BINARY_DIR&#125;/&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_link_libraries</span>(<span class="variable">$&#123;PROJECT_NAME&#125;</span> <span class="variable">$&#123;OPENGL_LIBRARIES&#125;</span> <span class="variable">$&#123;GLUT_LIBRARY&#125;</span>)</span><br></pre></td></tr></table></figure>
+<pre><code class="cmake">cmake_minimum_required(VERSION 3.10)
 
+set(CMAKE_CXX_STANDARD 11)
+
+project(blood)
+
+find_package(GLUT REQUIRED)
+include_directories($&#123;GLUT_INCLUDE_DIRS&#125;)
+link_directories($&#123;GLUT_LIBRARY_DIRS&#125;)
+add_definitions($&#123;GLUT_DEFINITIONS&#125;)
+if(NOT GLUT_FOUND)
+  message(ERROR&quot;GLUT not found&quot;)
+endif(NOT GLUT_FOUND)
+
+find_package(OpenGL REQUIRED)
+include_directories($&#123;OpenGL_INCLUDE_DIRS&#125;)
+link_directories($&#123;OpenGL_LIBRARY_DIRS&#125;)
+add_definitions($&#123;OpenGL_DEFINITIONS&#125;)
+if(NOT OpenGL_FOUND)
+  message(ERROR&quot;OpenGL not found&quot;)
+endif(NOT OpenGL_FOUND)
+
+
+file(GLOB_RECURSE SOURCES &quot;code/*.cpp&quot;)
+file(GLOB_RECURSE HEADERS &quot;code/*.h&quot;)
+
+add_executable($&#123;PROJECT_NAME&#125; $&#123;HEADERS&#125; $&#123;SOURCES&#125;)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY &quot;$&#123;CMAKE_BINARY_DIR&#125;/&quot;)
+
+target_link_libraries($&#123;PROJECT_NAME&#125; $&#123;OPENGL_LIBRARIES&#125; $&#123;GLUT_LIBRARY&#125;)
+</code></pre>
 <p>测试文件:</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;GL/glu.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;GL/freeglut_std.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;GL/gl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;GL/glext.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;GL/glut.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;math.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">display</span><span class="params">()</span></span>&#123;</span><br><span class="line">  <span class="built_in">glClearColor</span>(<span class="number">1.0</span> * <span class="number">200</span> / <span class="number">255</span>, <span class="number">1.0</span> * <span class="number">200</span> / <span class="number">255</span>, <span class="number">1.0</span> * <span class="number">169</span> / <span class="number">255</span>, <span class="number">1.0f</span>);</span><br><span class="line">  <span class="built_in">glClear</span>(GL_COLOR_BUFFER_BIT);</span><br><span class="line">  </span><br><span class="line">  <span class="type">float</span> hx = <span class="number">-0.5</span>, hy = <span class="number">-0.6</span>;</span><br><span class="line">  <span class="type">float</span> hheight = <span class="number">0.8</span>, hwidth = <span class="number">1</span>;</span><br><span class="line">  <span class="type">float</span> wx= <span class="number">0.1</span>, wy = <span class="number">-0.2</span>;</span><br><span class="line">  <span class="type">float</span> wh = <span class="number">0.3</span>, ww = <span class="number">0.3</span>;</span><br><span class="line">  <span class="type">float</span> dx = <span class="number">-0.4</span>, dy = <span class="number">-0.6</span>;</span><br><span class="line">  <span class="type">float</span> dh = <span class="number">0.3</span>, dw = <span class="number">0.3</span>;</span><br><span class="line">  <span class="type">float</span> dcx = dx + dw / <span class="number">2</span>, dcy = dy + dh, r = dw / <span class="number">2</span>;</span><br><span class="line">  <span class="type">float</span> sx = <span class="number">1</span>, sy = <span class="number">1</span>, sr1 = <span class="number">0.35</span>, sr2 = <span class="number">0.3</span>, sr3 = <span class="number">0.25</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 折线</span></span><br><span class="line">  <span class="built_in">glColor3f</span>(<span class="number">0.9</span>, <span class="number">0.6</span>, <span class="number">0.6</span>);</span><br><span class="line">  <span class="built_in">glLineWidth</span>(<span class="number">8</span>);</span><br><span class="line">  <span class="built_in">glBegin</span>(GL_LINE_LOOP);</span><br><span class="line">  <span class="built_in">glVertex2f</span>(<span class="number">-0.5</span>, <span class="number">-0.6</span>);</span><br><span class="line">  <span class="built_in">glVertex2f</span>(<span class="number">-0.5</span>, <span class="number">0.2</span>);</span><br><span class="line">  <span class="built_in">glVertex2f</span>(<span class="number">0.5</span>, <span class="number">0.2</span>);</span><br><span class="line">  <span class="built_in">glVertex2f</span>(<span class="number">0.5</span>, <span class="number">-0.6</span>);</span><br><span class="line">  <span class="built_in">glEnd</span>();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 矩形</span></span><br><span class="line">  <span class="built_in">glColor3f</span>(<span class="number">1.0</span> * <span class="number">200</span> / <span class="number">255</span>, <span class="number">1.0</span> * <span class="number">100</span> / <span class="number">255</span>, <span class="number">1.0</span> * <span class="number">200</span> / <span class="number">255</span>);</span><br><span class="line">  <span class="built_in">glRectf</span>(hx, hy, hx + hwidth, hy + hheight);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 三角形</span></span><br><span class="line">  <span class="built_in">glColor3f</span>(<span class="number">1.0</span> * <span class="number">50</span> / <span class="number">255</span>, <span class="number">1.0</span> * <span class="number">100</span> / <span class="number">255</span>, <span class="number">1.0</span> * <span class="number">155</span> / <span class="number">255</span>);</span><br><span class="line">  <span class="built_in">glBegin</span>(GL_TRIANGLES);</span><br><span class="line">  <span class="built_in">glVertex2f</span>(hx, hy + hheight);</span><br><span class="line">  <span class="built_in">glVertex2f</span>(<span class="number">0</span>, <span class="number">0.7</span>);</span><br><span class="line">  <span class="built_in">glVertex2f</span>(hx + hwidth, hy + hheight);</span><br><span class="line">  <span class="built_in">glEnd</span>();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 窗户</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">glColor3f</span>(<span class="number">1.0</span> * <span class="number">249</span> / <span class="number">255</span>, <span class="number">1.0</span> * <span class="number">205</span> / <span class="number">255</span>, <span class="number">1.0</span> * <span class="number">173</span> / <span class="number">255</span>);</span><br><span class="line">  <span class="built_in">glRectf</span>(wx, wy, wx + wh, wy + wh);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">glColor3f</span>(<span class="number">1.0</span> * <span class="number">252</span> / <span class="number">255</span>, <span class="number">1.0</span> * <span class="number">157</span> / <span class="number">255</span>, <span class="number">1.0</span> * <span class="number">156</span> / <span class="number">255</span>);</span><br><span class="line">  <span class="built_in">glLineWidth</span>(<span class="number">3</span>);</span><br><span class="line">  <span class="built_in">glBegin</span>(GL_LINES);</span><br><span class="line">  <span class="built_in">glVertex2f</span>(wx, wy + wh / <span class="number">2</span>);</span><br><span class="line">  <span class="built_in">glVertex2f</span>(wx + ww, wy + wh / <span class="number">2</span>);</span><br><span class="line">  <span class="built_in">glVertex2f</span>(wx + ww / <span class="number">2</span>, wy + wh);</span><br><span class="line">  <span class="built_in">glVertex2f</span>(wx + ww / <span class="number">2</span>, wy);</span><br><span class="line">  <span class="built_in">glEnd</span>();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 门</span></span><br><span class="line">  <span class="built_in">glColor3f</span>(<span class="number">1.0</span> * <span class="number">252</span> / <span class="number">255</span>, <span class="number">1.0</span> * <span class="number">157</span> / <span class="number">255</span>, <span class="number">1.0</span> * <span class="number">156</span> / <span class="number">255</span>);</span><br><span class="line">  <span class="built_in">glRectf</span>(dx, dy, dx + dh, dy + dh);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">glColor3f</span>(<span class="number">1.0</span> * <span class="number">252</span> / <span class="number">255</span>, <span class="number">1.0</span> * <span class="number">157</span> / <span class="number">255</span>, <span class="number">1.0</span> * <span class="number">156</span> / <span class="number">255</span>);</span><br><span class="line">  <span class="built_in">glBegin</span>(GL_TRIANGLE_FAN) ;</span><br><span class="line">  <span class="built_in">glVertex2f</span>(dcx, dcy);</span><br><span class="line">  <span class="keyword">for</span>(<span class="type">float</span> i = dcx - r; i &lt; dcx + r; i+=<span class="number">0.001</span>)&#123;</span><br><span class="line">    <span class="built_in">glVertex2f</span>(i, std::<span class="built_in">sqrt</span>(std::<span class="built_in">fabs</span>(r * r - (i - dcx) * (i - dcx))) + dcy);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">glEnd</span>();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 门锁</span></span><br><span class="line">  <span class="built_in">glColor3f</span>(<span class="number">1.0</span> * <span class="number">255</span> / <span class="number">255</span>, <span class="number">1.0</span> * <span class="number">0</span> / <span class="number">255</span>, <span class="number">1.0</span> * <span class="number">0</span> / <span class="number">255</span>);</span><br><span class="line">  <span class="built_in">glPointSize</span>(<span class="number">10</span>);</span><br><span class="line">  <span class="built_in">glBegin</span>(GL_POINTS);</span><br><span class="line">  <span class="built_in">glVertex2f</span>(dx + <span class="number">0.08</span>, dy + dh / <span class="number">2</span>);</span><br><span class="line">  <span class="built_in">glEnd</span>();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 太阳</span></span><br><span class="line">  <span class="built_in">glColor3f</span>(<span class="number">1.0</span> * <span class="number">255</span> / <span class="number">255</span>, <span class="number">1.0</span> * <span class="number">0</span> / <span class="number">205</span>, <span class="number">1.0</span> * <span class="number">0</span> / <span class="number">255</span>);</span><br><span class="line">  <span class="built_in">glBegin</span>(GL_TRIANGLE_FAN);</span><br><span class="line">  <span class="built_in">glVertex2f</span>(sx, sy);</span><br><span class="line">  <span class="keyword">for</span>(<span class="type">float</span> i = sx - sr1; i &lt; sx; i += <span class="number">0.001</span>)&#123;</span><br><span class="line">    <span class="built_in">glVertex2f</span>(i, -std::<span class="built_in">sqrt</span>(std::<span class="built_in">fabs</span>(sr1 * sr1 - (i - sx) * (i - sx))) + sy);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">glEnd</span>();</span><br><span class="line"></span><br><span class="line">  <span class="built_in">glColor3f</span>(<span class="number">1.0</span> * <span class="number">232</span> / <span class="number">255</span>, <span class="number">1.0</span> * <span class="number">110</span> / <span class="number">255</span>, <span class="number">1.0</span> * <span class="number">145</span> / <span class="number">255</span>);</span><br><span class="line">  <span class="built_in">glBegin</span>(GL_TRIANGLE_FAN);</span><br><span class="line">  <span class="built_in">glVertex2f</span>(sx, sy);</span><br><span class="line">  <span class="keyword">for</span>(<span class="type">float</span> i = sx - sr2; i &lt; sx; i+=<span class="number">0.001</span>)&#123;</span><br><span class="line">    <span class="built_in">glVertex2f</span>(i, -std::<span class="built_in">sqrt</span>(std::<span class="built_in">fabs</span>(sr2 * sr2 - (i - sx) * (i - sy))) + sy);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">glEnd</span>();</span><br><span class="line"></span><br><span class="line">  <span class="built_in">glColor3f</span>(<span class="number">1.0</span> * <span class="number">255</span> / <span class="number">255</span>, <span class="number">1.0</span> * <span class="number">255</span> / <span class="number">255</span>, <span class="number">1.0</span> * <span class="number">0</span> / <span class="number">255</span>);</span><br><span class="line">  <span class="built_in">glBegin</span>(GL_TRIANGLE_FAN);</span><br><span class="line">  <span class="built_in">glVertex2f</span>(sx, sy);</span><br><span class="line">  <span class="keyword">for</span>(<span class="type">float</span> i = sx - sr3; i &lt; sx; i+=<span class="number">0.001</span>)&#123;</span><br><span class="line">    <span class="built_in">glVertex2f</span>(i, -std::<span class="built_in">sqrt</span>(std::<span class="built_in">fabs</span>(sr3 * sr3 - (i - sx) * (i - sy))) + sy);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">glEnd</span>();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="built_in">glFlush</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> WIDTH = <span class="number">500</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> HEIGHT = <span class="number">500</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> POS_X = <span class="number">200</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> POS_Y = <span class="number">200</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">glutInit</span>(&amp;argc, argv);</span><br><span class="line"></span><br><span class="line">  <span class="type">const</span> <span class="type">int</span> SCREEN_WIDTH = <span class="built_in">glutGet</span>(GLUT_SCREEN_WIDTH);</span><br><span class="line">  <span class="type">const</span> <span class="type">int</span> SCREEN_HEIGHT = <span class="built_in">glutGet</span>(GLUT_SCREEN_HEIGHT);</span><br><span class="line"></span><br><span class="line">  <span class="type">const</span> <span class="type">int</span> POS_X = (SCREEN_WIDTH - WIDTH) / <span class="number">2</span>;</span><br><span class="line">  <span class="type">const</span> <span class="type">int</span> POS_Y = (SCREEN_HEIGHT - HEIGHT) / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// setting up the display RGB color model + Alpha channel = GLUT_RGBA</span></span><br><span class="line">  <span class="built_in">glutInitDisplayMode</span>(GLUT_RGBA | GLUT_SINGLE);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// configure window position and size</span></span><br><span class="line">  <span class="built_in">glutInitWindowPosition</span>(POS_X, POS_Y);</span><br><span class="line">  <span class="built_in">glutInitWindowSize</span>(WIDTH, HEIGHT);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// create window</span></span><br><span class="line">  <span class="built_in">glutCreateWindow</span>(<span class="string">&quot;opengl&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// call to the drawing function</span></span><br><span class="line">  <span class="built_in">glutDisplayFunc</span>(display);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// loop require by opengl</span></span><br><span class="line">  <span class="built_in">glutMainLoop</span>();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="cpp">#include &lt;GL/glu.h&gt;
+#include &lt;cmath&gt;
+#include &lt;iostream&gt;
+#include &lt;GL/freeglut_std.h&gt;
+#include &lt;GL/gl.h&gt;
+#include &lt;GL/glext.h&gt;
+#include &lt;GL/glut.h&gt;
+#include &lt;math.h&gt;
 
+void display()&#123;
+  glClearColor(1.0 * 200 / 255, 1.0 * 200 / 255, 1.0 * 169 / 255, 1.0f);
+  glClear(GL_COLOR_BUFFER_BIT);
+  
+  float hx = -0.5, hy = -0.6;
+  float hheight = 0.8, hwidth = 1;
+  float wx= 0.1, wy = -0.2;
+  float wh = 0.3, ww = 0.3;
+  float dx = -0.4, dy = -0.6;
+  float dh = 0.3, dw = 0.3;
+  float dcx = dx + dw / 2, dcy = dy + dh, r = dw / 2;
+  float sx = 1, sy = 1, sr1 = 0.35, sr2 = 0.3, sr3 = 0.25;
+
+  // 折线
+  glColor3f(0.9, 0.6, 0.6);
+  glLineWidth(8);
+  glBegin(GL_LINE_LOOP);
+  glVertex2f(-0.5, -0.6);
+  glVertex2f(-0.5, 0.2);
+  glVertex2f(0.5, 0.2);
+  glVertex2f(0.5, -0.6);
+  glEnd();
+
+
+  // 矩形
+  glColor3f(1.0 * 200 / 255, 1.0 * 100 / 255, 1.0 * 200 / 255);
+  glRectf(hx, hy, hx + hwidth, hy + hheight);
+
+  // 三角形
+  glColor3f(1.0 * 50 / 255, 1.0 * 100 / 255, 1.0 * 155 / 255);
+  glBegin(GL_TRIANGLES);
+  glVertex2f(hx, hy + hheight);
+  glVertex2f(0, 0.7);
+  glVertex2f(hx + hwidth, hy + hheight);
+  glEnd();
+
+  // 窗户
+
+  glColor3f(1.0 * 249 / 255, 1.0 * 205 / 255, 1.0 * 173 / 255);
+  glRectf(wx, wy, wx + wh, wy + wh);
+
+  glColor3f(1.0 * 252 / 255, 1.0 * 157 / 255, 1.0 * 156 / 255);
+  glLineWidth(3);
+  glBegin(GL_LINES);
+  glVertex2f(wx, wy + wh / 2);
+  glVertex2f(wx + ww, wy + wh / 2);
+  glVertex2f(wx + ww / 2, wy + wh);
+  glVertex2f(wx + ww / 2, wy);
+  glEnd();
+
+  // 门
+  glColor3f(1.0 * 252 / 255, 1.0 * 157 / 255, 1.0 * 156 / 255);
+  glRectf(dx, dy, dx + dh, dy + dh);
+
+  glColor3f(1.0 * 252 / 255, 1.0 * 157 / 255, 1.0 * 156 / 255);
+  glBegin(GL_TRIANGLE_FAN) ;
+  glVertex2f(dcx, dcy);
+  for(float i = dcx - r; i &lt; dcx + r; i+=0.001)&#123;
+    glVertex2f(i, std::sqrt(std::fabs(r * r - (i - dcx) * (i - dcx))) + dcy);
+  &#125;
+  glEnd();
+
+  // 门锁
+  glColor3f(1.0 * 255 / 255, 1.0 * 0 / 255, 1.0 * 0 / 255);
+  glPointSize(10);
+  glBegin(GL_POINTS);
+  glVertex2f(dx + 0.08, dy + dh / 2);
+  glEnd();
+
+  // 太阳
+  glColor3f(1.0 * 255 / 255, 1.0 * 0 / 205, 1.0 * 0 / 255);
+  glBegin(GL_TRIANGLE_FAN);
+  glVertex2f(sx, sy);
+  for(float i = sx - sr1; i &lt; sx; i += 0.001)&#123;
+    glVertex2f(i, -std::sqrt(std::fabs(sr1 * sr1 - (i - sx) * (i - sx))) + sy);
+  &#125;
+  glEnd();
+
+  glColor3f(1.0 * 232 / 255, 1.0 * 110 / 255, 1.0 * 145 / 255);
+  glBegin(GL_TRIANGLE_FAN);
+  glVertex2f(sx, sy);
+  for(float i = sx - sr2; i &lt; sx; i+=0.001)&#123;
+    glVertex2f(i, -std::sqrt(std::fabs(sr2 * sr2 - (i - sx) * (i - sy))) + sy);
+  &#125;
+  glEnd();
+
+  glColor3f(1.0 * 255 / 255, 1.0 * 255 / 255, 1.0 * 0 / 255);
+  glBegin(GL_TRIANGLE_FAN);
+  glVertex2f(sx, sy);
+  for(float i = sx - sr3; i &lt; sx; i+=0.001)&#123;
+    glVertex2f(i, -std::sqrt(std::fabs(sr3 * sr3 - (i - sx) * (i - sy))) + sy);
+  &#125;
+  glEnd();
+
+
+  glFlush();
+&#125;
+
+const int WIDTH = 500;
+const int HEIGHT = 500;
+const int POS_X = 200;
+const int POS_Y = 200;
+
+int main(int argc, char *argv[])
+&#123;
+
+  glutInit(&amp;argc, argv);
+
+  const int SCREEN_WIDTH = glutGet(GLUT_SCREEN_WIDTH);
+  const int SCREEN_HEIGHT = glutGet(GLUT_SCREEN_HEIGHT);
+
+  const int POS_X = (SCREEN_WIDTH - WIDTH) / 2;
+  const int POS_Y = (SCREEN_HEIGHT - HEIGHT) / 2;
+
+  // setting up the display RGB color model + Alpha channel = GLUT_RGBA
+  glutInitDisplayMode(GLUT_RGBA | GLUT_SINGLE);
+
+  // configure window position and size
+  glutInitWindowPosition(POS_X, POS_Y);
+  glutInitWindowSize(WIDTH, HEIGHT);
+  
+  // create window
+  glutCreateWindow(&quot;opengl&quot;);
+
+  // call to the drawing function
+  glutDisplayFunc(display);
+
+  // loop require by opengl
+  glutMainLoop();
+  return 0;
+&#125;
+</code></pre>
 
     
     <hr>

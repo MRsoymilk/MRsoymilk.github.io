@@ -185,8 +185,10 @@
 <li><a target="_blank" rel="noopener" href="https://blog.soymilk.fun/2019/09/17/Linux/Shell/Shell%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5/">Shell 循环语句</a></li>
 <li><a target="_blank" rel="noopener" href="https://blog.soymilk.fun/2019/09/18/Linux/Shell/Shell%E5%87%BD%E6%95%B0/">Shell 函数</a></li>
 </ul>
-<h2 id="第一个-shell-script"><a href="#第一个-shell-script" class="headerlink" title="第一个 shell script"></a>第一个 shell script</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># hello shell</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;hello world&quot;</span></span><br></pre></td></tr></table></figure>
-
+<h2 id="第一个-shell-script"><a href="#第一个-shell-script" class="headerlink" title="第一个 shell script"></a>第一个 shell script</h2><pre><code class="bash">#!/bin/bash
+# hello shell
+echo &quot;hello world&quot;
+</code></pre>
 <p><strong>解释</strong><br><code>#!</code>是什么？</p>
 <blockquote>
 <p>Shebang（也称为 Hashbang ）是一个由井号和叹号构成的字符序列 <code>#!</code>，其出现在文本文件的第一行的前两个字符。 在文件中存在 Shebang 的情况下，类 Unix 操作系统的程序载入器会分析 Shebang 后的内容，将这些内容作为解释器指令，并调用该指令，并将载有 Shebang 的文件路径作为该解释器的参数</p>
@@ -196,12 +198,14 @@
 <h2 id="shell-script-的运行"><a href="#shell-script-的运行" class="headerlink" title="shell script 的运行"></a>shell script 的运行</h2><ol>
 <li>可执行程序</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x test.sh  <span class="comment"># 添加可执行权限</span></span><br><span class="line">./test.sh  <span class="comment"># 执行脚本</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">chmod +x test.sh  # 添加可执行权限
+./test.sh  # 执行脚本
+</code></pre>
 <ol start="2">
 <li>使用解释器</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash test.sh  <span class="comment"># 使用bash作为解释器，运行test.sh脚本</span></span><br></pre></td></tr></table></figure>
+<pre><code class="bash">bash test.sh  # 使用bash作为解释器，运行test.sh脚本
+</code></pre>
 
     
     <hr>

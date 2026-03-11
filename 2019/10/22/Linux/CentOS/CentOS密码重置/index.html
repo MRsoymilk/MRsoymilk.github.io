@@ -174,8 +174,13 @@
 <h2 id="rd-break"><a href="#rd-break" class="headerlink" title="rd.break"></a>rd.break</h2><p>找到<code>linux16</code>开头那一行在最后追加<code>rd.break</code><br><img src="/pass_rdbreak.png" alt="rd.break"></p>
 <h2 id="修改密码"><a href="#修改密码" class="headerlink" title="修改密码"></a>修改密码</h2><p><img src="/pass_change.png" alt="change password"></p>
 <p>命令：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mount -o remount, rw /sysroot/</span><br><span class="line"><span class="built_in">chroot</span> /sysroot/</span><br><span class="line">passwd</span><br><span class="line"><span class="built_in">touch</span> /.autorelabel</span><br><span class="line"><span class="built_in">exit</span></span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
-
+<pre><code class="sh">mount -o remount, rw /sysroot/
+chroot /sysroot/
+passwd
+touch /.autorelabel
+exit
+reboot
+</code></pre>
 <h2 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h2><p>知其然，还要知其所以然。</p>
 
     

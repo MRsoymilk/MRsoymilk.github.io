@@ -203,15 +203,22 @@
 </ol>
 <p>个人碰到的问题：<br>下载程序的时候 IO2 不要连接到电路中。<br>电路连接没问题，程序无法下载。出现<code>..</code>时候按下重置按钮</p>
 <h2 id="使用-platform-命令行操作（VSCode-中的按钮是简单的）"><a href="#使用-platform-命令行操作（VSCode-中的按钮是简单的）" class="headerlink" title="使用 platform 命令行操作（VSCode 中的按钮是简单的）"></a>使用 platform 命令行操作（VSCode 中的按钮是简单的）</h2><p>编译程序：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">platformio run</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">platformio run
+</code></pre>
 <p>上传程序：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">platformio run --target upload</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">platformio run --target upload
+</code></pre>
 <p>打开串口监视器：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pio device monitor</span><br></pre></td></tr></table></figure>
-
-<h2 id="platformio-配置文件操作"><a href="#platformio-配置文件操作" class="headerlink" title="platformio 配置文件操作"></a>platformio 配置文件操作</h2><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[env:esp32cam]</span></span><br><span class="line"><span class="attr">platform</span> = espressif32</span><br><span class="line"><span class="attr">board</span> = esp32cam</span><br><span class="line"><span class="attr">framework</span> = ardui<span class="literal">no</span></span><br><span class="line"><span class="attr">lib_deps</span> = roboticsbr<span class="literal">no</span>/ServoESP32@^<span class="number">1.0</span>.<span class="number">3</span></span><br><span class="line"><span class="attr">upload_port</span> = /dev/ttyUSB0</span><br><span class="line"><span class="attr">monitor_speed</span> = <span class="number">9600</span></span><br></pre></td></tr></table></figure>
+<pre><code class="bash">pio device monitor
+</code></pre>
+<h2 id="platformio-配置文件操作"><a href="#platformio-配置文件操作" class="headerlink" title="platformio 配置文件操作"></a>platformio 配置文件操作</h2><pre><code class="ini">[env:esp32cam]
+platform = espressif32
+board = esp32cam
+framework = arduino
+lib_deps = roboticsbrno/ServoESP32@^1.0.3
+upload_port = /dev/ttyUSB0
+monitor_speed = 9600
+</code></pre>
 
     
     <hr>

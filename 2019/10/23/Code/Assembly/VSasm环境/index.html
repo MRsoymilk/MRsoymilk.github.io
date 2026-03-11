@@ -197,8 +197,22 @@
 </ul>
 <p><img src="/entry.png" alt="entry"></p>
 <h2 id="调试相关"><a href="#调试相关" class="headerlink" title="调试相关"></a>调试相关</h2><p>调试程序</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">.MODEL flat, stdcall</span><br><span class="line"></span><br><span class="line">ExitProcess PROTO,          ; exit program</span><br><span class="line">    dwExitCode:DWORD        ; return code</span><br><span class="line"></span><br><span class="line">.data</span><br><span class="line">.code</span><br><span class="line">main PROC</span><br><span class="line">    mov eax, 1h</span><br><span class="line">    mov eax, 2h</span><br><span class="line"></span><br><span class="line">    call ExitProcess</span><br><span class="line"></span><br><span class="line">main ENDP</span><br><span class="line">END main</span><br></pre></td></tr></table></figure>
+<pre><code class="masm">.MODEL flat, stdcall
 
+ExitProcess PROTO,          ; exit program
+    dwExitCode:DWORD        ; return code
+
+.data
+.code
+main PROC
+    mov eax, 1h
+    mov eax, 2h
+
+    call ExitProcess
+
+main ENDP
+END main
+</code></pre>
 <p><img src="/windows.png" alt="windows"></p>
 <p>打上断点，点击调试</p>
 <h3 id="窗口的选择："><a href="#窗口的选择：" class="headerlink" title="窗口的选择："></a>窗口的选择：</h3><p><strong>打开 Registers(寄存器)</strong>:</p>

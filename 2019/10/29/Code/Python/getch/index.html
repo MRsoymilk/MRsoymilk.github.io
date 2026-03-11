@@ -170,8 +170,51 @@
     <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>参考了某篇博客，时间长了忘了<br>Python3.x 只有整行读取（即输入一行，回车后读入），不能实时读取（或者我没发现）</p>
 <span id="more"></span>
 
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">_Getch</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Gets a single character from standard input.  Does not echo to the</span></span><br><span class="line"><span class="string">screen.&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="variable language_">self</span>.impl = _GetchWindows()</span><br><span class="line">        <span class="keyword">except</span> ImportError:</span><br><span class="line">            <span class="variable language_">self</span>.impl = _GetchUnix()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__call__</span>(<span class="params">self</span>): <span class="keyword">return</span> <span class="variable language_">self</span>.impl()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">_GetchUnix</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">import</span> tty, sys</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__call__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">import</span> sys, tty, termios</span><br><span class="line">        fd = sys.stdin.fileno()</span><br><span class="line">        old_settings = termios.tcgetattr(fd)</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            tty.setraw(sys.stdin.fileno())</span><br><span class="line">            ch = sys.stdin.read(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">finally</span>:</span><br><span class="line">            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)</span><br><span class="line">        <span class="keyword">return</span> ch</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">_GetchWindows</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">import</span> msvcrt</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__call__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">import</span> msvcrt</span><br><span class="line">        <span class="keyword">return</span> msvcrt.getch()</span><br><span class="line"></span><br><span class="line">getch = _Getch()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 具体实现</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    cmd = getch()</span><br><span class="line">    <span class="keyword">if</span> cmd == <span class="string">&#x27;q&#x27;</span> <span class="keyword">or</span> cmd == <span class="string">&#x27;Q&#x27;</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="built_in">print</span>(cmd)</span><br></pre></td></tr></table></figure>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code class="Python">class _Getch:
+    &quot;&quot;&quot;Gets a single character from standard input.  Does not echo to the
+screen.&quot;&quot;&quot;
+    def __init__(self):
+        try:
+            self.impl = _GetchWindows()
+        except ImportError:
+            self.impl = _GetchUnix()
 
+    def __call__(self): return self.impl()
+
+
+class _GetchUnix:
+    def __init__(self):
+        import tty, sys
+
+    def __call__(self):
+        import sys, tty, termios
+        fd = sys.stdin.fileno()
+        old_settings = termios.tcgetattr(fd)
+        try:
+            tty.setraw(sys.stdin.fileno())
+            ch = sys.stdin.read(1)
+        finally:
+            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+        return ch
+
+
+class _GetchWindows:
+    def __init__(self):
+        import msvcrt
+
+    def __call__(self):
+        import msvcrt
+        return msvcrt.getch()
+
+getch = _Getch()
+
+# 具体实现
+while True:
+    cmd = getch()
+    if cmd == &#39;q&#39; or cmd == &#39;Q&#39;:
+        break
+    print(cmd)
+</code></pre>
 <h2 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h2><p>Linux 和 Windwos 平台都 OK</p>
 
     

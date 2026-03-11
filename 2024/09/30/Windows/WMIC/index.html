@@ -164,20 +164,33 @@
 <span id="more"></span>
 
 <h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p>以下是一些常用的 WMIC 命令，可以获取系统信息：</p>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wmic cpu get processorid</span><br><span class="line">ProcessorId</span><br><span class="line"><span class="number">178</span>BFBFF00A20F10</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bat">wmic cpu get processorid
+ProcessorId
+178BFBFF00A20F10
+</code></pre>
 <p>获取 CPU 的处理器 ID。</p>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wmic csproduct get uuid</span><br><span class="line">UUID</span><br><span class="line"><span class="number">754</span>AC904-<span class="number">7970</span>-A929-B91F-F02F742E5DCD</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bat">wmic csproduct get uuid
+UUID
+754AC904-7970-A929-B91F-F02F742E5DCD
+</code></pre>
 <p>获取计算机的 UUID（通用唯一标识符）。</p>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wmic bios get serialnumber</span><br><span class="line">SerialNumber</span><br><span class="line">System Serial Number</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bat">wmic bios get serialnumber
+SerialNumber
+System Serial Number
+</code></pre>
 <p>获取 BIOS 的序列号。</p>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wmic baseboard get serialnumber</span><br><span class="line">SerialNumber</span><br><span class="line"><span class="number">201177403811576</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bat">wmic baseboard get serialnumber
+SerialNumber
+201177403811576
+</code></pre>
 <p>获取主板的序列号。</p>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wmic diskdrive get serialnumber</span><br><span class="line">SerialNumber</span><br><span class="line"><span class="number">50026</span>B778380992F</span><br><span class="line">WD-WXB1A88NDFLH</span><br><span class="line">WD-WXM1A97ETJ32</span><br><span class="line">WXE1E13KJRH4</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bat">wmic diskdrive get serialnumber
+SerialNumber
+50026B778380992F
+WD-WXB1A88NDFLH
+WD-WXM1A97ETJ32
+WXE1E13KJRH4
+</code></pre>
 <p>获取固定硬盘的序列号。</p>
 <h2 id="可能出现的问题"><a href="#可能出现的问题" class="headerlink" title="可能出现的问题"></a>可能出现的问题</h2><h3 id="无效的命名空间"><a href="#无效的命名空间" class="headerlink" title="无效的命名空间"></a>无效的命名空间</h3><p>在使用 WMIC 时，可能会遇到“无效的命名空间”错误。这通常是由于 WMIC 存储库损坏或未正确配置引起的。</p>
 <p><strong>参考</strong>: <a target="_blank" rel="noopener" href="https://windowsreport.com/wmic-alias-not-found/">Windows Report</a></p>
@@ -187,25 +200,25 @@
 <li><strong>停止 <code>winmgmt</code> 服务</strong>：</li>
 </ol>
 <p>这个命令会停止 Windows 管理工具服务，以便进行修复。</p>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">net</span> stop winmgmt</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bat">net stop winmgmt
+</code></pre>
 <ol start="2">
 <li><strong>移除存储库目录</strong>：<br>删除 WMIC 的存储库文件夹，以便重新创建它。注意，这一步会删除存储库中的所有数据，但不会影响系统。</li>
 </ol>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rmdir</span> /s /q C:\Windows\System32\wbem\repository</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bat">rmdir /s /q C:\Windows\System32\wbem\repository
+</code></pre>
 <ol start="3">
 <li><strong>进入 <code>wbem</code> 目录</strong>：</li>
 </ol>
 <p>进入 WMIC 的工作目录，以便执行修复命令。</p>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> C:\Windows\System32\wbem</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bat">cd C:\Windows\System32\wbem
+</code></pre>
 <ol start="4">
 <li><strong>尝试修复</strong>：</li>
 </ol>
 <p>运行以下命令，以修复存储库并重新编译所需的 MOF 文件。</p>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> /f %s <span class="keyword">in</span> (&#x27;<span class="built_in">dir</span> /b *.mof&#x27;) <span class="keyword">do</span> mofcomp %s</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bat">for /f %s in (&#39;dir /b *.mof&#39;) do mofcomp %s
+</code></pre>
 <ol start="5">
 <li><strong>重启电脑</strong>：</li>
 </ol>

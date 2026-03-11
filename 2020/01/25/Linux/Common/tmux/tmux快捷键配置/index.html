@@ -193,47 +193,103 @@
 <li>set: set-option 别名</li>
 <li>setw: set-window-option 别名</li>
 </ul>
-<h2 id="更方便的前缀键"><a href="#更方便的前缀键" class="headerlink" title="更方便的前缀键"></a>更方便的前缀键</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -g prefix C-a  <span class="comment"># -g全局配置(global)</span></span><br></pre></td></tr></table></figure>
-
+<h2 id="更方便的前缀键"><a href="#更方便的前缀键" class="headerlink" title="更方便的前缀键"></a>更方便的前缀键</h2><pre><code class="bash">set -g prefix C-a  # -g全局配置(global)
+</code></pre>
 <h2 id="修改默认延时"><a href="#修改默认延时" class="headerlink" title="修改默认延时"></a>修改默认延时</h2><p>向 tmux 发送命令时，tmux 默认存在延时(prefi 键与命令键之间的时间)</p>
 <p><em>延时设置为 1ms 让 tmux 响应更快</em></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -sg escape-time 1</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">set -sg escape-time 1
+</code></pre>
 <h2 id="设置窗口和面板索引"><a href="#设置窗口和面板索引" class="headerlink" title="设置窗口和面板索引"></a>设置窗口和面板索引</h2><p><em>窗口索引从 1 开始(默认为 0)</em></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -g base-index 1</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">set -g base-index 1
+</code></pre>
 <p><em>面板索引从 1 开始(默认为 0)</em></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -g pane-base-index 1</span><br></pre></td></tr></table></figure>
-
-<h2 id="tmux-配置文件的实时更新"><a href="#tmux-配置文件的实时更新" class="headerlink" title="tmux 配置文件的实时更新"></a>tmux 配置文件的实时更新</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">prefix :  <span class="comment"># 进入命令模式</span></span><br><span class="line">source-file ~/.tmux.conf</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">set -g pane-base-index 1
+</code></pre>
+<h2 id="tmux-配置文件的实时更新"><a href="#tmux-配置文件的实时更新" class="headerlink" title="tmux 配置文件的实时更新"></a>tmux 配置文件的实时更新</h2><pre><code class="bash">prefix :  # 进入命令模式
+source-file ~/.tmux.conf
+</code></pre>
 <h2 id="创建重新加载配置的快捷键"><a href="#创建重新加载配置的快捷键" class="headerlink" title="创建重新加载配置的快捷键"></a>创建重新加载配置的快捷键</h2><p>重新加载配置文件后, tmux 并不会提示配置是否改变，使用<code>display</code>命令在状态栏输出<br>消息。<br>多个命令之间添加<code>\;</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">bind</span> r source-file ~/.tmux.conf \; display <span class="string">&quot;Reloaded!&quot;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">bind r source-file ~/.tmux.conf \; display &quot;Reloaded!&quot;
+</code></pre>
 <p><strong>如何定义一个不需要前缀的快捷键？</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bind-key -n C-r source-file ~/.tmux.conf  <span class="comment"># 使用Ctrl + r 键重新加载配置文件</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">bind-key -n C-r source-file ~/.tmux.conf  # 使用Ctrl + r 键重新加载配置文件
+</code></pre>
 <p>影响: tmux 会话中的任何程序或命令都禁用组合键。</p>
-<h2 id="发送前缀键到其它程序"><a href="#发送前缀键到其它程序" class="headerlink" title="发送前缀键到其它程序"></a>发送前缀键到其它程序</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">bind</span> C-a send-prefix</span><br></pre></td></tr></table></figure>
-
+<h2 id="发送前缀键到其它程序"><a href="#发送前缀键到其它程序" class="headerlink" title="发送前缀键到其它程序"></a>发送前缀键到其它程序</h2><pre><code class="bash">bind C-a send-prefix
+</code></pre>
 <p>目的: 避免命令前缀对其它程序的影响, 两次前缀键发送给 tmux 中的程序。</p>
-<h2 id="分割面板"><a href="#分割面板" class="headerlink" title="分割面板"></a>分割面板</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用|水平分割</span></span><br><span class="line"><span class="built_in">bind</span> | split-window -h</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用-垂直分割</span></span><br><span class="line"><span class="built_in">bind</span> - split-window -v</span><br></pre></td></tr></table></figure>
+<h2 id="分割面板"><a href="#分割面板" class="headerlink" title="分割面板"></a>分割面板</h2><pre><code class="bash"># 使用|水平分割
+bind | split-window -h
 
+# 使用-垂直分割
+bind - split-window -v
+</code></pre>
 <h2 id="重新映射移动键"><a href="#重新映射移动键" class="headerlink" title="重新映射移动键"></a>重新映射移动键</h2><p><em>参照 vim 移动键位设置</em></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">bind</span> h select-pane -L</span><br><span class="line"><span class="built_in">bind</span> j select-pane -D</span><br><span class="line"><span class="built_in">bind</span> k select-pane -U</span><br><span class="line"><span class="built_in">bind</span> l select-pane -R</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+</code></pre>
 <h2 id="窗口循环切换"><a href="#窗口循环切换" class="headerlink" title="窗口循环切换"></a>窗口循环切换</h2><p>使用快捷键 <code>Ctrl h</code> 和 <code>Ctrl l</code> 实现</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 上一个窗口</span></span><br><span class="line">bind-key -n C-h select-window -t :-</span><br><span class="line"><span class="comment"># 下一个窗口</span></span><br><span class="line">bind-key -n C-l select-window -t :+</span><br></pre></td></tr></table></figure>
+<pre><code class="bash"># 上一个窗口
+bind-key -n C-h select-window -t :-
+# 下一个窗口
+bind-key -n C-l select-window -t :+
+</code></pre>
+<h2 id="调整面板大小"><a href="#调整面板大小" class="headerlink" title="调整面板大小"></a>调整面板大小</h2><pre><code class="bash"># 每次改变需要前缀键加持
+bind H resize-pane -L 5
+bind J resize-pane -D 5
+bind K resize-pane -U 5
+bind L resize-pane -R 5
 
-<h2 id="调整面板大小"><a href="#调整面板大小" class="headerlink" title="调整面板大小"></a>调整面板大小</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 每次改变需要前缀键加持</span></span><br><span class="line"><span class="built_in">bind</span> H resize-pane -L 5</span><br><span class="line"><span class="built_in">bind</span> J resize-pane -D 5</span><br><span class="line"><span class="built_in">bind</span> K resize-pane -U 5</span><br><span class="line"><span class="built_in">bind</span> L resize-pane -R 5</span><br><span class="line"></span><br><span class="line"><span class="comment"># 一次前缀键, 持续更改(默认最大重复限制时间: 500毫秒, 通过repeat-time设置)</span></span><br><span class="line"><span class="built_in">bind</span> -r H resize-pane -L 5  <span class="comment"># r=repeatable</span></span><br><span class="line"><span class="built_in">bind</span> -r J resize-pane -D 5</span><br><span class="line"><span class="built_in">bind</span> -r K resize-pane -U 5</span><br><span class="line"><span class="built_in">bind</span> -r L resize-pane -R 5</span><br></pre></td></tr></table></figure>
-
+# 一次前缀键, 持续更改(默认最大重复限制时间: 500毫秒, 通过repeat-time设置)
+bind -r H resize-pane -L 5  # r=repeatable
+bind -r J resize-pane -D 5
+bind -r K resize-pane -U 5
+bind -r L resize-pane -R 5
+</code></pre>
 <h2 id="处理鼠标"><a href="#处理鼠标" class="headerlink" title="处理鼠标"></a>处理鼠标</h2><p>鼠标模式开关</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setw -g mode-mouse on/off</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">setw -g mode-mouse on/off
+</code></pre>
 <p>其它鼠标操作</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -g mouse-select-pane on/off  <span class="comment"># 鼠标选择一个面板</span></span><br><span class="line"><span class="built_in">set</span> -g mouse-resize-pane on/off  <span class="comment"># 调整面板大小</span></span><br><span class="line"><span class="built_in">set</span> -g mouse-select-window on/off  <span class="comment"># 窗口列表中选择一个窗口</span></span><br></pre></td></tr></table></figure>
+<pre><code class="bash">set -g mouse-select-pane on/off  # 鼠标选择一个面板
+set -g mouse-resize-pane on/off  # 调整面板大小
+set -g mouse-select-window on/off  # 窗口列表中选择一个窗口
+</code></pre>
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><pre><code class="bash">set -g prefix C-a
 
-<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -g prefix C-a</span><br><span class="line"></span><br><span class="line">bind-key C-a send-prefix</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> -g default-shell <span class="string">&quot;/usr/bin/fish&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> -sg escape-time 1</span><br><span class="line"></span><br><span class="line">bind-key -n C-r source-file <span class="string">&quot;~/.tmux.conf&quot;</span> \; display <span class="string">&quot;Reloaded!&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">bind</span> | split-window -h</span><br><span class="line"></span><br><span class="line"><span class="built_in">bind</span> - split-window -v</span><br><span class="line"></span><br><span class="line"><span class="built_in">bind</span> h select-pane -L</span><br><span class="line"></span><br><span class="line"><span class="built_in">bind</span> j select-pane -D</span><br><span class="line"></span><br><span class="line"><span class="built_in">bind</span> k select-pane -U</span><br><span class="line"></span><br><span class="line"><span class="built_in">bind</span> l select-pane -R</span><br><span class="line"></span><br><span class="line">bind-key -n C-h select-window -t :-</span><br><span class="line"></span><br><span class="line">bind-key -n C-l select-window -t :+</span><br><span class="line"></span><br><span class="line"><span class="built_in">bind</span> -r H resize-pane -L 5</span><br><span class="line"></span><br><span class="line"><span class="built_in">bind</span> -r J resize-pane -D 5</span><br><span class="line"></span><br><span class="line"><span class="built_in">bind</span> -r K resize-pane -U 5</span><br><span class="line"></span><br><span class="line"><span class="built_in">bind</span> -r L resize-pane -R 5</span><br></pre></td></tr></table></figure>
+bind-key C-a send-prefix
+
+set -g default-shell &quot;/usr/bin/fish&quot;
+
+set -sg escape-time 1
+
+bind-key -n C-r source-file &quot;~/.tmux.conf&quot; \; display &quot;Reloaded!&quot;
+
+bind | split-window -h
+
+bind - split-window -v
+
+bind h select-pane -L
+
+bind j select-pane -D
+
+bind k select-pane -U
+
+bind l select-pane -R
+
+bind-key -n C-h select-window -t :-
+
+bind-key -n C-l select-window -t :+
+
+bind -r H resize-pane -L 5
+
+bind -r J resize-pane -D 5
+
+bind -r K resize-pane -U 5
+
+bind -r L resize-pane -R 5
+</code></pre>
 
     
     <hr>

@@ -163,8 +163,13 @@
     <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://docs.opencv.org/master/db/df5/tutorial_linux_gcc_cmake.html">OpenCV 官方文档</a></p>
 <h2 id="关于-CMake-的配置"><a href="#关于-CMake-的配置" class="headerlink" title="关于 CMake 的配置"></a>关于 CMake 的配置</h2><p><strong>编辑 <code>CMakeLists.txt</code> 文件</strong></p>
 <p>我根据官方文档修改后：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">2.8</span>)</span><br><span class="line"><span class="keyword">project</span>( first )</span><br><span class="line"><span class="keyword">find_package</span>( OpenCV REQUIRED )</span><br><span class="line"><span class="keyword">include_directories</span>( <span class="variable">$&#123;OpenCV_INCLUDE_DIRS&#125;</span> )</span><br><span class="line"><span class="keyword">add_executable</span>( main main.cpp )</span><br><span class="line"><span class="keyword">target_link_libraries</span>( main <span class="variable">$&#123;OpenCV_LIBS&#125;</span> )</span><br></pre></td></tr></table></figure>
-
+<pre><code class="cmake">cmake_minimum_required(VERSION 2.8)
+project( first )
+find_package( OpenCV REQUIRED )
+include_directories( $&#123;OpenCV_INCLUDE_DIRS&#125; )
+add_executable( main main.cpp )
+target_link_libraries( main $&#123;OpenCV_LIBS&#125; )
+</code></pre>
 <p><strong>参数说明</strong>：<br><code>cmake_minmum_required</code>：顾名思义，cmake 最小版本，没有特殊要求</p>
 <p><code>project</code>：你的项目名称，自定义修改，我取名为 first</p>
 <p><code>find_package</code>：查找你的 OpenCV 库文件，提供给 include_directories，保持默认</p>
@@ -172,8 +177,9 @@
 <p><code>add_executable</code>：添加可执行文件，main 表示生成可执行文件的名称，自定义修改；main.cpp 表示存在 main 函数的 cpp 文件，自定义修改</p>
 <p><code>target_link_libraries</code>：为目标文件(你的可执行文件)提供 OpenCV 链接库，其他默认</p>
 <p>其他：比如我的可执行文件为 demo，那么可以这么修改</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">add_executable</span>( demo main.cpp )</span><br><span class="line"><span class="keyword">target_link_libraries</span>( demo <span class="variable">$&#123;OpenCV_LIBS&#125;</span> )</span><br></pre></td></tr></table></figure>
-
+<pre><code class="cmake">add_executable( demo main.cpp )
+target_link_libraries( demo $&#123;OpenCV_LIBS&#125; )
+</code></pre>
 <h2 id="执行配置"><a href="#执行配置" class="headerlink" title="执行配置"></a>执行配置</h2><ol>
 <li><code>cd</code> 你的工作目录 # 在哪写 main 函数的地方</li>
 <li><code>cmake .</code> # 当前目录下执行 cmake</li>

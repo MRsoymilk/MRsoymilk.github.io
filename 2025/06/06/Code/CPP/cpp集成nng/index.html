@@ -174,16 +174,36 @@
 <span id="more"></span>
 
 <h2 id="简单集成"><a href="#简单集成" class="headerlink" title="简单集成"></a>简单集成</h2><p>项目结构：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── build</span><br><span class="line">├── CMakeLists.txt</span><br><span class="line">├── main.cpp</span><br><span class="line">└── vendor</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">.
+├── build
+├── CMakeLists.txt
+├── main.cpp
+└── vendor
+</code></pre>
 <p>CMakeLists.txt：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.10</span>)</span><br><span class="line"><span class="keyword">project</span>(<span class="keyword">test</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">17</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_subdirectory</span>(vendor/nng-<span class="number">1.11</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_executable</span>(<span class="keyword">test</span> main.cpp)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_link_libraries</span>(<span class="keyword">test</span> nng)</span><br></pre></td></tr></table></figure>
+<pre><code class="cmake">cmake_minimum_required(VERSION 3.10)
+project(test)
 
+set(CMAKE_CXX_STANDARD 17)
+
+add_subdirectory(vendor/nng-1.11)
+
+add_executable(test main.cpp)
+
+target_link_libraries(test nng)
+</code></pre>
 <p>main.cpp：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;nng/nng.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  std::cout &lt;&lt; <span class="string">&quot;nng version: &quot;</span> &lt;&lt; <span class="built_in">nng_version</span>() &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="cpp">#include &quot;nng/nng.h&quot;
+#include &lt;iostream&gt;
 
+int main() &#123;
+  std::cout &lt;&lt; &quot;nng version: &quot; &lt;&lt; nng_version() &lt;&lt; std::endl;
+&#125;
+</code></pre>
 <p>输出：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./test</span><br><span class="line">nng version: 1.11.0</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">./test
+nng version: 1.11.0
+</code></pre>
 
     
     <hr>

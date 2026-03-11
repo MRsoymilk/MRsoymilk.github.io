@@ -166,27 +166,81 @@
 <h2 id="操作环境"><a href="#操作环境" class="headerlink" title="操作环境"></a>操作环境</h2><p><strong>操作系统</strong>: Ubuntu 18.04</p>
 <p><strong>OpenCV</strong>: 4.1.0</p>
 <h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>OpenCV 坐标系</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">原点  _______\  x轴</span><br><span class="line">    |</span><br><span class="line">    |</span><br><span class="line">    |</span><br><span class="line">   \|</span><br><span class="line">  y轴</span><br></pre></td></tr></table></figure>
-
+<pre><code class="plaintext">原点  _______\  x轴
+    |
+    |
+    |
+   \|
+  y轴
+</code></pre>
 <p><strong>注意</strong>:</p>
 <p>所有的图像均是在名为 canvas 的 Mat 类型上实现</p>
 <p>已提前声明命名空间<code>using namespace cv;</code></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">cv::Mat <span class="title">canvas</span><span class="params">(<span class="number">400</span>, <span class="number">400</span>, CV_8U)</span></span>;</span><br></pre></td></tr></table></figure>
-
-<h3 id="直线"><a href="#直线" class="headerlink" title="直线"></a>直线</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">line</span><span class="params">()</span></span>&#123;</span><br><span class="line">  cv::<span class="built_in">line</span>(canvas,</span><br><span class="line">           cv::<span class="built_in">Point</span>(<span class="number">0</span>, <span class="number">45</span>),  <span class="comment">// 起始点</span></span><br><span class="line">           cv::<span class="built_in">Point</span>(<span class="number">400</span>, <span class="number">400</span>),  <span class="comment">// 终点</span></span><br><span class="line">           <span class="number">255</span>,  <span class="comment">// 颜色</span></span><br><span class="line">           <span class="number">2</span>);  <span class="comment">// 宽度</span></span><br><span class="line">  cv::<span class="built_in">imshow</span>(<span class="string">&quot;line&quot;</span>, canvas);</span><br><span class="line">  cv::<span class="built_in">waitKey</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="C++">cv::Mat canvas(400, 400, CV_8U);
+</code></pre>
+<h3 id="直线"><a href="#直线" class="headerlink" title="直线"></a>直线</h3><pre><code class="C++">void line()&#123;
+  cv::line(canvas,
+           cv::Point(0, 45),  // 起始点
+           cv::Point(400, 400),  // 终点
+           255,  // 颜色
+           2);  // 宽度
+  cv::imshow(&quot;line&quot;, canvas);
+  cv::waitKey(0);
+&#125;
+</code></pre>
 <p><img src="/cv_line.png" alt="line"></p>
-<h3 id="圆形"><a href="#圆形" class="headerlink" title="圆形"></a>圆形</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">circle</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  cv::<span class="built_in">circle</span>(canvas,</span><br><span class="line">             cv::<span class="built_in">Point</span>(<span class="number">200</span>, <span class="number">200</span>),  <span class="comment">// 圆心</span></span><br><span class="line">             <span class="number">100</span>,  <span class="comment">// 半径</span></span><br><span class="line">             <span class="number">255</span>,  <span class="comment">// 颜色</span></span><br><span class="line">             <span class="number">2</span>);  <span class="comment">// 宽度</span></span><br><span class="line">  cv::<span class="built_in">imshow</span>(<span class="string">&quot;circle&quot;</span>, canvas);</span><br><span class="line">  cv::<span class="built_in">waitKey</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<h3 id="圆形"><a href="#圆形" class="headerlink" title="圆形"></a>圆形</h3><pre><code class="C++">void circle() &#123;
+  cv::circle(canvas,
+             cv::Point(200, 200),  // 圆心
+             100,  // 半径
+             255,  // 颜色
+             2);  // 宽度
+  cv::imshow(&quot;circle&quot;, canvas);
+  cv::waitKey(0);
+&#125;
+</code></pre>
 <p><img src="/cv_circle.png" alt="circle"></p>
-<h3 id="椭圆"><a href="#椭圆" class="headerlink" title="椭圆"></a>椭圆</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">ellipse</span><span class="params">()</span></span>&#123;</span><br><span class="line"> cv::<span class="built_in">ellipse</span>(canvas</span><br><span class="line">             cv::<span class="built_in">Point</span>(<span class="number">200</span>, <span class="number">200</span>),  <span class="comment">// 圆心</span></span><br><span class="line">             cv::<span class="built_in">Size</span>(<span class="number">100</span>, <span class="number">50</span>)),  <span class="comment">// (x轴长度，y轴长度)</span></span><br><span class="line">             <span class="number">10</span>,  <span class="comment">// 旋转角度</span></span><br><span class="line">             <span class="number">0</span>,  <span class="comment">// 绘制起点</span></span><br><span class="line">             <span class="number">270</span>,  <span class="comment">// 绘制终点</span></span><br><span class="line">             <span class="number">255</span>,  <span class="comment">// 颜色</span></span><br><span class="line">             <span class="number">2</span>);  <span class="comment">// 宽度</span></span><br><span class="line">  cv::<span class="built_in">imshow</span>(<span class="string">&quot;ellipse&quot;</span>, canvas);</span><br><span class="line">  cv::<span class="built_in">waitKey</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<h3 id="椭圆"><a href="#椭圆" class="headerlink" title="椭圆"></a>椭圆</h3><pre><code class="C++">void ellipse()&#123;
+ cv::ellipse(canvas
+             cv::Point(200, 200),  // 圆心
+             cv::Size(100, 50)),  // (x轴长度，y轴长度)
+             10,  // 旋转角度
+             0,  // 绘制起点
+             270,  // 绘制终点
+             255,  // 颜色
+             2);  // 宽度
+  cv::imshow(&quot;ellipse&quot;, canvas);
+  cv::waitKey(0);
+&#125;
+</code></pre>
 <p><img src="/cv_ellipse.png" alt="ellipse"></p>
-<h3 id="矩形"><a href="#矩形" class="headerlink" title="矩形"></a>矩形</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">rectangle</span><span class="params">()</span></span>&#123;</span><br><span class="line">  cv::<span class="built_in">rectangle</span>(canvas,</span><br><span class="line">                cv::<span class="built_in">Point</span>(<span class="number">100</span>, <span class="number">100</span>),  <span class="comment">// 左上角坐标</span></span><br><span class="line">                cv::<span class="built_in">Point</span>(<span class="number">300</span>, <span class="number">300</span>),  <span class="comment">// 右下角坐标</span></span><br><span class="line">                <span class="number">255</span>,  <span class="comment">// 颜色</span></span><br><span class="line">                <span class="number">2</span>);  <span class="comment">// 宽度</span></span><br><span class="line">  cv::<span class="built_in">rectangle</span>(canvas,</span><br><span class="line">                <span class="built_in">Rect</span>(<span class="number">50</span>, <span class="number">50</span>, <span class="number">100</span>, <span class="number">100</span>),  <span class="comment">// (左上角点x，左上角点y, 矩形宽度, 矩形长度)</span></span><br><span class="line">                <span class="number">255</span>,  <span class="comment">// 颜色</span></span><br><span class="line">                <span class="number">2</span>);  <span class="comment">// 宽度</span></span><br><span class="line">  cv::<span class="built_in">imshow</span>(<span class="string">&quot;rectangle&quot;</span>, canvas);</span><br><span class="line">  cv::<span class="built_in">waitKey</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<h3 id="矩形"><a href="#矩形" class="headerlink" title="矩形"></a>矩形</h3><pre><code class="C++">void rectangle()&#123;
+  cv::rectangle(canvas,
+                cv::Point(100, 100),  // 左上角坐标
+                cv::Point(300, 300),  // 右下角坐标
+                255,  // 颜色
+                2);  // 宽度
+  cv::rectangle(canvas,
+                Rect(50, 50, 100, 100),  // (左上角点x，左上角点y, 矩形宽度, 矩形长度)
+                255,  // 颜色
+                2);  // 宽度
+  cv::imshow(&quot;rectangle&quot;, canvas);
+  cv::waitKey(0);
+&#125;
+</code></pre>
 <p><img src="/cv_rectangle.png" alt="rectangle"></p>
-<h3 id="文字"><a href="#文字" class="headerlink" title="文字"></a>文字</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">text</span><span class="params">()</span></span>&#123;</span><br><span class="line">  cv::<span class="built_in">putText</span>(canvas,</span><br><span class="line">              <span class="string">&quot;hello world&quot;</span>,  <span class="comment">// 绘制文字</span></span><br><span class="line">              cv::<span class="built_in">Point</span>(<span class="number">20</span>, <span class="number">100</span>),  <span class="comment">// 起始点</span></span><br><span class="line">              cv::FONT_ITALIC,  <span class="comment">// 字体</span></span><br><span class="line">              <span class="number">2</span>,  <span class="comment">// 字体缩放</span></span><br><span class="line">              <span class="number">255</span>,  <span class="comment">// 颜色</span></span><br><span class="line">              <span class="number">2</span>);  <span class="comment">// 宽度</span></span><br><span class="line">  cv::<span class="built_in">imshow</span>(<span class="string">&quot;text&quot;</span>, canvas);</span><br><span class="line">  cv::<span class="built_in">waitKey</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<h3 id="文字"><a href="#文字" class="headerlink" title="文字"></a>文字</h3><pre><code class="C++">void text()&#123;
+  cv::putText(canvas,
+              &quot;hello world&quot;,  // 绘制文字
+              cv::Point(20, 100),  // 起始点
+              cv::FONT_ITALIC,  // 字体
+              2,  // 字体缩放
+              255,  // 颜色
+              2);  // 宽度
+  cv::imshow(&quot;text&quot;, canvas);
+  cv::waitKey(0);
+&#125;
+</code></pre>
 <p><img src="/cv_text.png" alt="text"></p>
 <p><strong>注意</strong>: 无法输出中文, 会出现???</p>
 <h2 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h2><p>基础绘制，多用于标记。</p>

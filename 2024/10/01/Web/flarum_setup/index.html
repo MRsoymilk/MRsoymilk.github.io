@@ -162,8 +162,11 @@
     
     <h2 id="Composer-安装与使用"><a href="#Composer-安装与使用" class="headerlink" title="Composer 安装与使用"></a>Composer 安装与使用</h2><p>Flarum 使用 Composer 来管理其依赖包和扩展程序</p>
 <p>安装，参考：<a target="_blank" rel="noopener" href="https://getcomposer.org/download/">https://getcomposer.org/download/</a></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">php -r <span class="string">&quot;copy(&#x27;https://getcomposer.org/installer&#x27;, &#x27;composer-setup.php&#x27;);&quot;</span></span><br><span class="line">php -r <span class="string">&quot;if (hash_file(&#x27;sha384&#x27;, &#x27;composer-setup.php&#x27;) === &#x27;dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6&#x27;) &#123; echo &#x27;Installer verified&#x27;; &#125; else &#123; echo &#x27;Installer corrupt&#x27;; unlink(&#x27;composer-setup.php&#x27;); &#125; echo PHP_EOL;&quot;</span></span><br><span class="line">php composer-setup.php</span><br><span class="line">php -r <span class="string">&quot;unlink(&#x27;composer-setup.php&#x27;);&quot;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">php -r &quot;copy(&#39;https://getcomposer.org/installer&#39;, &#39;composer-setup.php&#39;);&quot;
+php -r &quot;if (hash_file(&#39;sha384&#39;, &#39;composer-setup.php&#39;) === &#39;dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6&#39;) &#123; echo &#39;Installer verified&#39;; &#125; else &#123; echo &#39;Installer corrupt&#39;; unlink(&#39;composer-setup.php&#39;); &#125; echo PHP_EOL;&quot;
+php composer-setup.php
+php -r &quot;unlink(&#39;composer-setup.php&#39;);&quot;
+</code></pre>
 <p>安装程序脚本将简单地检查一些 php.ini 设置，如果设置不正确，则会发出警告，然后在当前目录中下载最新的 composer.phar。上面的 4 行将按顺序说明：</p>
 <ul>
 <li>下载安装程序到当前目录</li>
@@ -173,19 +176,36 @@
 </ul>
 <p>安装成功后将在当前目录下生成<code>composer.phar</code></p>
 <p>使用<code>--version</code>验证安装是否成功：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ php composer.phar --version</span><br><span class="line">Composer version 2.7.9 2024-09-04 14:43:28</span><br><span class="line">PHP version 8.3.10 (/usr/lib64/php8.3/bin/php)</span><br><span class="line">Run the <span class="string">&quot;diagnose&quot;</span> <span class="built_in">command</span> to get more detailed diagnostics output.</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">$ php composer.phar --version
+Composer version 2.7.9 2024-09-04 14:43:28
+PHP version 8.3.10 (/usr/lib64/php8.3/bin/php)
+Run the &quot;diagnose&quot; command to get more detailed diagnostics output.
+</code></pre>
 <h2 id="安装-flarum"><a href="#安装-flarum" class="headerlink" title="安装 flarum"></a>安装 flarum</h2><p>php 需要以下扩展：curl、dom、fileinfo、gd、json、mbstring、openssl、pdo_mysql、tokenizer、zip</p>
 <p>Gentoo 系统下编辑<code>package.use</code>：<code>dev-lang/php fpm curl gd pdo mysql zip</code></p>
 <p>使用 Composer 工具从 Flarum 的 GitHub 仓库下载并安装 Flarum 的最新版本，并将其放在目录 flarum 中：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php composer.phar create-project flarum/flarum flarum/</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">php composer.phar create-project flarum/flarum flarum/
+</code></pre>
 <h2 id="配置-nginx"><a href="#配置-nginx" class="headerlink" title="配置 nginx"></a>配置 nginx</h2><p>如果 <code>conf.d</code> 目录不存在，则创建，并在<code>/etc/nginx/nginx.conf</code>中添加：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    include /etc/nginx/conf.d/*.conf;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="config">http &#123;
+    include /etc/nginx/conf.d/*.conf;
+&#125;
+</code></pre>
 <p>编辑：<code>/etc/nginx/conf.d/flarum.conf</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 90;</span><br><span class="line">    server_name localhost;</span><br><span class="line">    root /home/vv/project/CyberSpirit/forum/flarum/public;</span><br><span class="line">    index index.php index.html index.htm;</span><br><span class="line">    location ~ \.php$ &#123;</span><br><span class="line">        include fastcgi_params;</span><br><span class="line">        fastcgi_pass unix:/run/php-fpm.socket;</span><br><span class="line">        fastcgi_index index.php;</span><br><span class="line">        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;</span><br><span class="line">    &#125;</span><br><span class="line">    include /home/vv/project/CyberSpirit/forum/flarum/.nginx.conf;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="config">server &#123;
+    listen 90;
+    server_name localhost;
+    root /home/vv/project/CyberSpirit/forum/flarum/public;
+    index index.php index.html index.htm;
+    location ~ \.php$ &#123;
+        include fastcgi_params;
+        fastcgi_pass unix:/run/php-fpm.socket;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    &#125;
+    include /home/vv/project/CyberSpirit/forum/flarum/.nginx.conf;
+&#125;
+</code></pre>
 <p>这段 Nginx 配置用于设置一个 Web 服务器，以支持运行在 <code>localhost</code> 的 Flarum 应用。以下是各部分的详细解释：</p>
 <ol>
 <li><p><code>server &#123; ... &#125;</code>：<br>一个 server 块，表示 Nginx 的一个虚拟主机配置。</p>
@@ -223,35 +243,45 @@
 <li><code>group = nginx</code></li>
 </ul>
 <p>测试<code>nginx</code>配置是否正确</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">sudo</span> nginx -t</span><br><span class="line">nginx: the configuration file /etc/nginx/nginx.conf syntax is ok</span><br><span class="line">nginx: configuration file /etc/nginx/nginx.conf <span class="built_in">test</span> is successful</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">$ sudo nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+</code></pre>
 <p>重新加载</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">sudo</span> nginx -s reload</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">$ sudo nginx -s reload
+</code></pre>
 <p>打开对应网页：<code>http://localhost:90/</code></p>
 <p><img src="/nginx_init.png" alt="nginx init"></p>
 <p>首先修改读写权限</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> 775 -R flarum</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">sudo chmod 775 -R flarum
+</code></pre>
 <p>然后更改组权限</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chown</span> -R nginx:nginx /path/to/directory</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">chown -R nginx:nginx /path/to/directory
+</code></pre>
 <p>还是存在问题：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2024/10/01 00:01:23 [error] 1751#0: *11 FastCGI sent in stderr: &quot;PHP message: PHP Warning:  file_put_contents(/home/vv/project/CyberSpirit/forum/flarum/storage/sessions/zHnFCrDJ9yufNQEG6AZn73r1HX284Fv6Rme6MgYg): Failed to open stream: Permission denied in /home/vv/project/CyberSpirit/forum/flarum/vendor/illuminate/filesystem/Filesystem.php on line 187&quot; while reading response header from upstream, client: 127.0.0.1, server: localhost, request: &quot;GET / HTTP/1.1&quot;, upstream: &quot;fastcgi://127.0.0.1:9000&quot;, host: &quot;localhost:90&quot;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="log">2024/10/01 00:01:23 [error] 1751#0: *11 FastCGI sent in stderr: &quot;PHP message: PHP Warning:  file_put_contents(/home/vv/project/CyberSpirit/forum/flarum/storage/sessions/zHnFCrDJ9yufNQEG6AZn73r1HX284Fv6Rme6MgYg): Failed to open stream: Permission denied in /home/vv/project/CyberSpirit/forum/flarum/vendor/illuminate/filesystem/Filesystem.php on line 187&quot; while reading response header from upstream, client: 127.0.0.1, server: localhost, request: &quot;GET / HTTP/1.1&quot;, upstream: &quot;fastcgi://127.0.0.1:9000&quot;, host: &quot;localhost:90&quot;
+</code></pre>
 <p>但是可以发现是 php-fpm 相关的问题，找到对应的配置文件</p>
 <p>发现<code>/etc/php/fpm-php8.3/fpm.d/www.conf</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">user = nobody</span><br><span class="line">group = nobody</span><br></pre></td></tr></table></figure>
-
+<pre><code class="config">user = nobody
+group = nobody
+</code></pre>
 <p>修改为</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">user = nginx</span><br><span class="line">group = nginx</span><br></pre></td></tr></table></figure>
-
+<pre><code class="config">user = nginx
+group = nginx
+</code></pre>
 <p>刷新页面，已经能够正常访问</p>
 <p><img src="/writable.png" alt="writable"></p>
-<h2 id="数据库的创建"><a href="#数据库的创建" class="headerlink" title="数据库的创建"></a>数据库的创建</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> DATABASE flarum;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">&#x27;flarum&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">&#x27;your_passwd&#x27;</span>;</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> PRIVILEGES <span class="keyword">ON</span> flarum.<span class="operator">*</span> <span class="keyword">TO</span> <span class="string">&#x27;flarum&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span>;</span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
-
+<h2 id="数据库的创建"><a href="#数据库的创建" class="headerlink" title="数据库的创建"></a>数据库的创建</h2><pre><code class="sql">CREATE DATABASE flarum;
+CREATE USER &#39;flarum&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;your_passwd&#39;;
+GRANT ALL PRIVILEGES ON flarum.* TO &#39;flarum&#39;@&#39;localhost&#39;;
+FLUSH PRIVILEGES;
+</code></pre>
 <p><img src="/success_enter.png" alt="success enter"></p>
-<h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">php composer.phar update --prefer-dist --no-plugins --no-dev -a --with-all-dependencies</span><br><span class="line">php flarum migrate</span><br><span class="line">php flarum cache:clear</span><br></pre></td></tr></table></figure>
+<h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><pre><code class="bash">php composer.phar update --prefer-dist --no-plugins --no-dev -a --with-all-dependencies
+php flarum migrate
+php flarum cache:clear
+</code></pre>
 
     
     <hr>

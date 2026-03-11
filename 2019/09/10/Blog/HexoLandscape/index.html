@@ -169,8 +169,9 @@
 <li>在<code>hexo_blog/source</code>新建文件<code>CNAME</code>，注意就是单纯的<code>CNAME</code>, 无杂质</li>
 <li>在<code>CNAME</code>文件中加入你的域名</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> CNAME</span><br><span class="line">https://blog.soymilk.fun</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">cat CNAME
+https://blog.soymilk.fun
+</code></pre>
 <ol start="3">
 <li>部署到远端即可</li>
 </ol>
@@ -183,8 +184,9 @@
 <li><p>修改文件：<code>hexo_blog/themes/landscape/_config.yml</code></p>
 </li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改favicon: /favicon</span></span><br><span class="line">favicon: /css/images/eyes.ico</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash"># 修改favicon: /favicon
+favicon: /css/images/eyes.ico
+</code></pre>
 <p>通过修改可以知道<strong>favicon</strong>的查找路径是相对于<strong>主题目录</strong>下的<strong>source</strong>文件夹</p>
 <hr>
 
@@ -193,22 +195,33 @@
 <ol>
 <li>安装脚本 <strong>必要</strong><br>文件: <code>footer.ejs</code>或<code>header.ejs</code><br>文件位置: <code>hexo_blog/themes/landscape/layout/_partial/</code>footer.ejs</li>
 </ol>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">async</span> <span class="attr">src</span>=<span class="string">&quot;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="html">&lt;script async src=&quot;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&quot;&gt;
+&lt;/script&gt;
+</code></pre>
 <ol start="2">
 <li>安装标签</li>
 </ol>
 <ul>
 <li>显示站点总访问量<br>修改文件: <code>footer.ejs</code>或<code>header.ejs</code><br>文件位置: <code>hexo_blog/themes/landscape/layout/_partial/</code>footer.ejs</li>
 </ul>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- pv的方式，单个用户连续点击n篇文章，记录n次访问量 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;busuanzi_container_site_pv&quot;</span>&gt;</span></span><br><span class="line">    本站总访问量<span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;busuanzi_value_site_pv&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>次</span><br><span class="line"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- uv的方式，单个用户连续点击n篇文章，只记录1次访客数 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;busuanzi_container_site_uv&quot;</span>&gt;</span></span><br><span class="line">  本站访客数<span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;busuanzi_value_site_uv&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>人次</span><br><span class="line"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="html">&lt;!-- pv的方式，单个用户连续点击n篇文章，记录n次访问量 --&gt;
+&lt;span id=&quot;busuanzi_container_site_pv&quot;&gt;
+    本站总访问量&lt;span id=&quot;busuanzi_value_site_pv&quot;&gt;&lt;/span&gt;次
+&lt;/span&gt;
 
+&lt;!-- uv的方式，单个用户连续点击n篇文章，只记录1次访客数 --&gt;
+&lt;span id=&quot;busuanzi_container_site_uv&quot;&gt;
+  本站访客数&lt;span id=&quot;busuanzi_value_site_uv&quot;&gt;&lt;/span&gt;人次
+&lt;/span&gt;
+</code></pre>
 <p><em>不蒜子提供了两种方式，任意选择</em></p>
 <ul>
 <li>显示单页访问量<br>修改文件: <code>date.ejs</code><br>文件位置: <code>hexo_blog/themes/landscape/layout/_partial/post/</code>data.ejs</li>
 </ul>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;busuanzi_container_page_pv&quot;</span>&gt;</span></span><br><span class="line">  本文总阅读量<span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;busuanzi_value_page_pv&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>次</span><br><span class="line"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="html">&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
+  本文总阅读量&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;次
+&lt;/span&gt;
+</code></pre>
 <p><strong>其他：</strong></p>
 <p>本机运行时候可能出现数字混乱，但是部署到远端是正常的<br>个人测试: 单页访问测试只有 pv 算法，uv 算法不能成功，小伙伴发现了其他算法欢迎交流 🙏🙏</p>
 <p>归档显示阅读量有问题(阅读次数叠加到第一篇文章)，暂时放弃使用</p>
@@ -229,8 +242,9 @@
 <ol start="2">
 <li>修改 hexo_blog&#x2F;_config.yml 文件</li>
 </ol>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加内容, 注意空格</span></span><br><span class="line"><span class="attr">livere:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="yml"># 添加内容, 注意空格
+livere: true
+</code></pre>
 <ol start="3">
 <li>添加代码到 livere.ejs 文件</li>
 </ol>
@@ -242,8 +256,14 @@
 </ol>
 <p>文件位置：<code>hexo_blog/themes/landscape/layout/_partial/</code>article.ejs</p>
 <p>修改位置：<code>&lt;% if (!index)&#123; %&gt;</code>下直接添加</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if (theme.livere)&#123; %&gt;</span><br><span class="line">	&lt;%- partial(&#x27;post/livere&#x27;, &#123;</span><br><span class="line">		key: post.slug,</span><br><span class="line">		title: post.title,</span><br><span class="line">		url: config.url+url_for(post.path)</span><br><span class="line">	&#125;) %&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="ejs">&lt;% if (theme.livere)&#123; %&gt;
+    &lt;%- partial(&#39;post/livere&#39;, &#123;
+        key: post.slug,
+        title: post.title,
+        url: config.url+url_for(post.path)
+    &#125;) %&gt;
+&lt;% &#125; %&gt;
+</code></pre>
 <p><img src="/liveRe.png" alt="edit"></p>
 <h2 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h2><p>感觉选主题很重要啊，如果不想折腾，就选择其他主题，很多都是帮你配置好的，只需要在<code>yml</code>文件中填参数即可。</p>
 

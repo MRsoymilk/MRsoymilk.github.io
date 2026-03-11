@@ -176,8 +176,26 @@
 <p><strong>舵机</strong>：9g 舵机(旋转角度 0°~180°)</p>
 <p><strong>开发板</strong>：Arduino Nano</p>
 <p><img src="/line.png" alt="接线图"></p>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Servo.h&gt;</span></span></span><br><span class="line">Servo myServo;  <span class="comment">// 创建Servo对象以控制舵机</span></span><br><span class="line"><span class="type">int</span> pos = <span class="number">0</span>;  <span class="comment">// 角度变量，全局变量</span></span><br><span class="line"><span class="type">int</span> servo_pin = <span class="number">9</span>;  <span class="comment">// 舵机引脚</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span></span>&#123;</span><br><span class="line">  myServo.<span class="built_in">attach</span>(servo_pin);  <span class="comment">// 设定舵机接口</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="comment">// 实现功能：0°~180°往复旋转</span></span><br><span class="line">  <span class="keyword">for</span>(pos = <span class="number">0</span>; pos &lt;= <span class="number">180</span>; ++pos)&#123;</span><br><span class="line">    myServo.<span class="built_in">write</span>(pos);  <span class="comment">// 舵机运动到指定位置</span></span><br><span class="line">    <span class="built_in">delay</span>(<span class="number">15</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span>(pos = <span class="number">180</span>; pos &lt;= <span class="number">0</span>; --pos)&#123;</span><br><span class="line">    myServo.<span class="built_in">write</span>(pos);</span><br><span class="line">    <span class="built_in">delay</span>(<span class="number">15</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><pre><code class="C++">#include &lt;Servo.h&gt;
+Servo myServo;  // 创建Servo对象以控制舵机
+int pos = 0;  // 角度变量，全局变量
+int servo_pin = 9;  // 舵机引脚
+void setup()&#123;
+  myServo.attach(servo_pin);  // 设定舵机接口
+&#125;
 
+void loop()&#123;
+// 实现功能：0°~180°往复旋转
+  for(pos = 0; pos &lt;= 180; ++pos)&#123;
+    myServo.write(pos);  // 舵机运动到指定位置
+    delay(15);
+  &#125;
+  for(pos = 180; pos &lt;= 0; --pos)&#123;
+    myServo.write(pos);
+    delay(15);
+  &#125;
+&#125;
+</code></pre>
 <h2 id="接线说明"><a href="#接线说明" class="headerlink" title="接线说明"></a>接线说明</h2><table>
 <thead>
 <tr>

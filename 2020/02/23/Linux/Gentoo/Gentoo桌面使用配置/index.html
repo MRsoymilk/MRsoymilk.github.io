@@ -175,14 +175,19 @@
 <li>修改文件<code>/etc/default/gruv</code></li>
 </ol>
 <p>与外观相关的配置</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">GRUB_DISTRIBUTOR=<span class="string">&quot;Gentoo&quot;</span>  <span class="comment"># 发行版本</span></span><br><span class="line">GRUB_GFXMODE=1920x1080x32  <span class="comment"># 屏幕分辨率</span></span><br><span class="line">GRUB_GFXPAYLOAD_LINUX=<span class="string">&quot;keep&quot;</span>  <span class="comment"># 保持分辨率， 默认情况是文字先大后小，比较突兀</span></span><br><span class="line">GRUB_BACKGROUND=<span class="string">&quot;/boot/grub/gentoo.png&quot;</span>  <span class="comment"># 添加背景，这样比较有格调</span></span><br><span class="line">GRUB_THEME=<span class="string">&quot;/boot/grub/themes/your_theme_file/theme.txt&quot;</span>  <span class="comment"># 接入主题包，Gentoo默认主题为starfield星空主题(个人感觉不是很好)</span></span><br><span class="line">GRUB_TIME_STYLE=menu  <span class="comment"># 显示时间状态条</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">GRUB_DISTRIBUTOR=&quot;Gentoo&quot;  # 发行版本
+GRUB_GFXMODE=1920x1080x32  # 屏幕分辨率
+GRUB_GFXPAYLOAD_LINUX=&quot;keep&quot;  # 保持分辨率， 默认情况是文字先大后小，比较突兀
+GRUB_BACKGROUND=&quot;/boot/grub/gentoo.png&quot;  # 添加背景，这样比较有格调
+GRUB_THEME=&quot;/boot/grub/themes/your_theme_file/theme.txt&quot;  # 接入主题包，Gentoo默认主题为starfield星空主题(个人感觉不是很好)
+GRUB_TIME_STYLE=menu  # 显示时间状态条
+</code></pre>
 <p>更多见配置文件</p>
 <ol start="2">
 <li>修改文件完成后需要生成新的配置文件</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grub-mkconfig -o /boot/grub/grub.cfg</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">grub-mkconfig -o /boot/grub/grub.cfg
+</code></pre>
 <ol start="3">
 <li>其他</li>
 </ol>
@@ -203,21 +208,24 @@
 <p><code>i3-gaps</code>相比 <code>i3</code>，添加了窗口之间的间隔</p>
 <p>配置可以参考<a target="_blank" rel="noopener" href="https://wiki.gentoo.org/wiki/I3">i3wm Wiki</a></p>
 <p>安装</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">emerge --ask x11-wm/i3-gaps</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">emerge --ask x11-wm/i3-gaps
+</code></pre>
 <ol start="2">
 <li>状态栏：<code>i3blocks</code></li>
 </ol>
 <p>i3 config 文件中调用</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">emerge --ask x11-misc/i3blocks</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">emerge --ask x11-misc/i3blocks
+</code></pre>
 <ol start="3">
 <li>锁屏：<code>i3lock</code></li>
 </ol>
 <p><code>i3lock</code>默认：白色屏幕，输入密码，回车重新进入，图像仅仅支持 <code>png</code> 格式而且不支持缩放</p>
 <p>利用 <code>convert</code> 随意配置了一个像素版本的锁屏图像</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">convert pic.xxx pic.png  <span class="comment"># 转格式</span></span><br><span class="line">convert -scale 10% pic.png -scale 1000% pic.png  <span class="comment"># 缩小10倍放大十倍制造像素效果</span></span><br><span class="line">convert -modulate 50% pic.png pic.png  <span class="comment"># 降低亮度</span></span><br><span class="line">i3lock -i path/to/your/pic.png  <span class="comment"># 命令行锁屏，可在i3 config文件中调用</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">convert pic.xxx pic.png  # 转格式
+convert -scale 10% pic.png -scale 1000% pic.png  # 缩小10倍放大十倍制造像素效果
+convert -modulate 50% pic.png pic.png  # 降低亮度
+i3lock -i path/to/your/pic.png  # 命令行锁屏，可在i3 config文件中调用
+</code></pre>
 <ol start="4">
 <li>透明背景</li>
 </ol>
@@ -227,14 +235,14 @@
 <li><a target="_blank" rel="noopener" href="https://packages.gentoo.org/packages/x11-misc/xcompmgr">xcompmgr</a>，i3wm 本身不支持窗口混合，透明背景就靠他。</li>
 </ul>
 <p>安装<code>feh</code>和<code>xcompmgr</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">emerge --ask media-gfx/feh x11-misc/xcompmgr</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">emerge --ask media-gfx/feh x11-misc/xcompmgr
+</code></pre>
 <p>想要透明背景就先执行 <code>xcompmgr &amp;</code></p>
 <p>想要背景需要执行<code>feh --bg-fill /path/to/your/pic.png</code>生成<code>~/.fehbg</code>文件，然后在<code>i3 config</code>中配置<code>exec --no-startup-id sh ~/.fehbg</code></p>
 <p>或者直接在配置文件中配置<code>exec --no-startup-id feh --bg-fill /path/to/your/pic.png</code></p>
 <p>多显示器设置(因此个人更为倾向执行<code>~/.fehbg</code>文件)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">feh --bg-fill pic_path_for_windows_1 pic_path_for_windows_2</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">feh --bg-fill pic_path_for_windows_1 pic_path_for_windows_2
+</code></pre>
 <ol start="5">
 <li>i3wm 使用 GTK</li>
 </ol>
@@ -243,19 +251,25 @@
 <li>如果你选择手写配置文件，那么..</li>
 </ul>
 <p>主题文件放置：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">图标主题： ~/.local/share/icons/</span><br><span class="line">窗体主题：~/.local/share/themes/</span><br><span class="line">鼠标主题：~/.icon/</span><br></pre></td></tr></table></figure>
-
+<pre><code class="plaintext">图标主题： ~/.local/share/icons/
+窗体主题：~/.local/share/themes/
+鼠标主题：~/.icon/
+</code></pre>
 <p>使用 <code>xfce4-appearance-settings</code> 指定主题，但是对于在 <code>i3wm</code> 中使用，你还要修改配置文件。</p>
 <p>对于 GTK+ 2.x</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://faq.i3wm.org/question/115/how-to-configure-gtk-theme-support/%3C/p%3E.html">How to configure GTK theme support?</a></p>
 <p><strong>测试 GTK+ 3.x 可行</strong></p>
 <p>创建文件<code>~/.gtkrc-2.0</code></p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">gtk-theme-name</span> = <span class="string">&quot;Clearlooks&quot;</span></span><br><span class="line"><span class="attr">gtk-font-name</span> = <span class="string">&quot;Sans 8&quot;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="ini">gtk-theme-name = &quot;Clearlooks&quot;
+gtk-font-name = &quot;Sans 8&quot;
+</code></pre>
 <p>对于 GTK+ 3.x</p>
 <p>创建文件<code>~/.config/gtk-3.0/settings.ini</code></p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[Settings]</span></span><br><span class="line"><span class="attr">gtk-theme-name</span> = Adwaita</span><br><span class="line"><span class="attr">gtk-icon-theme-name</span> = Adwaita</span><br><span class="line"><span class="attr">gtk-cursor-theme-name</span> = Adwaita</span><br></pre></td></tr></table></figure>
-
+<pre><code class="ini">[Settings]
+gtk-theme-name = Adwaita
+gtk-icon-theme-name = Adwaita
+gtk-cursor-theme-name = Adwaita
+</code></pre>
 <p><code>Adwaita</code>为对应主题文件夹名称。</p>
 <p>个人测试：<code>theme</code>和<code>icon</code>能正常显示，但是<code>cursor</code>只能在浏览器中显示。不过<code>lxappearance</code>能解决。</p>
 <ol start="6">
@@ -265,23 +279,34 @@
 <li>配置 Caps_Lock 按键</li>
 </ul>
 <p><code>i3/config</code>文件</p>
-<figure class="highlight profile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bindsym --release Caps_Lock exec pkill -SIGRTMIN+<span class="number">11</span> i3blocks</span><br></pre></td></tr></table></figure>
-
+<pre><code class="profile">bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
+</code></pre>
 <p><em>11 可以取其他值</em></p>
 <p>i3&#x2F;i3blocks.conf 文件</p>
-<figure class="highlight profile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[caps-lock]</span><br><span class="line">label=CPAS</span><br><span class="line">interval=once</span><br><span class="line">signal=<span class="number">11</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="profile">[caps-lock]
+label=CPAS
+interval=once
+signal=11
+</code></pre>
 <p>caps-lock 原为<code>/usr/libexec/i3blocks/</code>下的<code>keyindicator</code>文件，方便识别改为<code>caps-lock</code></p>
 <ul>
 <li>蓝牙状态</li>
 </ul>
 <p>bluetooth 检测，这个 i3blocks 官方没有提供，稍微写了一个简陋版</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">STATUS=<span class="variable">$&#123;bluetoothctl info | grep -wo &#x27;Connected: yes&#x27;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$STATUS</span> = <span class="string">&#x27;Connected: yes&#x27;</span> ]]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;on&quot;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;on&quot;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;#6498FF&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+<pre><code class="sh">#!/bin/bash
 
+STATUS=$&#123;bluetoothctl info | grep -wo &#39;Connected: yes&#39;&#125;
+
+if [[ $STATUS = &#39;Connected: yes&#39; ]]; then
+  echo &quot;on&quot;
+  echo &quot;on&quot;
+  echo &quot;#6498FF&quot;
+fi
+</code></pre>
 <p>放置在<code>/usr/libexec/i3blocks/</code>目录下</p>
 <h2 id="亮度调整-light"><a href="#亮度调整-light" class="headerlink" title="亮度调整 light"></a>亮度调整 light</h2><p><code>light</code>软件包并不在官方软件包中, 使用<code>layman</code>添加对应提供源然后安装。或者从源码安装。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">emerge --ask dev-libs/light</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">emerge --ask dev-libs/light
+</code></pre>
 <h2 id="菜单-rofi"><a href="#菜单-rofi" class="headerlink" title="菜单 rofi"></a>菜单 rofi</h2><p><img src="/rofi.png" alt="rofi.jpg"></p>
 <p><a target="_blank" rel="noopener" href="https://github.com/MRsoymilk/warehouse/rofi">我的配置文件</a></p>
 <p>什么是 rofi?</p>
@@ -293,28 +318,28 @@
 <ol>
 <li>记得添加<code>windowmode</code>保证 window switcher 的使用，修改<code>/etc/portage/package.use/rofi</code>文件</li>
 </ol>
-<figure class="highlight profile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x11-misc/rofi windowmode</span><br></pre></td></tr></table></figure>
-
+<pre><code class="profile">x11-misc/rofi windowmode
+</code></pre>
 <ol start="2">
 <li>emerge</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">emerge --ask x11-misc/rofi</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">emerge --ask x11-misc/rofi
+</code></pre>
 <ol start="3">
 <li><code>rofi</code>导出配置文件</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rofi -dump-config &gt; ~/.config/rofi/config.rasi</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">rofi -dump-config &gt; ~/.config/rofi/config.rasi
+</code></pre>
 <p>根据提示配置即可</p>
 <p>主题切换可以使用<code>rofi-theme-selector</code>快速浏览主题，根据个人选择</p>
 <h2 id="消息通知-dunst"><a href="#消息通知-dunst" class="headerlink" title="消息通知 dunst"></a>消息通知 dunst</h2><p>没什么好说的。(直接下载了官网文件)<br><a target="_blank" rel="noopener" href="https://dunst-project.org/screenshots/">dunst-project</a></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">emerge --ask x11-misc/dunst</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">emerge --ask x11-misc/dunst
+</code></pre>
 <h2 id="neofetch-配置"><a href="#neofetch-配置" class="headerlink" title="neofetch 配置"></a>neofetch 配置</h2><p><code>~/.config/neofetch/config</code>文件根据提示配置</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/MRsoymilk/warehouse/neofetch">我的 neofetch</a></p>
 <h2 id="音乐播放器-cmus"><a href="#音乐播放器-cmus" class="headerlink" title="音乐播放器 cmus"></a>音乐播放器 <code>cmus</code></h2><p>主题设置</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:colorscheme gruvbox</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">:colorscheme gruvbox
+</code></pre>
 <p>更多主题设置在<code>/usr/share/cmus</code>文件中</p>
 <p>基本使用</p>
 <table>
@@ -453,13 +478,17 @@
 <ol>
 <li>安装</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">emerge --ask app-i18n/fcitx</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">emerge --ask app-i18n/fcitx
+</code></pre>
 <ol start="2">
 <li>修改配置文件<code>~/.xinitrc</code></li>
 </ol>
-<figure class="highlight profile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export XMODIFIERS=<span class="string">&quot;@im=fcitx&quot;</span></span><br><span class="line">export QT_IM_MODULE=fcitx</span><br><span class="line">export GTK_IM_MODULE=fcitx</span><br><span class="line"></span><br><span class="line">eval <span class="string">&quot;$(dbus-launch --sh-syntax --exit-with-session)&quot;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="profile">export XMODIFIERS=&quot;@im=fcitx&quot;
+export QT_IM_MODULE=fcitx
+export GTK_IM_MODULE=fcitx
 
+eval &quot;$(dbus-launch --sh-syntax --exit-with-session)&quot;
+</code></pre>
 <ol start="3">
 <li>Fcitx GUI 配置工具</li>
 </ol>
@@ -468,8 +497,8 @@
 <li>依赖 KDE 的 <code>kcm-fcitx</code></li>
 </ul>
 <p>我选择<code>fcitx-configtool</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">emerge --ask app-i18n/fcitx-configtool</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">emerge --ask app-i18n/fcitx-configtool
+</code></pre>
 <ol start="4">
 <li>中文支持</li>
 </ol>
@@ -478,35 +507,46 @@
 <p><img src="/fcitx.png" alt="fcitx.png"></p>
 <h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="时间校准"><a href="#时间校准" class="headerlink" title="时间校准"></a>时间校准</h3><p><a target="_blank" rel="noopener" href="https://forum.ubuntu.com.cn/viewtopic.php?t=445989">Ubuntu 论坛</a></p>
 <p>修改<code>/etc/conf.d/hwclock</code></p>
-<figure class="highlight profile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clock=<span class="string">&quot;local&quot;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="profile">clock=&quot;local&quot;
+</code></pre>
 <p>时间快 8 个小时，原因：clock&#x3D;”UTC”<br>中国是东八区，+8 个小时</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/hwclock restart  <span class="comment"># 我没发现有多大用，走个形式吧</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">/etc/init.d/hwclock restart  # 我没发现有多大用，走个形式吧
+</code></pre>
 <p>个人认为主要原因是在安装的时候<br><code>ntpd -q -g</code>同步的是 UTC 时间，然而安装后并没有再次同步</p>
 <p>在设置 hwclock 之后：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">emerge --ask net-misc/ntp</span><br><span class="line">ntpd -q -g</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">emerge --ask net-misc/ntp
+ntpd -q -g
+</code></pre>
 <p>date 时间同步完成</p>
 <h3 id="电源管理"><a href="#电源管理" class="headerlink" title="电源管理"></a>电源管理</h3><p><img src="/bar.png" alt="bar"></p>
 <p>使用 <code>xfce4-power-manager</code></p>
 <p><code>i3 config</code>添加</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exec_always --no-startup-id xfce4-power-manager</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">exec_always --no-startup-id xfce4-power-manager
+</code></pre>
 <p><em>也可以写在外部文件中供 i3 调用</em></p>
 <p>重启失效，发现 <code>xfce4-power-manager-settings</code> 中 <code>tray icon</code> 默认关闭。</p>
 <p>经过查找，发现 <code>xfce4-power-manager.xml</code> 文件中仿佛有我们想要的。</p>
 <p>路径：<code>~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml</code></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">channel</span> <span class="attr">name</span>=<span class="string">&quot;xfce4-power-manager&quot;</span> <span class="attr">version</span>=<span class="string">&quot;1.0&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;xfce4-power-manager&quot;</span> <span class="attr">type</span>=<span class="string">&quot;empty&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;brightness-switch-restore-on-exit&quot;</span> <span class="attr">type</span>=<span class="string">&quot;int&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;brightness-switch&quot;</span> <span class="attr">type</span>=<span class="string">&quot;int&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;general-notification&quot;</span> <span class="attr">type</span>=<span class="string">&quot;bool&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;show-tray-icon&quot;</span> <span class="attr">type</span>=<span class="string">&quot;bool&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;presentation-mode&quot;</span> <span class="attr">type</span>=<span class="string">&quot;bool&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">channel</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 
+&lt;channel name=&quot;xfce4-power-manager&quot; version=&quot;1.0&quot;&gt;
+  &lt;property name=&quot;xfce4-power-manager&quot; type=&quot;empty&quot;&gt;
+    &lt;property name=&quot;brightness-switch-restore-on-exit&quot; type=&quot;int&quot; value=&quot;1&quot;/&gt;
+    &lt;property name=&quot;brightness-switch&quot; type=&quot;int&quot; value=&quot;1&quot;/&gt;
+    &lt;property name=&quot;general-notification&quot; type=&quot;bool&quot; value=&quot;true&quot;/&gt;
+    &lt;property name=&quot;show-tray-icon&quot; type=&quot;bool&quot; value=&quot;true&quot;/&gt;
+    &lt;property name=&quot;presentation-mode&quot; type=&quot;bool&quot; value=&quot;true&quot;/&gt;
+  &lt;/property&gt;
+&lt;/channel&gt;
+</code></pre>
 <p>设置为只读，重启发现 <code>tray icon</code> 存在。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 444 xfce4-power-manager.xml</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">chmod 444 xfce4-power-manager.xml
+</code></pre>
 <p><strong>多显示器需要针对设置</strong></p>
 <h2 id="截屏工具-flameshot"><a href="#截屏工具-flameshot" class="headerlink" title="截屏工具 flameshot"></a>截屏工具 flameshot</h2><p>参考：<a target="_blank" rel="noopener" href="https://flameshot.js.org/#/command-line-options?id=cli-configuration">flameshot</a></p>
 <p><code>flameshot</code>现已加入官方软件包中。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> emerge -av flameshot</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">sudo emerge -av flameshot
+</code></pre>
 <p>flameshot依赖包spdlog-1.8.5存在bug。近期（2021-06-24）可能无法直接安装。</p>
 <p>使用：</p>
 <p><code>flameshot gui</code>，选择截取</p>

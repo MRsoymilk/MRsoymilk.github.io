@@ -174,24 +174,262 @@
 <li><img src="/include_miniz.jpg" alt="加入include目录"></li>
 <li><img src="/add_miniz.jpg" alt="项目添加对应文件"></li>
 </ol>
-<h3 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> once</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MY_Zip</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">MY_Zip</span>();</span><br><span class="line">	<span class="keyword">virtual</span> ~<span class="built_in">MY_Zip</span>();</span><br><span class="line">	<span class="function"><span class="type">bool</span> <span class="title">unzip</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* in, <span class="type">const</span> <span class="type">char</span>* out)</span></span>;</span><br><span class="line">	<span class="function"><span class="type">const</span> <span class="type">char</span>* <span class="title">error</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function"><span class="type">int</span> <span class="title">code</span><span class="params">()</span></span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">class</span> <span class="title class_">Impl</span>;</span><br><span class="line">	std::unique_ptr&lt;Impl&gt; m_pImpl;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h3><pre><code class="cpp">#pragma once
 
-<h3 id="h-实现"><a href="#h-实现" class="headerlink" title=".h 实现"></a>.h 实现</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;MY_Zip.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;miniz.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;ShlObj_core.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MY_Zip</span>::Impl &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  std::string errMsg;</span><br><span class="line">  <span class="type">int</span> errCode;</span><br><span class="line">  <span class="function"><span class="type">bool</span> <span class="title">IsDirectory</span><span class="params">(<span class="type">const</span> std::string&amp; path)</span> </span>&#123;</span><br><span class="line">    std::string name = path;</span><br><span class="line">    <span class="keyword">return</span> !name.<span class="built_in">empty</span>() &amp;&amp; (name.<span class="built_in">back</span>() == <span class="string">&#x27;/&#x27;</span> || name.<span class="built_in">back</span>() == <span class="string">&#x27;\\&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">bool</span> <span class="title">CreateDirectory</span><span class="params">(<span class="type">const</span> std::string&amp; path)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> result = <span class="built_in">SHCreateDirectoryExW</span>(<span class="literal">NULL</span>, <span class="built_in">string2wstring</span>(path).<span class="built_in">c_str</span>(), <span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">return</span> result == ERROR_SUCCESS || result == ERROR_ALREADY_EXISTS;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  <span class="function">std::string <span class="title">wstring2string</span><span class="params">(<span class="type">const</span> std::wstring&amp; wstr)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> size_needed = <span class="built_in">WideCharToMultiByte</span>(CP_UTF8, <span class="number">0</span>, wstr.<span class="built_in">c_str</span>(), <span class="number">-1</span>, <span class="literal">NULL</span>, <span class="number">0</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">    <span class="function">std::string <span class="title">str</span><span class="params">(size_needed - <span class="number">1</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="built_in">WideCharToMultiByte</span>(CP_UTF8, <span class="number">0</span>, wstr.<span class="built_in">c_str</span>(), <span class="number">-1</span>, &amp;str[<span class="number">0</span>], size_needed, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">return</span> str;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function">std::wstring <span class="title">string2wstring</span><span class="params">(<span class="type">const</span> std::string&amp; str)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> size_needed = <span class="built_in">MultiByteToWideChar</span>(CP_UTF8, <span class="number">0</span>, str.<span class="built_in">c_str</span>(), <span class="number">-1</span>, <span class="literal">NULL</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="function">std::wstring <span class="title">wstr</span><span class="params">(size_needed - <span class="number">1</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="built_in">MultiByteToWideChar</span>(CP_UTF8, <span class="number">0</span>, str.<span class="built_in">c_str</span>(), <span class="number">-1</span>, &amp;wstr[<span class="number">0</span>], size_needed);</span><br><span class="line">    <span class="keyword">return</span> wstr;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MY_Zip::<span class="built_in">MY_Zip</span>() : <span class="built_in">m_pImpl</span>(<span class="keyword">new</span> Impl)</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">MY_Zip::~<span class="built_in">MY_Zip</span>()</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">MY_Zip::unzip</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* in, <span class="type">const</span> <span class="type">char</span>* out)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  mz_zip_archive archive&#123;&#125;;</span><br><span class="line">  <span class="keyword">if</span> (!<span class="built_in">mz_zip_reader_init_file</span>(&amp;archive, in, <span class="number">0</span>)) &#123;</span><br><span class="line">    m_pImpl-&gt;errMsg = <span class="string">&quot;can not open zip file: &quot;</span> + std::<span class="built_in">string</span>(in);</span><br><span class="line">    std::cerr &lt;&lt; m_pImpl-&gt;errMsg &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="type">int</span> file_cnt = (<span class="type">int</span>)<span class="built_in">mz_zip_reader_get_num_files</span>(&amp;archive);</span><br><span class="line">  <span class="keyword">if</span> (file_cnt == <span class="number">0</span>) &#123;</span><br><span class="line">    m_pImpl-&gt;errMsg = <span class="string">&quot;zip file is empty&quot;</span>;</span><br><span class="line">    std::cerr &lt;&lt; m_pImpl-&gt;errMsg &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; file_cnt; ++i) &#123;</span><br><span class="line">    mz_zip_archive_file_stat file_stat;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">mz_zip_reader_file_stat</span>(&amp;archive, i, &amp;file_stat)) &#123;</span><br><span class="line">      m_pImpl-&gt;errMsg = <span class="string">&quot;can&#x27;t get file infomation in zip&quot;</span>;</span><br><span class="line">      <span class="built_in">mz_zip_reader_end</span>(&amp;archive);</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    std::string path = std::<span class="built_in">string</span>(out) + <span class="string">&quot;\\&quot;</span> + file_stat.m_filename;</span><br><span class="line">    <span class="keyword">if</span> (m_pImpl-&gt;<span class="built_in">IsDirectory</span>(path)) &#123;</span><br><span class="line">      m_pImpl-&gt;<span class="built_in">CreateDirectory</span>(path);</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">size_t</span> last_slash = path.<span class="built_in">find_last_of</span>(<span class="string">&quot;/\\&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (last_slash != std::string::npos) &#123;</span><br><span class="line">      m_pImpl-&gt;<span class="built_in">CreateDirectory</span>(path.<span class="built_in">substr</span>(<span class="number">0</span>, last_slash));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">mz_zip_reader_extract_to_file</span>(&amp;archive, i, path.<span class="built_in">c_str</span>(), <span class="number">0</span>)) &#123;</span><br><span class="line">      m_pImpl-&gt;errMsg = <span class="string">&quot;unzip failed &quot;</span> + path;</span><br><span class="line">      m_pImpl-&gt;errCode = archive.m_last_error;</span><br><span class="line">      std::cerr &lt;&lt; m_pImpl-&gt;errMsg &lt;&lt; std::endl;</span><br><span class="line">      <span class="built_in">mz_zip_reader_end</span>(&amp;archive);</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">mz_zip_reader_end</span>(&amp;archive);</span><br><span class="line">  m_pImpl-&gt;errMsg = <span class="string">&quot;&quot;</span>;</span><br><span class="line">  std::cout &lt;&lt; <span class="string">&quot;unzip complete.&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">const</span> <span class="type">char</span>* <span class="title">MY_Zip::error</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> m_pImpl-&gt;errMsg.<span class="built_in">c_str</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">MY_Zip::code</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> m_pImpl-&gt;errCode;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+#include &lt;memory&gt;
 
+class MY_Zip &#123;
+public:
+    MY_Zip();
+    virtual ~MY_Zip();
+    bool unzip(const char* in, const char* out);
+    const char* error();
+    int code();
+private:
+    class Impl;
+    std::unique_ptr&lt;Impl&gt; m_pImpl;
+&#125;;
+</code></pre>
+<h3 id="h-实现"><a href="#h-实现" class="headerlink" title=".h 实现"></a>.h 实现</h3><pre><code class="cpp">#include &quot;MY_Zip.h&quot;
+#include &quot;miniz.h&quot;
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+#include &lt;windows.h&gt;
+#include &lt;memory&gt;
+#include &lt;ShlObj_core.h&gt;
+
+
+class MY_Zip::Impl &#123;
+public:
+  std::string errMsg;
+  int errCode;
+  bool IsDirectory(const std::string&amp; path) &#123;
+    std::string name = path;
+    return !name.empty() &amp;&amp; (name.back() == &#39;/&#39; || name.back() == &#39;\\&#39;);
+  &#125;
+
+  bool CreateDirectory(const std::string&amp; path) &#123;
+    int result = SHCreateDirectoryExW(NULL, string2wstring(path).c_str(), NULL);
+    return result == ERROR_SUCCESS || result == ERROR_ALREADY_EXISTS;
+  &#125;
+private:
+  std::string wstring2string(const std::wstring&amp; wstr) &#123;
+    int size_needed = WideCharToMultiByte(CP_UTF8, 0, wstr.c_str(), -1, NULL, 0, NULL, NULL);
+    std::string str(size_needed - 1, 0);
+    WideCharToMultiByte(CP_UTF8, 0, wstr.c_str(), -1, &amp;str[0], size_needed, NULL, NULL);
+    return str;
+  &#125;
+
+  std::wstring string2wstring(const std::string&amp; str) &#123;
+    int size_needed = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, NULL, 0);
+    std::wstring wstr(size_needed - 1, 0);
+    MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, &amp;wstr[0], size_needed);
+    return wstr;
+  &#125;
+&#125;;
+
+MY_Zip::MY_Zip() : m_pImpl(new Impl)
+&#123;
+&#125;
+
+MY_Zip::~MY_Zip()
+&#123;
+&#125;
+
+bool MY_Zip::unzip(const char* in, const char* out)
+&#123;
+  mz_zip_archive archive&#123;&#125;;
+  if (!mz_zip_reader_init_file(&amp;archive, in, 0)) &#123;
+    m_pImpl-&gt;errMsg = &quot;can not open zip file: &quot; + std::string(in);
+    std::cerr &lt;&lt; m_pImpl-&gt;errMsg &lt;&lt; std::endl;
+    return false;
+  &#125;
+  int file_cnt = (int)mz_zip_reader_get_num_files(&amp;archive);
+  if (file_cnt == 0) &#123;
+    m_pImpl-&gt;errMsg = &quot;zip file is empty&quot;;
+    std::cerr &lt;&lt; m_pImpl-&gt;errMsg &lt;&lt; std::endl;
+    return false;
+  &#125;
+
+  for (int i = 0; i &lt; file_cnt; ++i) &#123;
+    mz_zip_archive_file_stat file_stat;
+    if (!mz_zip_reader_file_stat(&amp;archive, i, &amp;file_stat)) &#123;
+      m_pImpl-&gt;errMsg = &quot;can&#39;t get file infomation in zip&quot;;
+      mz_zip_reader_end(&amp;archive);
+      return false;
+    &#125;
+
+    std::string path = std::string(out) + &quot;\\&quot; + file_stat.m_filename;
+    if (m_pImpl-&gt;IsDirectory(path)) &#123;
+      m_pImpl-&gt;CreateDirectory(path);
+      continue;
+    &#125;
+
+    size_t last_slash = path.find_last_of(&quot;/\\&quot;);
+    if (last_slash != std::string::npos) &#123;
+      m_pImpl-&gt;CreateDirectory(path.substr(0, last_slash));
+    &#125;
+
+    if (!mz_zip_reader_extract_to_file(&amp;archive, i, path.c_str(), 0)) &#123;
+      m_pImpl-&gt;errMsg = &quot;unzip failed &quot; + path;
+      m_pImpl-&gt;errCode = archive.m_last_error;
+      std::cerr &lt;&lt; m_pImpl-&gt;errMsg &lt;&lt; std::endl;
+      mz_zip_reader_end(&amp;archive);
+      return false;
+    &#125;
+  &#125;
+  mz_zip_reader_end(&amp;archive);
+  m_pImpl-&gt;errMsg = &quot;&quot;;
+  std::cout &lt;&lt; &quot;unzip complete.&quot; &lt;&lt; std::endl;
+  return true;
+&#125;
+
+const char* MY_Zip::error()
+&#123;
+  return m_pImpl-&gt;errMsg.c_str();
+&#125;
+
+int MY_Zip::code()
+&#123;
+  return m_pImpl-&gt;errCode;
+&#125;
+</code></pre>
 <p>使用:</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">string tempLatestFile = <span class="built_in">ANSItoUTF8</span>(strLatestFile.<span class="built_in">GetBuffer</span>());</span><br><span class="line">string tempLatestFolder = <span class="built_in">ANSItoUTF8</span>(strLatestFolder.<span class="built_in">GetBuffer</span>());</span><br><span class="line">hjZip.<span class="built_in">unzip</span>(tempLatestFile.<span class="built_in">c_str</span>(), tempLatestFolder.<span class="built_in">c_str</span>())</span><br></pre></td></tr></table></figure>
-
+<pre><code class="cpp">string tempLatestFile = ANSItoUTF8(strLatestFile.GetBuffer());
+string tempLatestFolder = ANSItoUTF8(strLatestFolder.GetBuffer());
+hjZip.unzip(tempLatestFile.c_str(), tempLatestFolder.c_str())
+</code></pre>
 <p><img src="/miniz_unzip.jpg" alt="miniz_unzip"></p>
 <p>其中路径转换：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">string <span class="title">UTF8toANSI</span><span class="params">(<span class="type">const</span> std::string&amp; instr)</span> <span class="comment">//utf-8--&gt;ansi</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> MAX_STRSIZE = instr.<span class="built_in">length</span>() * <span class="number">2</span> + <span class="number">2</span>;</span><br><span class="line">	WCHAR* wcharstr = <span class="keyword">new</span> WCHAR[MAX_STRSIZE];</span><br><span class="line">	<span class="built_in">memset</span>(wcharstr, <span class="number">0</span>, MAX_STRSIZE);</span><br><span class="line">	<span class="built_in">MultiByteToWideChar</span>(CP_UTF8, <span class="number">0</span>, (<span class="type">char</span>*)instr.<span class="built_in">data</span>(), <span class="number">-1</span>, wcharstr, MAX_STRSIZE);</span><br><span class="line">	<span class="type">char</span>* charstr = <span class="keyword">new</span> <span class="type">char</span>[MAX_STRSIZE];</span><br><span class="line">	<span class="built_in">memset</span>(charstr, <span class="number">0</span>, MAX_STRSIZE);</span><br><span class="line">	<span class="built_in">WideCharToMultiByte</span>(CP_ACP, <span class="number">0</span>, wcharstr, <span class="number">-1</span>, charstr, MAX_STRSIZE, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">	<span class="function">string <span class="title">charstrtemp</span><span class="params">(charstr)</span></span>;</span><br><span class="line">	<span class="keyword">delete</span> []wcharstr;</span><br><span class="line">	<span class="keyword">delete</span> []charstr;</span><br><span class="line">	<span class="keyword">return</span> charstrtemp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">string <span class="title">ANSItoUTF8</span><span class="params">(<span class="type">const</span> std::string&amp; instr)</span> <span class="comment">//ansi--&gt;utf-8</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> MAX_STRSIZE = instr.<span class="built_in">length</span>() * <span class="number">2</span> + <span class="number">2</span>;</span><br><span class="line">	WCHAR* wcharstr = <span class="keyword">new</span> WCHAR[MAX_STRSIZE];</span><br><span class="line">	<span class="built_in">memset</span>(wcharstr, <span class="number">0</span>, MAX_STRSIZE);</span><br><span class="line">	<span class="built_in">MultiByteToWideChar</span>(CP_ACP, <span class="number">0</span>, (<span class="type">char</span>*)instr.<span class="built_in">data</span>(), <span class="number">-1</span>, wcharstr, MAX_STRSIZE);</span><br><span class="line">	<span class="type">char</span>* charstr = <span class="keyword">new</span> <span class="type">char</span>[MAX_STRSIZE];</span><br><span class="line">	<span class="built_in">memset</span>(charstr, <span class="number">0</span>, MAX_STRSIZE);</span><br><span class="line">	<span class="built_in">WideCharToMultiByte</span>(CP_UTF8, <span class="number">0</span>, wcharstr, <span class="number">-1</span>, charstr, MAX_STRSIZE, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">	<span class="function">CString <span class="title">charstrtemp</span><span class="params">(charstr)</span></span>;</span><br><span class="line">	<span class="keyword">delete</span>[] wcharstr;</span><br><span class="line">	<span class="keyword">delete</span>[] charstr;</span><br><span class="line">	<span class="keyword">return</span> (LPCSTR)charstrtemp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="cpp">string UTF8toANSI(const std::string&amp; instr) //utf-8--&gt;ansi
+&#123;
+    int MAX_STRSIZE = instr.length() * 2 + 2;
+    WCHAR* wcharstr = new WCHAR[MAX_STRSIZE];
+    memset(wcharstr, 0, MAX_STRSIZE);
+    MultiByteToWideChar(CP_UTF8, 0, (char*)instr.data(), -1, wcharstr, MAX_STRSIZE);
+    char* charstr = new char[MAX_STRSIZE];
+    memset(charstr, 0, MAX_STRSIZE);
+    WideCharToMultiByte(CP_ACP, 0, wcharstr, -1, charstr, MAX_STRSIZE, NULL, NULL);
+    string charstrtemp(charstr);
+    delete []wcharstr;
+    delete []charstr;
+    return charstrtemp;
+&#125;
 
+string ANSItoUTF8(const std::string&amp; instr) //ansi--&gt;utf-8
+&#123;
+    int MAX_STRSIZE = instr.length() * 2 + 2;
+    WCHAR* wcharstr = new WCHAR[MAX_STRSIZE];
+    memset(wcharstr, 0, MAX_STRSIZE);
+    MultiByteToWideChar(CP_ACP, 0, (char*)instr.data(), -1, wcharstr, MAX_STRSIZE);
+    char* charstr = new char[MAX_STRSIZE];
+    memset(charstr, 0, MAX_STRSIZE);
+    WideCharToMultiByte(CP_UTF8, 0, wcharstr, -1, charstr, MAX_STRSIZE, NULL, NULL);
+    CString charstrtemp(charstr);
+    delete[] wcharstr;
+    delete[] charstr;
+    return (LPCSTR)charstrtemp;
+&#125;
+</code></pre>
 <h2 id="一种-Linux-下的实现"><a href="#一种-Linux-下的实现" class="headerlink" title="一种 Linux 下的实现"></a>一种 Linux 下的实现</h2><p>使用 C++17 的 filesystem</p>
 <p>CMakeLists.txt 配置（使用 <code>git clone</code> 获取对应的 miniz 项目）：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.10</span>)</span><br><span class="line"><span class="keyword">project</span>(<span class="keyword">test</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">17</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_subdirectory</span>(vendor/miniz)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_executable</span>(<span class="keyword">test</span> main.cpp MY_Zip.h MY_Zip.cpp)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_link_libraries</span>(<span class="keyword">test</span> miniz)</span><br></pre></td></tr></table></figure>
+<pre><code class="cmake">cmake_minimum_required(VERSION 3.10)
+project(test)
 
+set(CMAKE_CXX_STANDARD 17)
+
+add_subdirectory(vendor/miniz)
+
+add_executable(test main.cpp MY_Zip.h MY_Zip.cpp)
+
+target_link_libraries(test miniz)
+</code></pre>
 <p>代码部分改动实现即可：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;MY_Zip.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;miniz.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;filesystem&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> fs = std::filesystem;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MY_Zip</span>::Impl &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  std::string errMsg;</span><br><span class="line">  <span class="type">int</span> errCode;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">bool</span> <span class="title">IsDirectory</span><span class="params">(<span class="type">const</span> std::string&amp; path)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> !path.<span class="built_in">empty</span>() &amp;&amp; (path.<span class="built_in">back</span>() == <span class="string">&#x27;/&#x27;</span> || path.<span class="built_in">back</span>() == <span class="string">&#x27;\\&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">bool</span> <span class="title">CreateDirectory</span><span class="params">(<span class="type">const</span> std::string&amp; path)</span> </span>&#123;</span><br><span class="line">    std::error_code ec;</span><br><span class="line">    <span class="keyword">return</span> fs::<span class="built_in">create_directories</span>(fs::<span class="built_in">path</span>(path), ec) || ec.<span class="built_in">value</span>() == <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MY_Zip::<span class="built_in">MY_Zip</span>() : <span class="built_in">m_pImpl</span>(<span class="keyword">new</span> Impl) &#123;&#125;</span><br><span class="line">MY_Zip::~<span class="built_in">MY_Zip</span>() &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">MY_Zip::unzip</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* in, <span class="type">const</span> <span class="type">char</span>* out)</span> </span>&#123;</span><br><span class="line">  mz_zip_archive archive&#123;&#125;;</span><br><span class="line">  <span class="keyword">if</span> (!<span class="built_in">mz_zip_reader_init_file</span>(&amp;archive, in, <span class="number">0</span>)) &#123;</span><br><span class="line">    m_pImpl-&gt;errMsg = <span class="string">&quot;can not open zip file: &quot;</span> + std::<span class="built_in">string</span>(in);</span><br><span class="line">    std::cerr &lt;&lt; m_pImpl-&gt;errMsg &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="type">int</span> file_cnt = <span class="built_in">static_cast</span>&lt;<span class="type">int</span>&gt;(<span class="built_in">mz_zip_reader_get_num_files</span>(&amp;archive));</span><br><span class="line">  <span class="keyword">if</span> (file_cnt == <span class="number">0</span>) &#123;</span><br><span class="line">    m_pImpl-&gt;errMsg = <span class="string">&quot;zip file is empty&quot;</span>;</span><br><span class="line">    std::cerr &lt;&lt; m_pImpl-&gt;errMsg &lt;&lt; std::endl;</span><br><span class="line">    <span class="built_in">mz_zip_reader_end</span>(&amp;archive);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; file_cnt; ++i) &#123;</span><br><span class="line">    mz_zip_archive_file_stat file_stat;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">mz_zip_reader_file_stat</span>(&amp;archive, i, &amp;file_stat)) &#123;</span><br><span class="line">      m_pImpl-&gt;errMsg = <span class="string">&quot;can&#x27;t get file info in zip&quot;</span>;</span><br><span class="line">      <span class="built_in">mz_zip_reader_end</span>(&amp;archive);</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fs::path targetPath = fs::<span class="built_in">path</span>(out) / file_stat.m_filename;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (m_pImpl-&gt;<span class="built_in">IsDirectory</span>(file_stat.m_filename)) &#123;</span><br><span class="line">      m_pImpl-&gt;<span class="built_in">CreateDirectory</span>(targetPath.<span class="built_in">string</span>());</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fs::path parentDir = targetPath.<span class="built_in">parent_path</span>();</span><br><span class="line">    m_pImpl-&gt;<span class="built_in">CreateDirectory</span>(parentDir.<span class="built_in">string</span>());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">mz_zip_reader_extract_to_file</span>(&amp;archive, i, targetPath.<span class="built_in">string</span>().<span class="built_in">c_str</span>(), <span class="number">0</span>)) &#123;</span><br><span class="line">      m_pImpl-&gt;errMsg = <span class="string">&quot;unzip failed: &quot;</span> + targetPath.<span class="built_in">string</span>();</span><br><span class="line">      m_pImpl-&gt;errCode = archive.m_last_error;</span><br><span class="line">      std::cerr &lt;&lt; m_pImpl-&gt;errMsg &lt;&lt; std::endl;</span><br><span class="line">      <span class="built_in">mz_zip_reader_end</span>(&amp;archive);</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">mz_zip_reader_end</span>(&amp;archive);</span><br><span class="line">  m_pImpl-&gt;errMsg = <span class="string">&quot;&quot;</span>;</span><br><span class="line">  std::cout &lt;&lt; <span class="string">&quot;unzip complete.&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">const</span> <span class="type">char</span>* <span class="title">MY_Zip::error</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> m_pImpl-&gt;errMsg.<span class="built_in">c_str</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">MY_Zip::code</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> m_pImpl-&gt;errCode;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="cpp">#include &quot;MY_Zip.h&quot;
+#include &quot;miniz.h&quot;
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;memory&gt;
+#include &lt;filesystem&gt;
 
+namespace fs = std::filesystem;
+
+class MY_Zip::Impl &#123;
+public:
+  std::string errMsg;
+  int errCode;
+
+  bool IsDirectory(const std::string&amp; path) &#123;
+    return !path.empty() &amp;&amp; (path.back() == &#39;/&#39; || path.back() == &#39;\\&#39;);
+  &#125;
+
+  bool CreateDirectory(const std::string&amp; path) &#123;
+    std::error_code ec;
+    return fs::create_directories(fs::path(path), ec) || ec.value() == 0;
+  &#125;
+&#125;;
+
+MY_Zip::MY_Zip() : m_pImpl(new Impl) &#123;&#125;
+MY_Zip::~MY_Zip() &#123;&#125;
+
+bool MY_Zip::unzip(const char* in, const char* out) &#123;
+  mz_zip_archive archive&#123;&#125;;
+  if (!mz_zip_reader_init_file(&amp;archive, in, 0)) &#123;
+    m_pImpl-&gt;errMsg = &quot;can not open zip file: &quot; + std::string(in);
+    std::cerr &lt;&lt; m_pImpl-&gt;errMsg &lt;&lt; std::endl;
+    return false;
+  &#125;
+
+  int file_cnt = static_cast&lt;int&gt;(mz_zip_reader_get_num_files(&amp;archive));
+  if (file_cnt == 0) &#123;
+    m_pImpl-&gt;errMsg = &quot;zip file is empty&quot;;
+    std::cerr &lt;&lt; m_pImpl-&gt;errMsg &lt;&lt; std::endl;
+    mz_zip_reader_end(&amp;archive);
+    return false;
+  &#125;
+
+  for (int i = 0; i &lt; file_cnt; ++i) &#123;
+    mz_zip_archive_file_stat file_stat;
+    if (!mz_zip_reader_file_stat(&amp;archive, i, &amp;file_stat)) &#123;
+      m_pImpl-&gt;errMsg = &quot;can&#39;t get file info in zip&quot;;
+      mz_zip_reader_end(&amp;archive);
+      return false;
+    &#125;
+
+    fs::path targetPath = fs::path(out) / file_stat.m_filename;
+
+    if (m_pImpl-&gt;IsDirectory(file_stat.m_filename)) &#123;
+      m_pImpl-&gt;CreateDirectory(targetPath.string());
+      continue;
+    &#125;
+
+    fs::path parentDir = targetPath.parent_path();
+    m_pImpl-&gt;CreateDirectory(parentDir.string());
+
+    if (!mz_zip_reader_extract_to_file(&amp;archive, i, targetPath.string().c_str(), 0)) &#123;
+      m_pImpl-&gt;errMsg = &quot;unzip failed: &quot; + targetPath.string();
+      m_pImpl-&gt;errCode = archive.m_last_error;
+      std::cerr &lt;&lt; m_pImpl-&gt;errMsg &lt;&lt; std::endl;
+      mz_zip_reader_end(&amp;archive);
+      return false;
+    &#125;
+  &#125;
+
+  mz_zip_reader_end(&amp;archive);
+  m_pImpl-&gt;errMsg = &quot;&quot;;
+  std::cout &lt;&lt; &quot;unzip complete.&quot; &lt;&lt; std::endl;
+  return true;
+&#125;
+
+const char* MY_Zip::error() &#123;
+  return m_pImpl-&gt;errMsg.c_str();
+&#125;
+
+int MY_Zip::code() &#123;
+  return m_pImpl-&gt;errCode;
+&#125;
+</code></pre>
 <p><img src="/test_on_linux.jpg" alt="test_on_linux"></p>
 
     

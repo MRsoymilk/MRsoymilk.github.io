@@ -187,8 +187,25 @@
 <li><p>IR红外活体：主要基于红外光线反射成像原理，通过人脸成像甄别是否为活体。基于红外成像特点，对于屏幕类攻击，基本可以达到近100%的活体防御。IR采用静默式识别方式，体验较好，但需要增加红外摄像头成本，同时要结合场景考虑红外成像距离。</p>
 </li>
 </ul>
-<h3 id="SDK包结构"><a href="#SDK包结构" class="headerlink" title="SDK包结构"></a>SDK包结构</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">SDK</span><br><span class="line">|---demo</span><br><span class="line">|   |---ArcFaceDemo                                 Demo工程</span><br><span class="line">|---doc</span><br><span class="line">|   |---ARCSOFT_ARC_FACE_DEVELOPER&#x27;S_GUIDE.PDF      开发说明文档</span><br><span class="line">|---inc</span><br><span class="line">|   |---amcomdef.h                                  平台文件</span><br><span class="line">|   |---asvloffscreen.h                             平台文件</span><br><span class="line">|   |---arcsoft_face_sdk.h                          接口文件</span><br><span class="line">|   |---merror.h                                    错误码文件</span><br><span class="line">|---lib </span><br><span class="line">|---|---Win32/x64</span><br><span class="line">|   |---|---libarcsoft_face.dll                     算法库</span><br><span class="line">|   |---|---libarcsoft_face_engine.dll              引擎库</span><br><span class="line">|   |---|---libarcsoft_face_engine.lib              引擎库</span><br><span class="line">|---samplecode</span><br><span class="line">|   |---samplecode.cpp                              示例代码</span><br><span class="line">|---releasenotes.txt                                说明文件</span><br></pre></td></tr></table></figure>
-
+<h3 id="SDK包结构"><a href="#SDK包结构" class="headerlink" title="SDK包结构"></a>SDK包结构</h3><pre><code class="plaintext">SDK
+|---demo
+|   |---ArcFaceDemo                                 Demo工程
+|---doc
+|   |---ARCSOFT_ARC_FACE_DEVELOPER&#39;S_GUIDE.PDF      开发说明文档
+|---inc
+|   |---amcomdef.h                                  平台文件
+|   |---asvloffscreen.h                             平台文件
+|   |---arcsoft_face_sdk.h                          接口文件
+|   |---merror.h                                    错误码文件
+|---lib 
+|---|---Win32/x64
+|   |---|---libarcsoft_face.dll                     算法库
+|   |---|---libarcsoft_face_engine.dll              引擎库
+|   |---|---libarcsoft_face_engine.lib              引擎库
+|---samplecode
+|   |---samplecode.cpp                              示例代码
+|---releasenotes.txt                                说明文件
+</code></pre>
 <h3 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h3><p>处理器：Intel® Core™ i5-8500 3.0GHz<br>安装内存(RAM)：16.0GB(15.9GB可用)<br>系统类型：win10 64位操作系统</p>
 <p>分辨率：1280 x 720不同人脸库条件下人脸比对+RGB活体检测全流程体感耗时</p>
 <table>
@@ -222,8 +239,28 @@
 <li>用于证件照或生活照与证件照之间的特征比对，推荐阈值0.82</li>
 </ul>
 <h2 id="Windows-10-开发环境搭建"><a href="#Windows-10-开发环境搭建" class="headerlink" title="Windows 10 开发环境搭建"></a>Windows 10 开发环境搭建</h2><p>项目目录结构：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">FACE</span><br><span class="line">|----- .vs</span><br><span class="line">|----- inc</span><br><span class="line">|----- |----- opencv2</span><br><span class="line">|----- |----- |----- ...</span><br><span class="line">|----- |----- amcomdef.h</span><br><span class="line">|----- |----- arcsoft_face_sdk.h</span><br><span class="line">|----- |----- asvloffscreen.h</span><br><span class="line">|----- |----- merror.h</span><br><span class="line">|----- lib</span><br><span class="line">|----- |----- X64</span><br><span class="line">|----- |----- |----- libarcsoft_face_engine.lib</span><br><span class="line">|----- |----- |----- opencv_world451.lib</span><br><span class="line">|----- |----- |----- opencv_world451d.lib</span><br><span class="line">|----- x64</span><br><span class="line">|----- |----- Debug</span><br><span class="line">|----- |----- |----- FACE.exe</span><br><span class="line">|----- |----- |----- libarcsoft_face.dll</span><br><span class="line">|----- |----- |----- libarcsoft_face_engine.dll</span><br><span class="line">|----- |----- |----- opencv_world451.dll</span><br><span class="line">|----- |----- |----- opencv_world451d.dll</span><br></pre></td></tr></table></figure>
-
+<pre><code class="plaintext">FACE
+|----- .vs
+|----- inc
+|----- |----- opencv2
+|----- |----- |----- ...
+|----- |----- amcomdef.h
+|----- |----- arcsoft_face_sdk.h
+|----- |----- asvloffscreen.h
+|----- |----- merror.h
+|----- lib
+|----- |----- X64
+|----- |----- |----- libarcsoft_face_engine.lib
+|----- |----- |----- opencv_world451.lib
+|----- |----- |----- opencv_world451d.lib
+|----- x64
+|----- |----- Debug
+|----- |----- |----- FACE.exe
+|----- |----- |----- libarcsoft_face.dll
+|----- |----- |----- libarcsoft_face_engine.dll
+|----- |----- |----- opencv_world451.dll
+|----- |----- |----- opencv_world451d.dll
+</code></pre>
 <h3 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h3><p><code>Create a new project</code> -&gt; <code>Console App</code>，项目名称为<code>FACE</code>。</p>
 <h3 id="基础文件配置"><a href="#基础文件配置" class="headerlink" title="基础文件配置"></a>基础文件配置</h3><p>在<code>FACE</code>目录下创建<code>inc</code>和<code>lib/X64</code>目录。</p>
 <h4 id="虹软SDK"><a href="#虹软SDK" class="headerlink" title="虹软SDK"></a>虹软SDK</h4><p>下载虹软SDK。</p>
@@ -254,20 +291,91 @@
 <li><code>Library Directories</code>导向<code>FACE/lib/X64</code></li>
 </ul>
 <p><em>可选配置：在<code>Configuration Properties</code> -&gt; <code>Linker</code> -&gt; <code>Input</code>中的<code>Additional Dependencies</code>中添加相应<code>.lib文件</code>以替换在程序中使用<code>#pragma comment(lib, &quot;your.lib&quot;)</code></em></p>
-<h3 id="运行验证"><a href="#运行验证" class="headerlink" title="运行验证"></a>运行验证</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;arcsoft_face_sdk.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;merror.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> comment(lib, <span class="string">&quot;libarcsoft_face_engine.lib&quot;</span>)</span></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> comment(lib, <span class="string">&quot;opencv_world451.lib&quot;</span>)</span></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> comment(lib, <span class="string">&quot;opencv_world451d.lib&quot;</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	ASF_VERSION version = <span class="built_in">ASFGetVersion</span>();</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;SDK Version:\t&quot;</span> &lt;&lt; version.Version &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;SDK BuildDate:\t&quot;</span> &lt;&lt; version.BuildDate &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;SDK CopyRight:\y&quot;</span> &lt;&lt; version.CopyRight &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;OpenCV Version:\t&quot;</span> &lt;&lt; CV_VERSION &lt;&lt; endl;</span><br><span class="line">	<span class="built_in">getchar</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="运行验证"><a href="#运行验证" class="headerlink" title="运行验证"></a>运行验证</h3><pre><code class="cpp">#include &lt;iostream&gt;
+#include &lt;opencv2/opencv.hpp&gt;
 
+#include &quot;arcsoft_face_sdk.h&quot;
+#include &quot;merror.h&quot;
+
+#pragma comment(lib, &quot;libarcsoft_face_engine.lib&quot;)
+#pragma comment(lib, &quot;opencv_world451.lib&quot;)
+#pragma comment(lib, &quot;opencv_world451d.lib&quot;)
+
+using namespace std;
+
+int main() &#123;
+    ASF_VERSION version = ASFGetVersion();
+    cout &lt;&lt; &quot;SDK Version:\t&quot; &lt;&lt; version.Version &lt;&lt; endl;
+    cout &lt;&lt; &quot;SDK BuildDate:\t&quot; &lt;&lt; version.BuildDate &lt;&lt; endl;
+    cout &lt;&lt; &quot;SDK CopyRight:\y&quot; &lt;&lt; version.CopyRight &lt;&lt; endl;
+
+    cout &lt;&lt; &quot;OpenCV Version:\t&quot; &lt;&lt; CV_VERSION &lt;&lt; endl;
+    getchar();
+    return 0;
+&#125;
+</code></pre>
 <p><img src="/result.png" alt="result"></p>
 <h2 id="Linux-开发环境搭建"><a href="#Linux-开发环境搭建" class="headerlink" title="Linux 开发环境搭建"></a>Linux 开发环境搭建</h2><p>下载相应SDK。</p>
 <p>ArcSoft Linux x64 SDK目录结构：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">├── doc</span><br><span class="line">│   └── ARCSOFT_ARC_FACE_DEVELOPER&#x27;S_GUIDE.pdf</span><br><span class="line">├── inc</span><br><span class="line">│   ├── amcomdef.h</span><br><span class="line">│   ├── arcsoft_face_sdk.h</span><br><span class="line">│   ├── asvloffscreen.h</span><br><span class="line">│   └── merror.h</span><br><span class="line">├── lib</span><br><span class="line">│   └── linux_x64</span><br><span class="line">│       ├── libarcsoft_face_engine.so</span><br><span class="line">│       └── libarcsoft_face.so</span><br><span class="line">├── releasenotes.txt</span><br><span class="line">└── samplecode</span><br><span class="line">    ├── ASFTestDemo</span><br><span class="line">    └── ReadMe.txt</span><br></pre></td></tr></table></figure>
-
+<pre><code class="plaintext">├── doc
+│   └── ARCSOFT_ARC_FACE_DEVELOPER&#39;S_GUIDE.pdf
+├── inc
+│   ├── amcomdef.h
+│   ├── arcsoft_face_sdk.h
+│   ├── asvloffscreen.h
+│   └── merror.h
+├── lib
+│   └── linux_x64
+│       ├── libarcsoft_face_engine.so
+│       └── libarcsoft_face.so
+├── releasenotes.txt
+└── samplecode
+    ├── ASFTestDemo
+    └── ReadMe.txt
+</code></pre>
 <p>项目结构：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">├── cmake-build-debug</span><br><span class="line">│   ├── ArcFace64.dat</span><br><span class="line">│   ├── CMakeCache.txt</span><br><span class="line">│   ├── CMakeFiles</span><br><span class="line">│   ├── cmake_install.cmake</span><br><span class="line">│   ├── Makefile</span><br><span class="line">│   ├── MilkFace_Linux</span><br><span class="line">│   └── MilkFace_Linux.cbp</span><br><span class="line">├── CMakeLists.txt</span><br><span class="line">├── inc</span><br><span class="line">│   ├── amcomdef.h</span><br><span class="line">│   ├── arcsoft_face_sdk.h</span><br><span class="line">│   ├── asvloffscreen.h</span><br><span class="line">│   └── merror.h</span><br><span class="line">├── lib</span><br><span class="line">│   ├── libarcsoft_face_engine.so</span><br><span class="line">│   └── libarcsoft_face.so</span><br><span class="line">└── main.cpp</span><br></pre></td></tr></table></figure>
-
+<pre><code class="plaintext">├── cmake-build-debug
+│   ├── ArcFace64.dat
+│   ├── CMakeCache.txt
+│   ├── CMakeFiles
+│   ├── cmake_install.cmake
+│   ├── Makefile
+│   ├── MilkFace_Linux
+│   └── MilkFace_Linux.cbp
+├── CMakeLists.txt
+├── inc
+│   ├── amcomdef.h
+│   ├── arcsoft_face_sdk.h
+│   ├── asvloffscreen.h
+│   └── merror.h
+├── lib
+│   ├── libarcsoft_face_engine.so
+│   └── libarcsoft_face.so
+└── main.cpp
+</code></pre>
 <p>将SDK下<code>lib/</code>目录内文件移入项目<code>lib</code>目录下。</p>
 <p>将SDK下<code>inc/</code>目录内文件移入项目<code>inc</code>目录下。</p>
 <p><code>CMakeLists.txt</code>内容：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.17</span>)</span><br><span class="line"><span class="keyword">project</span>(MilkFace_Linux)</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">14</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># OpenCV</span></span><br><span class="line"><span class="keyword">find_package</span>( OpenCV REQUIRED )</span><br><span class="line"><span class="keyword">include_directories</span>( <span class="variable">$&#123;OpenCV_INCLUDE_DIRS&#125;</span> )</span><br><span class="line"></span><br><span class="line"><span class="comment"># ArcSoft</span></span><br><span class="line"><span class="keyword">include_directories</span>(./inc)</span><br><span class="line"><span class="keyword">link_directories</span>(./lib)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_executable</span>(<span class="variable">$&#123;PROJECT_NAME&#125;</span> main.cpp)</span><br><span class="line"><span class="keyword">target_link_libraries</span>( <span class="variable">$&#123;PROJECT_NAME&#125;</span></span><br><span class="line">        <span class="variable">$&#123;OpenCV_LIBS&#125;</span></span><br><span class="line">        arcsoft_face</span><br><span class="line">        arcsoft_face_engine</span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
+<pre><code class="cmake">cmake_minimum_required(VERSION 3.17)
+project(MilkFace_Linux)
+
+set(CMAKE_CXX_STANDARD 14)
+
+# OpenCV
+find_package( OpenCV REQUIRED )
+include_directories( $&#123;OpenCV_INCLUDE_DIRS&#125; )
+
+# ArcSoft
+include_directories(./inc)
+link_directories(./lib)
+
+add_executable($&#123;PROJECT_NAME&#125; main.cpp)
+target_link_libraries( $&#123;PROJECT_NAME&#125;
+        $&#123;OpenCV_LIBS&#125;
+        arcsoft_face
+        arcsoft_face_engine
+        )
+</code></pre>
 
     
     <hr>

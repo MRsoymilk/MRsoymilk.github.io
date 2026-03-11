@@ -172,8 +172,33 @@
 </ul>
 <span id="more"></span>
 
-<h2 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法:"></a>实现方法:</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"></span><br><span class="line">capture = cv2.VideoCapture(<span class="number">0</span>)  <span class="comment"># 视频相关</span></span><br><span class="line">detect = cv2.QRCodeDetector()  <span class="comment"># 二维码相关</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    _, frame = capture.read()</span><br><span class="line">    text, points, _ = detect.detectAndDecode(frame)</span><br><span class="line">    <span class="keyword">if</span> points <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="comment"># 画红线，标记二维码</span></span><br><span class="line">        points = <span class="built_in">tuple</span>(points)[<span class="number">0</span>]</span><br><span class="line">        len_points = <span class="built_in">len</span>(points)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(len_points):</span><br><span class="line">            cv2.line(frame, <span class="built_in">tuple</span>(points[i]), <span class="built_in">tuple</span>(points[(i+<span class="number">1</span>)%len_points]), (<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>), <span class="number">5</span>)</span><br><span class="line">        <span class="comment"># 命令行输出二维码值</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;decode: &quot;</span>, text)</span><br><span class="line">    cv2.imshow(<span class="string">&#x27;qrcode&#x27;</span>, frame)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 使用按键&#x27;q&#x27;退出循环</span></span><br><span class="line">    <span class="keyword">if</span> cv2.waitKey(<span class="number">1</span>) &amp; <span class="number">0xFF</span> == <span class="built_in">ord</span>(<span class="string">&#x27;q&#x27;</span>):</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 释放资源</span></span><br><span class="line">capture.release()</span><br><span class="line"><span class="comment"># 销毁窗口</span></span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+<h2 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法:"></a>实现方法:</h2><pre><code class="python">import cv2
 
+capture = cv2.VideoCapture(0)  # 视频相关
+detect = cv2.QRCodeDetector()  # 二维码相关
+
+while True:
+    _, frame = capture.read()
+    text, points, _ = detect.detectAndDecode(frame)
+    if points is not None:
+        # 画红线，标记二维码
+        points = tuple(points)[0]
+        len_points = len(points)
+        for i in range(len_points):
+            cv2.line(frame, tuple(points[i]), tuple(points[(i+1)%len_points]), (0, 0, 255), 5)
+        # 命令行输出二维码值
+        print(&quot;decode: &quot;, text)
+    cv2.imshow(&#39;qrcode&#39;, frame)
+
+    # 使用按键&#39;q&#39;退出循环
+    if cv2.waitKey(1) &amp; 0xFF == ord(&#39;q&#39;):
+        break
+
+# 释放资源
+capture.release()
+# 销毁窗口
+cv2.destroyAllWindows()
+</code></pre>
 <h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><p><img src="/qrcode_detect.png" alt="result"></p>
 <h2 id="存在问题"><a href="#存在问题" class="headerlink" title="存在问题"></a>存在问题</h2><ul>
 <li>帧率不高(使用的是树莓派 3B+)。</li>

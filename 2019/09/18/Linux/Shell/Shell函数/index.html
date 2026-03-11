@@ -168,8 +168,12 @@
     <hr>
     
     <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>一个简单的 Shell 函数</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line">funciton hello() &#123;</span><br><span class="line">  echo hello</span><br><span class="line">&#125;</span><br><span class="line">hello</span><br></pre></td></tr></table></figure>
-
+<pre><code class="Shell">#!/bin/bash
+funciton hello() &#123;
+  echo hello
+&#125;
+hello
+</code></pre>
 <span id="more"></span>
 
 <h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><p>链接</p>
@@ -180,8 +184,12 @@
 <li><a target="_blank" rel="noopener" href="https://blog.soymilk.fun/2019/09/17/Linux/Shell/Shell%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5/">Shell 循环语句</a></li>
 <li><a target="_blank" rel="noopener" href="https://blog.soymilk.fun/2019/09/18/Linux/Shell/Shell%E5%87%BD%E6%95%B0/">Shell 函数</a></li>
 </ul>
-<h2 id="函数的定义"><a href="#函数的定义" class="headerlink" title="函数的定义"></a>函数的定义</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[ function ] function_name() &#123;</span><br><span class="line">  do_something</span><br><span class="line">  [ return value ]</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">[]内为可选值</span></span><br></pre></td></tr></table></figure>
-
+<h2 id="函数的定义"><a href="#函数的定义" class="headerlink" title="函数的定义"></a>函数的定义</h2><pre><code class="Shell">[ function ] function_name() &#123;
+  do_something
+  [ return value ]
+&#125;
+# []内为可选值
+</code></pre>
 <p>未显式指定 return，默认返回最后一条命令运行结果作为返回值，0 为成功，1 为失败<br>函数的返回值: 只能是整数</p>
 <h2 id="函数的参数"><a href="#函数的参数" class="headerlink" title="函数的参数"></a>函数的参数</h2><p>函数通过使用$n 的形式来使用参数<br>通过函数名 参数 1 参数 2 来传递函数参数</p>
 <table>
@@ -216,22 +224,49 @@
 <ul>
 <li>$*</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">diff</span></span>()&#123;</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="variable">$@</span>; <span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$i</span></span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> $*; <span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$i</span></span><br><span class="line">  <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<pre><code class="sh">#!/bin/bash
+function diff()&#123;
+  for i in $@; do
+    echo $i
+  done
 
+  for i in $*; do
+    echo $i
+  done
+</code></pre>
 <p>输出：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
-
+<pre><code class="plaintext">1
+2
+3
+1
+2
+3
+</code></pre>
 <ul>
 <li>$@</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$@</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$i</span></span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="string">&quot;$*&quot;</span>; <span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$i</span></span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line">&#125;</span><br><span class="line">diff 1 2 3</span><br></pre></td></tr></table></figure>
+<pre><code class="sh">  for i in &quot;$@&quot;; do
+    echo $i
+  done
 
+  for i in &quot;$*&quot;; do
+    echo $i
+  done
+&#125;
+diff 1 2 3
+</code></pre>
 <p>输出：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">1 2 3</span><br></pre></td></tr></table></figure>
-
+<pre><code class="plaintext">1
+2
+3
+1 2 3
+</code></pre>
 <p>结果分析:<br>$@ 与 $*无差异<br><code>&quot;$@&quot;</code>将每个参数作为字符串返回, <code>&quot;$\*&quot;</code>将参数整体作为字符串返回</p>
-<h2 id="函数的使用"><a href="#函数的使用" class="headerlink" title="函数的使用"></a>函数的使用</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">无参数：</span></span><br><span class="line">function_name</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">有参数</span></span><br><span class="line">function_name 参数1 参数2</span><br></pre></td></tr></table></figure>
-
+<h2 id="函数的使用"><a href="#函数的使用" class="headerlink" title="函数的使用"></a>函数的使用</h2><pre><code class="Shell"># 无参数：
+function_name
+# 有参数
+function_name 参数1 参数2
+</code></pre>
 <h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>函数定义在函数使用之间定义，Shell 是逐行执行的</p>
 
     

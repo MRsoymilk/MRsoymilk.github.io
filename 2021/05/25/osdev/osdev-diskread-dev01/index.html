@@ -182,8 +182,8 @@
 <li>LBA48，用 48 位比特描述一个扇区的地址。最大寻址范围为 2^48&#x3D;281474976710656 个扇区，每个扇区 512 字节，最大支持 131072TB&#x3D;128PB</li>
 </ol>
 <p>计算方式：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LBA=C×磁头总数×每道扇区数+H×每道扇区数+（S-1）</span><br></pre></td></tr></table></figure>
-
+<pre><code class="plaintext">LBA=C×磁头总数×每道扇区数+H×每道扇区数+（S-1）
+</code></pre>
 <p>LBA 寄存器（8 位宽度）:</p>
 <ul>
 <li>LBA low，存储 28 地址的 0~7 位</li>
@@ -420,62 +420,286 @@
 <h2 id="使用端口"><a href="#使用端口" class="headerlink" title="使用端口"></a>使用端口</h2><details>
   <summary>var.asm</summary>
   
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line">%ifndef VAR</span><br><span class="line">%define VAR</span><br><span class="line"></span><br><span class="line">; 内存地址 0x900</span><br><span class="line">LOADER_BASE_ADDR equ 0x900</span><br><span class="line">; LBA 地址，第一块硬盘逻辑扇区</span><br><span class="line">LOADER_START_SECTOR equ 0x1</span><br><span class="line"></span><br><span class="line">%endif</span><br><span class="line"></span><br><span class="line">````</span><br><span class="line">&lt;/details&gt;</span><br><span class="line"></span><br><span class="line">&lt;details&gt;</span><br><span class="line">  &lt;summary&gt;mbr.asm&lt;/summary&gt;</span><br><span class="line"></span><br><span class="line">```nasm</span><br><span class="line">%include &quot;var.asm&quot;</span><br><span class="line">org 0x7c00</span><br><span class="line">  mov ax, cs</span><br><span class="line">  mov ds, ax</span><br><span class="line">  mov es, ax</span><br><span class="line">  mov ss, ax</span><br><span class="line">  mov fs, ax</span><br><span class="line">  mov sp, 0x7c00</span><br><span class="line">  mov ax, 0xb800</span><br><span class="line">  mov gs, ax</span><br><span class="line"></span><br><span class="line">  ; clear screen</span><br><span class="line">  mov ax, 0x0600</span><br><span class="line">  mov bx, 0x0700</span><br><span class="line">  mov cx, 0</span><br><span class="line">  mov dx, 0x184f</span><br><span class="line">  int 0x10</span><br><span class="line"></span><br><span class="line">  ; output</span><br><span class="line">  mov byte[gs:0x00], &#x27;h&#x27;</span><br><span class="line">  mov byte[gs:0x02], &#x27;i&#x27;</span><br><span class="line"></span><br><span class="line">  mov ax, LOADER_START_SECTOR ; 起始扇区lba地址, 0x1</span><br><span class="line">  mov bx, LOADER_BASE_ADDR      ; 写入的地址, 0x900</span><br><span class="line">  mov cx, 1                     ; 待读入的扇区数</span><br><span class="line">  call ReadDisk</span><br><span class="line"></span><br><span class="line">  jmp LOADER_BASE_ADDR          ; 进入0x900，即loader程序</span><br><span class="line"></span><br><span class="line">%include &quot;read_disk.asm&quot;</span><br><span class="line"></span><br><span class="line">times 510 - ($-$$) db 0</span><br><span class="line">db 0x55, 0xaa</span><br><span class="line">````</span><br><span class="line"></span><br><span class="line">&lt;/details&gt;</span><br><span class="line"></span><br><span class="line">&lt;details&gt;</span><br><span class="line">  &lt;summary&gt;read_disk.asm&lt;/summary&gt;</span><br><span class="line"></span><br><span class="line">```nasm</span><br><span class="line">; 读取硬盘n个扇区</span><br><span class="line">ReadDisk:</span><br><span class="line">  ; mov esi, eax  ;备份eax</span><br><span class="line">  push ax</span><br><span class="line">  mov di, cx      ;备份cx</span><br><span class="line">  ; 1 设置要读取的扇区</span><br><span class="line">  mov dx, 0x1f2   ; dx = 0x1f2</span><br><span class="line">  mov al, cl      ; al = cl</span><br><span class="line">  out dx, al      ; 读取的扇区数, dx = al = 0x1, 0x1f2端口值为1</span><br><span class="line"></span><br><span class="line">  ; mov eax, esi  ; 恢复ax</span><br><span class="line">  pop ax          ; ax = 0x1</span><br><span class="line"></span><br><span class="line">  ; 2 将LBA地址存入0x1f3 ~ 0x1f6</span><br><span class="line">  ; LBA地址7~0位写入端口0x1f3</span><br><span class="line">  mov dx, 0x1f3   ; dx = 0x1f3</span><br><span class="line">  out dx, al      ; dx = 1</span><br><span class="line"></span><br><span class="line">  ; LBA地址15~8位写入端口0x1f4</span><br><span class="line">  mov cl, 8       ; cl = 8</span><br><span class="line">  shr ax, cl      ; eax = 0</span><br><span class="line">  mov dx, 0x1f4   ; dx = 0x1f4</span><br><span class="line">  out dx, al      ; dx = 0</span><br><span class="line"></span><br><span class="line">  ; LBA地址23~16位写入端口0x1f5</span><br><span class="line">  shr ax, cl      ; eax = 0</span><br><span class="line">  mov dx, 0x1f5   ; dx = 0x1f5</span><br><span class="line">  out dx, al      ; dx = 0</span><br><span class="line"></span><br><span class="line">  shr ax, cl      ; eax = 0</span><br><span class="line">  and al, 0x0f    ; lba第24~27位，al = 0</span><br><span class="line">  or al, 0xe0     ; 设置7~4位1110，表示lba模式, al = 1110_0000b</span><br><span class="line">  mov dx, 0x1f6   ; dx = 0x1f6</span><br><span class="line">  out dx, al      ; dx = 1110_0000b</span><br><span class="line"></span><br><span class="line">  ; 3 向0x1f7端口写入读命令，0x20</span><br><span class="line">  mov dx, 0x1f7   ; dx = 0x1f7</span><br><span class="line">  mov al, 0x20    ; al = 0x20</span><br><span class="line">  out dx, al      ; dx = 0x20</span><br><span class="line"></span><br><span class="line">; 4 检测硬盘状态</span><br><span class="line">NotReady:</span><br><span class="line">  ; 同一端口，写时表示写入命令字，读时表示读入硬盘状态</span><br><span class="line">  nop</span><br><span class="line">  in al, dx       ; al = dx</span><br><span class="line">  ; 第4位为1表示硬盘控制器已准备好数据传输</span><br><span class="line">  ; 第7位为1表示硬盘忙</span><br><span class="line">  and al, 0x88    ; al &amp; 0x88 =  1000_1000b</span><br><span class="line">  cmp al, 0x08</span><br><span class="line">  jnz NotReady    ; 等待硬盘准备好</span><br><span class="line"></span><br><span class="line">  ; 5 从0x1f0端口读数据</span><br><span class="line">  mov ax, di      ; ax = di</span><br><span class="line">  mov dx, 256     ; dx = 256</span><br><span class="line">  mul dx ;</span><br><span class="line">  mov cx, ax      ; cx = ax</span><br><span class="line">  ; di 为要读取的扇区数，一个扇区有512个字节，每次读入一个字</span><br><span class="line">  ; 共需di * 512 / 2 次，所以di * 256</span><br><span class="line">  mov dx, 0x1f0   ; dx = 0x1f0</span><br><span class="line"></span><br><span class="line">GoOnRead:</span><br><span class="line">  in ax, dx       ; ax = dx端口值</span><br><span class="line">  mov [bx], ax    ; [bx] = ax，写入内存</span><br><span class="line">  add bx, 2       ; bx += 2</span><br><span class="line">  loop GoOnRead</span><br><span class="line">  ret</span><br></pre></td></tr></table></figure>
+<pre><code class="nasm">%ifndef VAR
+%define VAR
 
-</details>
+; 内存地址 0x900
+LOADER_BASE_ADDR equ 0x900
+; LBA 地址，第一块硬盘逻辑扇区
+LOADER_START_SECTOR equ 0x1
 
-<details>
-  <summary>loader.asm</summary>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">%include &quot;var.asm&quot;</span><br><span class="line">org LOADER_BASE_ADDR</span><br><span class="line"></span><br><span class="line">; output</span><br><span class="line">mov byte [gs:0x00], &#x27;L&#x27;</span><br><span class="line">mov byte [gs:0x02], &#x27;O&#x27;</span><br><span class="line">mov byte [gs:0x04], &#x27;A&#x27;</span><br><span class="line">mov byte [gs:0x06], &#x27;D&#x27;</span><br><span class="line">mov byte [gs:0x08], &#x27;E&#x27;</span><br><span class="line">mov byte [gs:0x0A], &#x27;R&#x27;</span><br><span class="line"></span><br><span class="line">; 程序挂起</span><br><span class="line">func:</span><br><span class="line">  hlt</span><br><span class="line">jmp func</span><br></pre></td></tr></table></figure>
-
-</details>
-
-<h3 id="执行"><a href="#执行" class="headerlink" title="执行"></a>执行</h3><p>使用 bochs</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nasm mbr.asm</span><br><span class="line">nasm loader.asm</span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=mbr of=os.img bs=512 count=1 conv=notrunc</span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=loader of=os.img bs=512 count=10 seek=2 conv=notrunc</span><br><span class="line">bochs</span><br></pre></td></tr></table></figure>
-
-<p>使用 qemu</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nasm mbr.asm</span><br><span class="line">nasm loader.asm</span><br><span class="line"><span class="built_in">cat</span> mbr loader &gt; os.img</span><br><span class="line">qemu-system-x86_64 os.img</span><br></pre></td></tr></table></figure>
-
-<p><img src="/result_port.png" alt="result_port"></p>
-<h2 id="使用-BIOS-中断服务"><a href="#使用-BIOS-中断服务" class="headerlink" title="使用 BIOS 中断服务"></a>使用 BIOS 中断服务</h2><details>
-  <summary>var.asm</summary>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">%ifndef VAR</span><br><span class="line">%define VAR</span><br><span class="line"></span><br><span class="line">PROGRAM_SPACE equ 0x7e00</span><br><span class="line"></span><br><span class="line">%endif</span><br></pre></td></tr></table></figure>
-
+%endif
+</code></pre>
 </details>
 
 <details>
   <summary>mbr.asm</summary>
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">%include &quot;var.asm&quot;</span><br><span class="line">org 0x7c00</span><br><span class="line"></span><br><span class="line">mov bx, MBR_MSG</span><br><span class="line">call PrintString</span><br><span class="line"></span><br><span class="line">mov [BOOT_DISK], dl</span><br><span class="line">mov bp, 0x7c00</span><br><span class="line">mov sp, bp</span><br><span class="line">call ReadDisk</span><br><span class="line"></span><br><span class="line">jmp PROGRAM_SPACE</span><br><span class="line"></span><br><span class="line">%include &quot;print.asm&quot;</span><br><span class="line">%include &quot;read_disk.asm&quot;</span><br><span class="line"></span><br><span class="line">MBR_MSG: db &quot;MBR&quot;, 0x0a, 0x0d, 0</span><br><span class="line"></span><br><span class="line">times 510 - ($ - $$) db 0</span><br><span class="line">db 0x55, 0xaa</span><br></pre></td></tr></table></figure>
+<pre><code class="nasm">%include &quot;var.asm&quot;
+org 0x7c00
+  mov ax, cs
+  mov ds, ax
+  mov es, ax
+  mov ss, ax
+  mov fs, ax
+  mov sp, 0x7c00
+  mov ax, 0xb800
+  mov gs, ax
 
-</details>
+  ; clear screen
+  mov ax, 0x0600
+  mov bx, 0x0700
+  mov cx, 0
+  mov dx, 0x184f
+  int 0x10
 
-<details>
-  <summary>loader.asm</summary>
+  ; output
+  mov byte[gs:0x00], &#39;h&#39;
+  mov byte[gs:0x02], &#39;i&#39;
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">%include &quot;var.asm&quot;</span><br><span class="line"></span><br><span class="line">[org PROGRAM_SPACE]</span><br><span class="line"></span><br><span class="line">mov bx, LOADER_MSG</span><br><span class="line">call PrintString</span><br><span class="line"></span><br><span class="line">jmp $</span><br><span class="line"></span><br><span class="line">%include &quot;print.asm&quot;</span><br><span class="line"></span><br><span class="line">LOADER_MSG: db &quot;Loader&quot;, 0x0a, 0x0d, 0</span><br><span class="line"></span><br><span class="line">times 2048 - ($ - $$) db 0</span><br></pre></td></tr></table></figure>
+  mov ax, LOADER_START_SECTOR ; 起始扇区lba地址, 0x1
+  mov bx, LOADER_BASE_ADDR      ; 写入的地址, 0x900
+  mov cx, 1                     ; 待读入的扇区数
+  call ReadDisk
 
-</details>
+  jmp LOADER_BASE_ADDR          ; 进入0x900，即loader程序
 
-<details>
-  <summary>print.asm</summary>
+%include &quot;read_disk.asm&quot;
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">%ifndef PRINT</span><br><span class="line">%define PRINT</span><br><span class="line"></span><br><span class="line">PrintString:</span><br><span class="line">  push ax</span><br><span class="line">  push bx</span><br><span class="line"></span><br><span class="line">  mov ah, 0x0e</span><br><span class="line">  .loop:</span><br><span class="line">    cmp [bx], byte 0</span><br><span class="line">    je .exit</span><br><span class="line">      mov al, [bx]</span><br><span class="line">      int 0x10</span><br><span class="line">      inc bx</span><br><span class="line">      jmp .loop</span><br><span class="line"></span><br><span class="line">    .exit:</span><br><span class="line">      pop bx</span><br><span class="line">      pop ax</span><br><span class="line">      ret</span><br><span class="line"></span><br><span class="line">%endif</span><br></pre></td></tr></table></figure>
-
+times 510 - ($-$$) db 0
+db 0x55, 0xaa
+</code></pre>
 </details>
 
 <details>
   <summary>read_disk.asm</summary>
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">PROGRAM_SPACE equ 0x7e00</span><br><span class="line"></span><br><span class="line">ReadDisk:</span><br><span class="line">  mov ah, 0x02</span><br><span class="line">  mov bx, PROGRAM_SPACE</span><br><span class="line">  mov al, 2</span><br><span class="line">  mov dl, [BOOT_DISK]</span><br><span class="line">  mov ch, 0x00</span><br><span class="line">  mov dh, 0x00</span><br><span class="line">  mov cl, 0x02</span><br><span class="line">  int 0x13</span><br><span class="line"></span><br><span class="line">  jc DiskReadFailed</span><br><span class="line">  ret</span><br><span class="line"></span><br><span class="line">  DiskReadFailed:</span><br><span class="line">    mov bx, DISK_READ_ERROR_String</span><br><span class="line">    call PrintString</span><br><span class="line">    jmp $</span><br><span class="line"></span><br><span class="line">%include &quot;print.asm&quot;</span><br><span class="line"></span><br><span class="line">BOOT_DISK: db 0</span><br><span class="line">DISK_READ_ERROR_String: db &quot;Disk read failed&quot;, 0x0a, 0x0d, 0</span><br></pre></td></tr></table></figure>
+<pre><code class="nasm">; 读取硬盘n个扇区
+ReadDisk:
+  ; mov esi, eax  ;备份eax
+  push ax
+  mov di, cx      ;备份cx
+  ; 1 设置要读取的扇区
+  mov dx, 0x1f2   ; dx = 0x1f2
+  mov al, cl      ; al = cl
+  out dx, al      ; 读取的扇区数, dx = al = 0x1, 0x1f2端口值为1
 
+  ; mov eax, esi  ; 恢复ax
+  pop ax          ; ax = 0x1
+
+  ; 2 将LBA地址存入0x1f3 ~ 0x1f6
+  ; LBA地址7~0位写入端口0x1f3
+  mov dx, 0x1f3   ; dx = 0x1f3
+  out dx, al      ; dx = 1
+
+  ; LBA地址15~8位写入端口0x1f4
+  mov cl, 8       ; cl = 8
+  shr ax, cl      ; eax = 0
+  mov dx, 0x1f4   ; dx = 0x1f4
+  out dx, al      ; dx = 0
+
+  ; LBA地址23~16位写入端口0x1f5
+  shr ax, cl      ; eax = 0
+  mov dx, 0x1f5   ; dx = 0x1f5
+  out dx, al      ; dx = 0
+
+  shr ax, cl      ; eax = 0
+  and al, 0x0f    ; lba第24~27位，al = 0
+  or al, 0xe0     ; 设置7~4位1110，表示lba模式, al = 1110_0000b
+  mov dx, 0x1f6   ; dx = 0x1f6
+  out dx, al      ; dx = 1110_0000b
+
+  ; 3 向0x1f7端口写入读命令，0x20
+  mov dx, 0x1f7   ; dx = 0x1f7
+  mov al, 0x20    ; al = 0x20
+  out dx, al      ; dx = 0x20
+
+; 4 检测硬盘状态
+NotReady:
+  ; 同一端口，写时表示写入命令字，读时表示读入硬盘状态
+  nop
+  in al, dx       ; al = dx
+  ; 第4位为1表示硬盘控制器已准备好数据传输
+  ; 第7位为1表示硬盘忙
+  and al, 0x88    ; al &amp; 0x88 =  1000_1000b
+  cmp al, 0x08
+  jnz NotReady    ; 等待硬盘准备好
+
+  ; 5 从0x1f0端口读数据
+  mov ax, di      ; ax = di
+  mov dx, 256     ; dx = 256
+  mul dx ;
+  mov cx, ax      ; cx = ax
+  ; di 为要读取的扇区数，一个扇区有512个字节，每次读入一个字
+  ; 共需di * 512 / 2 次，所以di * 256
+  mov dx, 0x1f0   ; dx = 0x1f0
+
+GoOnRead:
+  in ax, dx       ; ax = dx端口值
+  mov [bx], ax    ; [bx] = ax，写入内存
+  add bx, 2       ; bx += 2
+  loop GoOnRead
+  ret
+</code></pre>
+</details>
+
+<details>
+  <summary>loader.asm</summary>
+
+<pre><code class="nasm">%include &quot;var.asm&quot;
+org LOADER_BASE_ADDR
+
+; output
+mov byte [gs:0x00], &#39;L&#39;
+mov byte [gs:0x02], &#39;O&#39;
+mov byte [gs:0x04], &#39;A&#39;
+mov byte [gs:0x06], &#39;D&#39;
+mov byte [gs:0x08], &#39;E&#39;
+mov byte [gs:0x0A], &#39;R&#39;
+
+; 程序挂起
+func:
+  hlt
+jmp func
+</code></pre>
+</details>
+
+<h3 id="执行"><a href="#执行" class="headerlink" title="执行"></a>执行</h3><p>使用 bochs</p>
+<pre><code class="bash">nasm mbr.asm
+nasm loader.asm
+dd if=mbr of=os.img bs=512 count=1 conv=notrunc
+dd if=loader of=os.img bs=512 count=10 seek=2 conv=notrunc
+bochs
+</code></pre>
+<p>使用 qemu</p>
+<pre><code class="bash">nasm mbr.asm
+nasm loader.asm
+cat mbr loader &gt; os.img
+qemu-system-x86_64 os.img
+</code></pre>
+<p><img src="/result_port.png" alt="result_port"></p>
+<h2 id="使用-BIOS-中断服务"><a href="#使用-BIOS-中断服务" class="headerlink" title="使用 BIOS 中断服务"></a>使用 BIOS 中断服务</h2><details>
+  <summary>var.asm</summary>
+
+<pre><code class="nasm">%ifndef VAR
+%define VAR
+
+PROGRAM_SPACE equ 0x7e00
+
+%endif
+</code></pre>
+</details>
+
+<details>
+  <summary>mbr.asm</summary>
+
+<pre><code class="nasm">%include &quot;var.asm&quot;
+org 0x7c00
+
+mov bx, MBR_MSG
+call PrintString
+
+mov [BOOT_DISK], dl
+mov bp, 0x7c00
+mov sp, bp
+call ReadDisk
+
+jmp PROGRAM_SPACE
+
+%include &quot;print.asm&quot;
+%include &quot;read_disk.asm&quot;
+
+MBR_MSG: db &quot;MBR&quot;, 0x0a, 0x0d, 0
+
+times 510 - ($ - $$) db 0
+db 0x55, 0xaa
+</code></pre>
+</details>
+
+<details>
+  <summary>loader.asm</summary>
+
+<pre><code class="nasm">%include &quot;var.asm&quot;
+
+[org PROGRAM_SPACE]
+
+mov bx, LOADER_MSG
+call PrintString
+
+jmp $
+
+%include &quot;print.asm&quot;
+
+LOADER_MSG: db &quot;Loader&quot;, 0x0a, 0x0d, 0
+
+times 2048 - ($ - $$) db 0
+</code></pre>
+</details>
+
+<details>
+  <summary>print.asm</summary>
+
+<pre><code class="nasm">%ifndef PRINT
+%define PRINT
+
+PrintString:
+  push ax
+  push bx
+
+  mov ah, 0x0e
+  .loop:
+    cmp [bx], byte 0
+    je .exit
+      mov al, [bx]
+      int 0x10
+      inc bx
+      jmp .loop
+
+    .exit:
+      pop bx
+      pop ax
+      ret
+
+%endif
+</code></pre>
+</details>
+
+<details>
+  <summary>read_disk.asm</summary>
+
+<pre><code class="nasm">PROGRAM_SPACE equ 0x7e00
+
+ReadDisk:
+  mov ah, 0x02
+  mov bx, PROGRAM_SPACE
+  mov al, 2
+  mov dl, [BOOT_DISK]
+  mov ch, 0x00
+  mov dh, 0x00
+  mov cl, 0x02
+  int 0x13
+
+  jc DiskReadFailed
+  ret
+
+  DiskReadFailed:
+    mov bx, DISK_READ_ERROR_String
+    call PrintString
+    jmp $
+
+%include &quot;print.asm&quot;
+
+BOOT_DISK: db 0
+DISK_READ_ERROR_String: db &quot;Disk read failed&quot;, 0x0a, 0x0d, 0
+</code></pre>
 </details>
 
 <h3 id="启动方式"><a href="#启动方式" class="headerlink" title="启动方式"></a>启动方式</h3><p>使用 qemu</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nasm mbr.asm</span><br><span class="line">nasm loader.asm</span><br><span class="line"><span class="built_in">cat</span> mbr loader &gt; os.img</span><br><span class="line">qemu-system-x86_64 os.img</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">nasm mbr.asm
+nasm loader.asm
+cat mbr loader &gt; os.img
+qemu-system-x86_64 os.img
+</code></pre>
 <p><img src="/result_bios.png" alt="result_bios"></p>
 
     

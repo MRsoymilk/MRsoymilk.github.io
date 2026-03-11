@@ -171,11 +171,11 @@
 <p>将这些像素映射为对应字符，字符集长度越大，表示的层次越丰富（也要根据字符的稀疏对应，比如<code>&#39;</code>表示的颜色比<code>$</code>浅）</p>
 <span id="more"></span>
 
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ASCII_CHARS = [<span class="string">&#x27;`&#x27;</span>, <span class="string">&#x27;^&#x27;</span>, <span class="string">&#x27;&quot;&#x27;</span>, <span class="string">&#x27;,&#x27;</span>, <span class="string">&#x27;:&#x27;</span>, <span class="string">&#x27;;&#x27;</span>, <span class="string">&#x27;I&#x27;</span>, <span class="string">&#x27;l&#x27;</span>, <span class="string">&#x27;!&#x27;</span>, <span class="string">&#x27;i&#x27;</span>, <span class="string">&#x27;~&#x27;</span>, <span class="string">&#x27;+&#x27;</span>, <span class="string">&#x27;_&#x27;</span>, <span class="string">&#x27;-&#x27;</span>, <span class="string">&#x27;?&#x27;</span>, <span class="string">&#x27;]&#x27;</span>, <span class="string">&#x27;[&#x27;</span>, <span class="string">&#x27;&#125;&#x27;</span>, <span class="string">&#x27;&#123;&#x27;</span>, <span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;)&#x27;</span>, <span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;|&#x27;</span>, <span class="string">&#x27;\\&#x27;</span>, <span class="string">&#x27;/&#x27;</span>, <span class="string">&#x27;*&#x27;</span>, <span class="string">&#x27;j&#x27;</span>, <span class="string">&#x27;t&#x27;</span>, <span class="string">&#x27;f&#x27;</span>, <span class="string">&#x27;r&#x27;</span>, <span class="string">&#x27;x&#x27;</span>, <span class="string">&#x27;n&#x27;</span>, <span class="string">&#x27;v&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;z&#x27;</span>, <span class="string">&#x27;X&#x27;</span>, <span class="string">&#x27;Y&#x27;</span>, <span class="string">&#x27;U&#x27;</span>, <span class="string">&#x27;J&#x27;</span>, <span class="string">&#x27;C&#x27;</span>, <span class="string">&#x27;L&#x27;</span>, <span class="string">&#x27;Q&#x27;</span>, <span class="string">&#x27;0&#x27;</span>, <span class="string">&#x27;O&#x27;</span>, <span class="string">&#x27;Z&#x27;</span>, <span class="string">&#x27;m&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, <span class="string">&#x27;q&#x27;</span>, <span class="string">&#x27;p&#x27;</span>, <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;k&#x27;</span>, <span class="string">&#x27;h&#x27;</span>, <span class="string">&#x27;)&#x27;</span>, <span class="string">&#x27;W&#x27;</span>, <span class="string">&#x27;M&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;8&#x27;</span>, <span class="string">&#x27;$&#x27;</span>, <span class="string">&#x27;%&#x27;</span>, <span class="string">&#x27;&amp;&#x27;</span>, <span class="string">&#x27;@&#x27;</span>, <span class="string">&#x27;#&#x27;</span>]</span><br></pre></td></tr></table></figure>
-
+<pre><code class="python">ASCII_CHARS = [&#39;`&#39;, &#39;^&#39;, &#39;&quot;&#39;, &#39;,&#39;, &#39;:&#39;, &#39;;&#39;, &#39;I&#39;, &#39;l&#39;, &#39;!&#39;, &#39;i&#39;, &#39;~&#39;, &#39;+&#39;, &#39;_&#39;, &#39;-&#39;, &#39;?&#39;, &#39;]&#39;, &#39;[&#39;, &#39;&#125;&#39;, &#39;&#123;&#39;, &#39;1&#39;, &#39;)&#39;, &#39;(&#39;, &#39;|&#39;, &#39;\\&#39;, &#39;/&#39;, &#39;*&#39;, &#39;j&#39;, &#39;t&#39;, &#39;f&#39;, &#39;r&#39;, &#39;x&#39;, &#39;n&#39;, &#39;v&#39;, &#39;c&#39;, &#39;z&#39;, &#39;X&#39;, &#39;Y&#39;, &#39;U&#39;, &#39;J&#39;, &#39;C&#39;, &#39;L&#39;, &#39;Q&#39;, &#39;0&#39;, &#39;O&#39;, &#39;Z&#39;, &#39;m&#39;, &#39;w&#39;, &#39;q&#39;, &#39;p&#39;, &#39;d&#39;, &#39;b&#39;, &#39;k&#39;, &#39;h&#39;, &#39;)&#39;, &#39;W&#39;, &#39;M&#39;, &#39;B&#39;, &#39;8&#39;, &#39;$&#39;, &#39;%&#39;, &#39;&amp;&#39;, &#39;@&#39;, &#39;#&#39;]
+</code></pre>
 <p>当字符集有限的情况下，需要按比例划分灰度值，将一个范围的灰度映射为对应的字符</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chars = ASCII_CHARS[pixel * <span class="built_in">len</span>(ASCII_CHARS) // <span class="number">256</span>]</span><br></pre></td></tr></table></figure>
-
+<pre><code class="python">chars = ASCII_CHARS[pixel * len(ASCII_CHARS) // 256]
+</code></pre>
 <p>现有原图：</p>
 <p><img src="/can.png" alt="can"></p>
 <p>转换为 ascii 字符后：</p>
@@ -184,24 +184,160 @@
 <details>
     <summary>完整代码</summary>
 
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义要使用的字符集，字符集长度越大，表示层次越丰富</span></span><br><span class="line">ASCII_CHARS = [<span class="string">&#x27;`&#x27;</span>, <span class="string">&#x27;^&#x27;</span>, <span class="string">&#x27;&quot;&#x27;</span>, <span class="string">&#x27;,&#x27;</span>, <span class="string">&#x27;:&#x27;</span>, <span class="string">&#x27;;&#x27;</span>, <span class="string">&#x27;I&#x27;</span>, <span class="string">&#x27;l&#x27;</span>, <span class="string">&#x27;!&#x27;</span>, <span class="string">&#x27;i&#x27;</span>, <span class="string">&#x27;~&#x27;</span>, <span class="string">&#x27;+&#x27;</span>, <span class="string">&#x27;_&#x27;</span>, <span class="string">&#x27;-&#x27;</span>, <span class="string">&#x27;?&#x27;</span>, <span class="string">&#x27;]&#x27;</span>, <span class="string">&#x27;[&#x27;</span>, <span class="string">&#x27;&#125;&#x27;</span>, <span class="string">&#x27;&#123;&#x27;</span>, <span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;)&#x27;</span>, <span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;|&#x27;</span>, <span class="string">&#x27;\\&#x27;</span>, <span class="string">&#x27;/&#x27;</span>, <span class="string">&#x27;*&#x27;</span>, <span class="string">&#x27;j&#x27;</span>, <span class="string">&#x27;t&#x27;</span>, <span class="string">&#x27;f&#x27;</span>, <span class="string">&#x27;r&#x27;</span>, <span class="string">&#x27;x&#x27;</span>, <span class="string">&#x27;n&#x27;</span>, <span class="string">&#x27;v&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;z&#x27;</span>, <span class="string">&#x27;X&#x27;</span>, <span class="string">&#x27;Y&#x27;</span>, <span class="string">&#x27;U&#x27;</span>, <span class="string">&#x27;J&#x27;</span>, <span class="string">&#x27;C&#x27;</span>, <span class="string">&#x27;L&#x27;</span>, <span class="string">&#x27;Q&#x27;</span>, <span class="string">&#x27;0&#x27;</span>, <span class="string">&#x27;O&#x27;</span>, <span class="string">&#x27;Z&#x27;</span>, <span class="string">&#x27;m&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, <span class="string">&#x27;q&#x27;</span>, <span class="string">&#x27;p&#x27;</span>, <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;k&#x27;</span>, <span class="string">&#x27;h&#x27;</span>, <span class="string">&#x27;)&#x27;</span>, <span class="string">&#x27;W&#x27;</span>, <span class="string">&#x27;M&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;8&#x27;</span>, <span class="string">&#x27;$&#x27;</span>, <span class="string">&#x27;%&#x27;</span>, <span class="string">&#x27;&amp;&#x27;</span>, <span class="string">&#x27;@&#x27;</span>, <span class="string">&#x27;#&#x27;</span>]</span><br><span class="line"><span class="built_in">print</span>(ASCII_CHARS)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(ASCII_CHARS))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调整图像大小</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">resize_image</span>(<span class="params">image, new_width=<span class="number">100</span></span>):</span><br><span class="line">    width, height = image.size</span><br><span class="line">    ratio = height / width</span><br><span class="line">    <span class="comment"># 0.55 矫正宽高比</span></span><br><span class="line">    new_height = <span class="built_in">int</span>(ratio * new_width * <span class="number">0.55</span>)</span><br><span class="line">    <span class="keyword">return</span> image.resize((new_width, new_height))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将图像转为灰度</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">grayify</span>(<span class="params">image</span>):</span><br><span class="line">    <span class="keyword">return</span> image.convert(<span class="string">&quot;L&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将像素值映射到ASCII字符</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">pixels_to_ascii</span>(<span class="params">image</span>):</span><br><span class="line">    pixels = image.getdata()</span><br><span class="line">    ascii_str = <span class="string">&quot;&quot;</span>.join([ASCII_CHARS[pixel * <span class="built_in">len</span>(ASCII_CHARS) // <span class="number">256</span>] <span class="keyword">for</span> pixel <span class="keyword">in</span> pixels])</span><br><span class="line">    <span class="keyword">return</span> ascii_str</span><br><span class="line"></span><br><span class="line"><span class="comment"># 主函数，执行图像到ASCII的转换</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">image_to_ascii</span>(<span class="params">image_path, new_width=<span class="number">100</span></span>):</span><br><span class="line">    <span class="comment"># 打开图像并处理</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        image = Image.<span class="built_in">open</span>(image_path)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;无法打开图像文件: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 调整图像大小和灰度</span></span><br><span class="line">    image = resize_image(image, new_width)</span><br><span class="line">    image = grayify(image)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 转换为ASCII字符</span></span><br><span class="line">    ascii_str = pixels_to_ascii(image)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将ASCII字符串按宽度分行</span></span><br><span class="line">    img_width = image.width</span><br><span class="line">    ascii_str_len = <span class="built_in">len</span>(ascii_str)</span><br><span class="line">    ascii_img = <span class="string">&quot;\n&quot;</span>.join([ascii_str[i:i + img_width] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, ascii_str_len, img_width)])</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 输出或保存ASCII图像</span></span><br><span class="line">    <span class="built_in">print</span>(ascii_img)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 可以选择将ASCII字符输出到文件中</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;ascii_image.txt&quot;</span>, <span class="string">&quot;w&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(ascii_img)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调整宽度参数来控制ASCII图像的分辨率</span></span><br><span class="line">image_to_ascii(<span class="string">&quot;can.png&quot;</span>, <span class="number">600</span>)</span><br></pre></td></tr></table></figure>
+<pre><code class="python">from PIL import Image
 
+# 定义要使用的字符集，字符集长度越大，表示层次越丰富
+ASCII_CHARS = [&#39;`&#39;, &#39;^&#39;, &#39;&quot;&#39;, &#39;,&#39;, &#39;:&#39;, &#39;;&#39;, &#39;I&#39;, &#39;l&#39;, &#39;!&#39;, &#39;i&#39;, &#39;~&#39;, &#39;+&#39;, &#39;_&#39;, &#39;-&#39;, &#39;?&#39;, &#39;]&#39;, &#39;[&#39;, &#39;&#125;&#39;, &#39;&#123;&#39;, &#39;1&#39;, &#39;)&#39;, &#39;(&#39;, &#39;|&#39;, &#39;\\&#39;, &#39;/&#39;, &#39;*&#39;, &#39;j&#39;, &#39;t&#39;, &#39;f&#39;, &#39;r&#39;, &#39;x&#39;, &#39;n&#39;, &#39;v&#39;, &#39;c&#39;, &#39;z&#39;, &#39;X&#39;, &#39;Y&#39;, &#39;U&#39;, &#39;J&#39;, &#39;C&#39;, &#39;L&#39;, &#39;Q&#39;, &#39;0&#39;, &#39;O&#39;, &#39;Z&#39;, &#39;m&#39;, &#39;w&#39;, &#39;q&#39;, &#39;p&#39;, &#39;d&#39;, &#39;b&#39;, &#39;k&#39;, &#39;h&#39;, &#39;)&#39;, &#39;W&#39;, &#39;M&#39;, &#39;B&#39;, &#39;8&#39;, &#39;$&#39;, &#39;%&#39;, &#39;&amp;&#39;, &#39;@&#39;, &#39;#&#39;]
+print(ASCII_CHARS)
+print(len(ASCII_CHARS))
+
+# 调整图像大小
+def resize_image(image, new_width=100):
+    width, height = image.size
+    ratio = height / width
+    # 0.55 矫正宽高比
+    new_height = int(ratio * new_width * 0.55)
+    return image.resize((new_width, new_height))
+
+# 将图像转为灰度
+def grayify(image):
+    return image.convert(&quot;L&quot;)
+
+# 将像素值映射到ASCII字符
+def pixels_to_ascii(image):
+    pixels = image.getdata()
+    ascii_str = &quot;&quot;.join([ASCII_CHARS[pixel * len(ASCII_CHARS) // 256] for pixel in pixels])
+    return ascii_str
+
+# 主函数，执行图像到ASCII的转换
+def image_to_ascii(image_path, new_width=100):
+    # 打开图像并处理
+    try:
+        image = Image.open(image_path)
+    except Exception as e:
+        print(f&quot;无法打开图像文件: &#123;e&#125;&quot;)
+        return
+
+    # 调整图像大小和灰度
+    image = resize_image(image, new_width)
+    image = grayify(image)
+
+    # 转换为ASCII字符
+    ascii_str = pixels_to_ascii(image)
+
+    # 将ASCII字符串按宽度分行
+    img_width = image.width
+    ascii_str_len = len(ascii_str)
+    ascii_img = &quot;\n&quot;.join([ascii_str[i:i + img_width] for i in range(0, ascii_str_len, img_width)])
+
+    # 输出或保存ASCII图像
+    print(ascii_img)
+
+    # 可以选择将ASCII字符输出到文件中
+    with open(&quot;ascii_image.txt&quot;, &quot;w&quot;) as f:
+        f.write(ascii_img)
+
+# 调整宽度参数来控制ASCII图像的分辨率
+image_to_ascii(&quot;can.png&quot;, 600)
+</code></pre>
 </details>
 
 <h2 id="视频-ascii"><a href="#视频-ascii" class="headerlink" title="视频 ascii"></a>视频 ascii</h2><p>对视频的处理就是对每一帧进行处理</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">reader = imageio.get_reader(<span class="string">&#x27;bad_apple.mp4&#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> frame <span class="keyword">in</span> reader:</span><br><span class="line">    <span class="comment"># 将帧转换为灰度 ASCII 并显示</span></span><br><span class="line">    image = Image.fromarray(frame)</span><br><span class="line">    ascii_img = image_to_ascii(image, new_width=<span class="number">80</span>)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="python">reader = imageio.get_reader(&#39;bad_apple.mp4&#39;)
+for frame in reader:
+    # 将帧转换为灰度 ASCII 并显示
+    image = Image.fromarray(frame)
+    ascii_img = image_to_ascii(image, new_width=80)
+</code></pre>
 <p>为了符合原始视频帧率，需要额外计算延时（粗略计算）</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">fps = reader.get_meta_data()[<span class="string">&#x27;fps&#x27;</span>]</span><br><span class="line">frame_delay = <span class="number">1.0</span> / fps  <span class="comment"># 每帧显示的时间间隔（秒）</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> frame <span class="keyword">in</span> reader:</span><br><span class="line">    start = time.time()</span><br><span class="line"></span><br><span class="line">    end = time.time()</span><br><span class="line">    <span class="comment"># 等待适当的时间来同步帧</span></span><br><span class="line">    time.sleep(frame_delay - (end - start))</span><br></pre></td></tr></table></figure>
+<pre><code class="python">fps = reader.get_meta_data()[&#39;fps&#39;]
+frame_delay = 1.0 / fps  # 每帧显示的时间间隔（秒）
 
+for frame in reader:
+    start = time.time()
+
+    end = time.time()
+    # 等待适当的时间来同步帧
+    time.sleep(frame_delay - (end - start))
+</code></pre>
 <p>由于使用<code>curses</code>控制，需要额外注意宽度：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ascii_img = image_to_ascii(image, new_width=<span class="number">200</span>)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="python">ascii_img = image_to_ascii(image, new_width=200)
+</code></pre>
 <details>
     <summary>完整代码</summary>
 
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> curses</span><br><span class="line"><span class="keyword">import</span> imageio</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义要使用的字符集</span></span><br><span class="line">ASCII_CHARS = [<span class="string">&#x27;`&#x27;</span>, <span class="string">&#x27;^&#x27;</span>, <span class="string">&#x27;&quot;&#x27;</span>, <span class="string">&#x27;,&#x27;</span>, <span class="string">&#x27;:&#x27;</span>, <span class="string">&#x27;;&#x27;</span>, <span class="string">&#x27;I&#x27;</span>, <span class="string">&#x27;l&#x27;</span>, <span class="string">&#x27;!&#x27;</span>, <span class="string">&#x27;i&#x27;</span>, <span class="string">&#x27;~&#x27;</span>, <span class="string">&#x27;+&#x27;</span>, <span class="string">&#x27;_&#x27;</span>, <span class="string">&#x27;-&#x27;</span>, <span class="string">&#x27;?&#x27;</span>, <span class="string">&#x27;]&#x27;</span>, <span class="string">&#x27;[&#x27;</span>, <span class="string">&#x27;&#125;&#x27;</span>, <span class="string">&#x27;&#123;&#x27;</span>, <span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;)&#x27;</span>, <span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;|&#x27;</span>, <span class="string">&#x27;\\&#x27;</span>, <span class="string">&#x27;/&#x27;</span>, <span class="string">&#x27;*&#x27;</span>, <span class="string">&#x27;j&#x27;</span>, <span class="string">&#x27;t&#x27;</span>, <span class="string">&#x27;f&#x27;</span>, <span class="string">&#x27;r&#x27;</span>, <span class="string">&#x27;x&#x27;</span>, <span class="string">&#x27;n&#x27;</span>, <span class="string">&#x27;v&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;z&#x27;</span>, <span class="string">&#x27;X&#x27;</span>, <span class="string">&#x27;Y&#x27;</span>, <span class="string">&#x27;U&#x27;</span>, <span class="string">&#x27;J&#x27;</span>, <span class="string">&#x27;C&#x27;</span>, <span class="string">&#x27;L&#x27;</span>, <span class="string">&#x27;Q&#x27;</span>, <span class="string">&#x27;0&#x27;</span>, <span class="string">&#x27;O&#x27;</span>, <span class="string">&#x27;Z&#x27;</span>, <span class="string">&#x27;m&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, <span class="string">&#x27;q&#x27;</span>, <span class="string">&#x27;p&#x27;</span>, <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;k&#x27;</span>, <span class="string">&#x27;h&#x27;</span>, <span class="string">&#x27;)&#x27;</span>, <span class="string">&#x27;W&#x27;</span>, <span class="string">&#x27;M&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;8&#x27;</span>, <span class="string">&#x27;$&#x27;</span>, <span class="string">&#x27;%&#x27;</span>, <span class="string">&#x27;&amp;&#x27;</span>, <span class="string">&#x27;@&#x27;</span>, <span class="string">&#x27;#&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调整图像大小</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">resize_image</span>(<span class="params">image, new_width=<span class="number">100</span></span>):</span><br><span class="line">    width, height = image.size</span><br><span class="line">    ratio = height / width</span><br><span class="line">    new_height = <span class="built_in">int</span>(ratio * new_width * <span class="number">0.55</span>)</span><br><span class="line">    <span class="keyword">return</span> image.resize((new_width, new_height))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将图像转为灰度</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">grayify</span>(<span class="params">image</span>):</span><br><span class="line">    <span class="keyword">return</span> image.convert(<span class="string">&quot;L&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将像素值映射到ASCII字符</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">pixels_to_ascii</span>(<span class="params">image</span>):</span><br><span class="line">    pixels = image.getdata()</span><br><span class="line">    ascii_str = <span class="string">&quot;&quot;</span>.join([ASCII_CHARS[pixel * <span class="built_in">len</span>(ASCII_CHARS) // <span class="number">256</span>] <span class="keyword">for</span> pixel <span class="keyword">in</span> pixels])</span><br><span class="line">    <span class="keyword">return</span> ascii_str</span><br><span class="line"></span><br><span class="line"><span class="comment"># 主函数，执行图像到ASCII的转换</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">image_to_ascii</span>(<span class="params">image, new_width=<span class="number">100</span></span>):</span><br><span class="line">    image = resize_image(image, new_width)</span><br><span class="line">    image = grayify(image)</span><br><span class="line">    ascii_str = pixels_to_ascii(image)</span><br><span class="line">    img_width = image.width</span><br><span class="line">    ascii_str_len = <span class="built_in">len</span>(ascii_str)</span><br><span class="line">    ascii_img = <span class="string">&quot;\n&quot;</span>.join([ascii_str[i:i + img_width] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, ascii_str_len, img_width)])</span><br><span class="line">    <span class="keyword">return</span> ascii_img</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>(<span class="params">stdscr</span>):</span><br><span class="line">    curses.curs_set(<span class="number">0</span>)  <span class="comment"># 隐藏光标</span></span><br><span class="line">    stdscr.nodelay(<span class="literal">True</span>)  <span class="comment"># 使得 getch() 非阻塞</span></span><br><span class="line">    stdscr.clear()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 打开视频文件</span></span><br><span class="line">    reader = imageio.get_reader(<span class="string">&#x27;bad_apple.mp4&#x27;</span>)</span><br><span class="line">    fps = reader.get_meta_data()[<span class="string">&#x27;fps&#x27;</span>]</span><br><span class="line">    frame_delay = <span class="number">1.0</span> / fps  <span class="comment"># 每帧显示的时间间隔（秒）</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> frame <span class="keyword">in</span> reader:</span><br><span class="line">        start = time.time()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 将帧转换为灰度 ASCII 并显示</span></span><br><span class="line">        image = Image.fromarray(frame)</span><br><span class="line">        ascii_img = image_to_ascii(image, new_width=<span class="number">80</span>)</span><br><span class="line">        <span class="comment"># 绘制 ASCII 图像</span></span><br><span class="line">        stdscr.clear()</span><br><span class="line">        <span class="keyword">for</span> y, line <span class="keyword">in</span> <span class="built_in">enumerate</span>(ascii_img.split(<span class="string">&quot;\n&quot;</span>)):</span><br><span class="line">            stdscr.addstr(y, <span class="number">0</span>, line)</span><br><span class="line">        stdscr.refresh()</span><br><span class="line"></span><br><span class="line">        end = time.time()</span><br><span class="line">        <span class="comment"># 等待适当的时间来同步帧</span></span><br><span class="line">        time.sleep(frame_delay - (end - start))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 按 &#x27;q&#x27; 键退出</span></span><br><span class="line">        <span class="keyword">if</span> stdscr.getch() == <span class="built_in">ord</span>(<span class="string">&#x27;q&#x27;</span>):</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行 curses 主程序</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        curses.wrapper(main)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;发生错误: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code class="python">import curses
+import imageio
+import time
+from PIL import Image
 
+# 定义要使用的字符集
+ASCII_CHARS = [&#39;`&#39;, &#39;^&#39;, &#39;&quot;&#39;, &#39;,&#39;, &#39;:&#39;, &#39;;&#39;, &#39;I&#39;, &#39;l&#39;, &#39;!&#39;, &#39;i&#39;, &#39;~&#39;, &#39;+&#39;, &#39;_&#39;, &#39;-&#39;, &#39;?&#39;, &#39;]&#39;, &#39;[&#39;, &#39;&#125;&#39;, &#39;&#123;&#39;, &#39;1&#39;, &#39;)&#39;, &#39;(&#39;, &#39;|&#39;, &#39;\\&#39;, &#39;/&#39;, &#39;*&#39;, &#39;j&#39;, &#39;t&#39;, &#39;f&#39;, &#39;r&#39;, &#39;x&#39;, &#39;n&#39;, &#39;v&#39;, &#39;c&#39;, &#39;z&#39;, &#39;X&#39;, &#39;Y&#39;, &#39;U&#39;, &#39;J&#39;, &#39;C&#39;, &#39;L&#39;, &#39;Q&#39;, &#39;0&#39;, &#39;O&#39;, &#39;Z&#39;, &#39;m&#39;, &#39;w&#39;, &#39;q&#39;, &#39;p&#39;, &#39;d&#39;, &#39;b&#39;, &#39;k&#39;, &#39;h&#39;, &#39;)&#39;, &#39;W&#39;, &#39;M&#39;, &#39;B&#39;, &#39;8&#39;, &#39;$&#39;, &#39;%&#39;, &#39;&amp;&#39;, &#39;@&#39;, &#39;#&#39;]
+
+# 调整图像大小
+def resize_image(image, new_width=100):
+    width, height = image.size
+    ratio = height / width
+    new_height = int(ratio * new_width * 0.55)
+    return image.resize((new_width, new_height))
+
+# 将图像转为灰度
+def grayify(image):
+    return image.convert(&quot;L&quot;)
+
+# 将像素值映射到ASCII字符
+def pixels_to_ascii(image):
+    pixels = image.getdata()
+    ascii_str = &quot;&quot;.join([ASCII_CHARS[pixel * len(ASCII_CHARS) // 256] for pixel in pixels])
+    return ascii_str
+
+# 主函数，执行图像到ASCII的转换
+def image_to_ascii(image, new_width=100):
+    image = resize_image(image, new_width)
+    image = grayify(image)
+    ascii_str = pixels_to_ascii(image)
+    img_width = image.width
+    ascii_str_len = len(ascii_str)
+    ascii_img = &quot;\n&quot;.join([ascii_str[i:i + img_width] for i in range(0, ascii_str_len, img_width)])
+    return ascii_img
+
+def main(stdscr):
+    curses.curs_set(0)  # 隐藏光标
+    stdscr.nodelay(True)  # 使得 getch() 非阻塞
+    stdscr.clear()
+
+    # 打开视频文件
+    reader = imageio.get_reader(&#39;bad_apple.mp4&#39;)
+    fps = reader.get_meta_data()[&#39;fps&#39;]
+    frame_delay = 1.0 / fps  # 每帧显示的时间间隔（秒）
+
+    for frame in reader:
+        start = time.time()
+
+        # 将帧转换为灰度 ASCII 并显示
+        image = Image.fromarray(frame)
+        ascii_img = image_to_ascii(image, new_width=80)
+        # 绘制 ASCII 图像
+        stdscr.clear()
+        for y, line in enumerate(ascii_img.split(&quot;\n&quot;)):
+            stdscr.addstr(y, 0, line)
+        stdscr.refresh()
+
+        end = time.time()
+        # 等待适当的时间来同步帧
+        time.sleep(frame_delay - (end - start))
+
+        # 按 &#39;q&#39; 键退出
+        if stdscr.getch() == ord(&#39;q&#39;):
+            break
+
+# 运行 curses 主程序
+if __name__ == &quot;__main__&quot;:
+    try:
+        curses.wrapper(main)
+    except Exception as e:
+        print(f&quot;发生错误: &#123;e&#125;&quot;)
+</code></pre>
 </details>
 
 <p><img src="/output.gif" alt="output"></p>

@@ -174,21 +174,78 @@
 </ul>
 <span id="more"></span>
 
-<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CMakeLists.txt</span><br><span class="line">main.cpp</span><br><span class="line">vendor</span><br><span class="line">  - quickjs</span><br></pre></td></tr></table></figure>
-
+<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><pre><code class="bash">CMakeLists.txt
+main.cpp
+vendor
+  - quickjs
+</code></pre>
 <h2 id="集成"><a href="#集成" class="headerlink" title="集成"></a>集成</h2><p>获取<code>quickjs</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/quickjs-ng/quickjs.git vendor/quickjs</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">git clone https://github.com/quickjs-ng/quickjs.git vendor/quickjs
+</code></pre>
 <p><code>CMakeLists.txt</code>如下：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.10</span>)</span><br><span class="line"><span class="keyword">project</span>(<span class="keyword">test</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_subdirectory</span>(vendor/quickjs)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_executable</span>(<span class="keyword">test</span> main.cpp)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_link_libraries</span>(<span class="keyword">test</span> qjs)</span><br></pre></td></tr></table></figure>
+<pre><code class="cmake">cmake_minimum_required(VERSION 3.10)
+project(test)
 
+add_subdirectory(vendor/quickjs)
+
+add_executable(test main.cpp)
+
+target_link_libraries(test qjs)
+</code></pre>
 <p><code>main.cpp</code>如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;quickjs.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">js_std_dump_error</span><span class="params">(JSContext *ctx)</span> </span>&#123;</span><br><span class="line">    JSValue exception_val = <span class="built_in">JS_GetException</span>(ctx);</span><br><span class="line">    <span class="type">const</span> <span class="type">char</span> *error = <span class="built_in">JS_ToCString</span>(ctx, exception_val);</span><br><span class="line">    <span class="keyword">if</span> (error) &#123;</span><br><span class="line">        std::cerr &lt;&lt; <span class="string">&quot;JS Error: &quot;</span> &lt;&lt; error &lt;&lt; std::endl;</span><br><span class="line">        <span class="built_in">JS_FreeCString</span>(ctx, error);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">JS_FreeValue</span>(ctx, exception_val);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    JSRuntime *rt = <span class="built_in">JS_NewRuntime</span>();</span><br><span class="line">    JSContext *ctx = <span class="built_in">JS_NewContext</span>(rt);</span><br><span class="line"></span><br><span class="line">    <span class="type">const</span> <span class="type">char</span> *script = <span class="string">R&quot;(</span></span><br><span class="line"><span class="string">        function add(a, b) &#123;</span></span><br><span class="line"><span class="string">            return a + b;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        add(10, 20);</span></span><br><span class="line"><span class="string">    )&quot;</span>;</span><br><span class="line"></span><br><span class="line">    JSValue result = <span class="built_in">JS_Eval</span>(ctx, script, <span class="built_in">strlen</span>(script), <span class="string">&quot;&lt;input&gt;&quot;</span>, JS_EVAL_TYPE_GLOBAL);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">JS_IsException</span>(result)) &#123;</span><br><span class="line">        <span class="built_in">js_std_dump_error</span>(ctx);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="type">int32_t</span> sum;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">JS_ToInt32</span>(ctx, &amp;sum, result) == <span class="number">0</span>) &#123;</span><br><span class="line">            std::cout &lt;&lt; <span class="string">&quot;JS add() result: &quot;</span> &lt;&lt; sum &lt;&lt; std::endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">JS_FreeValue</span>(ctx, result);</span><br><span class="line">    <span class="built_in">JS_FreeContext</span>(ctx);</span><br><span class="line">    <span class="built_in">JS_FreeRuntime</span>(rt);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="cpp">#include &quot;quickjs.h&quot;
+#include &lt;iostream&gt;
+#include &lt;string&gt;
 
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> build</span><br><span class="line"><span class="built_in">cd</span> build</span><br><span class="line">cmake ..</span><br><span class="line">make -j7</span><br><span class="line">./test</span><br></pre></td></tr></table></figure>
+void js_std_dump_error(JSContext *ctx) &#123;
+    JSValue exception_val = JS_GetException(ctx);
+    const char *error = JS_ToCString(ctx, exception_val);
+    if (error) &#123;
+        std::cerr &lt;&lt; &quot;JS Error: &quot; &lt;&lt; error &lt;&lt; std::endl;
+        JS_FreeCString(ctx, error);
+    &#125;
+    JS_FreeValue(ctx, exception_val);
+&#125;
 
+int main() &#123;
+    JSRuntime *rt = JS_NewRuntime();
+    JSContext *ctx = JS_NewContext(rt);
+
+    const char *script = R&quot;(
+        function add(a, b) &#123;
+            return a + b;
+        &#125;
+        add(10, 20);
+    )&quot;;
+
+    JSValue result = JS_Eval(ctx, script, strlen(script), &quot;&lt;input&gt;&quot;, JS_EVAL_TYPE_GLOBAL);
+
+    if (JS_IsException(result)) &#123;
+        js_std_dump_error(ctx);
+    &#125; else &#123;
+        int32_t sum;
+        if (JS_ToInt32(ctx, &amp;sum, result) == 0) &#123;
+            std::cout &lt;&lt; &quot;JS add() result: &quot; &lt;&lt; sum &lt;&lt; std::endl;
+        &#125;
+    &#125;
+
+    JS_FreeValue(ctx, result);
+    JS_FreeContext(ctx);
+    JS_FreeRuntime(rt);
+
+    return 0;
+&#125;
+</code></pre>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><pre><code class="bash">mkdir build
+cd build
+cmake ..
+make -j7
+./test
+</code></pre>
 <p>输出：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./test</span><br><span class="line">JS add() result: 30</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">./test
+JS add() result: 30
+</code></pre>
 
     
     <hr>

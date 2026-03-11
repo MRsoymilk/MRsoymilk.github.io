@@ -174,24 +174,80 @@
 <span id="more"></span>
 
 <h2 id="jerryscript"><a href="#jerryscript" class="headerlink" title="jerryscript"></a>jerryscript</h2><p>轻量级嵌入式 JavaScript 引擎</p>
-<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CMakeLists.txt</span><br><span class="line">main.cpp</span><br><span class="line">vendor</span><br><span class="line">  - jerryscript</span><br></pre></td></tr></table></figure>
-
+<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><pre><code class="bash">CMakeLists.txt
+main.cpp
+vendor
+  - jerryscript
+</code></pre>
 <h2 id="集成"><a href="#集成" class="headerlink" title="集成"></a>集成</h2><p>获取 <code>jerryscript</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/jerryscript-project/jerryscript.git vendor/jerryscript</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">git clone https://github.com/jerryscript-project/jerryscript.git vendor/jerryscript
+</code></pre>
 <p><code>CMakeLists.txt</code> 如下：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.14</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">project</span>(<span class="keyword">test</span> VERSION <span class="number">0.0</span>.<span class="number">1</span> LANGUAGES CXX)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 C++17 标准</span></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">17</span>)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD_REQUIRED <span class="keyword">ON</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加 JerryScript</span></span><br><span class="line"><span class="keyword">add_subdirectory</span>(vendor/jerryscript)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加可执行文件</span></span><br><span class="line"><span class="keyword">add_executable</span>(<span class="keyword">test</span> main.cpp)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 链接 JerryScript 库</span></span><br><span class="line"><span class="keyword">target_link_libraries</span>(<span class="keyword">test</span> PRIVATE jerry-core jerry-port jerry-ext)</span><br></pre></td></tr></table></figure>
+<pre><code class="cmake">cmake_minimum_required(VERSION 3.14)
 
+project(test VERSION 0.0.1 LANGUAGES CXX)
+
+# 使用 C++17 标准
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# 添加 JerryScript
+add_subdirectory(vendor/jerryscript)
+
+# 添加可执行文件
+add_executable(test main.cpp)
+
+# 链接 JerryScript 库
+target_link_libraries(test PRIVATE jerry-core jerry-port jerry-ext)
+</code></pre>
 <p><code>main.cpp</code> 如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;jerryscript.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">const</span> <span class="type">jerry_char_t</span> script[] = <span class="string">&quot;var str = &#x27;Hello, World!&#x27;; str;&quot;</span>;</span><br><span class="line">  <span class="type">const</span> <span class="type">jerry_length_t</span> script_size = <span class="built_in">sizeof</span>(script) - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">jerry_init</span>(JERRY_INIT_EMPTY);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 执行 JS 脚本</span></span><br><span class="line">  <span class="type">jerry_value_t</span> eval_ret = <span class="built_in">jerry_eval</span>(script, script_size, JERRY_PARSE_NO_OPTS);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!<span class="built_in">jerry_value_is_exception</span>(eval_ret) &amp;&amp; <span class="built_in">jerry_value_is_string</span>(eval_ret)) &#123;</span><br><span class="line">    <span class="comment">// 获取字符串大小</span></span><br><span class="line">    <span class="type">jerry_size_t</span> size = <span class="built_in">jerry_length_t</span>(eval_ret);</span><br><span class="line"></span><br><span class="line">    <span class="type">jerry_char_t</span> buffer[<span class="number">128</span>] = &#123;<span class="number">0</span>&#125;;  <span class="comment">// 假设字符串不会超出 128 字节</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">jerry_string_to_buffer</span>(eval_ret, JERRY_ENCODING_UTF8, buffer, size);</span><br><span class="line">    buffer[size] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;JS return: &quot;</span> &lt;&lt; buffer &lt;&lt; std::endl;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    std::cerr &lt;&lt; <span class="string">&quot;JS no return!&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">jerry_value_free</span>(eval_ret);</span><br><span class="line">  <span class="built_in">jerry_cleanup</span>();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="cpp">#include &quot;jerryscript.h&quot;
+#include &lt;iostream&gt;
 
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> build</span><br><span class="line"><span class="built_in">cd</span> build</span><br><span class="line">cmake ..</span><br><span class="line">make -j7</span><br><span class="line">./test</span><br></pre></td></tr></table></figure>
+int main(void)
+&#123;
+  const jerry_char_t script[] = &quot;var str = &#39;Hello, World!&#39;; str;&quot;;
+  const jerry_length_t script_size = sizeof(script) - 1;
 
+  jerry_init(JERRY_INIT_EMPTY);
+
+  // 执行 JS 脚本
+  jerry_value_t eval_ret = jerry_eval(script, script_size, JERRY_PARSE_NO_OPTS);
+
+  if (!jerry_value_is_exception(eval_ret) &amp;&amp; jerry_value_is_string(eval_ret)) &#123;
+    // 获取字符串大小
+    jerry_size_t size = jerry_length_t(eval_ret);
+
+    jerry_char_t buffer[128] = &#123;0&#125;;  // 假设字符串不会超出 128 字节
+
+    jerry_string_to_buffer(eval_ret, JERRY_ENCODING_UTF8, buffer, size);
+    buffer[size] = &#39;\0&#39;;
+
+    std::cout &lt;&lt; &quot;JS return: &quot; &lt;&lt; buffer &lt;&lt; std::endl;
+  &#125; else &#123;
+    std::cerr &lt;&lt; &quot;JS no return!&quot; &lt;&lt; std::endl;
+  &#125;
+
+  jerry_value_free(eval_ret);
+  jerry_cleanup();
+
+  return 0;
+&#125;
+</code></pre>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><pre><code class="bash">mkdir build
+cd build
+cmake ..
+make -j7
+./test
+</code></pre>
 <p>输出：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JS <span class="built_in">return</span>: Hello, World!</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">JS return: Hello, World!
+</code></pre>
 <h2 id="jerryscript-REPL"><a href="#jerryscript-REPL" class="headerlink" title="jerryscript REPL"></a>jerryscript REPL</h2><p>在 build 目录下还会额外生成 jerry 可执行文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">jerry&gt; var <span class="built_in">test</span>=0;<span class="keyword">for</span>(i=0;i&lt;10;++i) <span class="built_in">test</span>+=i; <span class="built_in">print</span>(<span class="built_in">test</span>);</span><br><span class="line">45</span><br><span class="line">undefined</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">jerry&gt; var test=0;for(i=0;i&lt;10;++i) test+=i; print(test);
+45
+undefined
+</code></pre>
 
     
     <hr>

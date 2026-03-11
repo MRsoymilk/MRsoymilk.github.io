@@ -174,37 +174,52 @@
 <h2 id="激活-root-用户"><a href="#激活-root-用户" class="headerlink" title="激活 root 用户"></a>激活 root 用户</h2><ul>
 <li>切换到 root 权限检查是否激活</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ su</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">$ su
+</code></pre>
 <p>如果出现<code>su:Authentication failure</code>错误，表明<strong>没有激活 root</strong></p>
 <ul>
 <li>激活 root 方法</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">sudo</span> passwd</span><br></pre></td></tr></table></figure>
-
-<h2 id="切换-root-用户"><a href="#切换-root-用户" class="headerlink" title="切换 root 用户"></a>切换 root 用户</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ su</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">$ sudo passwd
+</code></pre>
+<h2 id="切换-root-用户"><a href="#切换-root-用户" class="headerlink" title="切换 root 用户"></a>切换 root 用户</h2><pre><code class="bash">$ su
+</code></pre>
 <p><img src="/su.png" alt="切换root用户"></p>
 <hr>
 
 <h2 id="配置软件源"><a href="#配置软件源" class="headerlink" title="配置软件源"></a>配置软件源</h2><p>建议使用软件<code>software&amp;update</code>选择源。更加直观、方便，但是需要图形化界面。</p>
 <p><strong>方案一</strong>:<br>首先备份原来的软件源(建议备份)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cp /etc/apt/source.list /etc/apt/source.list.backup</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash"># cp /etc/apt/source.list /etc/apt/source.list.backup
+</code></pre>
 <p>更改软件源，使用编辑器修改<code>/etc/apt/source.list文件</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 此处为阿里镜像源，可以自行调节为其他</span></span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse</span><br></pre></td></tr></table></figure>
+<pre><code class="bash"># 此处为阿里镜像源，可以自行调节为其他
+deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
 
+deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+
+deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+
+deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+
+deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+</code></pre>
 <p><strong>方案二</strong>:<br><a target="_blank" rel="noopener" href="https://opsx.alibaba.com/guide?lang=zh-CN&document=69a2341e-801e-11e8-8b5a-00163e04cdbb">阿里源官方文档</a><br>实际测试中会导向到外网导致下载速度变慢，可能是没有配置好<br>建议使用方案一</p>
 <p>关于&#x2F;etc&#x2F;apt&#x2F;source.list 中的<code>bionic</code>:<br><code>bionic</code>为 Ubuntu 18.04 版本代号<br><img src="/lsb_release.png" alt="查看你的版本代号"><br>如果你的系统为 Ubuntu 的其他版本，配置软件源只需要将<code>bionic</code>替换为系统版本代号即可(适用于大多数情况)</p>
-<h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">sudo</span> apt update</span><br><span class="line">$ <span class="built_in">sudo</span> apt upgrade</span><br></pre></td></tr></table></figure>
-
+<h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><pre><code class="bash">$ sudo apt update
+$ sudo apt upgrade
+</code></pre>
 <p><strong>update</strong><br>刷新可安装软件列表<br>update 成功信息<br>Fetched …<br>Reading package lists… Done<br>…<br><strong>upgrade</strong><br>进行安装包的更新</p>
 <hr>
 
 <h2 id="安装中文输入法"><a href="#安装中文输入法" class="headerlink" title="安装中文输入法"></a>安装中文输入法</h2><p>我使用的输入系统是<code>ibus</code>，需要安装<code>ibus</code>和<code>ibus-pinyin</code>。</p>
 <p>个人感觉 ibus 的安装简单，功能也能满足日常需求</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install ibus ibus-pinyin</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">sudo apt install ibus ibus-pinyin
+</code></pre>
 <h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>安装完<code>ibus</code>后可能需要重启</p>
 <ol>
 <li><p><code>Settings</code> -&gt; <code>Region &amp; Lanuage</code> -&gt; <code>Input Sources</code><br><img src="/add.jpg" alt="add ibus-pinyin"></p>
@@ -221,11 +236,11 @@
 <h2 id="tty显示中文"><a href="#tty显示中文" class="headerlink" title="tty显示中文"></a>tty显示中文</h2><p>通常情况下在 tty 界面中文会显示为方块活菱形，总之不能正常显示。</p>
 <p>解决方法：安装<code>fbterm</code>。</p>
 <p>安装命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install fbterm</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">sudo apt install fbterm
+</code></pre>
 <p>使用</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fbterm</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">fbterm
+</code></pre>
 <p>进入<code>fbterm</code>环境即可显示中文。</p>
 
     

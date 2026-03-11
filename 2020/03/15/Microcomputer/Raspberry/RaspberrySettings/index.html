@@ -172,33 +172,98 @@
 
 <h2 id="设置镜像"><a href="#设置镜像" class="headerlink" title="设置镜像"></a>设置镜像</h2><p>根据<a target="_blank" rel="noopener" href="https://mirror.tuna.tsinghua.edu.cn/help/raspbian/">清华镜像</a>修改</p>
 <p>查看发布版本：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsb_release -d</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">lsb_release -d
+</code></pre>
 <p>以<code>Debian10</code>为例：</p>
 <p>编辑 <code>/etc/apt/sources.list</code> 文件，删除原文件所有内容，用以下内容取代：</p>
-<figure class="highlight profile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">deb http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ buster main non-free contrib</span><br><span class="line">deb-src http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ buster main non-free contrib</span><br></pre></td></tr></table></figure>
-
+<pre><code class="profile">deb http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ buster main non-free contrib
+deb-src http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ buster main non-free contrib
+</code></pre>
 <p>编辑 <code>/etc/apt/sources.list.d/raspi.list</code> 文件，删除原文件所有内容，用以下内容取代：</p>
-<figure class="highlight profile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deb http://mirrors.tuna.tsinghua.edu.cn/raspberrypi/ buster main ui</span><br></pre></td></tr></table></figure>
-
+<pre><code class="profile">deb http://mirrors.tuna.tsinghua.edu.cn/raspberrypi/ buster main ui
+</code></pre>
 <h2 id="时间校准"><a href="#时间校准" class="headerlink" title="时间校准"></a>时间校准</h2><p>默认安装 NTP(Network Time Protocol)服务</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ntpd -s -d</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">sudo ntpd -s -d
+</code></pre>
 <p>如果没有找到相应命令，则需要安装。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install ntp</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">sudo apt install ntp
+</code></pre>
 <h2 id="静态-IP"><a href="#静态-IP" class="headerlink" title="静态 IP"></a>静态 IP</h2><p>修改文件<code>/etc/dhcpcd.conf</code></p>
 <p><em>根据个人需求更改</em></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Example static IP configuration:</span><br><span class="line">interface wlan0</span><br><span class="line">static ip_address=192.168.0.200/24</span><br><span class="line">#static ip6_address=fd51:42f8:caae:d92e::ff/64</span><br><span class="line">static routers=192.168.0.1</span><br><span class="line">static domain_name_servers=192.168.0.1 114.114.114.114</span><br></pre></td></tr></table></figure>
-
+<pre><code class="config"># Example static IP configuration:
+interface wlan0
+static ip_address=192.168.0.200/24
+#static ip6_address=fd51:42f8:caae:d92e::ff/64
+static routers=192.168.0.1
+static domain_name_servers=192.168.0.1 114.114.114.114
+</code></pre>
 <p>重启网卡:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart dhcpcd</span><br><span class="line"><span class="built_in">sudo</span> ip <span class="built_in">link</span> <span class="built_in">set</span> wlan0 up</span><br></pre></td></tr></table></figure>
-
-<h2 id="启用-root-权限"><a href="#启用-root-权限" class="headerlink" title="启用 root 权限"></a>启用 root 权限</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> passwd root</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">sudo systemctl restart dhcpcd
+sudo ip link set wlan0 up
+</code></pre>
+<h2 id="启用-root-权限"><a href="#启用-root-权限" class="headerlink" title="启用 root 权限"></a>启用 root 权限</h2><pre><code class="bash">sudo passwd root
+</code></pre>
 <h2 id="查看信息"><a href="#查看信息" class="headerlink" title="查看信息"></a>查看信息</h2><p>来自网络</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="comment"># Return CPU temperature as a character string</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getCPUtemperature</span>():</span><br><span class="line">    res = os.popen(<span class="string">&#x27;vcgencmd measure_temp&#x27;</span>).readline()</span><br><span class="line">    <span class="keyword">return</span>(res.replace(<span class="string">&quot;temp=&quot;</span>,<span class="string">&quot;&quot;</span>).replace(<span class="string">&quot;&#x27;C\n&quot;</span>,<span class="string">&quot;&quot;</span>))</span><br><span class="line"><span class="comment"># Return RAM information (unit=kb) in a list</span></span><br><span class="line"><span class="comment"># Index 0: total RAM</span></span><br><span class="line"><span class="comment"># Index 1: used RAM</span></span><br><span class="line"><span class="comment"># Index 2: free RAM</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getRAMinfo</span>():</span><br><span class="line">    p = os.popen(<span class="string">&#x27;free&#x27;</span>)</span><br><span class="line">    i = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">        i = i + <span class="number">1</span></span><br><span class="line">        line = p.readline()</span><br><span class="line">        <span class="keyword">if</span> i==<span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span>(line.split()[<span class="number">1</span>:<span class="number">4</span>])</span><br><span class="line"><span class="comment"># Return % of CPU used by user as a character string</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getCPUuse</span>():</span><br><span class="line">    <span class="keyword">return</span>(<span class="built_in">str</span>(os.popen(<span class="string">&quot;top -n1 | awk &#x27;/Cpu\(s\):/ &#123;print $2&#125;&#x27;&quot;</span>).readline().strip()))</span><br><span class="line"><span class="comment"># Return information about disk space as a list (unit included)</span></span><br><span class="line"><span class="comment"># Index 0: total disk space</span></span><br><span class="line"><span class="comment"># Index 1: used disk space</span></span><br><span class="line"><span class="comment"># Index 2: remaining disk space</span></span><br><span class="line"><span class="comment"># Index 3: percentage of disk used</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getDiskSpace</span>():</span><br><span class="line">    p = os.popen(<span class="string">&quot;df -h /&quot;</span>)</span><br><span class="line">    i = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">        i = i +<span class="number">1</span></span><br><span class="line">        line = p.readline()</span><br><span class="line">        <span class="keyword">if</span> i==<span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span>(line.split()[<span class="number">1</span>:<span class="number">5</span>])</span><br><span class="line"><span class="comment"># CPU informatiom</span></span><br><span class="line">CPU_temp = getCPUtemperature()</span><br><span class="line">CPU_usage = getCPUuse()</span><br><span class="line"><span class="comment"># RAM information</span></span><br><span class="line"><span class="comment"># Output is in kb, here I convert it in Mb for readability</span></span><br><span class="line">RAM_stats = getRAMinfo()</span><br><span class="line">RAM_total = <span class="built_in">round</span>(<span class="built_in">int</span>(RAM_stats[<span class="number">0</span>]) / <span class="number">1000</span>,<span class="number">1</span>)</span><br><span class="line">RAM_used = <span class="built_in">round</span>(<span class="built_in">int</span>(RAM_stats[<span class="number">1</span>]) / <span class="number">1000</span>,<span class="number">1</span>)</span><br><span class="line">RAM_free = <span class="built_in">round</span>(<span class="built_in">int</span>(RAM_stats[<span class="number">2</span>]) / <span class="number">1000</span>,<span class="number">1</span>)</span><br><span class="line"><span class="comment"># Disk information</span></span><br><span class="line">DISK_stats = getDiskSpace()</span><br><span class="line">DISK_total = DISK_stats[<span class="number">0</span>]</span><br><span class="line">DISK_used = DISK_stats[<span class="number">1</span>]</span><br><span class="line">DISK_perc = DISK_stats[<span class="number">3</span>]</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;CPU Temperature = &#x27;</span>+CPU_temp)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;CPU Use = &#x27;</span>+CPU_usage)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;RAM Total = &#x27;</span>+<span class="built_in">str</span>(RAM_total)+<span class="string">&#x27; MB&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;RAM Used = &#x27;</span>+<span class="built_in">str</span>(RAM_used)+<span class="string">&#x27; MB&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;RAM Free = &#x27;</span>+<span class="built_in">str</span>(RAM_free)+<span class="string">&#x27; MB&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;DISK Total Space = &#x27;</span>+<span class="built_in">str</span>(DISK_total)+<span class="string">&#x27;B&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;DISK Used Space = &#x27;</span>+<span class="built_in">str</span>(DISK_used)+<span class="string">&#x27;B&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;DISK Used Percentage = &#x27;</span>+<span class="built_in">str</span>(DISK_perc))</span><br></pre></td></tr></table></figure>
-
+<pre><code class="python">import os
+# Return CPU temperature as a character string
+def getCPUtemperature():
+    res = os.popen(&#39;vcgencmd measure_temp&#39;).readline()
+    return(res.replace(&quot;temp=&quot;,&quot;&quot;).replace(&quot;&#39;C\n&quot;,&quot;&quot;))
+# Return RAM information (unit=kb) in a list
+# Index 0: total RAM
+# Index 1: used RAM
+# Index 2: free RAM
+def getRAMinfo():
+    p = os.popen(&#39;free&#39;)
+    i = 0
+    while 1:
+        i = i + 1
+        line = p.readline()
+        if i==2:
+            return(line.split()[1:4])
+# Return % of CPU used by user as a character string
+def getCPUuse():
+    return(str(os.popen(&quot;top -n1 | awk &#39;/Cpu\(s\):/ &#123;print $2&#125;&#39;&quot;).readline().strip()))
+# Return information about disk space as a list (unit included)
+# Index 0: total disk space
+# Index 1: used disk space
+# Index 2: remaining disk space
+# Index 3: percentage of disk used
+def getDiskSpace():
+    p = os.popen(&quot;df -h /&quot;)
+    i = 0
+    while 1:
+        i = i +1
+        line = p.readline()
+        if i==2:
+            return(line.split()[1:5])
+# CPU informatiom
+CPU_temp = getCPUtemperature()
+CPU_usage = getCPUuse()
+# RAM information
+# Output is in kb, here I convert it in Mb for readability
+RAM_stats = getRAMinfo()
+RAM_total = round(int(RAM_stats[0]) / 1000,1)
+RAM_used = round(int(RAM_stats[1]) / 1000,1)
+RAM_free = round(int(RAM_stats[2]) / 1000,1)
+# Disk information
+DISK_stats = getDiskSpace()
+DISK_total = DISK_stats[0]
+DISK_used = DISK_stats[1]
+DISK_perc = DISK_stats[3]
+if __name__ == &#39;__main__&#39;:
+    print(&#39;&#39;)
+    print(&#39;CPU Temperature = &#39;+CPU_temp)
+    print(&#39;CPU Use = &#39;+CPU_usage)
+    print(&#39;&#39;)
+    print(&#39;RAM Total = &#39;+str(RAM_total)+&#39; MB&#39;)
+    print(&#39;RAM Used = &#39;+str(RAM_used)+&#39; MB&#39;)
+    print(&#39;RAM Free = &#39;+str(RAM_free)+&#39; MB&#39;)
+    print(&#39;&#39;)
+    print(&#39;DISK Total Space = &#39;+str(DISK_total)+&#39;B&#39;)
+    print(&#39;DISK Used Space = &#39;+str(DISK_used)+&#39;B&#39;)
+    print(&#39;DISK Used Percentage = &#39;+str(DISK_perc))
+</code></pre>
 
     
     <hr>

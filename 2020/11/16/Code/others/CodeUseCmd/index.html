@@ -173,29 +173,56 @@
 <li>C</li>
 </ul>
 <p>可执行文件<code>hello.sh</code>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;hello my friend&quot;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">#!/bin/bash
+echo &quot;hello my friend&quot;
+</code></pre>
 <p>不要忘记赋予<code>hello.sh</code>执行权限</p>
 <span id="more"></span>
 
 <h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><p>Python文件</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.system(<span class="string">&quot;./hello.sh&quot;</span>)</span><br><span class="line">os.system(<span class="string">&quot;echo %s&quot;</span> % (<span class="string">&#x27;hello&#x27;</span>))</span><br></pre></td></tr></table></figure>
-
+<pre><code class="python">import os
+os.system(&quot;./hello.sh&quot;)
+os.system(&quot;echo %s&quot; % (&#39;hello&#39;))
+</code></pre>
 <p>结果:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hello my friend</span><br><span class="line">hello</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">hello my friend
+hello
+</code></pre>
 <h2 id="C"><a href="#C" class="headerlink" title="C"></a>C</h2><p>使用C库函数 <code>int system(const char *command)</code></p>
 <p>C文件</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span>&#123;</span><br><span class="line">  system(<span class="string">&quot;./hello.sh&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="C">#include &lt;stdlib.h&gt;
 
+int main(int argc, char *argv[])&#123;
+  system(&quot;./hello.sh&quot;);
+  return 0;
+&#125;
+</code></pre>
 <p>结果:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hello my friend</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">hello my friend
+</code></pre>
 <h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><p>Java文件</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">      <span class="type">String</span> <span class="variable">cmd</span> <span class="operator">=</span> <span class="string">&quot;./hello.sh&quot;</span>;</span><br><span class="line">      <span class="type">Process</span> <span class="variable">process</span> <span class="operator">=</span> Runtime.getRuntime().exec(cmd);</span><br><span class="line">      <span class="type">BufferedReader</span> <span class="variable">buffered</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(<span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(process.getInputStream()));</span><br><span class="line">      String line;</span><br><span class="line">      <span class="keyword">while</span>((line = buffered.readLine()) != <span class="literal">null</span>) &#123;</span><br><span class="line">        System.out.println(line);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span>(Exception e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="Java">import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
+public class Test&#123;
+  public static void main(String[] args)&#123;
+    try&#123;
+      String cmd = &quot;./hello.sh&quot;;
+      Process process = Runtime.getRuntime().exec(cmd);
+      BufferedReader buffered = new BufferedReader(new InputStreamReader(process.getInputStream()));
+      String line;
+      while((line = buffered.readLine()) != null) &#123;
+        System.out.println(line);
+      &#125;
+    &#125; catch(Exception e) &#123;
+      e.printStackTrace();
+    &#125;
+  &#125;
+&#125;
+</code></pre>
 <p>结果</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hello my friend</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">hello my friend
+</code></pre>
 
     
     <hr>

@@ -165,39 +165,40 @@
 
 <h2 id="scp"><a href="#scp" class="headerlink" title="scp"></a>scp</h2><p>scp — OpenSSH secure file copy</p>
 <p>本地-&gt;远程</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp file remote_username@remote_ip:/path/to/file</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">scp file remote_username@remote_ip:/path/to/file
+</code></pre>
 <p>远程-&gt;本地</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp file remote_username@remote_ip:/path/to/file</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">scp file remote_username@remote_ip:/path/to/file
+</code></pre>
 <p>如果是整个目录，添加选项<code>-r</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp -r folder remote_username@remote_ip:/path/to/file</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">scp -r folder remote_username@remote_ip:/path/to/file
+</code></pre>
 <h2 id="lrzsz"><a href="#lrzsz" class="headerlink" title="lrzsz"></a>lrzsz</h2><p>用于在远程 Linux 服务器和本地 Windows 系统之间传输文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install lrzsz</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">sudo apt install lrzsz
+</code></pre>
 <ul>
 <li>发送文件到远程服务器</li>
 </ul>
 <p>在远程服务器的终端（如 ssh 连接）中运行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rz</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">rz
+</code></pre>
 <p>然后在本地 选择要上传的文件，终端会自动接收并存储到当前目录。</p>
 <p>或者直接：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rz -y  <span class="comment"># 自动覆盖同名文件</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">rz -y  # 自动覆盖同名文件
+</code></pre>
 <ul>
 <li>从远程服务器下载文件</li>
 </ul>
 <p>在远程服务器上运行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sz filename</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">sz filename
+</code></pre>
 <p>然后在本地 接收文件，默认存储在终端软件的下载目录中。</p>
 <p>如果需要 批量下载多个文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sz file1 file2 file3</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">sz file1 file2 file3
+</code></pre>
 <p>或者：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sz -y file1 file2  <span class="comment"># 自动覆盖本地文件</span></span><br></pre></td></tr></table></figure>
+<pre><code class="bash">sz -y file1 file2  # 自动覆盖本地文件
+</code></pre>
 
     
     <hr>

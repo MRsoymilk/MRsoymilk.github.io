@@ -182,31 +182,63 @@
 <ul>
 <li>if，单分支语句</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">if conditon</span><br><span class="line">then</span><br><span class="line">  do_something...</span><br><span class="line">fi</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">----中文解释----</span></span><br><span class="line">if 条件</span><br><span class="line">then</span><br><span class="line">  命令序列</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
-
+<pre><code class="Shell">if conditon
+then
+  do_something...
+fi
+# ----中文解释----
+if 条件
+then
+  命令序列
+fi
+</code></pre>
 <p>写成一行，需要使用<code>;</code>分隔每句话, 例如:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if condition; then do_something; fi</span><br></pre></td></tr></table></figure>
-
+<pre><code class="Shell">if condition; then do_something; fi
+</code></pre>
 <p><em>格式控制</em>: <code>if</code>与<code>then</code>与<code>fi</code>需要分开</p>
 <ul>
 <li>if else, 双分支语句</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if condtion</span><br><span class="line">then</span><br><span class="line">  do_something...</span><br><span class="line">else</span><br><span class="line">  do_something...</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
-
+<pre><code class="Shell">if condtion
+then
+  do_something...
+else
+  do_something...
+fi
+</code></pre>
 <p><em>格式控制</em>: <code>if</code>与<code>then</code>与<code>else</code>与<code>fi</code>需要分开</p>
 <ul>
 <li>if else-if else</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if condition</span><br><span class="line">then</span><br><span class="line">  do_something...</span><br><span class="line">elif</span><br><span class="line">then</span><br><span class="line">  do_something...</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
-
+<pre><code class="Shell">if condition
+then
+  do_something...
+elif
+then
+  do_something...
+fi
+</code></pre>
 <p><em>格式控制</em>: <code>if</code>与<code>then</code>与<code>elif</code>与<code>fi</code>需要分开</p>
 <h2 id="case"><a href="#case" class="headerlink" title="case"></a>case</h2><p>多选择语句</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">case value in</span><br><span class="line">value_one)</span><br><span class="line">  do_something...</span><br><span class="line">  ;;</span><br><span class="line">value_two)</span><br><span class="line">  do_something...</span><br><span class="line">  ;;</span><br><span class="line">*)</span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">上述值无匹配就捕捉</span></span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
-
+<pre><code class="Shell">case value in
+value_one)
+  do_something...
+  ;;
+value_two)
+  do_something...
+  ;;
+*)
+  # 上述值无匹配就捕捉
+esac
+</code></pre>
 <p><em>格式控制</em>: 没有特殊要求，自由布置</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>关键字之间需要分开，使用<code>;</code>或者换行<br><code>if</code>语句以<code>if</code>开始，以<code>fi</code>，结束的<code>fi</code>为<code>if</code>的倒置<br><code>case</code>语句以<code>case</code>开始，以<code>esac</code>结束，结束的<code>esac</code>为<code>case</code>的倒置</p>
 <p>个人推荐的格式</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if condition; then</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">将<span class="keyword">then</span>放到conditon后面，压缩行数</span></span><br><span class="line">  do_something...</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<pre><code class="Shell">if condition; then
+# 将then放到conditon后面，压缩行数
+  do_something...
+fi
+</code></pre>
 
     
     <hr>

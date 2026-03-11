@@ -172,27 +172,50 @@
 
 <p>个人电脑状态：防火墙关闭</p>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><a target="_blank" rel="noopener" href="https://jupyter.org/install">https://jupyter.org/install</a></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install jupyterlab</span><br></pre></td></tr></table></figure>
-
-<h2 id="生成配置文件"><a href="#生成配置文件" class="headerlink" title="生成配置文件"></a>生成配置文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jupyter lab --generate-config</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">pip install jupyterlab
+</code></pre>
+<h2 id="生成配置文件"><a href="#生成配置文件" class="headerlink" title="生成配置文件"></a>生成配置文件</h2><pre><code class="bash">jupyter lab --generate-config
+</code></pre>
 <p>打开配置文件，默认在<code>~/.jupyter/jupyter_lab_config.py</code></p>
-<h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">c.ServerApp.ip = <span class="string">&#x27;0.0.0.0&#x27;</span>           <span class="comment"># 监听所有网卡，局域网其他设备才能访问</span></span><br><span class="line">c.ServerApp.port = 8888              <span class="comment"># 端口号，默认8888</span></span><br><span class="line">c.ServerApp.open_browser = False     <span class="comment"># 不自动打开浏览器</span></span><br><span class="line">c.ServerApp.allow_remote_access = True  <span class="comment"># 允许远程访问</span></span><br></pre></td></tr></table></figure>
-
+<h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><pre><code class="bash">c.ServerApp.ip = &#39;0.0.0.0&#39;           # 监听所有网卡，局域网其他设备才能访问
+c.ServerApp.port = 8888              # 端口号，默认8888
+c.ServerApp.open_browser = False     # 不自动打开浏览器
+c.ServerApp.allow_remote_access = True  # 允许远程访问
+</code></pre>
 <p>设置密码，否则无法登录</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jupyter lab password</span><br></pre></td></tr></table></figure>
-
-<h2 id="启动-jupyter-lab"><a href="#启动-jupyter-lab" class="headerlink" title="启动 jupyter lab"></a>启动 jupyter lab</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jupyter lab</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">jupyter lab password
+</code></pre>
+<h2 id="启动-jupyter-lab"><a href="#启动-jupyter-lab" class="headerlink" title="启动 jupyter lab"></a>启动 jupyter lab</h2><pre><code class="bash">jupyter lab
+</code></pre>
 <p>在另一台计算机上打开:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://your_ip:8888</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">http://your_ip:8888
+</code></pre>
 <p>输入密码即可进入</p>
 <h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>安装模块</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install matplotlib numpy</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">pip install matplotlib numpy
+</code></pre>
 <p>测试</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建x轴的数据，从 -2π 到 2π，间隔为0.01</span></span><br><span class="line">x = np.linspace(-<span class="number">2</span> * np.pi, <span class="number">2</span> * np.pi, <span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算y轴的sin(x)</span></span><br><span class="line">y = np.sin(x)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘图</span></span><br><span class="line">plt.figure(figsize=(<span class="number">10</span>, <span class="number">5</span>))</span><br><span class="line">plt.plot(x, y, label=<span class="string">&#x27;sin(x)&#x27;</span>, color=<span class="string">&#x27;blue&#x27;</span>)</span><br><span class="line">plt.axhline(<span class="number">0</span>, color=<span class="string">&#x27;black&#x27;</span>, linewidth=<span class="number">0.5</span>)  <span class="comment"># x轴</span></span><br><span class="line">plt.axvline(<span class="number">0</span>, color=<span class="string">&#x27;black&#x27;</span>, linewidth=<span class="number">0.5</span>)  <span class="comment"># y轴</span></span><br><span class="line">plt.title(<span class="string">&#x27;正弦函数曲线 sin(x)&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;x&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;sin(x)&#x27;</span>)</span><br><span class="line">plt.grid(<span class="literal">True</span>)</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<pre><code class="python">import numpy as np
+import matplotlib.pyplot as plt
+
+# 创建x轴的数据，从 -2π 到 2π，间隔为0.01
+x = np.linspace(-2 * np.pi, 2 * np.pi, 1000)
+
+# 计算y轴的sin(x)
+y = np.sin(x)
+
+# 绘图
+plt.figure(figsize=(10, 5))
+plt.plot(x, y, label=&#39;sin(x)&#39;, color=&#39;blue&#39;)
+plt.axhline(0, color=&#39;black&#39;, linewidth=0.5)  # x轴
+plt.axvline(0, color=&#39;black&#39;, linewidth=0.5)  # y轴
+plt.title(&#39;正弦函数曲线 sin(x)&#39;)
+plt.xlabel(&#39;x&#39;)
+plt.ylabel(&#39;sin(x)&#39;)
+plt.grid(True)
+plt.legend()
+plt.show()
+</code></pre>
 
     
     <hr>

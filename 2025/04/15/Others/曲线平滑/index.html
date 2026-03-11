@@ -171,8 +171,28 @@
 <h2 id="生成噪声曲线并显示"><a href="#生成噪声曲线并显示" class="headerlink" title="生成噪声曲线并显示"></a>生成噪声曲线并显示</h2><details>
    <summary>python</summary>
 
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># ========== 生成并写入带噪声曲线数据 ==========</span></span><br><span class="line">np.random.seed(<span class="number">0</span>)</span><br><span class="line">x = np.linspace(<span class="number">0</span>, <span class="number">4</span> * np.pi, <span class="number">500</span>)</span><br><span class="line">y_true = np.sin(x)</span><br><span class="line">noise = np.random.normal(<span class="number">0</span>, <span class="number">0.3</span>, x.shape)</span><br><span class="line">y_noisy = y_true + noise</span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存数据到文件</span></span><br><span class="line">np.savetxt(<span class="string">&quot;data/noisy_data.csv&quot;</span>, np.column_stack((x, y_noisy)), delimiter=<span class="string">&quot;,&quot;</span>, header=<span class="string">&quot;x,y_noisy&quot;</span>, comments=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ========== 从文件读取数据 ==========</span></span><br><span class="line">data = np.loadtxt(<span class="string">&quot;data/noisy_data.csv&quot;</span>, delimiter=<span class="string">&quot;,&quot;</span>, skiprows=<span class="number">1</span>)</span><br><span class="line">x = data[:, <span class="number">0</span>]</span><br><span class="line">y_noisy = data[:, <span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">plt.plot(x, y_noisy, label=<span class="string">&#x27;Noisy&#x27;</span>, color=<span class="string">&#x27;gray&#x27;</span>)</span><br><span class="line">plt.title(<span class="string">&quot;Original Noisy Curve&quot;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<pre><code class="python">import numpy as np
+import matplotlib.pyplot as plt
 
+# ========== 生成并写入带噪声曲线数据 ==========
+np.random.seed(0)
+x = np.linspace(0, 4 * np.pi, 500)
+y_true = np.sin(x)
+noise = np.random.normal(0, 0.3, x.shape)
+y_noisy = y_true + noise
+
+# 保存数据到文件
+np.savetxt(&quot;data/noisy_data.csv&quot;, np.column_stack((x, y_noisy)), delimiter=&quot;,&quot;, header=&quot;x,y_noisy&quot;, comments=&#39;&#39;)
+
+# ========== 从文件读取数据 ==========
+data = np.loadtxt(&quot;data/noisy_data.csv&quot;, delimiter=&quot;,&quot;, skiprows=1)
+x = data[:, 0]
+y_noisy = data[:, 1]
+
+plt.plot(x, y_noisy, label=&#39;Noisy&#39;, color=&#39;gray&#39;)
+plt.title(&quot;Original Noisy Curve&quot;)
+plt.show()
+</code></pre>
 </details>
 
 <p><img src="/original_noisy.jpg" alt="original noisy"></p>
@@ -213,8 +233,54 @@
 <details>
    <summary>python</summary>
 
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> scipy.ndimage <span class="keyword">import</span> gaussian_filter1d</span><br><span class="line"><span class="keyword">from</span> scipy.signal <span class="keyword">import</span> medfilt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">data = np.loadtxt(<span class="string">&quot;data/noisy_data.csv&quot;</span>, delimiter=<span class="string">&quot;,&quot;</span>, skiprows=<span class="number">1</span>)</span><br><span class="line">x = data[:, <span class="number">0</span>]</span><br><span class="line">y = data[:, <span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 简单移动平均</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">moving_average</span>(<span class="params">y, window=<span class="number">5</span></span>):</span><br><span class="line">    <span class="keyword">return</span> np.convolve(y, np.ones(window) / window, mode=<span class="string">&#x27;same&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 加权移动平均</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">weighted_moving_average</span>(<span class="params">y, weights=<span class="literal">None</span></span>):</span><br><span class="line">    <span class="keyword">if</span> weights <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        weights = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>])</span><br><span class="line">    weights = weights / weights.<span class="built_in">sum</span>()</span><br><span class="line">    <span class="keyword">return</span> np.convolve(y, weights, mode=<span class="string">&#x27;same&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 中值滤波</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">median_filter</span>(<span class="params">y, kernel_size=<span class="number">5</span></span>):</span><br><span class="line">    <span class="keyword">return</span> medfilt(y, kernel_size=kernel_size)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 高斯滤波</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">gaussian_filter</span>(<span class="params">y, sigma=<span class="number">2</span></span>):</span><br><span class="line">    <span class="keyword">return</span> gaussian_filter1d(y, sigma=sigma)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 应用平滑方法</span></span><br><span class="line">y_ma = moving_average(y)</span><br><span class="line">y_wma = weighted_moving_average(y)</span><br><span class="line">y_med = median_filter(y)</span><br><span class="line">y_gauss = gaussian_filter(y)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 画图</span></span><br><span class="line">plt.figure(figsize=(<span class="number">12</span>, <span class="number">8</span>))</span><br><span class="line">plt.plot(x, y, label=<span class="string">&#x27;original&#x27;</span>, alpha=<span class="number">0.4</span>, linestyle=<span class="string">&#x27;--&#x27;</span>)</span><br><span class="line">plt.plot(x, y_ma, label=<span class="string">&#x27;moving average&#x27;</span>)</span><br><span class="line">plt.plot(x, y_wma, label=<span class="string">&#x27;weighted moving average&#x27;</span>)</span><br><span class="line">plt.plot(x, y_med, label=<span class="string">&#x27;median filter&#x27;</span>)</span><br><span class="line">plt.plot(x, y_gauss, label=<span class="string">&#x27;gaussian filter&#x27;</span>)</span><br><span class="line"></span><br><span class="line">plt.legend()</span><br><span class="line">plt.title(<span class="string">&#x27;basic smooth&#x27;</span>)</span><br><span class="line">plt.grid(<span class="literal">True</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<pre><code class="python">import numpy as np
+import matplotlib.pyplot as plt
+from scipy.ndimage import gaussian_filter1d
+from scipy.signal import medfilt
 
+
+data = np.loadtxt(&quot;data/noisy_data.csv&quot;, delimiter=&quot;,&quot;, skiprows=1)
+x = data[:, 0]
+y = data[:, 1]
+
+# 1. 简单移动平均
+def moving_average(y, window=5):
+    return np.convolve(y, np.ones(window) / window, mode=&#39;same&#39;)
+
+# 2. 加权移动平均
+def weighted_moving_average(y, weights=None):
+    if weights is None:
+        weights = np.array([1, 2, 3, 2, 1])
+    weights = weights / weights.sum()
+    return np.convolve(y, weights, mode=&#39;same&#39;)
+
+# 3. 中值滤波
+def median_filter(y, kernel_size=5):
+    return medfilt(y, kernel_size=kernel_size)
+
+# 4. 高斯滤波
+def gaussian_filter(y, sigma=2):
+    return gaussian_filter1d(y, sigma=sigma)
+
+# 应用平滑方法
+y_ma = moving_average(y)
+y_wma = weighted_moving_average(y)
+y_med = median_filter(y)
+y_gauss = gaussian_filter(y)
+
+# 画图
+plt.figure(figsize=(12, 8))
+plt.plot(x, y, label=&#39;original&#39;, alpha=0.4, linestyle=&#39;--&#39;)
+plt.plot(x, y_ma, label=&#39;moving average&#39;)
+plt.plot(x, y_wma, label=&#39;weighted moving average&#39;)
+plt.plot(x, y_med, label=&#39;median filter&#39;)
+plt.plot(x, y_gauss, label=&#39;gaussian filter&#39;)
+
+plt.legend()
+plt.title(&#39;basic smooth&#39;)
+plt.grid(True)
+plt.show()
+</code></pre>
 </details>
 
 <p><img src="/basic_smooth.jpg" alt="basic smooth"></p>
@@ -249,8 +315,51 @@
 <details>
    <summary>python</summary>
 
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> scipy.interpolate <span class="keyword">import</span> CubicSpline</span><br><span class="line"><span class="keyword">import</span> statsmodels.api <span class="keyword">as</span> sm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取数据</span></span><br><span class="line">data = np.loadtxt(<span class="string">&quot;data/noisy_data.csv&quot;</span>, delimiter=<span class="string">&quot;,&quot;</span>, skiprows=<span class="number">1</span>)</span><br><span class="line">x = data[:, <span class="number">0</span>]</span><br><span class="line">y = data[:, <span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 多项式拟合（Polynomial Fit）</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">poly_fit</span>(<span class="params">x, y, degree=<span class="number">4</span></span>):</span><br><span class="line">coeffs = np.polyfit(x, y, deg=degree)</span><br><span class="line">poly_func = np.poly1d(coeffs)</span><br><span class="line"><span class="keyword">return</span> poly_func(x)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 样条插值（Cubic Spline）</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">spline_fit</span>(<span class="params">x, y</span>):</span><br><span class="line">cs = CubicSpline(x, y)</span><br><span class="line"><span class="keyword">return</span> cs(x)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. Loess（局部加权回归）</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">loess_fit</span>(<span class="params">x, y, frac=<span class="number">0.2</span></span>):</span><br><span class="line">lowess = sm.nonparametric.lowess</span><br><span class="line">y_loess = lowess(y, x, frac=frac, return_sorted=<span class="literal">False</span>)</span><br><span class="line"><span class="keyword">return</span> y_loess</span><br><span class="line"></span><br><span class="line"><span class="comment"># 平滑处理</span></span><br><span class="line">y_poly = poly_fit(x, y, degree=<span class="number">4</span>)</span><br><span class="line">y_spline = spline_fit(x, y)</span><br><span class="line">y_loess = loess_fit(x, y, frac=<span class="number">0.15</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘图</span></span><br><span class="line">plt.figure(figsize=(<span class="number">12</span>, <span class="number">8</span>))</span><br><span class="line">plt.plot(x, y, label=<span class="string">&#x27;original&#x27;</span>, linestyle=<span class="string">&#x27;--&#x27;</span>, alpha=<span class="number">0.5</span>)</span><br><span class="line">plt.plot(x, y_poly, label=<span class="string">&#x27;poly&#x27;</span>)</span><br><span class="line">plt.plot(x, y_spline, label=<span class="string">&#x27;spline&#x27;</span>)</span><br><span class="line">plt.plot(x, y_loess, label=<span class="string">&#x27;loess&#x27;</span>)</span><br><span class="line"></span><br><span class="line">plt.title(<span class="string">&#x27;fitting smooth&#x27;</span>)</span><br><span class="line">plt.legend()</span><br><span class="line">plt.grid(<span class="literal">True</span>)</span><br><span class="line">plt.savefig(<span class="string">&#x27;fitted_curve.png&#x27;</span>) <span class="comment"># 保存图像</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<pre><code class="python">import numpy as np
+import matplotlib.pyplot as plt
+from scipy.interpolate import CubicSpline
+import statsmodels.api as sm
 
+# 读取数据
+data = np.loadtxt(&quot;data/noisy_data.csv&quot;, delimiter=&quot;,&quot;, skiprows=1)
+x = data[:, 0]
+y = data[:, 1]
+
+# 1. 多项式拟合（Polynomial Fit）
+def poly_fit(x, y, degree=4):
+coeffs = np.polyfit(x, y, deg=degree)
+poly_func = np.poly1d(coeffs)
+return poly_func(x)
+
+# 2. 样条插值（Cubic Spline）
+def spline_fit(x, y):
+cs = CubicSpline(x, y)
+return cs(x)
+
+# 3. Loess（局部加权回归）
+def loess_fit(x, y, frac=0.2):
+lowess = sm.nonparametric.lowess
+y_loess = lowess(y, x, frac=frac, return_sorted=False)
+return y_loess
+
+# 平滑处理
+y_poly = poly_fit(x, y, degree=4)
+y_spline = spline_fit(x, y)
+y_loess = loess_fit(x, y, frac=0.15)
+
+# 绘图
+plt.figure(figsize=(12, 8))
+plt.plot(x, y, label=&#39;original&#39;, linestyle=&#39;--&#39;, alpha=0.5)
+plt.plot(x, y_poly, label=&#39;poly&#39;)
+plt.plot(x, y_spline, label=&#39;spline&#39;)
+plt.plot(x, y_loess, label=&#39;loess&#39;)
+
+plt.title(&#39;fitting smooth&#39;)
+plt.legend()
+plt.grid(True)
+plt.savefig(&#39;fitted_curve.png&#39;) # 保存图像
+plt.show()
+</code></pre>
 </details>
 
 <p><img src="/fitting_smooth.jpg" alt="fitting smooth"></p>
@@ -285,8 +394,57 @@
 <details>
    <summary>python</summary>
 
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> scipy.signal <span class="keyword">import</span> savgol_filter, butter, filtfilt</span><br><span class="line"><span class="keyword">from</span> filterpy.kalman <span class="keyword">import</span> KalmanFilter</span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取数据</span></span><br><span class="line">data = np.loadtxt(<span class="string">&quot;data/noisy_data.csv&quot;</span>, delimiter=<span class="string">&quot;,&quot;</span>, skiprows=<span class="number">1</span>)</span><br><span class="line">x = data[:, <span class="number">0</span>]</span><br><span class="line">y = data[:, <span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">apply_savgol</span>(<span class="params">y, window_length=<span class="number">11</span>, polyorder=<span class="number">3</span></span>):</span><br><span class="line">    <span class="keyword">return</span> savgol_filter(y, window_length, polyorder)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">apply_kalman</span>(<span class="params">y</span>):</span><br><span class="line">    kf = KalmanFilter(dim_x=<span class="number">2</span>, dim_z=<span class="number">1</span>)</span><br><span class="line">    kf.x = np.array([[<span class="number">0.</span>], [<span class="number">0.</span>]])</span><br><span class="line">    kf.F = np.array([[<span class="number">1.</span>, <span class="number">1.</span>], [<span class="number">0.</span>, <span class="number">1.</span>]])</span><br><span class="line">    kf.H = np.array([[<span class="number">1.</span>, <span class="number">0.</span>]])</span><br><span class="line">    kf.P *= <span class="number">1000.</span></span><br><span class="line">    kf.R = <span class="number">5</span></span><br><span class="line">    kf.Q = np.array([[<span class="number">1.</span>, <span class="number">0.</span>], [<span class="number">0.</span>, <span class="number">1.</span>]]) * <span class="number">0.01</span></span><br><span class="line"></span><br><span class="line">    estimates = []</span><br><span class="line">    <span class="keyword">for</span> z <span class="keyword">in</span> y:</span><br><span class="line">        kf.predict()</span><br><span class="line">        kf.update(z)</span><br><span class="line">        estimates.append(kf.x[<span class="number">0</span>, <span class="number">0</span>])</span><br><span class="line">    <span class="keyword">return</span> np.array(estimates)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">apply_butterworth</span>(<span class="params">y, cutoff=<span class="number">0.05</span>, fs=<span class="number">1.0</span>, order=<span class="number">5</span></span>):</span><br><span class="line">    b, a = butter(order, cutoff, fs=fs, btype=<span class="string">&#x27;low&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> filtfilt(b, a, y)</span><br><span class="line"></span><br><span class="line">y_sg = apply_savgol(y)</span><br><span class="line">y_kf = apply_kalman(y)</span><br><span class="line">y_bf = apply_butterworth(y)</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">12</span>, <span class="number">8</span>))</span><br><span class="line">plt.plot(x, y, label=<span class="string">&quot;original&quot;</span>, linestyle=<span class="string">&#x27;--&#x27;</span>, alpha=<span class="number">0.6</span>)</span><br><span class="line">plt.plot(x, y_sg, label=<span class="string">&quot;Savitzky–Golay&quot;</span>)</span><br><span class="line">plt.plot(x, y_kf, label=<span class="string">&quot;Kalman&quot;</span>)</span><br><span class="line">plt.plot(x, y_bf, label=<span class="string">&quot;Butterworth&quot;</span>)</span><br><span class="line"></span><br><span class="line">plt.title(<span class="string">&quot;filter smooth&quot;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&quot;x&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;y&quot;</span>)</span><br><span class="line">plt.legend()</span><br><span class="line">plt.grid(<span class="literal">True</span>)</span><br><span class="line">plt.savefig(<span class="string">&quot;filter_compare.png&quot;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<pre><code class="python">import numpy as np
+import matplotlib.pyplot as plt
+from scipy.signal import savgol_filter, butter, filtfilt
+from filterpy.kalman import KalmanFilter
 
+# 读取数据
+data = np.loadtxt(&quot;data/noisy_data.csv&quot;, delimiter=&quot;,&quot;, skiprows=1)
+x = data[:, 0]
+y = data[:, 1]
+
+def apply_savgol(y, window_length=11, polyorder=3):
+    return savgol_filter(y, window_length, polyorder)
+
+def apply_kalman(y):
+    kf = KalmanFilter(dim_x=2, dim_z=1)
+    kf.x = np.array([[0.], [0.]])
+    kf.F = np.array([[1., 1.], [0., 1.]])
+    kf.H = np.array([[1., 0.]])
+    kf.P *= 1000.
+    kf.R = 5
+    kf.Q = np.array([[1., 0.], [0., 1.]]) * 0.01
+
+    estimates = []
+    for z in y:
+        kf.predict()
+        kf.update(z)
+        estimates.append(kf.x[0, 0])
+    return np.array(estimates)
+
+def apply_butterworth(y, cutoff=0.05, fs=1.0, order=5):
+    b, a = butter(order, cutoff, fs=fs, btype=&#39;low&#39;)
+    return filtfilt(b, a, y)
+
+y_sg = apply_savgol(y)
+y_kf = apply_kalman(y)
+y_bf = apply_butterworth(y)
+
+plt.figure(figsize=(12, 8))
+plt.plot(x, y, label=&quot;original&quot;, linestyle=&#39;--&#39;, alpha=0.6)
+plt.plot(x, y_sg, label=&quot;Savitzky–Golay&quot;)
+plt.plot(x, y_kf, label=&quot;Kalman&quot;)
+plt.plot(x, y_bf, label=&quot;Butterworth&quot;)
+
+plt.title(&quot;filter smooth&quot;)
+plt.xlabel(&quot;x&quot;)
+plt.ylabel(&quot;y&quot;)
+plt.legend()
+plt.grid(True)
+plt.savefig(&quot;filter_compare.png&quot;)
+plt.show()
+</code></pre>
 </details>
 
 <p><img src="/filter_smooth.jpg" alt="filter smooth"></p>
@@ -317,8 +475,80 @@
 <details>
    <summary>python</summary>
 
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Chaikin 曲线细分算法</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">chaikin_curve</span>(<span class="params">points, iterations=<span class="number">3</span></span>):</span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(iterations):</span><br><span class="line">        new_points = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(points) - <span class="number">1</span>):</span><br><span class="line">            p0 = points[i]</span><br><span class="line">            p1 = points[i + <span class="number">1</span>]</span><br><span class="line">            q = <span class="number">0.75</span> * p0 + <span class="number">0.25</span> * p1</span><br><span class="line">            r = <span class="number">0.25</span> * p0 + <span class="number">0.75</span> * p1</span><br><span class="line">            new_points.extend([q, r])</span><br><span class="line">        points = np.array(new_points)</span><br><span class="line">    <span class="keyword">return</span> points</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Bézier 曲线（de Casteljau 算法）</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">bezier_curve</span>(<span class="params">points, num=<span class="number">100</span></span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">de_casteljau</span>(<span class="params">pts, t</span>):</span><br><span class="line">        <span class="keyword">while</span> <span class="built_in">len</span>(pts) &gt; <span class="number">1</span>:</span><br><span class="line">            pts = [(<span class="number">1</span> - t) * pts[i] + t * pts[i + <span class="number">1</span>] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(pts) - <span class="number">1</span>)]</span><br><span class="line">        <span class="keyword">return</span> pts[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    t_values = np.linspace(<span class="number">0</span>, <span class="number">1</span>, num)</span><br><span class="line">    curve = np.array([de_casteljau(points.copy(), t) <span class="keyword">for</span> t <span class="keyword">in</span> t_values])</span><br><span class="line">    <span class="keyword">return</span> curve</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Catmull-Rom 样条插值</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">catmull_rom_spline</span>(<span class="params">points, num=<span class="number">100</span></span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">catmull_rom</span>(<span class="params">p0, p1, p2, p3, t</span>):</span><br><span class="line">        t2 = t * t</span><br><span class="line">        t3 = t2 * t</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0.5</span> * ((<span class="number">2</span> * p1) +</span><br><span class="line">                      (-p0 + p2) * t +</span><br><span class="line">                      (<span class="number">2</span>*p0 - <span class="number">5</span>*p1 + <span class="number">4</span>*p2 - p3) * t2 +</span><br><span class="line">                      (-p0 + <span class="number">3</span>*p1 - <span class="number">3</span>*p2 + p3) * t3)</span><br><span class="line"></span><br><span class="line">    curve = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(points) - <span class="number">2</span>):</span><br><span class="line">        <span class="keyword">for</span> t <span class="keyword">in</span> np.linspace(<span class="number">0</span>, <span class="number">1</span>, num):</span><br><span class="line">            pt = catmull_rom(points[i - <span class="number">1</span>], points[i], points[i + <span class="number">1</span>], points[i + <span class="number">2</span>], t)</span><br><span class="line">            curve.append(pt)</span><br><span class="line">    <span class="keyword">return</span> np.array(curve)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取 data.txt 中的二维点</span></span><br><span class="line">data = np.loadtxt(<span class="string">&#x27;data/noisy_data.csv&#x27;</span>, delimiter=<span class="string">&#x27;,&#x27;</span>, skiprows=<span class="number">1</span>)</span><br><span class="line">x, y = data[:, <span class="number">0</span>], data[:, <span class="number">1</span>]</span><br><span class="line">points = np.column_stack((x, y))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 应用三种算法</span></span><br><span class="line">chaikin_pts = chaikin_curve(points, iterations=<span class="number">3</span>)</span><br><span class="line">bezier_pts = bezier_curve(points)</span><br><span class="line">catmull_pts = catmull_rom_spline(points) <span class="keyword">if</span> <span class="built_in">len</span>(points) &gt;= <span class="number">4</span> <span class="keyword">else</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘图</span></span><br><span class="line">plt.figure(figsize=(<span class="number">12</span>, <span class="number">6</span>))</span><br><span class="line">plt.plot(points[:, <span class="number">0</span>], points[:, <span class="number">1</span>], <span class="string">&#x27;o--&#x27;</span>, label=<span class="string">&#x27;Original&#x27;</span>, linewidth=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">plt.plot(chaikin_pts[:, <span class="number">0</span>], chaikin_pts[:, <span class="number">1</span>], label=<span class="string">&#x27;Chaikin&#x27;</span>, linewidth=<span class="number">2</span>)</span><br><span class="line">plt.plot(bezier_pts[:, <span class="number">0</span>], bezier_pts[:, <span class="number">1</span>], label=<span class="string">&#x27;Bezier&#x27;</span>, linewidth=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> catmull_pts <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">    plt.plot(catmull_pts[:, <span class="number">0</span>], catmull_pts[:, <span class="number">1</span>], label=<span class="string">&#x27;Catmull-Rom&#x27;</span>, linewidth=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">plt.legend()</span><br><span class="line">plt.title(<span class="string">&#x27;Geometry/Animation Smoothing&#x27;</span>)</span><br><span class="line">plt.grid(<span class="literal">True</span>)</span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<pre><code class="python">import numpy as np
+import matplotlib.pyplot as plt
 
+
+# Chaikin 曲线细分算法
+def chaikin_curve(points, iterations=3):
+    for _ in range(iterations):
+        new_points = []
+        for i in range(len(points) - 1):
+            p0 = points[i]
+            p1 = points[i + 1]
+            q = 0.75 * p0 + 0.25 * p1
+            r = 0.25 * p0 + 0.75 * p1
+            new_points.extend([q, r])
+        points = np.array(new_points)
+    return points
+
+
+# Bézier 曲线（de Casteljau 算法）
+def bezier_curve(points, num=100):
+    def de_casteljau(pts, t):
+        while len(pts) &gt; 1:
+            pts = [(1 - t) * pts[i] + t * pts[i + 1] for i in range(len(pts) - 1)]
+        return pts[0]
+
+    t_values = np.linspace(0, 1, num)
+    curve = np.array([de_casteljau(points.copy(), t) for t in t_values])
+    return curve
+
+
+# Catmull-Rom 样条插值
+def catmull_rom_spline(points, num=100):
+    def catmull_rom(p0, p1, p2, p3, t):
+        t2 = t * t
+        t3 = t2 * t
+        return 0.5 * ((2 * p1) +
+                      (-p0 + p2) * t +
+                      (2*p0 - 5*p1 + 4*p2 - p3) * t2 +
+                      (-p0 + 3*p1 - 3*p2 + p3) * t3)
+
+    curve = []
+    for i in range(1, len(points) - 2):
+        for t in np.linspace(0, 1, num):
+            pt = catmull_rom(points[i - 1], points[i], points[i + 1], points[i + 2], t)
+            curve.append(pt)
+    return np.array(curve)
+
+
+# 读取 data.txt 中的二维点
+data = np.loadtxt(&#39;data/noisy_data.csv&#39;, delimiter=&#39;,&#39;, skiprows=1)
+x, y = data[:, 0], data[:, 1]
+points = np.column_stack((x, y))
+
+# 应用三种算法
+chaikin_pts = chaikin_curve(points, iterations=3)
+bezier_pts = bezier_curve(points)
+catmull_pts = catmull_rom_spline(points) if len(points) &gt;= 4 else None
+
+# 绘图
+plt.figure(figsize=(12, 6))
+plt.plot(points[:, 0], points[:, 1], &#39;o--&#39;, label=&#39;Original&#39;, linewidth=1)
+
+plt.plot(chaikin_pts[:, 0], chaikin_pts[:, 1], label=&#39;Chaikin&#39;, linewidth=2)
+plt.plot(bezier_pts[:, 0], bezier_pts[:, 1], label=&#39;Bezier&#39;, linewidth=2)
+
+if catmull_pts is not None:
+    plt.plot(catmull_pts[:, 0], catmull_pts[:, 1], label=&#39;Catmull-Rom&#39;, linewidth=2)
+
+plt.legend()
+plt.title(&#39;Geometry/Animation Smoothing&#39;)
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+</code></pre>
 </details>
 
 <p><img src="/geometry_smooth.jpg" alt="geometry smooth"></p>

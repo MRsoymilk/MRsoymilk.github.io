@@ -173,19 +173,65 @@
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>KNEXnCoding: <a target="_blank" rel="noopener" href="https://www.instructables.com/id/Connect-Your-Raspberry-Pi-and-Arduino-Uno/">Connect Your Raspberry Pi and Arduino Uno!🔗</a></p>
 <h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>Raspberry Pi 2<br>Arduino UNO</p>
 <h2 id="关于-Arduino"><a href="#关于-Arduino" class="headerlink" title="关于 Arduino"></a>关于 Arduino</h2><p>将代码上传到 Arduino</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> led_red = <span class="number">3</span>;  <span class="comment">// 三号引脚为红色LED</span></span><br><span class="line"><span class="type">int</span> led_green = <span class="number">4</span>;  <span class="comment">// 三号引脚为绿色LED</span></span><br><span class="line"><span class="type">int</span> led_yellow = <span class="number">5</span>;  <span class="comment">// 三号引脚为黄色LED</span></span><br><span class="line"><span class="type">char</span> cmd;  <span class="comment">// 从Raspberry Pi接收指令</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  Serial.<span class="built_in">begin</span>(<span class="number">9600</span>);  <span class="comment">// 通信串口频段</span></span><br><span class="line">  <span class="built_in">pinMode</span>(led_red, OUTPUT);</span><br><span class="line">  <span class="built_in">pinMode</span>(led_green, OUTPUT);</span><br><span class="line">  <span class="built_in">pinMode</span>(led_yellow, OUTPUT);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="built_in">readInfo</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">readInfo</span><span class="params">()</span></span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(Serial.<span class="built_in">available</span>())&#123;  <span class="comment">// 获取指令</span></span><br><span class="line">    cmd = Serial.<span class="built_in">read</span>();</span><br><span class="line">    <span class="comment">// 根据指令执行相应操作</span></span><br><span class="line">    <span class="keyword">switch</span>(cmd)&#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;r&#x27;</span>:</span><br><span class="line">        <span class="built_in">light</span>(led_red);</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;g&#x27;</span>:</span><br><span class="line">        <span class="built_in">light</span>(led_green);</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;y&#x27;</span>:</span><br><span class="line">        <span class="built_in">light</span>(led_yellow);</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">light</span><span class="params">(<span class="type">int</span> led)</span></span>&#123;</span><br><span class="line">  <span class="comment">// 点亮1秒</span></span><br><span class="line">  <span class="built_in">digitalWrite</span>(led, HIGH);</span><br><span class="line">  <span class="built_in">delay</span>(<span class="number">1000</span>);</span><br><span class="line">  <span class="built_in">digitalWrite</span>(led, LOW);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="C++">int led_red = 3;  // 三号引脚为红色LED
+int led_green = 4;  // 三号引脚为绿色LED
+int led_yellow = 5;  // 三号引脚为黄色LED
+char cmd;  // 从Raspberry Pi接收指令
 
+void setup() &#123;
+  Serial.begin(9600);  // 通信串口频段
+  pinMode(led_red, OUTPUT);
+  pinMode(led_green, OUTPUT);
+  pinMode(led_yellow, OUTPUT);
+&#125;
+
+void loop() &#123;
+  readInfo();
+&#125;
+
+void readInfo()&#123;
+  if(Serial.available())&#123;  // 获取指令
+    cmd = Serial.read();
+    // 根据指令执行相应操作
+    switch(cmd)&#123;
+      case &#39;r&#39;:
+        light(led_red);
+      break;
+      case &#39;g&#39;:
+        light(led_green);
+      break;
+      case &#39;y&#39;:
+        light(led_yellow);
+      break;
+    &#125;
+  &#125;
+&#125;
+
+void light(int led)&#123;
+  // 点亮1秒
+  digitalWrite(led, HIGH);
+  delay(1000);
+  digitalWrite(led, LOW);
+&#125;
+</code></pre>
 <h2 id="关于-Raspberry-Pi"><a href="#关于-Raspberry-Pi" class="headerlink" title="关于 Raspberry Pi"></a>关于 Raspberry Pi</h2><ul>
 <li>连接 Arduino</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看串口</span></span><br><span class="line"><span class="built_in">ls</span> /dev/tty*</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash"># 查看串口
+ls /dev/tty*
+</code></pre>
 <p><em>如何检测你的串口</em>: 我的方法：<br>未连接 Arduino，执行<code>ls /dev/tty*</code><br>连接 Arduino，执行<code>ls /dev/tty*</code><br>多出来的就是 Arduino 串口<br>我的是<code>ttyACM1</code><br><img src="/ttyACM.png" alt="ttyACM1"></p>
 <ul>
 <li>执行命令<br>启动 python 解释器</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入serial包</span></span><br><span class="line"><span class="keyword">import</span> serial</span><br><span class="line"><span class="comment"># 连接/dev/ttyACM1处设备，频段为9600</span></span><br><span class="line">ser = serial.Serial(<span class="string">&quot;/dev/ttyACM1&quot;</span>, <span class="number">9600</span>)</span><br><span class="line">ser.write(<span class="built_in">str</span>.encode(<span class="string">&#x27;r&#x27;</span>))  <span class="comment"># 开启红灯</span></span><br><span class="line">ser.write(<span class="built_in">str</span>.encode(<span class="string">&#x27;g&#x27;</span>))  <span class="comment"># 开启绿灯</span></span><br><span class="line">ser.write(<span class="built_in">str</span>.encode(<span class="string">&#x27;y&#x27;</span>))  <span class="comment"># 开启黄灯</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="python"># 导入serial包
+import serial
+# 连接/dev/ttyACM1处设备，频段为9600
+ser = serial.Serial(&quot;/dev/ttyACM1&quot;, 9600)
+ser.write(str.encode(&#39;r&#39;))  # 开启红灯
+ser.write(str.encode(&#39;g&#39;))  # 开启绿灯
+ser.write(str.encode(&#39;y&#39;))  # 开启黄灯
+</code></pre>
 <p><img src="/light.jpg" alt="light"></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>个人感觉就是 Linux 串口操作<br>使用 python，通过库的使用使操作变得非常简单</p>
 

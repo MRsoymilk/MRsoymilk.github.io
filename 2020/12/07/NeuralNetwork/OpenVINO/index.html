@@ -188,31 +188,119 @@
 <p>安装 OpenVINO toolkit 至默认位置。我的默认位置: <code>Introduction to Intel® Deep Learning Deployment Toolkit</code>。</p>
 <h2 id="模型转换"><a href="#模型转换" class="headerlink" title="模型转换"></a>模型转换</h2><p>pytorch -&gt; onnx</p>
 <p>用于单张图片判断代码和模型转换代码。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> models</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> torchvision.transforms <span class="keyword">as</span> transforms</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> torch.utils.model_zoo <span class="keyword">as</span> model_zoo</span><br><span class="line"></span><br><span class="line">model_name = <span class="string">&#x27;C:\\Users\\milk\\Desktop\\model.pth&#x27;</span></span><br><span class="line">classes = [<span class="string">&#x27;food&#x27;</span>, <span class="string">&#x27;other&#x27;</span>, <span class="string">&#x27;recycle&#x27;</span>, <span class="string">&#x27;refuse&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(classes)</span><br><span class="line"></span><br><span class="line">model = models.densenet201(pretrained=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">model.classifier = nn.Sequential(nn.Linear(<span class="number">1920</span>, <span class="number">256</span>),</span><br><span class="line">                                 nn.ReLU(),</span><br><span class="line">                                 nn.Dropout(<span class="number">0.2</span>),</span><br><span class="line">                                 nn.Linear(<span class="number">256</span>, <span class="built_in">len</span>(classes)),</span><br><span class="line">                                 nn.LogSoftmax(dim=<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">model.<span class="built_in">eval</span>()</span><br><span class="line">map_location = <span class="keyword">lambda</span> storage, loc: storage</span><br><span class="line">model.load_state_dict(torch.load(model_name, map_location=map_location))</span><br><span class="line"></span><br><span class="line">transformations = transforms.Compose([</span><br><span class="line">                                      transforms.ToTensor(),</span><br><span class="line">                                      transforms.Normalize(</span><br><span class="line">                                          [<span class="number">0.485</span>, <span class="number">0.456</span>, <span class="number">0.406</span>],</span><br><span class="line">                                          [<span class="number">0.229</span>, <span class="number">0.224</span>, <span class="number">0.225</span>])</span><br><span class="line">                                      ])</span><br><span class="line"></span><br><span class="line">image = Image.<span class="built_in">open</span>(<span class="string">&#x27;ju.png&#x27;</span>)</span><br><span class="line">image = image.convert(<span class="string">&#x27;RGB&#x27;</span>)</span><br><span class="line">image = image.resize((<span class="number">256</span>, <span class="number">256</span>))</span><br><span class="line">tick = time.time()</span><br><span class="line">image = transformations(image)</span><br><span class="line">image = torch.autograd.Variable(image[<span class="literal">None</span>, ...])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;image shape: &quot;</span>, image.shape)</span><br><span class="line">outputs = model(image)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(time.time() - tick)</span><br><span class="line">predict = outputs.<span class="built_in">max</span>(<span class="number">1</span>, keepdim=<span class="literal">True</span>)[<span class="number">1</span>]</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;predict:\t&quot;</span>, classes[predict])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;time cost:\t&quot;</span>, time.time() - tick)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">torch_out = model(image)</span><br><span class="line">torch.onnx.export(</span><br><span class="line">  model,</span><br><span class="line">  image,</span><br><span class="line">  <span class="string">&#x27;C:\\users\\milk\\Desktop\\deploy\\onnx_model.onnx&#x27;</span>,</span><br><span class="line">  export_params=<span class="literal">True</span>,</span><br><span class="line">  output_names=[<span class="string">&#x27;ashbin&#x27;</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;finish&quot;</span>)</span><br></pre></td></tr></table></figure>
+<pre><code class="python">import torch
+from torchvision import models
+import torch.nn as nn
+import os
+import torchvision.transforms as transforms
+import time
+import sys
+from PIL import Image
 
+import torch.utils.model_zoo as model_zoo
+
+model_name = &#39;C:\\Users\\milk\\Desktop\\model.pth&#39;
+classes = [&#39;food&#39;, &#39;other&#39;, &#39;recycle&#39;, &#39;refuse&#39;]
+
+print(classes)
+
+model = models.densenet201(pretrained=True)
+
+model.classifier = nn.Sequential(nn.Linear(1920, 256),
+                                 nn.ReLU(),
+                                 nn.Dropout(0.2),
+                                 nn.Linear(256, len(classes)),
+                                 nn.LogSoftmax(dim=1))
+
+model.eval()
+map_location = lambda storage, loc: storage
+model.load_state_dict(torch.load(model_name, map_location=map_location))
+
+transformations = transforms.Compose([
+                                      transforms.ToTensor(),
+                                      transforms.Normalize(
+                                          [0.485, 0.456, 0.406],
+                                          [0.229, 0.224, 0.225])
+                                      ])
+
+image = Image.open(&#39;ju.png&#39;)
+image = image.convert(&#39;RGB&#39;)
+image = image.resize((256, 256))
+tick = time.time()
+image = transformations(image)
+image = torch.autograd.Variable(image[None, ...])
+print(&quot;image shape: &quot;, image.shape)
+outputs = model(image)
+
+print(time.time() - tick)
+predict = outputs.max(1, keepdim=True)[1]
+print(&quot;predict:\t&quot;, classes[predict])
+print(&quot;time cost:\t&quot;, time.time() - tick)
+
+
+torch_out = model(image)
+torch.onnx.export(
+  model,
+  image,
+  &#39;C:\\users\\milk\\Desktop\\deploy\\onnx_model.onnx&#39;,
+  export_params=True,
+  output_names=[&#39;ashbin&#39;])
+print(&quot;finish&quot;)
+</code></pre>
 <h2 id="模型优化"><a href="#模型优化" class="headerlink" title="模型优化"></a>模型优化</h2><h3 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h3><p>环境变量文件: <code>setvars.bat</code></p>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PS C:\Program Files (x86)\IntelSWTools\openvino\bin&gt; .\setupvars.bat</span><br><span class="line">Python <span class="number">3</span>.<span class="number">7</span>.<span class="number">9</span></span><br><span class="line">[setupvars.bat] OpenVINO environment initialized</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bat">PS C:\Program Files (x86)\IntelSWTools\openvino\bin&gt; .\setupvars.bat
+Python 3.7.9
+[setupvars.bat] OpenVINO environment initialized
+</code></pre>
 <h3 id="安装依赖库"><a href="#安装依赖库" class="headerlink" title="安装依赖库"></a>安装依赖库</h3><p>路径: <code>c:\Program Files (x86)\IntelSWTools\openvino\deployment_tools\model_optimizer</code></p>
 <p>路径下文件:</p>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">PS C:\Program Files (x86)\IntelSWTools\openvino\deployment_tools\model_optimizer&gt; ls</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    目录: C:\Program Files (x86)\IntelSWTools\openvino\deployment_tools\model_optimizer</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">Mode</span>                LastWriteTime         Length Name</span><br><span class="line">----                -------------         ------ ----</span><br><span class="line">d-----        <span class="number">2020</span>/<span class="number">12</span>/<span class="number">3</span>     <span class="number">11</span>:<span class="number">54</span>                extensions</span><br><span class="line">d-----        <span class="number">2020</span>/<span class="number">12</span>/<span class="number">3</span>     <span class="number">11</span>:<span class="number">29</span>                install_prerequisites</span><br><span class="line">d-----        <span class="number">2020</span>/<span class="number">12</span>/<span class="number">3</span>     <span class="number">11</span>:<span class="number">54</span>                mo</span><br><span class="line">-a----         <span class="number">2020</span>/<span class="number">7</span>/<span class="number">2</span>     <span class="number">17</span>:<span class="number">28</span>            <span class="number">999</span> mo.py</span><br><span class="line">-a----         <span class="number">2020</span>/<span class="number">7</span>/<span class="number">2</span>     <span class="number">17</span>:<span class="number">28</span>            <span class="number">932</span> mo_caffe.py</span><br><span class="line">-a----         <span class="number">2020</span>/<span class="number">7</span>/<span class="number">2</span>     <span class="number">17</span>:<span class="number">28</span>            <span class="number">932</span> mo_kaldi.py</span><br><span class="line">-a----         <span class="number">2020</span>/<span class="number">7</span>/<span class="number">2</span>     <span class="number">17</span>:<span class="number">28</span>            <span class="number">932</span> mo_mxnet.py</span><br><span class="line">-a----         <span class="number">2020</span>/<span class="number">7</span>/<span class="number">2</span>     <span class="number">17</span>:<span class="number">28</span>            <span class="number">929</span> mo_onnx.py</span><br><span class="line">-a----         <span class="number">2020</span>/<span class="number">7</span>/<span class="number">2</span>     <span class="number">17</span>:<span class="number">28</span>            <span class="number">923</span> mo_tf.py</span><br><span class="line">-a----         <span class="number">2020</span>/<span class="number">7</span>/<span class="number">2</span>     <span class="number">17</span>:<span class="number">28</span>            <span class="number">136</span> requirements.txt</span><br><span class="line">-a----         <span class="number">2020</span>/<span class="number">7</span>/<span class="number">2</span>     <span class="number">17</span>:<span class="number">28</span>             <span class="number">85</span> requirements_caffe.txt</span><br><span class="line">-a----         <span class="number">2020</span>/<span class="number">7</span>/<span class="number">2</span>     <span class="number">17</span>:<span class="number">28</span>             <span class="number">69</span> requirements_kaldi.txt</span><br><span class="line">-a----         <span class="number">2020</span>/<span class="number">7</span>/<span class="number">2</span>     <span class="number">17</span>:<span class="number">28</span>             <span class="number">90</span> requirements_mxnet.txt</span><br><span class="line">-a----         <span class="number">2020</span>/<span class="number">7</span>/<span class="number">2</span>     <span class="number">17</span>:<span class="number">28</span>             <span class="number">81</span> requirements_onnx.txt</span><br><span class="line">-a----         <span class="number">2020</span>/<span class="number">7</span>/<span class="number">2</span>     <span class="number">17</span>:<span class="number">28</span>             <span class="number">87</span> requirements_tf.txt</span><br><span class="line">-a----         <span class="number">2020</span>/<span class="number">7</span>/<span class="number">2</span>     <span class="number">17</span>:<span class="number">28</span>             <span class="number">41</span> version.txt</span><br></pre></td></tr></table></figure>
+<pre><code class="bat">PS C:\Program Files (x86)\IntelSWTools\openvino\deployment_tools\model_optimizer&gt; ls
 
+
+    目录: C:\Program Files (x86)\IntelSWTools\openvino\deployment_tools\model_optimizer
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+d-----        2020/12/3     11:54                extensions
+d-----        2020/12/3     11:29                install_prerequisites
+d-----        2020/12/3     11:54                mo
+-a----         2020/7/2     17:28            999 mo.py
+-a----         2020/7/2     17:28            932 mo_caffe.py
+-a----         2020/7/2     17:28            932 mo_kaldi.py
+-a----         2020/7/2     17:28            932 mo_mxnet.py
+-a----         2020/7/2     17:28            929 mo_onnx.py
+-a----         2020/7/2     17:28            923 mo_tf.py
+-a----         2020/7/2     17:28            136 requirements.txt
+-a----         2020/7/2     17:28             85 requirements_caffe.txt
+-a----         2020/7/2     17:28             69 requirements_kaldi.txt
+-a----         2020/7/2     17:28             90 requirements_mxnet.txt
+-a----         2020/7/2     17:28             81 requirements_onnx.txt
+-a----         2020/7/2     17:28             87 requirements_tf.txt
+-a----         2020/7/2     17:28             41 version.txt
+</code></pre>
 <p>安装全部依赖<code>requirements.txt</code>或仅安装 onnx 支持依赖<code>requirements_onnx.txt</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -r requirements_onnx.txt</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">pip install -r requirements_onnx.txt
+</code></pre>
 <h3 id="转换模型"><a href="#转换模型" class="headerlink" title="转换模型"></a>转换模型</h3><p>查看帮助:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python mo_onnx.py --<span class="built_in">help</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">python mo_onnx.py --help
+</code></pre>
 <p>执行转换:</p>
 <p>将目标目录下的<code>onnx_model.onnx</code>转换为<code>.bin</code>和<code>.xml</code>文件。（时间大概一分钟）</p>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS C:\Program Files (x86)\IntelSWTools\openvino\deployment_tools\model_optimizer&gt; python mo_onnx.py --log_level INFO --input_model C:\Users\milk\Desktop\deploy\onnx_model.onnx --output_dir C:\Users\milk\Desktop\deploy\onnx_model</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bat">PS C:\Program Files (x86)\IntelSWTools\openvino\deployment_tools\model_optimizer&gt; python mo_onnx.py --log_level INFO --input_model C:\Users\milk\Desktop\deploy\onnx_model.onnx --output_dir C:\Users\milk\Desktop\deploy\onnx_model
+</code></pre>
 <p>成功输出结果:</p>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[ SUCCESS ] Generated IR version <span class="number">10</span> model.</span><br><span class="line">[ SUCCESS ] XML file: C:\Users\milk\Desktop\deploy\onnx_model\onnx_model.xml</span><br><span class="line">[ SUCCESS ] BIN file: C:\Users\milk\Desktop\deploy\onnx_model\onnx_model.bin</span><br><span class="line">[ SUCCESS ] Total execution <span class="built_in">time</span>: <span class="number">46</span>.<span class="number">46</span> seconds.</span><br><span class="line">It&#x27;s been a while, check <span class="keyword">for</span> a new version of Intel(R) Distribution of OpenVINO(TM) toolkit here https://software.intel.com/en-us/openvino-toolkit/choose-download?cid=&amp;source=upgrade&amp;content=<span class="number">2020</span>_3_LTS or on the GitHub*</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bat">[ SUCCESS ] Generated IR version 10 model.
+[ SUCCESS ] XML file: C:\Users\milk\Desktop\deploy\onnx_model\onnx_model.xml
+[ SUCCESS ] BIN file: C:\Users\milk\Desktop\deploy\onnx_model\onnx_model.bin
+[ SUCCESS ] Total execution time: 46.46 seconds.
+It&#39;s been a while, check for a new version of Intel(R) Distribution of OpenVINO(TM) toolkit here https://software.intel.com/en-us/openvino-toolkit/choose-download?cid=&amp;source=upgrade&amp;content=2020_3_LTS or on the GitHub*
+</code></pre>
 <p><code>onnx_model</code>目录文件:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">onnx_mode.bin</span><br><span class="line">onnx_model.mapping</span><br><span class="line">onnx_model.xml</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">onnx_mode.bin
+onnx_model.mapping
+onnx_model.xml
+</code></pre>
 <p>文件说明:</p>
 <ul>
 <li><code>onnx_model.bin</code>：训练后的数据文件。包含权重和偏差二进制数据。</li>
@@ -221,11 +309,104 @@
 </ul>
 <h2 id="使用模型"><a href="#使用模型" class="headerlink" title="使用模型"></a>使用模型</h2><p>在树莓派上使用。需要根据官方文档配置环境。</p>
 <p>判断单张图片。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> openvino.inference_engine <span class="keyword">import</span> IECore</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line">classes = [<span class="string">&#x27;food&#x27;</span>, <span class="string">&#x27;other&#x27;</span>, <span class="string">&#x27;recycle&#x27;</span>, <span class="string">&#x27;refuse&#x27;</span>]</span><br><span class="line"></span><br><span class="line">ie = IECore()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;read network&quot;</span>)</span><br><span class="line">tick = time.time()</span><br><span class="line">net = ie.read_network(<span class="string">&#x27;onnx_model/onnx_model.xml&#x27;</span>, <span class="string">&#x27;onnx_model/onnx_model.bin&#x27;</span>)</span><br><span class="line"></span><br><span class="line">input_blob = <span class="built_in">next</span>(<span class="built_in">iter</span>(net.input_info))</span><br><span class="line">output_blob = <span class="built_in">next</span>(<span class="built_in">iter</span>(net.outputs))</span><br><span class="line">net.batch_size = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;load network&quot;</span>)</span><br><span class="line">exec_net = ie.load_network(network=net, device_name=<span class="string">&#x27;MYRIAD&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;time: &quot;</span>, time.time() - tick)</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> torchvision.transforms <span class="keyword">as</span> transforms</span><br><span class="line">transformations = transforms.Compose([</span><br><span class="line">                                      transforms.ToTensor(),</span><br><span class="line">                                      transforms.Normalize(</span><br><span class="line">                                          [<span class="number">0.485</span>, <span class="number">0.456</span>, <span class="number">0.406</span>],</span><br><span class="line">                                          [<span class="number">0.229</span>, <span class="number">0.224</span>, <span class="number">0.225</span>])</span><br><span class="line">                                      ])</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">predict</span>(<span class="params">filename</span>):</span><br><span class="line">    img = Image.<span class="built_in">open</span>(filename)</span><br><span class="line">    img = img.resize((<span class="number">256</span>, <span class="number">256</span>))</span><br><span class="line">    img = img.convert(<span class="string">&#x27;RGB&#x27;</span>)</span><br><span class="line">    img = transformations(img)</span><br><span class="line">    img = torch.autograd.Variable(img[<span class="literal">None</span>, ...])</span><br><span class="line">    res = exec_net.infer(inputs=&#123;input_blob: img&#125;)</span><br><span class="line">    res = res[output_blob]</span><br><span class="line">    <span class="keyword">return</span> classes[res.argmax()]</span><br><span class="line"></span><br><span class="line">tick = time.time()</span><br><span class="line"><span class="built_in">print</span>(predict(<span class="string">&#x27;test/ju.png&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;time: &quot;</span>, time.time() - tick)</span><br></pre></td></tr></table></figure>
+<pre><code class="python">from openvino.inference_engine import IECore
+import time
+classes = [&#39;food&#39;, &#39;other&#39;, &#39;recycle&#39;, &#39;refuse&#39;]
 
+ie = IECore()
+
+print(&quot;read network&quot;)
+tick = time.time()
+net = ie.read_network(&#39;onnx_model/onnx_model.xml&#39;, &#39;onnx_model/onnx_model.bin&#39;)
+
+input_blob = next(iter(net.input_info))
+output_blob = next(iter(net.outputs))
+net.batch_size = 1
+
+print(&quot;load network&quot;)
+exec_net = ie.load_network(network=net, device_name=&#39;MYRIAD&#39;)
+print(&quot;time: &quot;, time.time() - tick)
+
+import torchvision.transforms as transforms
+transformations = transforms.Compose([
+                                      transforms.ToTensor(),
+                                      transforms.Normalize(
+                                          [0.485, 0.456, 0.406],
+                                          [0.229, 0.224, 0.225])
+                                      ])
+from PIL import Image
+import torch
+def predict(filename):
+    img = Image.open(filename)
+    img = img.resize((256, 256))
+    img = img.convert(&#39;RGB&#39;)
+    img = transformations(img)
+    img = torch.autograd.Variable(img[None, ...])
+    res = exec_net.infer(inputs=&#123;input_blob: img&#125;)
+    res = res[output_blob]
+    return classes[res.argmax()]
+
+tick = time.time()
+print(predict(&#39;test/ju.png&#39;))
+print(&quot;time: &quot;, time.time() - tick)
+</code></pre>
 <p>摄像机判断。（键盘<code>q</code>退出，空格键<code> </code>判断）</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> openvino.inference_engine <span class="keyword">import</span> IECore</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line">classes = [<span class="string">&#x27;food&#x27;</span>, <span class="string">&#x27;other&#x27;</span>, <span class="string">&#x27;recycle&#x27;</span>, <span class="string">&#x27;refuse&#x27;</span>]</span><br><span class="line"></span><br><span class="line">ie = IECore()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;read network&quot;</span>)</span><br><span class="line">tick = time.time()</span><br><span class="line">net = ie.read_network(<span class="string">&#x27;onnx_model/onnx_model.xml&#x27;</span>, <span class="string">&#x27;onnx_model/onnx_model.bin&#x27;</span>)</span><br><span class="line"></span><br><span class="line">input_blob = <span class="built_in">next</span>(<span class="built_in">iter</span>(net.input_info))</span><br><span class="line">output_blob = <span class="built_in">next</span>(<span class="built_in">iter</span>(net.outputs))</span><br><span class="line">net.batch_size = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;load network&quot;</span>)</span><br><span class="line">exec_net = ie.load_network(network=net, device_name=<span class="string">&#x27;MYRIAD&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;time: &quot;</span>, time.time() - tick)</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> torchvision.transforms <span class="keyword">as</span> transforms</span><br><span class="line">transformations = transforms.Compose([</span><br><span class="line">                                      transforms.ToTensor(),</span><br><span class="line">                                      transforms.Normalize(</span><br><span class="line">                                          [<span class="number">0.485</span>, <span class="number">0.456</span>, <span class="number">0.406</span>],</span><br><span class="line">                                          [<span class="number">0.229</span>, <span class="number">0.224</span>, <span class="number">0.225</span>])</span><br><span class="line">                                      ])</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">predict</span>(<span class="params">frame</span>):</span><br><span class="line">    img = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))</span><br><span class="line">    img = img.resize((<span class="number">256</span>, <span class="number">256</span>))</span><br><span class="line">    img = img.convert(<span class="string">&#x27;RGB&#x27;</span>)</span><br><span class="line">    img = transformations(img)</span><br><span class="line">    img = torch.autograd.Variable(img[<span class="literal">None</span>, ...])</span><br><span class="line">    res = exec_net.infer(inputs=&#123;input_blob: img&#125;)</span><br><span class="line">    res = res[output_blob]</span><br><span class="line">    <span class="keyword">return</span> classes[res.argmax()]</span><br><span class="line"></span><br><span class="line">capture = cv2.VideoCapture(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    _, frame = capture.read()</span><br><span class="line">    cv2.imshow(<span class="string">&#x27;garbage&#x27;</span>, frame)</span><br><span class="line">    <span class="keyword">if</span> cv2.waitKey(<span class="number">1</span>) &amp; <span class="number">0xFF</span> == <span class="built_in">ord</span>(<span class="string">&#x27;q&#x27;</span>):</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">elif</span> cv2.waitKey(<span class="number">1</span>) &amp; <span class="number">0xFF</span> == <span class="built_in">ord</span>(<span class="string">&#x27; &#x27;</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;========== predict start ==========&quot;</span>)</span><br><span class="line">        tick = time.time()</span><br><span class="line">        <span class="built_in">print</span>(predict(frame))</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;time: &#x27;</span>, time.time() - tick)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">capture.release()</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+<pre><code class="python">from openvino.inference_engine import IECore
+import time
+classes = [&#39;food&#39;, &#39;other&#39;, &#39;recycle&#39;, &#39;refuse&#39;]
 
+ie = IECore()
+
+print(&quot;read network&quot;)
+tick = time.time()
+net = ie.read_network(&#39;onnx_model/onnx_model.xml&#39;, &#39;onnx_model/onnx_model.bin&#39;)
+
+input_blob = next(iter(net.input_info))
+output_blob = next(iter(net.outputs))
+net.batch_size = 1
+
+print(&quot;load network&quot;)
+exec_net = ie.load_network(network=net, device_name=&#39;MYRIAD&#39;)
+print(&quot;time: &quot;, time.time() - tick)
+
+import torchvision.transforms as transforms
+transformations = transforms.Compose([
+                                      transforms.ToTensor(),
+                                      transforms.Normalize(
+                                          [0.485, 0.456, 0.406],
+                                          [0.229, 0.224, 0.225])
+                                      ])
+
+from PIL import Image
+import torch
+import cv2
+def predict(frame):
+    img = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+    img = img.resize((256, 256))
+    img = img.convert(&#39;RGB&#39;)
+    img = transformations(img)
+    img = torch.autograd.Variable(img[None, ...])
+    res = exec_net.infer(inputs=&#123;input_blob: img&#125;)
+    res = res[output_blob]
+    return classes[res.argmax()]
+
+capture = cv2.VideoCapture(0)
+
+while True:
+    _, frame = capture.read()
+    cv2.imshow(&#39;garbage&#39;, frame)
+    if cv2.waitKey(1) &amp; 0xFF == ord(&#39;q&#39;):
+        break
+    elif cv2.waitKey(1) &amp; 0xFF == ord(&#39; &#39;):
+        print(&quot;========== predict start ==========&quot;)
+        tick = time.time()
+        print(predict(frame))
+        print(&#39;time: &#39;, time.time() - tick)
+
+
+capture.release()
+cv2.destroyAllWindows()
+</code></pre>
 <h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="/result.png" alt="result"></p>
 
     

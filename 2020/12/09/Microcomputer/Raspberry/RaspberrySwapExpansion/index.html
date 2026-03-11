@@ -170,15 +170,16 @@
     <p>树莓派内存空间有限，内存不够出现卡顿和导致莫名错误。通过扩容swap分区能解决一些问题。</p>
 <span id="more"></span>
 
-<h2 id="暂时停止swap"><a href="#暂时停止swap" class="headerlink" title="暂时停止swap"></a>暂时停止swap</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> dphys-swapfile swapoff</span><br></pre></td></tr></table></figure>
-
+<h2 id="暂时停止swap"><a href="#暂时停止swap" class="headerlink" title="暂时停止swap"></a>暂时停止swap</h2><pre><code class="bash">sudo dphys-swapfile swapoff
+</code></pre>
 <h2 id="修改swap大小"><a href="#修改swap大小" class="headerlink" title="修改swap大小"></a>修改swap大小</h2><p>编辑文件：<code>/etc/dphys-swapfile</code>，修改<code>CONF_SWAPSIZE</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CONF_SWAPSIZE=2048</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">CONF_SWAPSIZE=2048
+</code></pre>
 <p>扩容至2G（2048MB）</p>
-<h2 id="应用修改"><a href="#应用修改" class="headerlink" title="应用修改"></a>应用修改</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> dphys-swapfile setup</span><br></pre></td></tr></table></figure>
-
-<h2 id="启动swap"><a href="#启动swap" class="headerlink" title="启动swap"></a>启动swap</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> dphys-swapfile swapon</span><br></pre></td></tr></table></figure>
+<h2 id="应用修改"><a href="#应用修改" class="headerlink" title="应用修改"></a>应用修改</h2><pre><code class="bash">sudo dphys-swapfile setup
+</code></pre>
+<h2 id="启动swap"><a href="#启动swap" class="headerlink" title="启动swap"></a>启动swap</h2><pre><code class="bash">sudo dphys-swapfile swapon
+</code></pre>
 
     
     <hr>

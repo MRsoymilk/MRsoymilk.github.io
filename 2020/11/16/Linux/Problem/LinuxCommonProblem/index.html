@@ -183,21 +183,25 @@
 
 <h2 id="SSH未知终端"><a href="#SSH未知终端" class="headerlink" title="SSH未知终端"></a>SSH未知终端</h2><p>我使用的终端是<code>alacritty</code>(客户端)，服务器端无法识别非主流终端，解决方法:</p>
 <p>在服务器端的<code>.bashrc</code>文件中加入以下命令:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> TERM=xterm-256color  <span class="comment"># 或其他可识别终端</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">export TERM=xterm-256color  # 或其他可识别终端
+</code></pre>
 <p>每次启动shell默认执行<code>export</code>命令。</p>
 <h2 id="SSH服务安装"><a href="#SSH服务安装" class="headerlink" title="SSH服务安装"></a>SSH服务安装</h2><p>以Ubuntu为例:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install -y openssh-client openssh-server</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">sudo apt install -y openssh-client openssh-server
+</code></pre>
 <h2 id="apt报错"><a href="#apt报错" class="headerlink" title="apt报错"></a>apt报错</h2><p><code>Could not get lock /var/lib/dpkg/lock-open</code></p>
 <p>报错原因: 因为apt锁机制，只允许一个apt进程存在</p>
 <p>解决方法:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">rm</span> /var/lib/apt/lists/lock</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">rm</span> /var/cache/apt/archives/lock</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">rm</span> /var/lib/dpkg/lock</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">sudo rm /var/lib/apt/lists/lock
 
+sudo rm /var/cache/apt/archives/lock
+sudo rm /var/lib/dpkg/lock
+</code></pre>
 <h2 id="Ubuntu-Snap-报错"><a href="#Ubuntu-Snap-报错" class="headerlink" title="Ubuntu Snap 报错"></a>Ubuntu Snap 报错</h2><p><code>error: cannot install &quot;douban-fm&quot;: snap &quot;core&quot; has c       hanges in progress</code></p>
 <p>解决方法:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> snap changes    <span class="comment"># 查看正在进行的change</span></span><br><span class="line"><span class="built_in">sudo</span> snap abort num  <span class="comment"># 终止编号为num的进程</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">sudo snap changes    # 查看正在进行的change
+sudo snap abort num  # 终止编号为num的进程
+</code></pre>
 <p>其他:</p>
 <p>snap类似容器操作，拥有应用程序所有的文件和库，各个应用程序完全独立</p>
 <ul>
@@ -206,41 +210,47 @@
 </ul>
 <p>snap软件安装：一般安装在<code>/snap</code>目录下</p>
 <p>snap常用操作:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> snap list                    <span class="comment"># 查看已安装</span></span><br><span class="line"><span class="built_in">sudo</span> snap find &lt;text to search&gt;   <span class="comment"># 搜索要安装的snap包</span></span><br><span class="line"><span class="built_in">sudo</span> snap install &lt;snap name&gt;     <span class="comment"># 安装snap包</span></span><br><span class="line"><span class="built_in">sudo</span> snap refresh &lt;snap name&gt;     <span class="comment"># 更新一个snap包</span></span><br><span class="line"><span class="built_in">sudo</span> snap revert &lt;snap name&gt;      <span class="comment"># 包还原到以前安装的版本</span></span><br><span class="line"><span class="built_in">sudo</span> snap remove &lt;snap name&gt;      <span class="comment"># 删除已安装的snap包</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">sudo snap list                    # 查看已安装
+sudo snap find &lt;text to search&gt;   # 搜索要安装的snap包
+sudo snap install &lt;snap name&gt;     # 安装snap包
+sudo snap refresh &lt;snap name&gt;     # 更新一个snap包
+sudo snap revert &lt;snap name&gt;      # 包还原到以前安装的版本
+sudo snap remove &lt;snap name&gt;      # 删除已安装的snap包
+</code></pre>
 <h2 id="Ubuntu-更改tty界面字体大小"><a href="#Ubuntu-更改tty界面字体大小" class="headerlink" title="Ubuntu 更改tty界面字体大小"></a>Ubuntu 更改tty界面字体大小</h2><p>文件<code>console-setup</code>指定编码和字体</p>
 <p><code>setupcon</code>程序实现字体大小</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> dpkg-reconfigure console-setup  <span class="comment"># 根据提示进行操作即可</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">sudo dpkg-reconfigure console-setup  # 根据提示进行操作即可
+</code></pre>
 <h2 id="apt使用-rpm包"><a href="#apt使用-rpm包" class="headerlink" title="apt使用.rpm包"></a>apt使用<code>.rpm</code>包</h2><p>使用转换工具<code>alien</code></p>
 <p>安装:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install alien</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">sudo apt install alien
+</code></pre>
 <p>转换:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alien --scripts name.rpm</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">alien --scripts name.rpm
+</code></pre>
 <h2 id="CentOS大多软件包不能找到"><a href="#CentOS大多软件包不能找到" class="headerlink" title="CentOS大多软件包不能找到"></a>CentOS大多软件包不能找到</h2><p>需要启用EPEL</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> yum install epel-release</span><br><span class="line"><span class="built_in">sudo</span> yum update</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">sudo yum install epel-release
+sudo yum update
+</code></pre>
 <h2 id="Windows发来文件乱码"><a href="#Windows发来文件乱码" class="headerlink" title="Windows发来文件乱码"></a>Windows发来文件乱码</h2><p>一般是由于编码不同引起的。</p>
 <p>使用<code>iconv</code>进行格式转换。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iconv -f GB2312 -t UTF-8 your_file &gt; target_file</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">iconv -f GB2312 -t UTF-8 your_file &gt; target_file
+</code></pre>
 <h2 id="Ubuntu-18-04-useradd无法创建用户主目录"><a href="#Ubuntu-18-04-useradd无法创建用户主目录" class="headerlink" title="Ubuntu 18.04 useradd无法创建用户主目录"></a>Ubuntu 18.04 useradd无法创建用户主目录</h2><p>使用 useradd 添加用户，-d 指定用户家目录，&#x2F;home 目录下并没有创建用户 🏠 目录</p>
 <h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>方法一：在<code>/etc/login.defs</code>文件中添加或修改为<code>CREATE_HOME yes</code></p>
 <p>方法二：<code>useradd</code>使用<code>-m</code>参数,例如<code>useradd -m apple</code></p>
 <h2 id="Ubuntu-图形化界面-命令行界面"><a href="#Ubuntu-图形化界面-命令行界面" class="headerlink" title="Ubuntu 图形化界面&#x2F;命令行界面"></a>Ubuntu 图形化界面&#x2F;命令行界面</h2><ul>
 <li>默认进入命令行界面</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl set-default multi-user.target</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">sudo systemctl set-default multi-user.target
+</code></pre>
 <p>重启生效，进入命令行界面</p>
 <p>从命令行界面进入GUI界面一般情况下只需要执行<code>startx</code>即可。</p>
 <ul>
 <li>默认进入图形化界面</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl set-default graphical.target</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">sudo systemctl set-default graphical.target
+</code></pre>
 <p>重启生效</p>
 
     

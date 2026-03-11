@@ -207,8 +207,22 @@
 </tr>
 </tbody></table>
 <p>示例：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;arcsoft_face_sdk.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;merror.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> comment(lib, <span class="string">&quot;libarcsoft_face_engine.lib&quot;</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	ASF_VERSION asf = <span class="built_in">ASFGetVersion</span>();</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;Version:\t&quot;</span> &lt;&lt; asf.Version &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;BuildDate:\t&quot;</span> &lt;&lt; asf.BuildDate &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;CopyRight:\t&quot;</span> &lt;&lt; asf.CopyRight &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="cpp">#include &lt;iostream&gt;
 
+#include &quot;arcsoft_face_sdk.h&quot;
+#include &quot;merror.h&quot;
+
+#pragma comment(lib, &quot;libarcsoft_face_engine.lib&quot;)
+
+using namespace std;
+
+int main() &#123;
+    ASF_VERSION asf = ASFGetVersion();
+    cout &lt;&lt; &quot;Version:\t&quot; &lt;&lt; asf.Version &lt;&lt; endl;
+    cout &lt;&lt; &quot;BuildDate:\t&quot; &lt;&lt; asf.BuildDate &lt;&lt; endl;
+    cout &lt;&lt; &quot;CopyRight:\t&quot; &lt;&lt; asf.CopyRight &lt;&lt; endl;
+&#125;
+</code></pre>
 <h2 id="ASF-ActiveFileInfo"><a href="#ASF-ActiveFileInfo" class="headerlink" title="ASF_ActiveFileInfo"></a>ASF_ActiveFileInfo</h2><p>激活文件信息。</p>
 <blockquote>
 <p>typedef char* MPChar</p>
@@ -263,14 +277,40 @@
 </tr>
 </tbody></table>
 <p>示例：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;arcsoft_face_sdk.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;merror.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> comment(lib, <span class="string">&quot;libarcsoft_face_engine.lib&quot;</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	ASF_ActiveFileInfo info;</span><br><span class="line">	<span class="built_in">ASFGetActiveFileInfo</span>(&amp;info);</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;start time:\t&quot;</span> &lt;&lt; info.startTime &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;end time:\t&quot;</span> &lt;&lt; info.endTime &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;platform:\t&quot;</span> &lt;&lt; info.platform &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;sdk type:\t&quot;</span> &lt;&lt; info.sdkType &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;app id:\t\t&quot;</span> &lt;&lt; info.appId &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;sdk key:\t&quot;</span> &lt;&lt; info.sdkKey &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;sdk version:\t&quot;</span> &lt;&lt; info.sdkVersion &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;file version:\t&quot;</span> &lt;&lt; info.fileVersion &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="cpp">#include &lt;iostream&gt;
 
+#include &quot;arcsoft_face_sdk.h&quot;
+#include &quot;merror.h&quot;
+
+#pragma comment(lib, &quot;libarcsoft_face_engine.lib&quot;)
+
+using namespace std;
+
+int main() &#123;
+    ASF_ActiveFileInfo info;
+    ASFGetActiveFileInfo(&amp;info);
+
+    cout &lt;&lt; &quot;start time:\t&quot; &lt;&lt; info.startTime &lt;&lt; endl;
+    cout &lt;&lt; &quot;end time:\t&quot; &lt;&lt; info.endTime &lt;&lt; endl;
+    cout &lt;&lt; &quot;platform:\t&quot; &lt;&lt; info.platform &lt;&lt; endl;
+    cout &lt;&lt; &quot;sdk type:\t&quot; &lt;&lt; info.sdkType &lt;&lt; endl;
+    cout &lt;&lt; &quot;app id:\t\t&quot; &lt;&lt; info.appId &lt;&lt; endl;
+    cout &lt;&lt; &quot;sdk key:\t&quot; &lt;&lt; info.sdkKey &lt;&lt; endl;
+    cout &lt;&lt; &quot;sdk version:\t&quot; &lt;&lt; info.sdkVersion &lt;&lt; endl;
+    cout &lt;&lt; &quot;file version:\t&quot; &lt;&lt; info.fileVersion &lt;&lt; endl;
+&#125;
+</code></pre>
 <h2 id="ASF-SingleFaceInfo"><a href="#ASF-SingleFaceInfo" class="headerlink" title="ASF_SingleFaceInfo"></a>ASF_SingleFaceInfo</h2><p>单人脸信息。</p>
 <blockquote>
 <p>typedef signed int MInt32</p>
 </blockquote>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">__tag_rect</span>&#123;</span><br><span class="line">    MInt32left;</span><br><span class="line">    MInt32top;</span><br><span class="line">    MInt32right;</span><br><span class="line">    MInt32bottom;</span><br><span class="line">    &#125; MRECT, *PMRECT;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="cpp">typedef struct __tag_rect&#123;
+    MInt32left;
+    MInt32top;
+    MInt32right;
+    MInt32bottom;
+    &#125; MRECT, *PMRECT;
+</code></pre>
 <table>
 <thead>
 <tr>
@@ -290,14 +330,19 @@
 <td align="left">人脸角度</td>
 </tr>
 </tbody></table>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-
+<pre><code class="cpp">
+</code></pre>
 <h2 id="ASF-MultiFaceInfo"><a href="#ASF-MultiFaceInfo" class="headerlink" title="ASF_MultiFaceInfo"></a>ASF_MultiFaceInfo</h2><p>多人脸信息。</p>
 <blockquote>
 <p>typedef signed int MInt32;</p>
 </blockquote>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">__tag_rect</span>&#123;</span><br><span class="line">    MInt32left;</span><br><span class="line">    MInt32top;</span><br><span class="line">    MInt32right;</span><br><span class="line">    MInt32bottom;</span><br><span class="line">    &#125; MRECT, *PMRECT;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="cpp">typedef struct __tag_rect&#123;
+    MInt32left;
+    MInt32top;
+    MInt32right;
+    MInt32bottom;
+    &#125; MRECT, *PMRECT;
+</code></pre>
 <table>
 <thead>
 <tr>

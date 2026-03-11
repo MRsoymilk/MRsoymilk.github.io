@@ -164,35 +164,147 @@
 <span id="more"></span>
 
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>使用包管理器</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> emerge -av gtest</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">sudo emerge -av gtest
+</code></pre>
 <h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>简单的 C++ 代码 <code>my_math.cpp</code>，实现 <code>add()</code> 函数</p>
 <p>头文件<code>my_math.h</code></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// my_math.h</span></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> once</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> my &#123;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="cpp">// my_math.h
+#pragma once
 
+namespace my &#123;
+    int add(int a, int b);
+&#125;
+</code></pre>
 <p>源文件<code>my_math.cpp</code></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// my_math.cpp</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;my_math.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> my &#123;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="cpp">// my_math.cpp
+#include &quot;my_math.h&quot;
 
+namespace my &#123;
+    int add(int a, int b) &#123;
+        return a + b;
+    &#125;
+&#125;
+</code></pre>
 <p>编写单元测试<code>test_my_math.cpp</code>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// test_my_math.cpp</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;gtest/gtest.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;my_math.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试 add() 函数</span></span><br><span class="line"><span class="built_in">TEST</span>(TestMyMath, AddFunction) &#123;</span><br><span class="line">    <span class="built_in">EXPECT_EQ</span>(my::<span class="built_in">add</span>(<span class="number">2</span>, <span class="number">3</span>), <span class="number">5</span>);</span><br><span class="line">    <span class="built_in">EXPECT_EQ</span>(my::<span class="built_in">add</span>(<span class="number">-1</span>, <span class="number">1</span>), <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">EXPECT_EQ</span>(my::<span class="built_in">add</span>(<span class="number">0</span>, <span class="number">0</span>), <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 主函数</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> **argv)</span> </span>&#123;</span><br><span class="line">    ::testing::<span class="built_in">InitGoogleTest</span>(&amp;argc, argv);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">RUN_ALL_TESTS</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="cpp">// test_my_math.cpp
+#include &lt;gtest/gtest.h&gt;
 
+#include &quot;my_math.h&quot;
+
+// 测试 add() 函数
+TEST(TestMyMath, AddFunction) &#123;
+    EXPECT_EQ(my::add(2, 3), 5);
+    EXPECT_EQ(my::add(-1, 1), 0);
+    EXPECT_EQ(my::add(0, 0), 0);
+&#125;
+
+// 主函数
+int main(int argc, char **argv) &#123;
+    ::testing::InitGoogleTest(&amp;argc, argv);
+    return RUN_ALL_TESTS();
+&#125;
+</code></pre>
 <h2 id="编译与运行"><a href="#编译与运行" class="headerlink" title="编译与运行"></a>编译与运行</h2><p>使用<code>g++</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ -o test_my_math test_my_math.cpp my_math.cpp -lgtest -lgtest_main -pthread</span><br><span class="line">./test_my_math</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">g++ -o test_my_math test_my_math.cpp my_math.cpp -lgtest -lgtest_main -pthread
+./test_my_math
+</code></pre>
 <p>使用 <code>cmake</code></p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.10</span>)</span><br><span class="line"><span class="keyword">project</span>(test_my_math)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启用 Google Test</span></span><br><span class="line"><span class="keyword">find_package</span>(GTest REQUIRED)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加测试可执行文件</span></span><br><span class="line"><span class="keyword">add_executable</span>(test_my_math test_my_math.cpp my_math.cpp)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 链接 Google Test 库</span></span><br><span class="line"><span class="keyword">target_link_libraries</span>(test_my_math GTest::GTest GTest::Main)</span><br></pre></td></tr></table></figure>
+<pre><code class="cmake">cmake_minimum_required(VERSION 3.10)
+project(test_my_math)
 
+# 启用 Google Test
+find_package(GTest REQUIRED)
+
+# 添加测试可执行文件
+add_executable(test_my_math test_my_math.cpp my_math.cpp)
+
+# 链接 Google Test 库
+target_link_libraries(test_my_math GTest::GTest GTest::Main)
+</code></pre>
 <p>测试结果：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[==========] Running 1 <span class="built_in">test</span> from 1 <span class="built_in">test</span> suite.</span><br><span class="line">[----------] Global <span class="built_in">test</span> environment set-up.</span><br><span class="line">[----------] 1 <span class="built_in">test</span> from TestMyMath</span><br><span class="line">[ RUN      ] TestMyMath.AddFunction</span><br><span class="line">[       OK ] TestMyMath.AddFunction (0 ms)</span><br><span class="line">[----------] 1 <span class="built_in">test</span> from TestMyMath (0 ms total)</span><br><span class="line"></span><br><span class="line">[----------] Global <span class="built_in">test</span> environment tear-down</span><br><span class="line">[==========] 1 <span class="built_in">test</span> from 1 <span class="built_in">test</span> suite ran. (0 ms total)</span><br><span class="line">[  PASSED  ] 1 <span class="built_in">test</span>.</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from TestMyMath
+[ RUN      ] TestMyMath.AddFunction
+[       OK ] TestMyMath.AddFunction (0 ms)
+[----------] 1 test from TestMyMath (0 ms total)
 
-<h2 id="增加函数"><a href="#增加函数" class="headerlink" title="增加函数"></a>增加函数</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// my_math.h</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> my &#123;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">sub</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">mul</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>;</span><br><span class="line">    <span class="function"><span class="type">double</span> <span class="title">div</span><span class="params">(<span class="type">double</span> a, <span class="type">double</span> b)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+</code></pre>
+<h2 id="增加函数"><a href="#增加函数" class="headerlink" title="增加函数"></a>增加函数</h2><pre><code class="cpp">// my_math.h
 
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// my_math.cpp</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> my &#123;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">sub</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a - b;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">mul</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a * b;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">double</span> <span class="title">div</span><span class="params">(<span class="type">double</span> a, <span class="type">double</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (b == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> std::<span class="built_in">runtime_error</span>(<span class="string">&quot;Division by zero&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a / b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+namespace my &#123;
+    int sub(int a, int b);
+    int mul(int a, int b);
+    double div(double a, double b);
+&#125;
+</code></pre>
+<pre><code class="cpp">// my_math.cpp
 
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 测试减法</span></span><br><span class="line"><span class="built_in">TEST</span>(MyMathTest, SubTest) &#123;</span><br><span class="line">    <span class="built_in">EXPECT_EQ</span>(my::<span class="built_in">sub</span>(<span class="number">5</span>, <span class="number">3</span>), <span class="number">2</span>);</span><br><span class="line">    <span class="built_in">EXPECT_EQ</span>(my::<span class="built_in">sub</span>(<span class="number">3</span>, <span class="number">5</span>), <span class="number">-2</span>);</span><br><span class="line">    <span class="built_in">EXPECT_EQ</span>(my::<span class="built_in">sub</span>(<span class="number">0</span>, <span class="number">0</span>), <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试乘法</span></span><br><span class="line"><span class="built_in">TEST</span>(MyMathTest, MulTest) &#123;</span><br><span class="line">    <span class="built_in">EXPECT_EQ</span>(my::<span class="built_in">mul</span>(<span class="number">2</span>, <span class="number">3</span>), <span class="number">6</span>);</span><br><span class="line">    <span class="built_in">EXPECT_EQ</span>(my::<span class="built_in">mul</span>(<span class="number">-2</span>, <span class="number">3</span>), <span class="number">-6</span>);</span><br><span class="line">    <span class="built_in">EXPECT_EQ</span>(my::<span class="built_in">mul</span>(<span class="number">0</span>, <span class="number">5</span>), <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试除法</span></span><br><span class="line"><span class="built_in">TEST</span>(MyMathTest, DivTest) &#123;</span><br><span class="line">    <span class="built_in">EXPECT_DOUBLE_EQ</span>(my::<span class="built_in">div</span>(<span class="number">6</span>, <span class="number">2</span>), <span class="number">3.0</span>);</span><br><span class="line">    <span class="built_in">EXPECT_DOUBLE_EQ</span>(my::<span class="built_in">div</span>(<span class="number">5</span>, <span class="number">2</span>), <span class="number">2.5</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试除零</span></span><br><span class="line"><span class="built_in">TEST</span>(MyMathTest, DivByZeroTest) &#123;</span><br><span class="line">    <span class="built_in">EXPECT_THROW</span>(my::<span class="built_in">div</span>(<span class="number">1</span>, <span class="number">0</span>), std::runtime_error);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+namespace my &#123;
+    int sub(int a, int b) &#123;
+        return a - b;
+    &#125;
 
+    int mul(int a, int b) &#123;
+        return a * b;
+    &#125;
+
+    double div(double a, double b) &#123;
+        if (b == 0) &#123;
+            throw std::runtime_error(&quot;Division by zero&quot;);
+        &#125;
+        return a / b;
+    &#125;
+&#125;
+</code></pre>
+<pre><code class="cpp">// 测试减法
+TEST(MyMathTest, SubTest) &#123;
+    EXPECT_EQ(my::sub(5, 3), 2);
+    EXPECT_EQ(my::sub(3, 5), -2);
+    EXPECT_EQ(my::sub(0, 0), 0);
+&#125;
+
+// 测试乘法
+TEST(MyMathTest, MulTest) &#123;
+    EXPECT_EQ(my::mul(2, 3), 6);
+    EXPECT_EQ(my::mul(-2, 3), -6);
+    EXPECT_EQ(my::mul(0, 5), 0);
+&#125;
+
+// 测试除法
+TEST(MyMathTest, DivTest) &#123;
+    EXPECT_DOUBLE_EQ(my::div(6, 2), 3.0);
+    EXPECT_DOUBLE_EQ(my::div(5, 2), 2.5);
+&#125;
+
+// 测试除零
+TEST(MyMathTest, DivByZeroTest) &#123;
+    EXPECT_THROW(my::div(1, 0), std::runtime_error);
+&#125;
+</code></pre>
 <p>测试结果：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[==========] Running 5 tests from 1 <span class="built_in">test</span> suite.</span><br><span class="line">[----------] Global <span class="built_in">test</span> environment set-up.</span><br><span class="line">[----------] 5 tests from MyMathTest</span><br><span class="line">[ RUN      ] MyMathTest.AddTest</span><br><span class="line">[       OK ] MyMathTest.AddTest (0 ms)</span><br><span class="line">[ RUN      ] MyMathTest.SubTest</span><br><span class="line">[       OK ] MyMathTest.SubTest (0 ms)</span><br><span class="line">[ RUN      ] MyMathTest.MulTest</span><br><span class="line">[       OK ] MyMathTest.MulTest (0 ms)</span><br><span class="line">[ RUN      ] MyMathTest.DivTest</span><br><span class="line">[       OK ] MyMathTest.DivTest (0 ms)</span><br><span class="line">[ RUN      ] MyMathTest.DivByZeroTest</span><br><span class="line">[       OK ] MyMathTest.DivByZeroTest (0 ms)</span><br><span class="line">[----------] 5 tests from MyMathTest (0 ms total)</span><br><span class="line"></span><br><span class="line">[----------] Global <span class="built_in">test</span> environment tear-down</span><br><span class="line">[==========] 5 tests from 1 <span class="built_in">test</span> suite ran. (0 ms total)</span><br><span class="line">[  PASSED  ] 5 tests.</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">[==========] Running 5 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 5 tests from MyMathTest
+[ RUN      ] MyMathTest.AddTest
+[       OK ] MyMathTest.AddTest (0 ms)
+[ RUN      ] MyMathTest.SubTest
+[       OK ] MyMathTest.SubTest (0 ms)
+[ RUN      ] MyMathTest.MulTest
+[       OK ] MyMathTest.MulTest (0 ms)
+[ RUN      ] MyMathTest.DivTest
+[       OK ] MyMathTest.DivTest (0 ms)
+[ RUN      ] MyMathTest.DivByZeroTest
+[       OK ] MyMathTest.DivByZeroTest (0 ms)
+[----------] 5 tests from MyMathTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 5 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 5 tests.
+</code></pre>
 
     
     <hr>

@@ -178,18 +178,47 @@
 <p>参考：<code>ARCSOFT_ARC_FACE_DEVELOPER&#39;S_GUIDE.pdf</code></p>
 <span id="more"></span>
 
-<h2 id="检测模式"><a href="#检测模式" class="headerlink" title="检测模式"></a>检测模式</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">ASF_DetectMode</span>&#123;</span><br><span class="line">    ASF_DETECT_MODE_VIDEO=<span class="number">0x00000000</span>,   <span class="comment">//VIDEO模式，一般用于多帧连续检测</span></span><br><span class="line">    ASF_DETECT_MODE_IMAGE=<span class="number">0xFFFFFFFF</span>    <span class="comment">//IMAGE模式，一般用于静态图的单次检测</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="检测模式"><a href="#检测模式" class="headerlink" title="检测模式"></a>检测模式</h2><pre><code class="cpp">enum ASF_DetectMode&#123;
+    ASF_DETECT_MODE_VIDEO=0x00000000,   //VIDEO模式，一般用于多帧连续检测
+    ASF_DETECT_MODE_IMAGE=0xFFFFFFFF    //IMAGE模式，一般用于静态图的单次检测
+&#125;;
+</code></pre>
 <h2 id="人脸检测方向"><a href="#人脸检测方向" class="headerlink" title="人脸检测方向"></a>人脸检测方向</h2><p>选择单一角度，检测效果更优，角度按逆时针方向。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">ArcSoftFace_OrientPriority</span> &#123;</span><br><span class="line">    ASF_OP_0_ONLY=<span class="number">0x1</span>,      <span class="comment">// 常规预览下正方向</span></span><br><span class="line">    ASF_OP_90_ONLY=<span class="number">0x2</span>,     <span class="comment">// 基于0°逆时针旋转90°的方向</span></span><br><span class="line">    ASF_OP_270_ONLY=<span class="number">0x3</span>,    <span class="comment">// 基于0°逆时针旋转270°的方向</span></span><br><span class="line">    ASF_OP_180_ONLY=<span class="number">0x4</span>,    <span class="comment">// 基于0°旋转180°的方向（逆时针、顺时针效果一样）</span></span><br><span class="line">    ASF_OP_ALL_OUT=<span class="number">0x5</span>      <span class="comment">// 全角度</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="cpp">enum ArcSoftFace_OrientPriority &#123;
+    ASF_OP_0_ONLY=0x1,      // 常规预览下正方向
+    ASF_OP_90_ONLY=0x2,     // 基于0°逆时针旋转90°的方向
+    ASF_OP_270_ONLY=0x3,    // 基于0°逆时针旋转270°的方向
+    ASF_OP_180_ONLY=0x4,    // 基于0°旋转180°的方向（逆时针、顺时针效果一样）
+    ASF_OP_ALL_OUT=0x5      // 全角度
+&#125;
+</code></pre>
 <h2 id="检测到的人脸角度"><a href="#检测到的人脸角度" class="headerlink" title="检测到的人脸角度"></a>检测到的人脸角度</h2><p>角度按逆时针方向。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">ArcSoftFace_OrientCode</span> &#123;ASF_OC_0=<span class="number">0x1</span>,<span class="comment">// 0度</span></span><br><span class="line">    ASF_OC_90=<span class="number">0x2</span>,      <span class="comment">// 90度</span></span><br><span class="line">    ASF_OC_270=<span class="number">0x3</span>,     <span class="comment">// 270度</span></span><br><span class="line">    ASF_OC_180=<span class="number">0x4</span>,     <span class="comment">// 180度</span></span><br><span class="line">    ASF_OC_30=<span class="number">0x5</span>,      <span class="comment">// 30度</span></span><br><span class="line">    ASF_OC_60=<span class="number">0x6</span>,      <span class="comment">// 60度</span></span><br><span class="line">    ASF_OC_120=<span class="number">0x7</span>,     <span class="comment">// 120度</span></span><br><span class="line">    ASF_OC_150=<span class="number">0x8</span>,     <span class="comment">// 150度</span></span><br><span class="line">    ASF_OC_210=<span class="number">0x9</span>,     <span class="comment">// 210度</span></span><br><span class="line">    ASF_OC_240=<span class="number">0xa</span>,     <span class="comment">// 240度</span></span><br><span class="line">    ASF_OC_300=<span class="number">0xb</span>,     <span class="comment">// 300度</span></span><br><span class="line">    ASF_OC_330=<span class="number">0xc</span>      <span class="comment">// 330度</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="cpp">enum ArcSoftFace_OrientCode &#123;ASF_OC_0=0x1,// 0度
+    ASF_OC_90=0x2,      // 90度
+    ASF_OC_270=0x3,     // 270度
+    ASF_OC_180=0x4,     // 180度
+    ASF_OC_30=0x5,      // 30度
+    ASF_OC_60=0x6,      // 60度
+    ASF_OC_120=0x7,     // 120度
+    ASF_OC_150=0x8,     // 150度
+    ASF_OC_210=0x9,     // 210度
+    ASF_OC_240=0xa,     // 240度
+    ASF_OC_300=0xb,     // 300度
+    ASF_OC_330=0xc      // 330度
+&#125;
+</code></pre>
 <h2 id="检测模型"><a href="#检测模型" class="headerlink" title="检测模型"></a>检测模型</h2><p>根据图像颜色空间选择对应的算法模型进行检测。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">ASF_DetectModel</span>&#123;</span><br><span class="line">    ASF_DETECT_MODEL_RGB=<span class="number">0x1</span>    <span class="comment">//RGB图像检测模型</span></span><br><span class="line">    <span class="comment">//预留扩展其他检测模型</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="cpp">enum ASF_DetectModel&#123;
+    ASF_DETECT_MODEL_RGB=0x1    //RGB图像检测模型
+    //预留扩展其他检测模型
+&#125;
+</code></pre>
 <h2 id="人脸比对可选的模型"><a href="#人脸比对可选的模型" class="headerlink" title="人脸比对可选的模型"></a>人脸比对可选的模型</h2><p>根据应用场景选择对应的模型进行人脸特征对比。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">ASF_CompareModel</span>&#123;</span><br><span class="line">    ASF_LIFE_PHOTO=<span class="number">0x1</span>, <span class="comment">//用于生活照之间的特征比对，推荐阈值0.80</span></span><br><span class="line">    ASF_ID_PHOTO=<span class="number">0x2</span>    <span class="comment">//用于证件照或生活照与证件照之间的特征比对，推荐阈值0.82</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre><code class="cpp">enum ASF_CompareModel&#123;
+    ASF_LIFE_PHOTO=0x1, //用于生活照之间的特征比对，推荐阈值0.80
+    ASF_ID_PHOTO=0x2    //用于证件照或生活照与证件照之间的特征比对，推荐阈值0.82
+&#125;;
+</code></pre>
 
     
     <hr>

@@ -182,27 +182,55 @@
 <p><img src="/cloc.png" alt="cloc"></p>
 <h2 id="ccache"><a href="#ccache" class="headerlink" title="ccache"></a><code>ccache</code></h2><p><a target="_blank" rel="noopener" href="https://wiki.gentoo.org/wiki/Ccache">Gentoo ccache</a></p>
 <p>高速 C&#x2F;C++编译缓存工具，提高编译速度。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gcc foo.c</span><br><span class="line">ccache gcc foo.c</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">gcc foo.c
+ccache gcc foo.c
+</code></pre>
 <h2 id="tmux"><a href="#tmux" class="headerlink" title="tmux"></a><code>tmux</code></h2><p><a target="_blank" rel="noopener" href="https://github.com/tmux/tmux">tmux</a></p>
 <p>终端复用</p>
 <p><img src="/tmux.png" alt="tmux"></p>
 <h2 id="tldr"><a href="#tldr" class="headerlink" title="tldr"></a><code>tldr</code></h2><p><a target="_blank" rel="noopener" href="https://tldr.sh/">tldr</a></p>
 <p>简略的 man 文档</p>
 <p>需要额外配置颜色输出<br>文件：<code>~/.tldrrc</code></p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;themes&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;my&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;commandName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;bold, cyan&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;mainDescription&quot;</span><span class="punctuation">:</span> <span class="string">&quot;underline&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;exampleDescription&quot;</span><span class="punctuation">:</span> <span class="string">&quot;yellow&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;exampleCode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;red&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;exampleToken&quot;</span><span class="punctuation">:</span> <span class="string">&quot;dim&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;theme&quot;</span><span class="punctuation">:</span> <span class="string">&quot;my&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="json">&#123;
+  &quot;themes&quot;: &#123;
+    &quot;my&quot;: &#123;
+      &quot;commandName&quot;: &quot;bold, cyan&quot;,
+      &quot;mainDescription&quot;: &quot;underline&quot;,
+      &quot;exampleDescription&quot;: &quot;yellow&quot;,
+      &quot;exampleCode&quot;: &quot;red&quot;,
+      &quot;exampleToken&quot;: &quot;dim&quot;
+    &#125;
+  &#125;,
+  &quot;theme&quot;: &quot;my&quot;
+&#125;
+</code></pre>
 <p><img src="/tldr.png" alt="tldr"></p>
 <h2 id="ranger"><a href="#ranger" class="headerlink" title="ranger"></a><code>ranger</code></h2><p><a target="_blank" rel="noopener" href="https://github.com/ranger/ranger">ranger</a></p>
 <p>Terminal 上的文件系统。无桌面环境也能使用。</p>
 <p><img src="/ranger.png" alt="ranger"></p>
 <h2 id="cpupower"><a href="#cpupower" class="headerlink" title="cpupower"></a><code>cpupower</code></h2><p>限制 CPU 功率，降低功耗</p>
 <p>查看支持的调度器：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">cpupower frequency-info</span><br><span class="line">analyzing CPU 5:</span><br><span class="line">  driver: intel_pstate</span><br><span class="line">  CPUs <span class="built_in">which</span> run at the same hardware frequency: 5</span><br><span class="line">  CPUs <span class="built_in">which</span> need to have their frequency coordinated by software: 5</span><br><span class="line">  maximum transition latency:  Cannot determine or is not supported.</span><br><span class="line">  hardware limits: 800 MHz - 4.00 GHz</span><br><span class="line">  available cpufreq governors: performance powersave</span><br><span class="line">  current policy: frequency should be within 800 MHz and 4.00 GHz.</span><br><span class="line">                  The governor <span class="string">&quot;performance&quot;</span> may decide <span class="built_in">which</span> speed to use</span><br><span class="line">                  within this range.</span><br><span class="line">  current CPU frequency: Unable to call hardware</span><br><span class="line">  current CPU frequency: 3.07 GHz (asserted by call to kernel)</span><br><span class="line">  boost state support:</span><br><span class="line">    Supported: <span class="built_in">yes</span></span><br><span class="line">    Active: <span class="built_in">yes</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">cpupower frequency-info
+analyzing CPU 5:
+  driver: intel_pstate
+  CPUs which run at the same hardware frequency: 5
+  CPUs which need to have their frequency coordinated by software: 5
+  maximum transition latency:  Cannot determine or is not supported.
+  hardware limits: 800 MHz - 4.00 GHz
+  available cpufreq governors: performance powersave
+  current policy: frequency should be within 800 MHz and 4.00 GHz.
+                  The governor &quot;performance&quot; may decide which speed to use
+                  within this range.
+  current CPU frequency: Unable to call hardware
+  current CPU frequency: 3.07 GHz (asserted by call to kernel)
+  boost state support:
+    Supported: yes
+    Active: yes
+</code></pre>
 <p>从<code>available cpufreq governors</code>获取两种模式<code>performance</code>和<code>powersave</code></p>
 <p>限制最大频率（1.2GHz）：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> cpupower frequency-set -u 1200000</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">sudo cpupower frequency-set -u 1200000
+</code></pre>
 
     
     <hr>

@@ -187,86 +187,96 @@
 <li>会话创建</li>
 </ul>
 <p>新建无名会话</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmux</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">tmux
+</code></pre>
 <p>新建名为 session_name 的会话</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tmux new -s session_name  <span class="comment"># 简化命令</span></span><br><span class="line">tmux new-session -s session_name</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">tmux new -s session_name  # 简化命令
+tmux new-session -s session_name
+</code></pre>
 <ul>
 <li>会话分离</li>
 </ul>
 <p><em>让 tmux 在后台运行</em></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prefix b</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">prefix b
+</code></pre>
 <ul>
 <li>会话重连</li>
 </ul>
 <p>连接名为 session_name 的会话</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tmux attach  <span class="comment"># 默认连接最新创建的会话</span></span><br><span class="line">tmux attach -t session_name</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">tmux attach  # 默认连接最新创建的会话
+tmux attach -t session_name
+</code></pre>
 <ul>
 <li>会话终止</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exit</span>  <span class="comment"># 会话中使用，最后一个窗口、面板</span></span><br><span class="line">tmux kill-session -t session_name</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">exit  # 会话中使用，最后一个窗口、面板
+tmux kill-session -t session_name
+</code></pre>
 <ul>
 <li>其它<br>列出当前存在的 tmux 会话</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tmux <span class="built_in">ls</span>  <span class="comment"># 简化命令</span></span><br><span class="line">tmux list-sessions</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">tmux ls  # 简化命令
+tmux list-sessions
+</code></pre>
 <h2 id="tmux-窗口-Window"><a href="#tmux-窗口-Window" class="headerlink" title="tmux 窗口(Window)"></a>tmux 窗口(Window)</h2><ul>
 <li>窗口创建</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prefix c  <span class="comment"># 新建无名窗口</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">prefix c  # 新建无名窗口
+</code></pre>
 <ul>
 <li>窗口命名</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prefix ,</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">prefix ,
+</code></pre>
 <ul>
 <li>窗口切换</li>
 </ul>
 <p><em>上一个窗口</em></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prefix p  <span class="comment"># p=previous</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">prefix p  # p=previous
+</code></pre>
 <p><em>下一个窗口</em></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prefix n  <span class="comment"># n=next</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">prefix n  # n=next
+</code></pre>
 <p><em>窗口数小于等于 9 个，数字键快捷切换</em></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prefix 0~9</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">prefix 0~9
+</code></pre>
 <p><em>窗口数大于 9 个</em></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">prefix f  <span class="comment"># 通过窗口名称查找窗口</span></span><br><span class="line"><span class="comment"># === 或者 ===</span></span><br><span class="line">prefix w  <span class="comment"># 通过可视化窗口列表选择</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">prefix f  # 通过窗口名称查找窗口
+# === 或者 ===
+prefix w  # 通过可视化窗口列表选择
+</code></pre>
 <ul>
 <li>窗口关闭</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exit</span>  <span class="comment"># 仅存唯一面板</span></span><br><span class="line"><span class="comment"># === 或者 ===</span></span><br><span class="line">prefix &amp;  <span class="comment"># &amp;=et=exit</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">exit  # 仅存唯一面板
+# === 或者 ===
+prefix &amp;  # &amp;=et=exit
+</code></pre>
 <h2 id="tmux-面板-Pane"><a href="#tmux-面板-Pane" class="headerlink" title="tmux 面板(Pane)"></a>tmux 面板(Pane)</h2><ul>
 <li>面板创建</li>
 </ul>
 <p><em>垂直分割</em></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prefix + %</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">prefix + %
+</code></pre>
 <p><em>水平分割</em></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prefix + <span class="string">&quot;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">prefix + &quot;
+</code></pre>
 <ul>
 <li>面板切换</li>
 </ul>
 <p><em>循环切换</em></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prefix o  <span class="comment"># 小写o键</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">prefix o  # 小写o键
+</code></pre>
 <p><em>方向切换</em></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prefix UP/DOWN/LEFT/RIGHT  <span class="comment"># 上/下/左/右箭头</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">prefix UP/DOWN/LEFT/RIGHT  # 上/下/左/右箭头
+</code></pre>
 <ul>
 <li>面板关闭</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exit</span></span><br><span class="line"><span class="comment"># === 或者 ===</span></span><br><span class="line">prefix X  <span class="comment"># 大写X键</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">exit
+# === 或者 ===
+prefix X  # 大写X键
+</code></pre>
 <ul>
 <li>面板布局<br><em>默认面板布局</em></li>
 </ul>
@@ -276,14 +286,14 @@
 <p><code>main-vertical</code>: 左侧创建大面板，右侧垂直放置小面板</p>
 <p><code>tiled</code>: 所有面板均匀分布</p>
 <h2 id="tmux-命令行模式"><a href="#tmux-命令行模式" class="headerlink" title="tmux 命令行模式"></a>tmux 命令行模式</h2><p><em>进入命令行模式</em></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prefix :</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">prefix :
+</code></pre>
 <p>创建名为 window_name 新窗口</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">new-window -n window_name</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">new-window -n window_name
+</code></pre>
 <p>创建窗口并执行<code>top</code>命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">new-window -n processes <span class="string">&quot;top&quot;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">new-window -n processes &quot;top&quot;
+</code></pre>
 <h2 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h2><p>tmux, 提升效率。</p>
 <p>tmux 有多种方式实现某种功能, 个人认为快捷键是较为理想的选择。</p>
 

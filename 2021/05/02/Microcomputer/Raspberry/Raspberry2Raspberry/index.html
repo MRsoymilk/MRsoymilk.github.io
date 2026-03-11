@@ -209,15 +209,18 @@
 </tbody></table>
 <h2 id="配置网络便于连接"><a href="#配置网络便于连接" class="headerlink" title="配置网络便于连接"></a>配置网络便于连接</h2><p>修改<code>/etc/dhcpcd.conf</code></p>
 <p>主Raspberry</p>
-<figure class="highlight profile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">interface eth0</span><br><span class="line">static ip_address=<span class="number">192.168</span><span class="number">.0</span><span class="number">.1</span>/<span class="number">24</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="profile">interface eth0
+static ip_address=192.168.0.1/24
+</code></pre>
 <p>从Raspberry</p>
-<figure class="highlight profile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">interface eth0</span><br><span class="line">static ip_address=<span class="number">192.168</span><span class="number">.0</span><span class="number">.233</span>/<span class="number">24</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="profile">interface eth0
+static ip_address=192.168.0.233/24
+</code></pre>
 <p>重启设备后两台设备的ip分别为<code>192.168.0.1</code>和<code>192.168.0.233</code></p>
 <p>即可通过网线交互。</p>
 <p>例如，在<code>192.168.0.1</code>的Raspberry上：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping 192.168.0.233</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">ping 192.168.0.233
+</code></pre>
 
     
     <hr>

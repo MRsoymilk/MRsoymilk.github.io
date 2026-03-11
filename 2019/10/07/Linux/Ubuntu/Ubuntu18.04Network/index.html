@@ -175,8 +175,8 @@
 <h3 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h3><ol>
 <li>开启配置</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">sudo</span> pppoeconf</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">$ sudo pppoeconf
+</code></pre>
 <p>经历步骤：</p>
 <ul>
 <li>输入用户名</li>
@@ -186,28 +186,28 @@
 <ol start="2">
 <li>联网</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">sudo</span> pon dsl-provider</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">$ sudo pon dsl-provider
+</code></pre>
 <ol start="3">
 <li>断网</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">sudo</span> poff</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">$ sudo poff
+</code></pre>
 <hr>
 
 <h2 id="命令行连接Wifi"><a href="#命令行连接Wifi" class="headerlink" title="命令行连接Wifi"></a>命令行连接Wifi</h2><p>使用工具: nmcli，命令行网络管理工具</p>
 <p>安装 nmcli: <code>sudo apt install network-manager</code></p>
 <p>参考: <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq951127336/article/details/81544935">Ubuntu 命令行链接 WIFI</a></p>
-<h3 id="开启-WiFi"><a href="#开启-WiFi" class="headerlink" title="开启 WiFi"></a>开启 WiFi</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmcli radio wifi on</span><br></pre></td></tr></table></figure>
-
-<h3 id="关闭-WiFi"><a href="#关闭-WiFi" class="headerlink" title="关闭 WiFi"></a>关闭 WiFi</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmcli radio wifi off</span><br></pre></td></tr></table></figure>
-
-<h3 id="扫描-WiFi"><a href="#扫描-WiFi" class="headerlink" title="扫描 WiFi"></a>扫描 WiFi</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmcli device wifi list</span><br></pre></td></tr></table></figure>
-
-<h3 id="重新扫描-WiFi"><a href="#重新扫描-WiFi" class="headerlink" title="重新扫描 WiFi"></a>重新扫描 WiFi</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmcli device wifi rescan</span><br></pre></td></tr></table></figure>
-
-<h3 id="连接-WiFi"><a href="#连接-WiFi" class="headerlink" title="连接 WiFi"></a>连接 WiFi</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmcli device wifi connect <span class="string">&quot;WiFi名&quot;</span> password <span class="string">&quot;WiFi密码&quot;</span></span><br></pre></td></tr></table></figure>
-
+<h3 id="开启-WiFi"><a href="#开启-WiFi" class="headerlink" title="开启 WiFi"></a>开启 WiFi</h3><pre><code class="bash">nmcli radio wifi on
+</code></pre>
+<h3 id="关闭-WiFi"><a href="#关闭-WiFi" class="headerlink" title="关闭 WiFi"></a>关闭 WiFi</h3><pre><code class="bash">nmcli radio wifi off
+</code></pre>
+<h3 id="扫描-WiFi"><a href="#扫描-WiFi" class="headerlink" title="扫描 WiFi"></a>扫描 WiFi</h3><pre><code class="bash">nmcli device wifi list
+</code></pre>
+<h3 id="重新扫描-WiFi"><a href="#重新扫描-WiFi" class="headerlink" title="重新扫描 WiFi"></a>重新扫描 WiFi</h3><pre><code class="bash">nmcli device wifi rescan
+</code></pre>
+<h3 id="连接-WiFi"><a href="#连接-WiFi" class="headerlink" title="连接 WiFi"></a>连接 WiFi</h3><pre><code class="bash">nmcli device wifi connect &quot;WiFi名&quot; password &quot;WiFi密码&quot;
+</code></pre>
 <h3 id="更多"><a href="#更多" class="headerlink" title="更多"></a>更多</h3><p>更多 nmcli 用法可以使用<code>man nmcli</code></p>
 <p>更多 nmcli wifi 的操作可以使用<code>nmcli device wifi help</code></p>
 <hr>
@@ -215,12 +215,14 @@
 <h2 id="18-04版本修改DNS"><a href="#18-04版本修改DNS" class="headerlink" title="18.04版本修改DNS"></a>18.04版本修改DNS</h2><p>修改文件<code>/etc/systemd/resolved.conf</code>。</p>
 <h3 id="找对修改文件"><a href="#找对修改文件" class="headerlink" title="找对修改文件"></a>找对修改文件</h3><p>在 CentOS 下，修改 DNS 可以通过修改<code>/etc/resolv.conf</code>(或直接编辑网卡)，在 Ubuntu18.04 上也有<code>/etc/resolve.conf</code>，但是注释却提醒不能在此处修改，计算机重启后修改将会被重置。<br><img src="/no.jpg" alt="no~"></p>
 <p>查看<code>/etc/systemd/resolved.conf</code>文件可以看到有<code>DNS=</code>且没有特殊说明。</p>
-<figure class="highlight profile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DNS=<span class="number">114.114</span><span class="number">.114</span><span class="number">.114</span></span><br><span class="line"># 多个DNS直接添加DNS即可</span><br><span class="line"># DNS=<span class="number">8.8</span><span class="number">.8</span><span class="number">.8</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="重启服务以更新修改"><a href="#重启服务以更新修改" class="headerlink" title="重启服务以更新修改"></a>重启服务以更新修改</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart systemd-resolved.service</span><br></pre></td></tr></table></figure>
-
-<h3 id="查看修改是否成功"><a href="#查看修改是否成功" class="headerlink" title="查看修改是否成功"></a>查看修改是否成功</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemed-resolve --status</span><br></pre></td></tr></table></figure>
-
+<pre><code class="profile">DNS=114.114.114.114
+# 多个DNS直接添加DNS即可
+# DNS=8.8.8.8
+</code></pre>
+<h3 id="重启服务以更新修改"><a href="#重启服务以更新修改" class="headerlink" title="重启服务以更新修改"></a>重启服务以更新修改</h3><pre><code class="bash">sudo systemctl restart systemd-resolved.service
+</code></pre>
+<h3 id="查看修改是否成功"><a href="#查看修改是否成功" class="headerlink" title="查看修改是否成功"></a>查看修改是否成功</h3><pre><code class="bash">systemed-resolve --status
+</code></pre>
 <p><img src="/dns.jpg" alt="DNS information"></p>
 
     

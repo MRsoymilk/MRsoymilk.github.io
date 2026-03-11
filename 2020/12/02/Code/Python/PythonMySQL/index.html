@@ -172,92 +172,168 @@
 <li>mysql-connector-python</li>
 </ul>
 <p>安装:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install mysql-connector-python</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">pip install mysql-connector-python
+</code></pre>
 <span id="more"></span>
 
 <h2 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h2><p>连接方式:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> mysql.connector</span><br><span class="line"></span><br><span class="line">mydb = mysql.connector.connect(</span><br><span class="line">  host=<span class="string">&quot;localhost or others&quot;</span>, user=<span class="string">&quot;your_user_name&quot;</span>, password=<span class="string">&quot;your_password&quot;</span></span><br><span class="line">)</span><br><span class="line"><span class="built_in">print</span>(mydb)</span><br></pre></td></tr></table></figure>
+<pre><code class="python">import mysql.connector
 
+mydb = mysql.connector.connect(
+  host=&quot;localhost or others&quot;, user=&quot;your_user_name&quot;, password=&quot;your_password&quot;
+)
+print(mydb)
+</code></pre>
 <p>结果:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;mysql.connector.connection_cext.CMySQLConnection object at 0x7f04e4d56460&gt;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">&lt;mysql.connector.connection_cext.CMySQLConnection object at 0x7f04e4d56460&gt;
+</code></pre>
 <p>无报错说明安装成功。</p>
 <h2 id="创建Database"><a href="#创建Database" class="headerlink" title="创建Database"></a>创建Database</h2><p>连接方式:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> mysql.connector</span><br><span class="line"></span><br><span class="line">mydb = mysql.connector.connect(</span><br><span class="line">  host=<span class="string">&#x27;localhost&#x27;</span>,</span><br><span class="line">  user=<span class="string">&#x27;milk&#x27;</span>,</span><br><span class="line">  password=<span class="string">&#x27;mypassword&#x27;</span></span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line">cursor = mydb.cursor()</span><br><span class="line">cursor.execute(<span class="string">&#x27;Create Database test&#x27;</span>)</span><br><span class="line"></span><br><span class="line">cursor.execute(<span class="string">&#x27;show databases&#x27;</span>)</span><br><span class="line">cursor.fetchall()</span><br></pre></td></tr></table></figure>
+<pre><code class="python">import mysql.connector
 
+mydb = mysql.connector.connect(
+  host=&#39;localhost&#39;,
+  user=&#39;milk&#39;,
+  password=&#39;mypassword&#39;
+  )
+
+cursor = mydb.cursor()
+cursor.execute(&#39;Create Database test&#39;)
+
+cursor.execute(&#39;show databases&#39;)
+cursor.fetchall()
+</code></pre>
 <p>个人做了简化的输出值:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[(<span class="string">&#x27;test&#x27;</span>,)]</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">[(&#39;test&#39;,)]
+</code></pre>
 <p>MySQL命令行中使用<code>show databases;</code>，新增据库<code>test</code></p>
 <h2 id="Table操作"><a href="#Table操作" class="headerlink" title="Table操作"></a>Table操作</h2><p>创建Table</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> mysql.connector</span><br><span class="line"></span><br><span class="line">mydb = mysql.connector.connect(</span><br><span class="line">  host=<span class="string">&quot;localhost&quot;</span>,</span><br><span class="line">  user=<span class="string">&quot;milk&quot;</span>,</span><br><span class="line">  password=<span class="string">&quot;mypassword&quot;</span>,</span><br><span class="line">  database=<span class="string">&quot;test&quot;</span></span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line">cursor = mydb.cursor()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建表 方式一</span></span><br><span class="line">cursor.execute(<span class="string">&quot;Create Table student(name Varchar(255), score Int)&quot;</span>)</span><br><span class="line">cursor.execute(<span class="string">&quot;Alter Table student Add Column id Int Auto_Increment Primary Key&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建表 方式二</span></span><br><span class="line">cursor.execute(<span class="string">&quot;Create Table student (id Int Auto_Increment Primary Key, name Varchar(255), score Int)&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查表</span></span><br><span class="line">cursor.execute(<span class="string">&quot;show tables&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取内容</span></span><br><span class="line">cursor.fetchall()</span><br></pre></td></tr></table></figure>
+<pre><code class="python">import mysql.connector
 
+mydb = mysql.connector.connect(
+  host=&quot;localhost&quot;,
+  user=&quot;milk&quot;,
+  password=&quot;mypassword&quot;,
+  database=&quot;test&quot;
+  )
+
+cursor = mydb.cursor()
+
+# 创建表 方式一
+cursor.execute(&quot;Create Table student(name Varchar(255), score Int)&quot;)
+cursor.execute(&quot;Alter Table student Add Column id Int Auto_Increment Primary Key&quot;)
+
+# 创建表 方式二
+cursor.execute(&quot;Create Table student (id Int Auto_Increment Primary Key, name Varchar(255), score Int)&quot;)
+
+# 检查表
+cursor.execute(&quot;show tables&quot;)
+
+# 获取内容
+cursor.fetchall()
+</code></pre>
 <p>输出值:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[(<span class="string">&#x27;student&#x27;</span>,)]</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">[(&#39;student&#39;,)]
+</code></pre>
 <p>删除任何存在的Table</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sql = <span class="string">&quot;Drop Table student&quot;</span></span><br><span class="line">cursor.execute(sql)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="python">sql = &quot;Drop Table student&quot;
+cursor.execute(sql)
+</code></pre>
 <p>Table已经删除或其他原因无法退出，使用<code>IF EXISTS</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sql = <span class="string">&quot;Drop Table If Exists student&quot;</span></span><br><span class="line">cursor.execute(sql)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="python">sql = &quot;Drop Table If Exists student&quot;
+cursor.execute(sql)
+</code></pre>
 <p>Table Join操作</p>
 <ul>
 <li>内连接，可以使用Join替代Inner Join</li>
 <li>左连接，left join</li>
 <li>右连接，right join</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sql = <span class="string">&quot;select \</span></span><br><span class="line"><span class="string">  a.name as a, b.name as b \</span></span><br><span class="line"><span class="string">  from a inner join b \</span></span><br><span class="line"><span class="string">  on a.id = b.id&quot;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="python">sql = &quot;select \
+  a.name as a, b.name as b \
+  from a inner join b \
+  on a.id = b.id&quot;
+</code></pre>
 <h2 id="增删改查"><a href="#增删改查" class="headerlink" title="增删改查"></a>增删改查</h2><p>使用<code>mydb.commit()</code>进行梗概。否则不做任何更改。</p>
 <h3 id="增-Insert-Into"><a href="#增-Insert-Into" class="headerlink" title="增 Insert Into"></a>增 Insert Into</h3><p>增加单行数据</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sql = <span class="string">&quot;Insert Into student(name, score) Values (%s, %s)&quot;</span></span><br><span class="line">val = (<span class="string">&#x27;soy&#x27;</span>, <span class="number">60</span>)</span><br><span class="line">cursor.execute(sql, val)</span><br><span class="line">mydb.commit()</span><br></pre></td></tr></table></figure>
-
+<pre><code class="python">sql = &quot;Insert Into student(name, score) Values (%s, %s)&quot;
+val = (&#39;soy&#39;, 60)
+cursor.execute(sql, val)
+mydb.commit()
+</code></pre>
 <p>增加多行数据</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sql = <span class="string">&quot;Insert Into student(name, score) Values(%s, %s)&quot;</span></span><br><span class="line">val = [</span><br><span class="line">  (<span class="string">&#x27;xiao ming&#x27;</span>, <span class="string">&#x27;66&#x27;</span>),</span><br><span class="line">  (<span class="string">&#x27;zhang san&#x27;</span>, <span class="string">&#x27;77&#x27;</span>),</span><br><span class="line">  (<span class="string">&#x27;li si&#x27;</span>, <span class="string">&#x27;80&#x27;</span>)</span><br><span class="line">]</span><br><span class="line">cursor.executemany(sql, val)</span><br><span class="line">mydb.commit()</span><br></pre></td></tr></table></figure>
-
+<pre><code class="python">sql = &quot;Insert Into student(name, score) Values(%s, %s)&quot;
+val = [
+  (&#39;xiao ming&#39;, &#39;66&#39;),
+  (&#39;zhang san&#39;, &#39;77&#39;),
+  (&#39;li si&#39;, &#39;80&#39;)
+]
+cursor.executemany(sql, val)
+mydb.commit()
+</code></pre>
 <p>获取插入id，插入行id，多行插入则为最后一个插入行</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cursor.lastrowid</span><br></pre></td></tr></table></figure>
-
+<pre><code class="python">cursor.lastrowid
+</code></pre>
 <h3 id="删-Delete-From"><a href="#删-Delete-From" class="headerlink" title="删 Delete From"></a>删 Delete From</h3><p>使用<code>cursor.commit()</code>后产生变化</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sql = <span class="string">&quot;delete from student where name=&#x27;xiao ming&#x27;&quot;</span></span><br><span class="line">cursor.execute(sql)</span><br><span class="line">mydb.commit()</span><br></pre></td></tr></table></figure>
-
+<pre><code class="python">sql = &quot;delete from student where name=&#39;xiao ming&#39;&quot;
+cursor.execute(sql)
+mydb.commit()
+</code></pre>
 <p>使用占位符<code>%s</code>预防SQL注入</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sql = <span class="string">&quot;delete from student where score=%s&quot;</span></span><br><span class="line">val = (<span class="number">90</span>, )</span><br><span class="line">cursor.execute(sql, val)</span><br><span class="line">mydb.commit()</span><br></pre></td></tr></table></figure>
-
+<pre><code class="python">sql = &quot;delete from student where score=%s&quot;
+val = (90, )
+cursor.execute(sql, val)
+mydb.commit()
+</code></pre>
 <h3 id="改-Update"><a href="#改-Update" class="headerlink" title="改 Update"></a>改 Update</h3><p>使用<code>mydb.commit()</code>执行更改。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sql = <span class="string">&quot;update student Set name = &#x27;xiao hei&#x27; Where score=90&quot;</span></span><br><span class="line">cursor.execute(sql)</span><br><span class="line">mydb.commit()</span><br></pre></td></tr></table></figure>
-
+<pre><code class="python">sql = &quot;update student Set name = &#39;xiao hei&#39; Where score=90&quot;
+cursor.execute(sql)
+mydb.commit()
+</code></pre>
 <p>使用占位符<code>%s</code>防止SQL注入</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sql = <span class="string">&quot;update student set name=%s where score=%s&quot;</span></span><br><span class="line">val = (<span class="string">&#x27;xiao ming&#x27;</span>, <span class="number">90</span>)</span><br><span class="line">cursor.execute(sql, val)</span><br><span class="line">mydb.commit()</span><br></pre></td></tr></table></figure>
+<pre><code class="python">sql = &quot;update student set name=%s where score=%s&quot;
+val = (&#39;xiao ming&#39;, 90)
+cursor.execute(sql, val)
+mydb.commit()
+</code></pre>
+<h3 id="查-Select"><a href="#查-Select" class="headerlink" title="查 Select"></a>查 Select</h3><pre><code class="python">cursor.execute(&#39;select * from student&#39;)
+result = cursor.fetchall()  # 获取所有行
+for x in result:
+  print(x)
 
-<h3 id="查-Select"><a href="#查-Select" class="headerlink" title="查 Select"></a>查 Select</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cursor.execute(<span class="string">&#x27;select * from student&#x27;</span>)</span><br><span class="line">result = cursor.fetchall()  <span class="comment"># 获取所有行</span></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> result:</span><br><span class="line">  <span class="built_in">print</span>(x)</span><br><span class="line"></span><br><span class="line">result = cursor.fetchone()  <span class="comment"># 获取第一行</span></span><br></pre></td></tr></table></figure>
-
+result = cursor.fetchone()  # 获取第一行
+</code></pre>
 <p>where 条件</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sql = <span class="string">&quot;Select * From student Where score &gt; 80&quot;</span></span><br><span class="line">cursor.execute(sql)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="python">sql = &quot;Select * From student Where score &gt; 80&quot;
+cursor.execute(sql)
+</code></pre>
 <p>通配符条件</p>
 <p>使用<code>%</code>表示字符之间。</p>
 <p>例如名字中包含<code>l</code>的同学:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sql = <span class="string">&quot;Select * from student Where name Like &#x27;%l%&#x27;&quot;</span></span><br><span class="line">cursor.execute(sql)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="python">sql = &quot;Select * from student Where name Like &#39;%l%&#39;&quot;
+cursor.execute(sql)
+</code></pre>
 <p>数据排序 <code>Order By</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sql = <span class="string">&quot;select * from student Order By score&quot;</span> <span class="comment"># 默认升序</span></span><br><span class="line">sql = <span class="string">&quot;select * from student Order By score DESC&quot;</span> <span class="comment"># 降序</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="python">sql = &quot;select * from student Order By score&quot; # 默认升序
+sql = &quot;select * from student Order By score DESC&quot; # 降序
+</code></pre>
 <p>限制数据量 <code>LIMIT</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sql = <span class="string">&quot;select * from student Limit 5&quot;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="python">sql = &quot;select * from student Limit 5&quot;
+</code></pre>
 <p>从指定位置开始 <code>OFFSET</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sql = <span class="string">&quot;select * from student offset 2&quot;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="python">sql = &quot;select * from student offset 2&quot;
+</code></pre>
 <h2 id="SQL注入预防"><a href="#SQL注入预防" class="headerlink" title="SQL注入预防"></a>SQL注入预防</h2><p>使用占位符<code>%s</code>，字符串或数字或其他类型</p>
 <p><code>%s</code>是固定的，可以是字符串、数字。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sql = <span class="string">&quot;Select * from student where score=%d&quot;</span></span><br><span class="line">val = (<span class="number">90</span>, )</span><br><span class="line">cursor.execute(sql, val)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="python">sql = &quot;Select * from student where score=%d&quot;
+val = (90, )
+cursor.execute(sql, val)
+</code></pre>
 <p>另一种数传递方法</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sql = <span class="string">&quot;select * from student where score=%(score)s&quot;</span></span><br><span class="line">val = &#123;<span class="string">&#x27;score&#x27;</span>:<span class="number">90</span>&#125;</span><br><span class="line">cursor.execute(sql, val)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="python">sql = &quot;select * from student where score=%(score)s&quot;
+val = &#123;&#39;score&#39;:90&#125;
+cursor.execute(sql, val)
+</code></pre>
 
     
     <hr>

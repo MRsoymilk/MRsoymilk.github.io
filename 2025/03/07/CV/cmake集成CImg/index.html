@@ -160,14 +160,56 @@
     </div>
     <hr>
     
-    <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --depth=1 https://github.com/GreycLab/CImg.git vendor/CImg</span><br></pre></td></tr></table></figure>
+    <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><pre><code class="bash">git clone --depth=1 https://github.com/GreycLab/CImg.git vendor/CImg
+</code></pre>
+<h2 id="目录树"><a href="#目录树" class="headerlink" title="目录树"></a>目录树</h2><pre><code class="plaintext">tree -L 2
+.
+├── build
+│   └── test.jpg
+├── CMakeLists.txt
+├── main.cpp
+└── vendor
+    └── CImg
+</code></pre>
+<h2 id="CMakeLists-txt"><a href="#CMakeLists-txt" class="headerlink" title="CMakeLists.txt"></a>CMakeLists.txt</h2><pre><code class="cmake">cmake_minimum_required(VERSION 3.10)
 
-<h2 id="目录树"><a href="#目录树" class="headerlink" title="目录树"></a>目录树</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tree -L 2</span><br><span class="line">.</span><br><span class="line">├── build</span><br><span class="line">│   └── test.jpg</span><br><span class="line">├── CMakeLists.txt</span><br><span class="line">├── main.cpp</span><br><span class="line">└── vendor</span><br><span class="line">    └── CImg</span><br></pre></td></tr></table></figure>
+# 项目名称
+project(CImgProject)
 
-<h2 id="CMakeLists-txt"><a href="#CMakeLists-txt" class="headerlink" title="CMakeLists.txt"></a>CMakeLists.txt</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.10</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 项目名称</span></span><br><span class="line"><span class="keyword">project</span>(CImgProject)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 C++ 标准</span></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">11</span>)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD_REQUIRED <span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加 CImg 头文件目录</span></span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">$&#123;CMAKE_SOURCE_DIR&#125;</span>/vendor/CImg)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果需要使用 X11（比如在 Unix 环境下显示图像）</span></span><br><span class="line"><span class="keyword">if</span>(UNIX)</span><br><span class="line">    <span class="keyword">find_package</span>(X11 REQUIRED)</span><br><span class="line">    <span class="keyword">include_directories</span>(<span class="variable">$&#123;X11_INCLUDE_DIR&#125;</span>)</span><br><span class="line">    <span class="keyword">set</span>(LIBS <span class="variable">$&#123;LIBS&#125;</span> <span class="variable">$&#123;X11_LIBRARIES&#125;</span>)</span><br><span class="line"><span class="keyword">endif</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编译可执行文件</span></span><br><span class="line"><span class="keyword">add_executable</span>(cimg_example main.cpp)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 链接库（如果需要 X11）</span></span><br><span class="line"><span class="keyword">if</span>(UNIX)</span><br><span class="line">    <span class="keyword">target_link_libraries</span>(cimg_example <span class="variable">$&#123;LIBS&#125;</span>)</span><br><span class="line"><span class="keyword">endif</span>()</span><br></pre></td></tr></table></figure>
+# 设置 C++ 标准
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-<h2 id="显示图片"><a href="#显示图片" class="headerlink" title="显示图片"></a>显示图片</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;CImg.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cimg_library;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 加载图像</span></span><br><span class="line">  <span class="function">CImg&lt;<span class="type">unsigned</span> <span class="type">char</span>&gt; <span class="title">image</span><span class="params">(<span class="string">&quot;test.jpg&quot;</span>)</span></span>;</span><br><span class="line">  <span class="comment">// 显示图像</span></span><br><span class="line">  image.<span class="built_in">display</span>(<span class="string">&quot;Loaded Image&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+# 添加 CImg 头文件目录
+include_directories($&#123;CMAKE_SOURCE_DIR&#125;/vendor/CImg)
 
+# 如果需要使用 X11（比如在 Unix 环境下显示图像）
+if(UNIX)
+    find_package(X11 REQUIRED)
+    include_directories($&#123;X11_INCLUDE_DIR&#125;)
+    set(LIBS $&#123;LIBS&#125; $&#123;X11_LIBRARIES&#125;)
+endif()
+
+# 编译可执行文件
+add_executable(cimg_example main.cpp)
+
+# 链接库（如果需要 X11）
+if(UNIX)
+    target_link_libraries(cimg_example $&#123;LIBS&#125;)
+endif()
+</code></pre>
+<h2 id="显示图片"><a href="#显示图片" class="headerlink" title="显示图片"></a>显示图片</h2><pre><code class="cpp">#include &quot;CImg.h&quot;
+
+using namespace cimg_library;
+
+int main() &#123;
+  // 加载图像
+  CImg&lt;unsigned char&gt; image(&quot;test.jpg&quot;);
+  // 显示图像
+  image.display(&quot;Loaded Image&quot;);
+  return 0;
+&#125;
+</code></pre>
 <p><img src="/output.jpg" alt="output"></p>
 
     

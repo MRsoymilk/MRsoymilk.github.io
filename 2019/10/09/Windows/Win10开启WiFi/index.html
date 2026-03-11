@@ -171,11 +171,11 @@
 <span id="more"></span>
 
 <h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><h3 id="一-启动命令行窗口"><a href="#一-启动命令行窗口" class="headerlink" title="(一)启动命令行窗口"></a>(一)启动命令行窗口</h3><p>以**<span style="color:red">管理员权限</span>**打开命令行窗口<br><em>关于管理员权限的启动：鼠标右击，选择以管理员身份运行</em><br>我使用的是 powershell<br><img src="/powershell.png" alt="start powershell"></p>
-<h3 id="二-第一条命令"><a href="#二-第一条命令" class="headerlink" title="(二)第一条命令"></a>(二)第一条命令</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh wlan <span class="built_in">set</span> hostednetwork mode=allow ssid=soymilk key=hello.milk</span><br></pre></td></tr></table></figure>
-
+<h3 id="二-第一条命令"><a href="#二-第一条命令" class="headerlink" title="(二)第一条命令"></a>(二)第一条命令</h3><pre><code class="powershell">netsh wlan set hostednetwork mode=allow ssid=soymilk key=hello.milk
+</code></pre>
 <p><strong>ssid</strong>: 热点名称<br><strong>key</strong>: 热点密码</p>
-<h3 id="三-第二条命令"><a href="#三-第二条命令" class="headerlink" title="(三)第二条命令"></a>(三)第二条命令</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh wlan <span class="built_in">start</span> hostednetwork</span><br></pre></td></tr></table></figure>
-
+<h3 id="三-第二条命令"><a href="#三-第二条命令" class="headerlink" title="(三)第二条命令"></a>(三)第二条命令</h3><pre><code class="powershell">netsh wlan start hostednetwork
+</code></pre>
 <p>启动网络</p>
 <h3 id="四-分享你的网络"><a href="#四-分享你的网络" class="headerlink" title="(四)分享你的网络"></a>(四)分享你的网络</h3><p>第一步: 启动网络和 Internet 设置<br><img src="/setting.png" alt="netwrok setting"></p>
 <p>第二步: 更改适配器选项<br><img src="/adapter.png" alt="change adapter"></p>

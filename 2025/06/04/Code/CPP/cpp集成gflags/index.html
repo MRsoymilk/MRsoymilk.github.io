@@ -173,25 +173,62 @@
 <span id="more"></span>
 
 <h2 id="简单集成"><a href="#简单集成" class="headerlink" title="简单集成"></a>简单集成</h2><p>项目结构：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── build</span><br><span class="line">├── CMakeLists.txt</span><br><span class="line">├── main.cpp</span><br><span class="line">└── vendor</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">.
+├── build
+├── CMakeLists.txt
+├── main.cpp
+└── vendor
+</code></pre>
 <p>输出</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/gflags/gflags.git vendor/gflags</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">git clone https://github.com/gflags/gflags.git vendor/gflags
+</code></pre>
 <p>CMakeLists.txt 文件：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.10</span>)</span><br><span class="line"><span class="keyword">project</span>(<span class="keyword">test</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">17</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_subdirectory</span>(vendor/gflags)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_executable</span>(<span class="keyword">test</span> main.cpp)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_link_libraries</span>(<span class="keyword">test</span> gflags)</span><br></pre></td></tr></table></figure>
+<pre><code class="cmake">cmake_minimum_required(VERSION 3.10)
+project(test)
 
+set(CMAKE_CXX_STANDARD 17)
+
+add_subdirectory(vendor/gflags)
+
+add_executable(test main.cpp)
+
+target_link_libraries(test gflags)
+</code></pre>
 <p>main.cpp 文件：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;gflags/gflags.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="built_in">DEFINE_bool</span>(debug, <span class="literal">false</span>, <span class="string">&quot;Enable debug mode&quot;</span>);</span><br><span class="line"><span class="built_in">DEFINE_int32</span>(port, <span class="number">8080</span>, <span class="string">&quot;Listening port&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>** argv)</span> </span>&#123;</span><br><span class="line">    gflags::<span class="built_in">SetUsageMessage</span>(<span class="string">&quot;Usage: ./test [options]&quot;</span>);</span><br><span class="line">    gflags::<span class="built_in">ParseCommandLineFlags</span>(&amp;argc, &amp;argv, <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Debug mode: &quot;</span> &lt;&lt; (FLAGS_debug ? <span class="string">&quot;ON&quot;</span> : <span class="string">&quot;OFF&quot;</span>) &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Listening on port: &quot;</span> &lt;&lt; FLAGS_port &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="cpp">#include &lt;iostream&gt;
+#include &quot;gflags/gflags.h&quot;
 
+DEFINE_bool(debug, false, &quot;Enable debug mode&quot;);
+DEFINE_int32(port, 8080, &quot;Listening port&quot;);
+
+int main(int argc, char** argv) &#123;
+    gflags::SetUsageMessage(&quot;Usage: ./test [options]&quot;);
+    gflags::ParseCommandLineFlags(&amp;argc, &amp;argv, true);
+
+    std::cout &lt;&lt; &quot;Debug mode: &quot; &lt;&lt; (FLAGS_debug ? &quot;ON&quot; : &quot;OFF&quot;) &lt;&lt; std::endl;
+    std::cout &lt;&lt; &quot;Listening on port: &quot; &lt;&lt; FLAGS_port &lt;&lt; std::endl;
+
+    return 0;
+&#125;
+</code></pre>
 <h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>无参数运行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./test</span><br><span class="line">Debug mode: OFF</span><br><span class="line">Listening on port: 8080</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">./test
+Debug mode: OFF
+Listening on port: 8080
+</code></pre>
 <p>带参数运行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./test --port=10086</span><br><span class="line">Debug mode: OFF</span><br><span class="line">Listening on port: 10086</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">./test --port=10086
+Debug mode: OFF
+Listening on port: 10086
+</code></pre>
 <p>查看帮助：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">./test --<span class="built_in">help</span></span><br><span class="line"><span class="built_in">test</span>: Usage: ./test [options]</span><br><span class="line"></span><br><span class="line">  Flags from /home/vv/tmp/cpp_gflags/main.cpp:</span><br><span class="line">    -debug (Enable debug mode) <span class="built_in">type</span>: bool default: <span class="literal">false</span></span><br><span class="line">    -port (Listening port) <span class="built_in">type</span>: int32 default: 8080</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">./test --help
+test: Usage: ./test [options]
+
+  Flags from /home/vv/tmp/cpp_gflags/main.cpp:
+    -debug (Enable debug mode) type: bool default: false
+    -port (Listening port) type: int32 default: 8080
+</code></pre>
 
     
     <hr>

@@ -172,27 +172,30 @@
 <p>安装：</p>
 <p>Gentoo:</p>
 <p>需要自己配置一下 USE 标志，bochs 需要<code>X</code>, <code>debugger</code>，nasm 无特殊要求。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> emerge -av bochs nasm</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">sudo emerge -av bochs nasm
+</code></pre>
 <p>Ubuntu:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install -y nasm bochs bochs-x</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">sudo apt install -y nasm bochs bochs-x
+</code></pre>
 <p>可选，安装 qemu：</p>
 <ul>
 <li>Gentoo:</li>
 </ul>
 <p>USE 标志使用<code>sdl</code>（图形化的控制台界面，否则会出现无窗口现象）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> emerge -av qemu</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">sudo emerge -av qemu
+</code></pre>
 <ul>
 <li>Ubuntu:</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install qemu-system-x86</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">sudo apt install qemu-system-x86
+</code></pre>
 <h2 id="BIOS-可以引导的程序"><a href="#BIOS-可以引导的程序" class="headerlink" title="BIOS 可以引导的程序"></a>BIOS 可以引导的程序</h2><p>首先编写一个最简单的 OS 程序，它的功能是清屏并在屏幕上显示 Hello, World!的信息。<br>如果使用 VIM 编辑器，在编写 nasm 汇编代码时使用<code>set ft=nasm</code>可启用 nasm 高亮。</p>
 <p>也可以在.vimrc 文件中添加以下内容，对 .asm 文件自动启用 nasm 支持</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot; autocmd</span></span><br><span class="line"><span class="string">if has(&quot;</span>autocmd<span class="string">&quot;)</span></span><br><span class="line"><span class="string">autocmd BufNewFile,Bufread *.asm set syntax=nasm</span></span><br><span class="line"><span class="string">endif&quot;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="sh">&quot; autocmd
+if has(&quot;autocmd&quot;)
+autocmd BufNewFile,Bufread *.asm set syntax=nasm
+endif&quot;
+</code></pre>
 <p>对 <code>.asm</code> 文件启用<code>set ft=nasm</code></p>
 <details>
 <summary>命令解释</summary>
@@ -202,33 +205,116 @@
 </details>
 
 <p>boot.asm 程序：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">org 0x7c00</span><br><span class="line"></span><br><span class="line">; clear screen</span><br><span class="line">mov ax, 0x0600</span><br><span class="line">mov bx, 0x0700</span><br><span class="line">mov cx, 0</span><br><span class="line">mov dx, 0x184f</span><br><span class="line">int 0x10</span><br><span class="line"></span><br><span class="line">; set focus</span><br><span class="line">mov ax, 0x0200</span><br><span class="line">mov bx, 0x0000</span><br><span class="line">mov cx, 0x0000</span><br><span class="line">int 0x10</span><br><span class="line"></span><br><span class="line">; display msg</span><br><span class="line">mov ax, 0x1301</span><br><span class="line">mov bx, 0x000f</span><br><span class="line">mov cx, MSG_LEN</span><br><span class="line">push ax</span><br><span class="line">mov ax, ds</span><br><span class="line">mov es, ax</span><br><span class="line">pop ax</span><br><span class="line">mov bp, MSG</span><br><span class="line">int 0x10</span><br><span class="line"></span><br><span class="line">fun:</span><br><span class="line">  hlt</span><br><span class="line">  jmp $</span><br><span class="line"></span><br><span class="line">MSG: db &quot;Hello, World!&quot;</span><br><span class="line">MSG_LEN equ $ - MSG</span><br><span class="line"></span><br><span class="line">times 510 - ($ - $$) db 0</span><br><span class="line">db 0x55, 0xaa</span><br></pre></td></tr></table></figure>
+<pre><code class="nasm">org 0x7c00
 
+; clear screen
+mov ax, 0x0600
+mov bx, 0x0700
+mov cx, 0
+mov dx, 0x184f
+int 0x10
+
+; set focus
+mov ax, 0x0200
+mov bx, 0x0000
+mov cx, 0x0000
+int 0x10
+
+; display msg
+mov ax, 0x1301
+mov bx, 0x000f
+mov cx, MSG_LEN
+push ax
+mov ax, ds
+mov es, ax
+pop ax
+mov bp, MSG
+int 0x10
+
+fun:
+  hlt
+  jmp $
+
+MSG: db &quot;Hello, World!&quot;
+MSG_LEN equ $ - MSG
+
+times 510 - ($ - $$) db 0
+db 0x55, 0xaa
+</code></pre>
 <p>编译</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nasm boot.asm</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">nasm boot.asm
+</code></pre>
 <p>默认生成 bin 格式的无后缀<code>boot</code>文件</p>
 <p>有两种方法查看写的程序，两种可以相互补充。主要看个人喜好。</p>
 <h3 id="使用-Bochs"><a href="#使用-Bochs" class="headerlink" title="使用 Bochs"></a>使用 Bochs</h3><p>使用 bochs 提供的工具 bximage 创建 os.img</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bximage -func=create -hd=10 -imgmode=flat -sectsize=512 os.img -q</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">bximage -func=create -hd=10 -imgmode=flat -sectsize=512 os.img -q
+</code></pre>
 <p>提示将<code>ata0-master: type=disk, path=&quot;os.img&quot;, mode=flat</code>写入 bochsrc 文件。bochsrc 文件是 bochs 执行需要的配置文件。默认查找顺序是<code>.bochsrc</code>，<code>bochsrc</code></p>
 <p>bochsrc 文件:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ata0-master: type=disk, path=&quot;os.img&quot;, mode=flat</span><br></pre></td></tr></table></figure>
-
+<pre><code class="plaintext">ata0-master: type=disk, path=&quot;os.img&quot;, mode=flat
+</code></pre>
 <p>写入 os.img</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=boot of=os.img bs=512 count=1 conv=notrunc</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">dd if=boot of=os.img bs=512 count=1 conv=notrunc
+</code></pre>
 <p>执行验证</p>
 <p>bochs</p>
-<h3 id="使用-qemu"><a href="#使用-qemu" class="headerlink" title="使用 qemu"></a>使用 qemu</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> boot.asm &gt; hello.img</span><br><span class="line">qemu-system-x86_64 hello.img</span><br></pre></td></tr></table></figure>
-
+<h3 id="使用-qemu"><a href="#使用-qemu" class="headerlink" title="使用 qemu"></a>使用 qemu</h3><pre><code class="bash">cat boot.asm &gt; hello.img
+qemu-system-x86_64 hello.img
+</code></pre>
 <p>运行结果</p>
 <p><img src="/hello.png" alt="hello"></p>
 <h2 id="更方便的用法"><a href="#更方便的用法" class="headerlink" title="更方便的用法"></a>更方便的用法</h2><p>主要是优化了输出语句</p>
 <p>新的 boot.asm 程序：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">org 0x7c00</span><br><span class="line"></span><br><span class="line">; clear screen</span><br><span class="line">mov ax, 0x0600</span><br><span class="line">mov bx, 0x0700</span><br><span class="line">mov cx, 0</span><br><span class="line">mov dx, 0x184f</span><br><span class="line">int 0x10</span><br><span class="line"></span><br><span class="line">; set focus</span><br><span class="line">mov ax, 0x0200</span><br><span class="line">mov bx, 0x0000</span><br><span class="line">mov cx, 0x0000</span><br><span class="line">int 0x10</span><br><span class="line"></span><br><span class="line">; print function</span><br><span class="line">print:</span><br><span class="line">  push ax</span><br><span class="line">  push bx</span><br><span class="line"></span><br><span class="line">  mov ah, 0x0e</span><br><span class="line">  .Loop:</span><br><span class="line">    cmp [bx], byte 0</span><br><span class="line">    je .Exit</span><br><span class="line">    mov al, [bx]</span><br><span class="line">    int 0x10</span><br><span class="line">    inc bx</span><br><span class="line">    jmp .Loop</span><br><span class="line">  .Exit:</span><br><span class="line">    pop bx</span><br><span class="line">    pop ax</span><br><span class="line">    ret</span><br><span class="line"></span><br><span class="line">; display msg</span><br><span class="line">mov bx, MSG</span><br><span class="line">call print</span><br><span class="line"></span><br><span class="line">mov bx, NICE</span><br><span class="line">call print</span><br><span class="line"></span><br><span class="line">fun:</span><br><span class="line">  hlt</span><br><span class="line">  jmp $</span><br><span class="line"></span><br><span class="line">MSG: db &quot;Hello, World!&quot;, 0x0d, 0x0a, 0</span><br><span class="line">NICE: db &quot;Love and Peace!&quot;, 0x0a, 0x0d, 0</span><br><span class="line"></span><br><span class="line">times 510 - ($ - $$) db 0</span><br><span class="line">db 0x55, 0xaa</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code class="nasm">org 0x7c00
 
+; clear screen
+mov ax, 0x0600
+mov bx, 0x0700
+mov cx, 0
+mov dx, 0x184f
+int 0x10
+
+; set focus
+mov ax, 0x0200
+mov bx, 0x0000
+mov cx, 0x0000
+int 0x10
+
+; print function
+print:
+  push ax
+  push bx
+
+  mov ah, 0x0e
+  .Loop:
+    cmp [bx], byte 0
+    je .Exit
+    mov al, [bx]
+    int 0x10
+    inc bx
+    jmp .Loop
+  .Exit:
+    pop bx
+    pop ax
+    ret
+
+; display msg
+mov bx, MSG
+call print
+
+mov bx, NICE
+call print
+
+fun:
+  hlt
+  jmp $
+
+MSG: db &quot;Hello, World!&quot;, 0x0d, 0x0a, 0
+NICE: db &quot;Love and Peace!&quot;, 0x0a, 0x0d, 0
+
+times 510 - ($ - $$) db 0
+db 0x55, 0xaa
+</code></pre>
 <p>Return &#x3D; CR &#x3D; 13 &#x3D; 0x0d &#x3D; <code>\r</code><br>NewLine &#x3D; LF &#x3D; 10 &#x3D; 0x0a &#x3D; <code>\n</code></p>
 <h2 id="一些解释"><a href="#一些解释" class="headerlink" title="一些解释"></a>一些解释</h2><h3 id="clear-screen"><a href="#clear-screen" class="headerlink" title="clear screen"></a>clear screen</h3><p>BIOS 中断服务程序 INT 0x10 主功能号 AH&#x3D;0x06。<br>作用：指定范围滚动窗口的功能，具备清屏功能<br>AL&#x3D;滚动的列数，0 实现清空屏幕功能，此时其他 Bx, CX, DX 寄存器参数不起作用。</p>
 <p>BH&#x3D;滚动后空出的位置放入的属性</p>

@@ -188,8 +188,8 @@
 <p><img src="/mine.png" alt="mine"></p>
 <p>配置文件见文章末。</p>
 <h2 id="色彩配置"><a href="#色彩配置" class="headerlink" title="色彩配置"></a>色彩配置</h2><p>tmux 以 256 色模式显示内容</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -g default-terminal <span class="string">&quot;screen-256colour&quot;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">set -g default-terminal &quot;screen-256colour&quot;
+</code></pre>
 <p>tmux 特定颜色变量</p>
 <ul>
 <li>black(黑)</li>
@@ -203,19 +203,30 @@
 </ul>
 <p>其它: colour0 ~ colour255</p>
 <p>简单 shell 脚本选择颜色</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> &#123;0..255&#125;; <span class="keyword">do</span></span><br><span class="line">  <span class="built_in">printf</span> <span class="string">&quot;\x1b[38;5;<span class="variable">$&#123;i&#125;</span>mcolour<span class="variable">$&#123;i&#125;</span>\n&quot;</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">for i in &#123;0..255&#125;; do
+  printf &quot;\x1b[38;5;$&#123;i&#125;mcolour$&#123;i&#125;\n&quot;
+done
+</code></pre>
 <h2 id="状态栏颜色"><a href="#状态栏颜色" class="headerlink" title="状态栏颜色"></a>状态栏颜色</h2><p>默认配色: 亮绿色背景, 黑色字体</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 黑色背景, 白色字体</span></span><br><span class="line"><span class="built_in">set</span> -g status-style <span class="built_in">fg</span>=white  <span class="comment"># 前景色</span></span><br><span class="line"><span class="built_in">set</span> -g status-style <span class="built_in">bg</span>=black  <span class="comment"># 背景色</span></span><br></pre></td></tr></table></figure>
+<pre><code class="bash"># 黑色背景, 白色字体
+set -g status-style fg=white  # 前景色
+set -g status-style bg=black  # 背景色
+</code></pre>
+<h2 id="窗口列表配色"><a href="#窗口列表配色" class="headerlink" title="窗口列表配色"></a>窗口列表配色</h2><pre><code class="bash">setw -g window-status-style fg=cyan  # 活动窗口颜色为蓝绿色
+</code></pre>
+<pre><code class="bash">setw -g window-status-current-style fg=white
+setw -g window-status-current-style bg=red
+</code></pre>
+<h2 id="命令行配色"><a href="#命令行配色" class="headerlink" title="命令行配色"></a>命令行配色</h2><pre><code class="bash">set -g message-style fg=white
+set -g message-style bg=black
+set -g message-style bright
+</code></pre>
+<h2 id="改变面板分隔符配色"><a href="#改变面板分隔符配色" class="headerlink" title="改变面板分隔符配色"></a>改变面板分隔符配色</h2><pre><code class="bash">set -g pane-border-style fg=white
+set -g pane-border-style bg=green
 
-<h2 id="窗口列表配色"><a href="#窗口列表配色" class="headerlink" title="窗口列表配色"></a>窗口列表配色</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setw -g window-status-style <span class="built_in">fg</span>=cyan  <span class="comment"># 活动窗口颜色为蓝绿色</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setw -g window-status-current-style <span class="built_in">fg</span>=white</span><br><span class="line">setw -g window-status-current-style <span class="built_in">bg</span>=red</span><br></pre></td></tr></table></figure>
-
-<h2 id="命令行配色"><a href="#命令行配色" class="headerlink" title="命令行配色"></a>命令行配色</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -g message-style <span class="built_in">fg</span>=white</span><br><span class="line"><span class="built_in">set</span> -g message-style <span class="built_in">bg</span>=black</span><br><span class="line"><span class="built_in">set</span> -g message-style bright</span><br></pre></td></tr></table></figure>
-
-<h2 id="改变面板分隔符配色"><a href="#改变面板分隔符配色" class="headerlink" title="改变面板分隔符配色"></a>改变面板分隔符配色</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -g pane-border-style <span class="built_in">fg</span>=white</span><br><span class="line"><span class="built_in">set</span> -g pane-border-style <span class="built_in">bg</span>=green</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> -g pane-active-border-style <span class="built_in">fg</span>=red</span><br><span class="line"><span class="built_in">set</span> -g pane-active-border-style <span class="built_in">bg</span>=green</span><br></pre></td></tr></table></figure>
-
+set -g pane-active-border-style fg=red
+set -g pane-active-border-style bg=green
+</code></pre>
 <h2 id="定制状态栏"><a href="#定制状态栏" class="headerlink" title="定制状态栏"></a>定制状态栏</h2><p>tmux 状态栏能显示非常多的信息, 通过执行 shell 命令使用预定义的组件(components)或者创建我们自己的组件</p>
 <p>状态栏组件</p>
 <ul>
@@ -311,17 +322,47 @@
 </tbody></table>
 <p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/strftime/9569073?fr=aladdin">更多</a></p>
 <p><strong>使用示例</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -g status-left <span class="string">&quot;#[fg=green]#S#[fg=yellow]-#I#[fg=cyan]-#P&quot;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="bash">set -g status-left &quot;#[fg=green]#S#[fg=yellow]-#I#[fg=cyan]-#P&quot;
+</code></pre>
+<h2 id="状态栏开启-UTF-8-支持"><a href="#状态栏开启-UTF-8-支持" class="headerlink" title="状态栏开启 UTF-8 支持"></a>状态栏开启 UTF-8 支持</h2><pre><code class="bash">set -g status-utf8 on
+</code></pre>
+<h2 id="状态栏的实时更新"><a href="#状态栏的实时更新" class="headerlink" title="状态栏的实时更新"></a>状态栏的实时更新</h2><pre><code class="bash">set -g status-interval 60s
+</code></pre>
+<h2 id="窗口列表居中显示"><a href="#窗口列表居中显示" class="headerlink" title="窗口列表居中显示"></a>窗口列表居中显示</h2><pre><code class="bash">set -g status-justify centre
+</code></pre>
+<h2 id="窗口活动通知"><a href="#窗口活动通知" class="headerlink" title="窗口活动通知"></a>窗口活动通知</h2><pre><code class="bash">setw -g monitor-activity on
+set -g visual-activity on
+</code></pre>
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><pre><code class="bash">set -g default-terminal &quot;screen-256color&quot;
 
-<h2 id="状态栏开启-UTF-8-支持"><a href="#状态栏开启-UTF-8-支持" class="headerlink" title="状态栏开启 UTF-8 支持"></a>状态栏开启 UTF-8 支持</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -g status-utf8 on</span><br></pre></td></tr></table></figure>
+set -g status-style fg=white
 
-<h2 id="状态栏的实时更新"><a href="#状态栏的实时更新" class="headerlink" title="状态栏的实时更新"></a>状态栏的实时更新</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -g status-interval 60s</span><br></pre></td></tr></table></figure>
+set -g status-style bg=black
 
-<h2 id="窗口列表居中显示"><a href="#窗口列表居中显示" class="headerlink" title="窗口列表居中显示"></a>窗口列表居中显示</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -g status-justify centre</span><br></pre></td></tr></table></figure>
+setw -g window-status-style fg=cyan
 
-<h2 id="窗口活动通知"><a href="#窗口活动通知" class="headerlink" title="窗口活动通知"></a>窗口活动通知</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setw -g monitor-activity on</span><br><span class="line"><span class="built_in">set</span> -g visual-activity on</span><br></pre></td></tr></table></figure>
+setw -g window-status-current-style fg=white
 
-<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -g default-terminal <span class="string">&quot;screen-256color&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> -g status-style <span class="built_in">fg</span>=white</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> -g status-style <span class="built_in">bg</span>=black</span><br><span class="line"></span><br><span class="line">setw -g window-status-style <span class="built_in">fg</span>=cyan</span><br><span class="line"></span><br><span class="line">setw -g window-status-current-style <span class="built_in">fg</span>=white</span><br><span class="line"></span><br><span class="line">setw -g window-status-current-style <span class="built_in">bg</span>=magenta</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> -g pane-border-style <span class="built_in">fg</span>=white</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> -g pane-active-border-style <span class="built_in">fg</span>=magenta</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> -g message-style <span class="built_in">fg</span>=colour186</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> -g message-style <span class="built_in">bg</span>=black</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> -g message-style bright</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> -g status-left <span class="string">&quot;#[fg=green]#S#[fg=yellow]-#I#[fg=cyan]-#P&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> -g status-justify centre</span><br><span class="line"></span><br><span class="line">setw -g monitor-activity on</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> -g visual-activity on</span><br></pre></td></tr></table></figure>
+setw -g window-status-current-style bg=magenta
+
+set -g pane-border-style fg=white
+
+set -g pane-active-border-style fg=magenta
+
+set -g message-style fg=colour186
+
+set -g message-style bg=black
+
+set -g message-style bright
+
+set -g status-left &quot;#[fg=green]#S#[fg=yellow]-#I#[fg=cyan]-#P&quot;
+
+set -g status-justify centre
+
+setw -g monitor-activity on
+
+set -g visual-activity on
+</code></pre>
 
     
     <hr>

@@ -176,38 +176,52 @@
 <details>
 <summary>Ubuntu</summary>
 
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install nginx</span><br></pre></td></tr></table></figure>
-
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><pre><code class="bash">sudo apt install nginx
+</code></pre>
 <h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>编辑配置文件<code>/etc/nginx/sites-available/default</code></p>
 <p>增加内容，其中<code>root</code>位置具体到项目可能有所不同。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">location /images/ &#123;</span><br><span class="line">  root /home/milk/picture-html;</span><br><span class="line">  autoindex on;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="config">location /images/ &#123;
+  root /home/milk/picture-html;
+  autoindex on;
+&#125;
+</code></pre>
 <ul>
 <li><code>root</code>：将<code>images</code>映射到<code>/home/milk/picture-html</code>路径。</li>
 <li><code>autoindex</code>：开启浏览功能。</li>
 </ul>
 <p>重启 nginx</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart nginx</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">sudo systemctl restart nginx
+</code></pre>
 <h2 id="可选"><a href="#可选" class="headerlink" title="可选"></a>可选</h2><p>nginx 默认时间是<code>UTC</code>，修改为本地</p>
 <p>编辑文件<code>/etc/nginx/nginx.conf</code>，<code>http</code>加入：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auto index_localtime on;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="config">auto index_localtime on;
+</code></pre>
 </details>
 
 <details>
 <summary>Gentoo</summary>
 
 <p>参考：<a target="_blank" rel="noopener" href="https://wiki.gentoo.org/wiki/Nginx/en">https://wiki.gentoo.org/wiki/Nginx/en</a></p>
-<h2 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> emerge -av nginx</span><br></pre></td></tr></table></figure>
-
-<h2 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> /var/www/localhost/htdocs</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;Hello, world!&#x27;</span> &gt; /var/www/localhost/htdocs/index.html</span><br></pre></td></tr></table></figure>
-
+<h2 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h2><pre><code class="bash">sudo emerge -av nginx
+</code></pre>
+<h2 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h2><pre><code class="bash">mkdir /var/www/localhost/htdocs
+echo &#39;Hello, world!&#39; &gt; /var/www/localhost/htdocs/index.html
+</code></pre>
 <p>网页访问<code>http://localhost</code></p>
 </details>
 
-<h2 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">  # ...</span><br><span class="line">  server &#123;</span><br><span class="line">      listen 8091;</span><br><span class="line">      server_name 127.0.0.1;</span><br><span class="line">      location / &#123;</span><br><span class="line">          proxy_pass http://192.168.2.154:18000;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  # ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<h2 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h2><pre><code class="conf">http &#123;
+  # ...
+  server &#123;
+      listen 8091;
+      server_name 127.0.0.1;
+      location / &#123;
+          proxy_pass http://192.168.2.154:18000;
+      &#125;
+  &#125;
+  # ...
+&#125;
+</code></pre>
 <p>访问本地，转发到服务器192.168.2.154</p>
 
     

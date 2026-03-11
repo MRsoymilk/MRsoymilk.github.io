@@ -171,18 +171,25 @@
 <p>个人使用建议选择最新版 Ubuntu，很多功能已经优化。</p>
 <span id="more"></span>
 
-<h2 id="安装工具"><a href="#安装工具" class="headerlink" title="安装工具"></a>安装工具</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install gnome-tweak-tool gnome-shell-extensions chrome-gnome-shell</span><br></pre></td></tr></table></figure>
-
+<h2 id="安装工具"><a href="#安装工具" class="headerlink" title="安装工具"></a>安装工具</h2><pre><code class="bash">sudo apt install gnome-tweak-tool gnome-shell-extensions chrome-gnome-shell
+</code></pre>
 <p><strong><code>gnome-tewak-tool</code>: 强大的美化工具</strong><br><strong><code>gnome-shell-extensions</code>: 为<code>gnome-tweak-tool</code>安装扩展插件</strong><br><strong><code>chrome-gnome-shell</code>: 可以在浏览器中管理插件, 打开浏览器安装插件<code>GNOME Shell integration</code></strong><br><img src="/gnome.jpg" alt="GNOME Shell"><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/pipci/p/10936665.html">一些扩展介绍</a></p>
 <h2 id="主题美化"><a href="#主题美化" class="headerlink" title="主题美化"></a>主题美化</h2><p><a target="_blank" rel="noopener" href="https://www.pling.com/">主题网址</a></p>
 <h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>解压放置在指定目录<br>主题和 shell：<code>/usr/share/themes/</code><br>图标：<code>/usr/share/icons/</code><br><strong>需要 root 权限</strong></p>
 <p>打开<code>gnome-tweak-tool</code>工具即可更改。<br><img src="/settings.jpg" alt="gnome-tweak-toos"></p>
 <h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>修改登录背景<br>修改文件<code>/etc/alternatives/gdm3.css</code></p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#lockDialogGroup</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#2c001e</span> <span class="built_in">url</span>(<span class="string">resource:///org/gnome/shell/theme/noise-texture.png</span>);</span><br><span class="line">  <span class="attribute">background-repeat</span>: repeat; &#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="CSS">#lockDialogGroup &#123;
+  background: #2c001e url(resource:///org/gnome/shell/theme/noise-texture.png);
+  background-repeat: repeat; &#125;
+</code></pre>
 <p>修改为</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#lockDialogGroup</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#2c001e</span> <span class="built_in">url</span>(<span class="string">file:///home/milk/Pictures/desktop.jpg</span>);</span><br><span class="line">  <span class="attribute">background-repeat</span>: no-repeat;</span><br><span class="line">  <span class="attribute">background-size</span>: cover;</span><br><span class="line">  <span class="attribute">background-position</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="CSS">#lockDialogGroup &#123;
+  background: #2c001e url(file:///home/milk/Pictures/desktop.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+&#125;
+</code></pre>
 <p><strong>url 内放置你的图片路径(以<code>file://</code>开头)</strong></p>
 <h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>重启后即可看到相应设置</p>
 

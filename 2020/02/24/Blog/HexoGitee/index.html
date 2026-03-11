@@ -187,8 +187,9 @@
 <h3 id="Gitee-Pages-服务"><a href="#Gitee-Pages-服务" class="headerlink" title="Gitee Pages 服务"></a>Gitee Pages 服务</h3><p>在本地使用了<code>hexo deploy</code>之后，登录你的<code>Gitee</code>，手动更新。</p>
 <p><img src="/GiteePages.png" alt="`Gitee Pages`"></p>
 <h2 id="后续操作"><a href="#后续操作" class="headerlink" title="后续操作"></a>后续操作</h2><h3 id="使用-config选项"><a href="#使用-config选项" class="headerlink" title="使用--config选项"></a>使用<code>--config</code>选项</h3><p>复制一份给<code>Gitee</code>使用，例如: <code>_config.gitee.yml</code>，更改相应配置</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g --config _config.gitee.yml  <span class="comment"># 生成文件</span></span><br><span class="line">hexo d --config _config.gitee.yml  <span class="comment"># 部署到Gitee</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">hexo g --config _config.gitee.yml  # 生成文件
+hexo d --config _config.gitee.yml  # 部署到Gitee
+</code></pre>
 <h3 id="比较麻烦的操作"><a href="#比较麻烦的操作" class="headerlink" title="比较麻烦的操作"></a>比较麻烦的操作</h3><p>为了实现<code>Gitee</code>和<code>Github</code>的部署，使用两份配置文件的方法。</p>
 <ul>
 <li>复制一份给<code>Gitee</code>：<code>_config.yml.gitee</code>，更改相应配置。</li>
@@ -198,7 +199,57 @@
 <p>在部署中，将对应的文件复制为<code>_config.yml</code></p>
 <p>常用的操作是<code>deploy</code>和<code>server</code>，然后写了如下的<code>shell</code>文件。</p>
 <p>使用方法：将文件方在博客文件夹根目录，<code>./myhexo d</code>同时部署，<code>./myhexo s</code>启动服务。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># file: myhexo</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># usage</span></span><br><span class="line"><span class="comment"># ./myhexo d</span></span><br><span class="line"><span class="comment"># ./myhexo s</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">judge</span></span>()&#123;</span><br><span class="line">  <span class="keyword">if</span> [[ -f <span class="string">&quot;_config.yml&quot;</span> ]]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">rm</span> _config.yml</span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">exec</span></span>()&#123;</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;✔-----<span class="variable">$1</span>-----hexo deploy&quot;</span></span><br><span class="line">  <span class="built_in">cp</span> <span class="string">&quot;_config.yml.<span class="variable">$1</span>&quot;</span> _config.yml</span><br><span class="line"></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;✔----------------hexo generate for <span class="variable">$1</span>&quot;</span></span><br><span class="line">  hexo g</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> [[ <span class="variable">$2</span> = <span class="string">&#x27;d&#x27;</span> ]]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;✔----------------hexo deploy for <span class="variable">$1</span>&quot;</span></span><br><span class="line">    hexo d</span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> [[ <span class="variable">$2</span> = <span class="string">&#x27;s&#x27;</span> ]]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;✔----------hexo server----------&quot;</span></span><br><span class="line">    hexo s</span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">  judge</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">judge</span><br><span class="line"></span><br><span class="line"><span class="keyword">case</span> <span class="variable">$1</span> <span class="keyword">in</span></span><br><span class="line">d)</span><br><span class="line">  <span class="built_in">exec</span> github d</span><br><span class="line">  <span class="built_in">exec</span> gitee d</span><br><span class="line">  ;;</span><br><span class="line">s)</span><br><span class="line">  <span class="built_in">exec</span> github s</span><br><span class="line">  ;;</span><br><span class="line">*)</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;✘----------wrong cmd----------&quot;</span></span><br><span class="line">  <span class="built_in">exit</span></span><br><span class="line"><span class="keyword">esac</span></span><br><span class="line"></span><br><span class="line">judge</span><br></pre></td></tr></table></figure>
+<pre><code class="sh">#!/bin/bash
+
+# file: myhexo
+
+# usage
+# ./myhexo d
+# ./myhexo s
+
+function judge()&#123;
+  if [[ -f &quot;_config.yml&quot; ]]; then
+    rm _config.yml
+  fi
+&#125;
+
+function exec()&#123;
+  echo &quot;✔-----$1-----hexo deploy&quot;
+  cp &quot;_config.yml.$1&quot; _config.yml
+
+  echo &quot;✔----------------hexo generate for $1&quot;
+  hexo g
+
+  if [[ $2 = &#39;d&#39; ]]; then
+    echo &quot;✔----------------hexo deploy for $1&quot;
+    hexo d
+  fi
+
+  if [[ $2 = &#39;s&#39; ]]; then
+    echo &quot;✔----------hexo server----------&quot;
+    hexo s
+  fi
+
+  judge
+&#125;
+
+judge
+
+case $1 in
+d)
+  exec github d
+  exec gitee d
+  ;;
+s)
+  exec github s
+  ;;
+*)
+  echo &quot;✘----------wrong cmd----------&quot;
+  exit
+esac
+
+judge
+</code></pre>
 
     
     <hr>
