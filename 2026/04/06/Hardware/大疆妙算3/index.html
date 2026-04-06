@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>使用树莓派4进行yolov5推理 [ Soymilk ]</title>
+  <title>大疆妙算3 [ Soymilk ]</title>
   
 <link rel="shortcut icon" href="/favicon/favicon.ico">
 
@@ -130,16 +130,16 @@
     <div class="milk-body">
       
 <div class="draggable-toc">
-  <div class="toc-title">使用树莓派4进行yolov5推理</div>
+  <div class="toc-title">大疆妙算3</div>
   <p>process: <span>0</span></p>
   <div class="progress-container">
     <div class="progress-bar" id="bar"></div>
   </div>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%98%E6%96%B9ISO%E4%B8%8B%E8%BD%BD%E9%95%9C%E5%83%8F%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="toc-text">官方ISO下载镜像与配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A0%E5%B1%8F%E5%B9%95%E9%85%8D%E7%BD%AE"><span class="toc-text">无屏幕配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%A9%E7%90%86%E7%BD%91%E7%BB%9C%E7%9B%B4%E8%BF%9E%EF%BC%8C%E4%B8%80%E6%A0%B9%E7%BD%91%E7%BA%BF"><span class="toc-text">物理网络直连，一根网线</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E8%BD%AF%E4%BB%B6%E6%BA%90"><span class="toc-text">配置软件源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEYolo"><span class="toc-text">配置Yolo</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5"><span class="toc-text">连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#demo%E8%BF%90%E8%A1%8C"><span class="toc-text">demo运行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E4%BF%A1"><span class="toc-text">通信</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-text">客户端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="toc-text">服务端</span></a></li></ol></li></ol>
 </div>
 
 <div class="post-content" id="post-content">
-  <div id="top">使用树莓派4进行yolov5推理</div>
+  <div id="top">大疆妙算3</div>
   <div class="post">
     
     <div class="content-categories">
@@ -150,15 +150,8 @@
         
           <li>&gt;</li>
           <li>
-            <a href="/categories/Microcomputer/">
-          Microcomputer
-        </a>
-          </li>
-      
-          <li>&gt;</li>
-          <li>
-            <a href="/categories/Microcomputer/Pi/">
-          Pi
+            <a href="/categories/Hardware/">
+          Hardware
         </a>
           </li>
       
@@ -167,169 +160,111 @@
     </div>
     <hr>
     
-    <h2 id="官方ISO下载镜像与配置"><a href="#官方ISO下载镜像与配置" class="headerlink" title="官方ISO下载镜像与配置"></a>官方ISO下载镜像与配置</h2><p><a target="_blank" rel="noopener" href="https://www.raspberrypi.com/software/">https://www.raspberrypi.com/software/</a></p>
-<p><img src="/setup_device.jpg" alt="配置设备"></p>
-<p><img src="/setup_os.jpg" alt="配置系统"></p>
-<p><img src="/setup_setting.jpg" alt="配置设置"></p>
-<p><img src="/setup_setting_ssh.jpg" alt="配置设置ssh"></p>
-<p><img src="/setup_complete.jpg" alt="配置完成"></p>
-<h2 id="无屏幕配置"><a href="#无屏幕配置" class="headerlink" title="无屏幕配置"></a>无屏幕配置</h2><pre><code class="bash">sudo nmap -sS -p 22 192.168.123.0/24 --open
+    <p>简单连接方式及demo</p>
+<p><a target="_blank" rel="noopener" href="https://developer.dji.com/doc/payload-sdk-tutorial/cn/manifold-quick-start/quick-demo.html">SDK</a></p>
+<p>两种方式：</p>
+<ul>
+<li>一种是通过USB-C直接供电+网络传输</li>
+<li>一种是通过无人机</li>
+</ul>
+<p><strong>使用USB-C一定要使用推荐的扩展坞！需要65W供电！</strong></p>
+<span id="more"></span>
+
+<p><img src="/to_connect.png" alt="to connect"></p>
+<h2 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h2><p>通过路由器查看ip：</p>
+<p><img src="/dji_connect.jpg" alt="dji connect"></p>
+<p>通过ssh连接到妙算3</p>
+<p><img src="/dji_ssh.jpg" alt="dji ssh"></p>
+<h2 id="demo运行"><a href="#demo运行" class="headerlink" title="demo运行"></a>demo运行</h2><p>创建应用</p>
+<p><img src="/create_app.jpg" alt="create app"></p>
+<p><img src="/create_app_info.jpg" alt="create app info"></p>
+<p>发送右键以激活应用</p>
+<p><img src="/create_app_send_email.jpg" alt="create app send email"></p>
+<p>应用已经激活</p>
+<p><img src="/create_app_activate.jpg" alt="create app activate"></p>
+<p>下载SDK<a target="_blank" rel="noopener" href="https://github.com/dji-sdk/Payload-SDK/releases">https://github.com/dji-sdk/Payload-SDK/releases</a></p>
+<p>编译对应文件</p>
+<pre><code class="bash">cd Payload-SDK-3.16.0/
+mkdir build
+cd build
+cmake ..
+make
 </code></pre>
-<p>输出</p>
-<pre><code class="bash">Starting Nmap 7.98 ( https://nmap.org ) at 2026-03-23 15:42 +0800
-Nmap scan report for 192.168.123.21
-Host is up (0.076s latency).
+<p><img src="/demo_exec.jpg" alt="demo exec"></p>
+<h2 id="通信"><a href="#通信" class="headerlink" title="通信"></a>通信</h2><p><img src="/py_connect.jpg" alt="py connect"></p>
+<h3 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h3><pre><code class="python">import socket
+import threading
 
-PORT   STATE SERVICE
-22/tcp open  ssh
-MAC Address: E4:5F:01:23:F0:E0 (Raspberry Pi Trading)
+HOST = &#39;192.168.1.9&#39;
+PORT = 6000
 
-Nmap scan report for 192.168.123.18
-Host is up (0.000080s latency).
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client.connect((HOST, PORT))
 
-PORT   STATE SERVICE
-22/tcp open  ssh
-
-Nmap done: 256 IP addresses (19 hosts up) scanned in 13.03 seconds
-</code></pre>
-<pre><code class="bash">ssh pi@192.168.123.21
-</code></pre>
-<h3 id="物理网络直连，一根网线"><a href="#物理网络直连，一根网线" class="headerlink" title="物理网络直连，一根网线"></a>物理网络直连，一根网线</h3><p>编辑文件<code>/etc/dhcpcd.conf</code></p>
-<p>末尾添加</p>
-<pre><code class="bash">interface eth0
-static ip_address=169.254.17.233/16
-</code></pre>
-<p>进行连接</p>
-<pre><code class="bash">ssh pi@169.254.17.233
-pi@169.254.17.233&#39;s password:
-</code></pre>
-<p>进入系统：</p>
-<pre><code class="bash">Linux RIP 6.12.47+rpt-rpi-v8 #1 SMP PREEMPT Debian 1:6.12.47-1+rpt1 (2025-09-16) aarch64
-
-The programs included with the Debian GNU/Linux system are free software;
-the exact distribution terms for each program are described in the
-individual files in /usr/share/doc/*/copyright.
-
-Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
-permitted by applicable law.
-Last login: Mon Mar 23 15:59:03 2026 from 169.254.17.238
-pi@RIP:~ $
-</code></pre>
-<h2 id="配置软件源"><a href="#配置软件源" class="headerlink" title="配置软件源"></a>配置软件源</h2><pre><code class="bash">sudo cp /etc/apt/sources.list /etc/apt/sources.list.bk
-</code></pre>
-<pre><code class="bash">sudo nano /etc/apt/sources.list
-</code></pre>
-<p>编辑<code>sources.list</code>：</p>
-<pre><code class="conf">deb https://mirrors.tuna.tsinghua.edu.cn/debian/ trixie main contrib non-free non-free-firmware
-deb https://mirrors.tuna.tsinghua.edu.cn/debian/ trixie-updates main contrib non-free non-free-firmware
-deb https://mirrors.tuna.tsinghua.edu.cn/debian-security trixie-security main contrib non-free non-free-firmware
-</code></pre>
-<p>进行更新</p>
-<pre><code class="bash">sudo apt update
-</code></pre>
-<h2 id="配置Yolo"><a href="#配置Yolo" class="headerlink" title="配置Yolo"></a>配置Yolo</h2><p>当前环境：</p>
-<pre><code class="bash">python --version
-Python 3.13.5
-
-lsb_release  -a
-No LSB modules are available.
-Distributor ID:	Debian
-Description:	Debian GNU/Linux 13 (trixie)
-Release:	13
-Codename:	trixie
-
-name -a
-Linux RIP 6.12.47+rpt-rpi-v8 #1 SMP PREEMPT Debian 1:6.12.47-1+rpt1 (2025-09-16) aarch64 GNU/Linux
-</code></pre>
-<p>安装依赖</p>
-<pre><code class="bash">pip install opencv-python-headless
-</code></pre>
-<p>简单推理：</p>
-<p><img src="/result.jpg" alt="result"></p>
-<pre><code class="python">import cv2
-import numpy as np
-import onnxruntime as ort
-
-# ========== 参数 ==========
-MODEL_PATH = &quot;yolov5n.onnx&quot;
-IMG_SIZE = 640
-
-# ========== 加载模型 ==========
-session = ort.InferenceSession(MODEL_PATH)
-
-input_name = session.get_inputs()[0].name
-output_name = session.get_outputs()[0].name
-
-# ========== 预处理 ==========
-def preprocess(img):
-    img = cv2.resize(img, (IMG_SIZE, IMG_SIZE))
-    img = img[:, :, ::-1]  # BGR -&gt; RGB
-    img = img.astype(np.float32) / 255.0
-    img = np.transpose(img, (2, 0, 1))  # HWC -&gt; CHW
-    img = np.expand_dims(img, axis=0)
-    return img
-
-# ========== NMS ==========
-def nms(boxes, scores, iou_threshold=0.5):
-    idxs = scores.argsort()[::-1]
-    keep = []
-    while len(idxs) &gt; 0:
-        i = idxs[0]
-        keep.append(i)
-        if len(idxs) == 1:
+# 接收线程
+def recv_thread():
+    while True:
+        try:
+            data = client.recv(1024)
+            if not data:
+                break
+            print(&quot;\n[recv]:&quot;, data.decode())
+        except:
             break
-        ious = compute_iou(boxes[i], boxes[idxs[1:]])
-        idxs = idxs[1:][ious &lt; iou_threshold]
-    return keep
 
-def compute_iou(box, boxes):
-    x1 = np.maximum(box[0], boxes[:, 0])
-    y1 = np.maximum(box[1], boxes[:, 1])
-    x2 = np.minimum(box[2], boxes[:, 2])
-    y2 = np.minimum(box[3], boxes[:, 3])
+threading.Thread(target=recv_thread, daemon=True).start()
 
-    inter = np.maximum(0, x2 - x1) * np.maximum(0, y2 - y1)
-    area1 = (box[2]-box[0])*(box[3]-box[1])
-    area2 = (boxes[:, 2]-boxes[:, 0])*(boxes[:, 3]-boxes[:, 1])
+# 主线程负责发送
+while True:
+    msg = input(&quot;&gt;&gt; &quot;)
+    if not msg:
+        break
+    client.sendall(msg.encode())
 
-    return inter / (area1 + area2 - inter + 1e-6)
+client.close()
+</code></pre>
+<h3 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h3><pre><code class="bash">dji@tegra-ubuntu:~/demo$ ls
+py_server.py
+dji@tegra-ubuntu:~/demo$ cat py_server.py
+</code></pre>
+<pre><code class="python">
+import socket
+import threading
 
-# ========== 推理 ==========
-img = cv2.imread(&quot;test.jpg&quot;)
-input_tensor = preprocess(img)
+def handle_client(conn, addr):
+    print(f&quot;Connected: &#123;addr&#125;&quot;)
 
-outputs = session.run([output_name], &#123;input_name: input_tensor&#125;)[0]
+    # 接收线程
+    def recv_thread():
+        while True:
+            try:
+                data = conn.recv(1024)
+                if not data:
+                    break
+                print(f&quot;\n[&#123;addr&#125; recv]: &#123;data.decode()&#125;&quot;)
+            except:
+                break
 
-# YOLOv5 输出格式：[1, N, 85]
-pred = outputs[0]
+    threading.Thread(target=recv_thread, daemon=True).start()
 
-boxes = pred[:, :4]
-scores = pred[:, 4]
-class_scores = pred[:, 5:]
+    # 服务端也可以主动发送
+    while True:
+        msg = input(f&quot;[send to &#123;addr&#125;] &gt;&gt; &quot;)
+        if not msg:
+            break
+        conn.sendall(msg.encode())
 
-# 过滤低置信度
-mask = scores &gt; 0.5
-boxes = boxes[mask]
-scores = scores[mask]
-class_ids = np.argmax(class_scores[mask], axis=1)
+    conn.close()
 
-# NMS
-keep = nms(boxes, scores)
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server.bind((&#39;0.0.0.0&#39;, 6000))
+server.listen(5)
 
-# 画框
-for i in keep:
-    x, y, w, h = boxes[i]
-    x1 = int(x - w/2)
-    y1 = int(y - h/2)
-    x2 = int(x + w/2)
-    y2 = int(y + h/2)
+print(&quot;Server started&quot;)
 
-    cv2.rectangle(img, (x1,y1), (x2,y2), (0,255,0), 2)
-    cv2.putText(img, str(class_ids[i]), (x1,y1-10),
-                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,255,0), 2)
-
-cv2.imwrite(&quot;result.jpg&quot;, img)
-print(&quot;done&quot;)
+while True:
+    conn, addr = server.accept()
+    threading.Thread(target=handle_client, args=(conn, addr)).start()
 </code></pre>
 
     
@@ -339,8 +274,12 @@ print(&quot;done&quot;)
       <i class="fas fa-tags"></i>
       <ul>
         
-        <li><a href="/tags/Pi/">
-          Pi
+        <li><a href="/tags/Hardware/">
+          Hardware
+        </a></li>
+      
+        <li><a href="/tags/dji/">
+          dji
         </a></li>
       
       </ul>
