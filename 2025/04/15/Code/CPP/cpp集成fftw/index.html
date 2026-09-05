@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>FFTW 简单使用：从编译到实数 FFT 低通滤波实战 [ Soymilk ]</title>
+  <title>cpp集成fftw [ Soymilk ]</title>
   
 <link rel="shortcut icon" href="/favicon/favicon.ico">
 
@@ -130,16 +130,16 @@
     <div class="milk-body">
       
 <div class="draggable-toc">
-  <div class="toc-title">FFTW 简单使用：从编译到实数 FFT 低通滤波实战</div>
+  <div class="toc-title">cpp集成fftw</div>
   <p>process: <span>0</span></p>
   <div class="progress-container">
     <div class="progress-bar" id="bar"></div>
   </div>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87%E4%B8%8E%E7%BC%96%E8%AF%91"><span class="toc-text">1. 环境准备与编译</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E8%8E%B7%E5%8F%96%E6%BA%90%E7%A0%81"><span class="toc-text">1.1 获取源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E9%85%8D%E7%BD%AE%E4%B8%8E%E7%BC%96%E8%AF%91"><span class="toc-text">1.2 配置与编译</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%8E%B0%E4%BB%A3%E5%8C%96-CMake-%E9%9B%86%E6%88%90"><span class="toc-text">2. 现代化 CMake 集成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%A0%B8%E5%BF%83%E4%BB%A3%E7%A0%81%E9%80%90%E6%AE%B5%E8%A7%A3%E6%9E%90"><span class="toc-text">3. 核心代码逐段解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%90%88%E6%88%90%E4%BF%A1%E5%8F%B7%E7%94%9F%E6%88%90%EF%BC%88%E6%9B%BF%E4%BB%A3-CSV-%E8%AF%BB%E5%8F%96%EF%BC%89"><span class="toc-text">3.1 合成信号生成（替代 CSV 读取）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%85%88%E5%88%9B%E5%BB%BA-Plan%EF%BC%8C%E5%86%8D%E5%A1%AB%E5%85%85%E6%95%B0%E6%8D%AE%EF%BC%88%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97%EF%BC%89"><span class="toc-text">3.2 先创建 Plan，再填充数据（避坑指南）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E5%AE%9E%E6%95%B0-FFT-%E6%AD%A3%E5%8F%98%E6%8D%A2-r2c"><span class="toc-text">3.3 实数 FFT 正变换 (r2c)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E4%BD%8E%E9%80%9A%E6%BB%A4%E6%B3%A2%EF%BC%88%E6%A0%B8%E5%BF%83%E4%BF%AE%E6%AD%A3%E7%89%88%EF%BC%89"><span class="toc-text">3.4 低通滤波（核心修正版）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-%E5%AE%9E%E6%95%B0-FFT-%E5%8F%8D%E5%8F%98%E6%8D%A2-c2r-%E5%BD%92%E4%B8%80%E5%8C%96"><span class="toc-text">3.5 实数 FFT 反变换 (c2r) + 归一化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-%E7%BB%93%E6%9E%9C%E5%AF%BC%E5%87%BA-CSV%EF%BC%88%E4%BE%9B%E5%A4%96%E9%83%A8%E5%B7%A5%E5%85%B7-%E5%A4%8D%E7%8E%B0%EF%BC%89"><span class="toc-text">3.6 结果导出 CSV（供外部工具&#x2F;复现）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E7%BA%AF-C-%E7%94%9F%E6%88%90-SVG-%E5%8F%AF%E8%A7%86%E5%8C%96%EF%BC%88%E9%9B%B6%E5%A4%96%E9%83%A8%E4%BE%9D%E8%B5%96%EF%BC%89"><span class="toc-text">4. 纯 C++ 生成 SVG 可视化（零外部依赖）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%85%B3%E9%94%AE%E7%82%B9%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%EF%BC%88%E6%8A%98%E5%8F%A0%E9%9D%A2%E6%9D%BF%EF%BC%89"><span class="toc-text">5. 关键点深度解析（折叠面板）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C%E5%B1%95%E7%A4%BA"><span class="toc-text">6. 运行结果展示</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%91%E8%B0%B1%E5%9B%BE"><span class="toc-text">频谱图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E5%9F%9F%E6%B3%A2%E5%BD%A2%E5%AF%B9%E6%AF%94"><span class="toc-text">时域波形对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BB%A4%E6%B3%A2%E5%99%A8%E9%A2%91%E7%8E%87%E5%93%8D%E5%BA%94"><span class="toc-text">滤波器频率响应</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%9F%E8%AE%A1%E6%95%B0%E6%8D%AE"><span class="toc-text">统计数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E5%B8%B8%E8%A7%81%E5%9D%91%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-text">7. 常见坑与最佳实践</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E5%AE%8C%E6%95%B4%E6%BA%90%E7%A0%81%E8%8E%B7%E5%8F%96%E4%B8%8E%E4%B8%80%E9%94%AE%E8%BF%90%E8%A1%8C"><span class="toc-text">8. 完整源码获取与一键运行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">9. 参考资料</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87%E4%B8%8E%E7%BC%96%E8%AF%91"><span class="toc-text">1. 环境准备与编译</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E8%8E%B7%E5%8F%96%E6%BA%90%E7%A0%81"><span class="toc-text">1.1 获取源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E9%85%8D%E7%BD%AE%E4%B8%8E%E7%BC%96%E8%AF%91"><span class="toc-text">1.2 配置与编译</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%8E%B0%E4%BB%A3%E5%8C%96-CMake-%E9%9B%86%E6%88%90"><span class="toc-text">2. 现代化 CMake 集成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%A0%B8%E5%BF%83%E4%BB%A3%E7%A0%81%E9%80%90%E6%AE%B5%E8%A7%A3%E6%9E%90"><span class="toc-text">3. 核心代码逐段解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%90%88%E6%88%90%E4%BF%A1%E5%8F%B7%E7%94%9F%E6%88%90%EF%BC%88%E6%9B%BF%E4%BB%A3-CSV-%E8%AF%BB%E5%8F%96%EF%BC%89"><span class="toc-text">3.1 合成信号生成（替代 CSV 读取）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%85%88%E5%88%9B%E5%BB%BA-Plan%EF%BC%8C%E5%86%8D%E5%A1%AB%E5%85%85%E6%95%B0%E6%8D%AE%EF%BC%88%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97%EF%BC%89"><span class="toc-text">3.2 先创建 Plan，再填充数据（避坑指南）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E5%AE%9E%E6%95%B0-FFT-%E6%AD%A3%E5%8F%98%E6%8D%A2-r2c"><span class="toc-text">3.3 实数 FFT 正变换 (r2c)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E4%BD%8E%E9%80%9A%E6%BB%A4%E6%B3%A2%EF%BC%88%E6%A0%B8%E5%BF%83%E4%BF%AE%E6%AD%A3%E7%89%88%EF%BC%89"><span class="toc-text">3.4 低通滤波（核心修正版）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-%E5%AE%9E%E6%95%B0-FFT-%E5%8F%8D%E5%8F%98%E6%8D%A2-c2r-%E5%BD%92%E4%B8%80%E5%8C%96"><span class="toc-text">3.5 实数 FFT 反变换 (c2r) + 归一化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-%E7%BB%93%E6%9E%9C%E5%AF%BC%E5%87%BA-CSV%EF%BC%88%E4%BE%9B%E5%A4%96%E9%83%A8%E5%B7%A5%E5%85%B7-%E5%A4%8D%E7%8E%B0%EF%BC%89"><span class="toc-text">3.6 结果导出 CSV（供外部工具&#x2F;复现）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Python-Matplotlib-%E5%8F%AF%E8%A7%86%E5%8C%96%EF%BC%88%E9%AB%98%E8%B4%A8%E9%87%8F-PNG%EF%BC%89"><span class="toc-text">4. Python + Matplotlib 可视化（高质量 PNG）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%85%B3%E9%94%AE%E7%82%B9%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%EF%BC%88%E6%8A%98%E5%8F%A0%E9%9D%A2%E6%9D%BF%EF%BC%89"><span class="toc-text">5. 关键点深度解析（折叠面板）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C%E5%B1%95%E7%A4%BA"><span class="toc-text">6. 运行结果展示</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%91%E8%B0%B1%E5%9B%BE"><span class="toc-text">频谱图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E5%9F%9F%E6%B3%A2%E5%BD%A2%E5%AF%B9%E6%AF%94"><span class="toc-text">时域波形对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BB%A4%E6%B3%A2%E5%99%A8%E9%A2%91%E7%8E%87%E5%93%8D%E5%BA%94"><span class="toc-text">滤波器频率响应</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%9F%E8%AE%A1%E6%95%B0%E6%8D%AE"><span class="toc-text">统计数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E5%B8%B8%E8%A7%81%E5%9D%91%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-text">7. 常见坑与最佳实践</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">8. 参考资料</span></a></li></ol>
 </div>
 
 <div class="post-content" id="post-content">
-  <div id="top">FFTW 简单使用：从编译到实数 FFT 低通滤波实战</div>
+  <div id="top">cpp集成fftw</div>
   <div class="post">
     
     <div class="content-categories">
@@ -150,15 +150,15 @@
         
           <li>&gt;</li>
           <li>
-            <a href="/categories/C/">
-          C++
+            <a href="/categories/Code/">
+          Code
         </a>
           </li>
       
           <li>&gt;</li>
           <li>
-            <a href="/categories/C/算法/">
-          算法
+            <a href="/categories/Code/CPP/">
+          CPP
         </a>
           </li>
       
@@ -168,12 +168,11 @@
     <hr>
     
     <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p><strong>FFTW</strong> (Fastest Fourier Transform in the West) 是业界公认最快的 FFT 库，支持实数&#x2F;复数、多维变换、多线程并行、SIMD 优化，广泛用于科学计算、音频处理、图像分析、通信系统等领域。</p>
-<p>本文<strong>零 Python 依赖</strong>，全程 <strong>C++ + FFTW + SVG</strong> 完成：</p>
+<p>本文采用 <strong>C++ 核心计算 + Python 可视化</strong> 分离架构：</p>
 <ul>
-<li>从源码编译安装 FFTW</li>
-<li>现代化 CMake (<code>find_package</code>) 集成</li>
-<li>合成信号生成 → 实数 FFT (<code>r2c</code>) → 低通滤波 → 反变换 (<code>c2r</code>) → 归一化</li>
-<li>纯 C++ 生成 SVG 矢量图表（频谱、时域波形对比、滤波器响应）</li>
+<li>C++：FFTW 实数 FFT (<code>r2c</code>&#x2F;<code>c2r</code>)、低通滤波、数据导出 CSV</li>
+<li>Python：Matplotlib 读取 CSV 生成高质量 PNG 图表（频谱、时域对比、滤波器响应、波形放大）</li>
+<li>现代化 CMake (<code>find_library</code>) 集成 FFTW</li>
 </ul>
 <p>适合读者：需要做频域分析、数字滤波、频谱可视化的 C++ 开发者。</p>
 <span id="more"></span>
@@ -233,7 +232,7 @@ target_include_directories(main PRIVATE /usr/include)
 cmake .. &amp;&amp; make -j
 ./main
 </code></pre>
-<h2 id="3-核心代码逐段解析"><a href="#3-核心代码逐段解析" class="headerlink" title="3. 核心代码逐段解析"></a>3. 核心代码逐段解析</h2><p>完整源码见同目录 <code>main.cpp</code>，此处分关键步骤讲解。</p>
+<h2 id="3-核心代码逐段解析"><a href="#3-核心代码逐段解析" class="headerlink" title="3. 核心代码逐段解析"></a>3. 核心代码逐段解析</h2><p>完整源码见文章代码片段，此处分关键步骤讲解。</p>
 <h3 id="3-1-合成信号生成（替代-CSV-读取）"><a href="#3-1-合成信号生成（替代-CSV-读取）" class="headerlink" title="3.1 合成信号生成（替代 CSV 读取）"></a>3.1 合成信号生成（替代 CSV 读取）</h3><pre><code class="cpp">constexpr double fs = 1000.0;  // 采样率 Hz
 constexpr int N = 1024;        // 2 的幂，FFTW 效率最高
 constexpr double f0 = 50.0;    // 基波
@@ -301,15 +300,42 @@ for (int i = 0; i &lt; N; ++i) smoothed[i] /= N;
 // waveform_raw.csv: Time_s,Amplitude
 // waveform_filtered.csv: Time_s,Amplitude
 </code></pre>
-<h2 id="4-纯-C-生成-SVG-可视化（零外部依赖）"><a href="#4-纯-C-生成-SVG-可视化（零外部依赖）" class="headerlink" title="4. 纯 C++ 生成 SVG 可视化（零外部依赖）"></a>4. 纯 C++ 生成 SVG 可视化（零外部依赖）</h2><p>内嵌 <code>SVGPlot</code> 类，直接写 SVG XML，无需 gnuplot&#x2F;Python&#x2F;matplotlib。</p>
-<pre><code class="cpp">struct SVGPlot &#123;
-    // ... 构造函数写入 SVG Header、样式、标题、坐标轴标签
-    void drawAxes(xmin, xmax, ymin, ymax);      // 网格+刻度
-    void drawLine(x, y, color, label, ...);     // 折线+图例
-    void drawVLine(x_val, color, label, ...);   // 垂直参考线
-&#125;;
+<h2 id="4-Python-Matplotlib-可视化（高质量-PNG）"><a href="#4-Python-Matplotlib-可视化（高质量-PNG）" class="headerlink" title="4. Python + Matplotlib 可视化（高质量 PNG）"></a>4. Python + Matplotlib 可视化（高质量 PNG）</h2><p>核心 FFT 计算用 C++，数据导出 CSV，再用 Python 生成专业图表，避免 C++ 手写 SVG 的坐标映射、渲染兼容性问题。</p>
+<pre><code class="python"># plot_from_csv.py 关键片段
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+
+# 1. 频谱图：峰值标注 + 截止频率虚线
+df = pd.read_csv(&#39;spectrum.csv&#39;)
+plt.plot(df[&#39;Frequency_Hz&#39;], df[&#39;Amplitude&#39;], color=&#39;#2c3e50&#39;, lw=1.2)
+plt.axvline(x=100, color=&#39;#e74c3c&#39;, ls=&#39;--&#39;, lw=2, label=&#39;Cutoff: 100Hz&#39;)
+# 标注 50Hz/150Hz 主峰
+for f, a in [(49.8, 479.8), (150.4, 191.7)]:
+    plt.annotate(f&#39;&#123;f:.0f&#125;Hz\n&#123;a:.0f&#125;&#39;, xy=(f, a), xytext=(f+15, a+50),
+                 arrowprops=dict(arrowstyle=&#39;-&gt;&#39;, color=&#39;#2c3e50&#39;))
+plt.savefig(&#39;fftw/spectrum.png&#39;, dpi=150)
+
+# 2. 时域波形对比：双线同图，透明度区分
+df_raw = pd.read_csv(&#39;waveform_raw.csv&#39;)
+df_filt = pd.read_csv(&#39;waveform_filtered.csv&#39;)
+plt.plot(df_raw[&#39;Time_s&#39;], df_raw[&#39;Amplitude&#39;], color=&#39;#e74c3c&#39;, lw=0.8, alpha=0.7, label=&#39;Raw&#39;)
+plt.plot(df_filt[&#39;Time_s&#39;], df_filt[&#39;Amplitude&#39;], color=&#39;#27ae60&#39;, lw=1.5, alpha=0.95, label=&#39;Filtered&#39;)
+plt.savefig(&#39;fftw/waveform_compare.png&#39;, dpi=150)
+
+# 3. 滤波器响应：理想矩形窗
+freq = np.linspace(0, 500, 513)
+gain = np.where(freq &lt; 100, 1.0, 0.0)
+plt.plot(freq, gain, color=&#39;#8e44ad&#39;, lw=2, ls=&#39;--&#39;, label=&#39;Ideal Low-pass&#39;)
+plt.savefig(&#39;fftw/filter_response.png&#39;, dpi=150)
+
+# 4. 波形局部放大 (0-0.1s)：双子图展示滤波细节
+fig, axes = plt.subplots(2, 1, sharex=True, figsize=(10, 8))
+axes[0].plot(df_raw[&#39;Time_s&#39;], df_raw[&#39;Amplitude&#39;], color=&#39;#e74c3c&#39;)
+axes[1].plot(df_filt[&#39;Time_s&#39;], df_filt[&#39;Amplitude&#39;], color=&#39;#27ae60&#39;)
+plt.savefig(&#39;fftw/waveform_zoom.png&#39;, dpi=150)
 </code></pre>
-<p>生成三图：</p>
+<p>生成 4 张高质量 PNG (150 DPI)：</p>
 <table>
 <thead>
 <tr>
@@ -321,20 +347,24 @@ for (int i = 0; i &lt; N; ++i) smoothed[i] /= N;
 <tbody><tr>
 <td>频谱图</td>
 <td><code>fftw/spectrum.png</code></td>
-<td>幅值谱，红虚线标注 100Hz 截止频率</td>
+<td>幅值谱，峰值标注(50Hz&#x2F;150Hz)，截止频率虚线</td>
 </tr>
 <tr>
 <td>时域对比</td>
 <td><code>fftw/waveform_compare.png</code></td>
-<td>红&#x3D;原始含噪&#x2F;高频，绿&#x3D;滤波后平滑波形</td>
+<td>红&#x3D;原始含噪&#x2F;高频，绿&#x3D;滤波后平滑</td>
 </tr>
 <tr>
 <td>滤波器响应</td>
 <td><code>fftw/filter_response.png</code></td>
 <td>矩形窗理想低通响应</td>
 </tr>
+<tr>
+<td>波形放大</td>
+<td><code>fftw/waveform_zoom.png</code></td>
+<td>0-0.1s 局部，直观展示滤波前后细节</td>
+</tr>
 </tbody></table>
-<p><strong>优势</strong>：SVG 矢量缩放不失真、浏览器直接渲染、可嵌入 HTML&#x2F;Markdown、文本可搜索。</p>
 <h2 id="5-关键点深度解析（折叠面板）"><a href="#5-关键点深度解析（折叠面板）" class="headerlink" title="5. 关键点深度解析（折叠面板）"></a>5. 关键点深度解析（折叠面板）</h2><details>
 <summary><strong>实数 FFT 存储格式：为何只有 N/2+1 个复数？</strong></summary>
 
@@ -480,31 +510,10 @@ RMS 降低: 11.1%
 <td>加窗(汉宁&#x2F;布莱克曼)、增加 N、零填充</td>
 </tr>
 </tbody></table>
-<h2 id="8-完整源码获取与一键运行"><a href="#8-完整源码获取与一键运行" class="headerlink" title="8. 完整源码获取与一键运行"></a>8. 完整源码获取与一键运行</h2><p>本文完整代码已放入同目录：</p>
-<pre><code>FFTW-Simple-Usage/
-├── CMakeLists.txt        # 现代化 CMake
-├── main.cpp              # 完整可编译源码(含 SVG 生成)
-├── spectrum.csv          # 频谱数据
-├── waveform_raw.csv      # 原始波形
-├── waveform_filtered.csv # 滤波后波形
-└── fftw/
-    ├── spectrum.png          # 频谱图
-    ├── waveform_compare.png  # 时域对比
-    └── filter_response.png   # 滤波器响应
-</code></pre>
-<p>一键复现：</p>
-<pre><code class="bash">cd FFTW-Simple-Usage
-mkdir build &amp;&amp; cd build
-cmake .. &amp;&amp; make -j
-./main
-# 查看生成的 SVG：浏览器打开 fftw/*.png 或直接在 Markdown 中引用
-</code></pre>
-<h2 id="9-参考资料"><a href="#9-参考资料" class="headerlink" title="9. 参考资料"></a>9. 参考资料</h2><ul>
+<h2 id="8-参考资料"><a href="#8-参考资料" class="headerlink" title="8. 参考资料"></a>8. 参考资料</h2><ul>
 <li><a target="_blank" rel="noopener" href="http://www.fftw.org/doc/Real_002ddata-DFTs.html">FFTW 官方手册 - Real-data DFTs</a></li>
 <li><a target="_blank" rel="noopener" href="http://www.fftw.org/doc/Wisdom.html">FFTW 手册 - Wisdom</a></li>
 <li><a target="_blank" rel="noopener" href="http://www.fftw.org/doc/Multi_002dthreaded-FFTW.html">FFTW 手册 - Multi-threaded FFTW</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.w3.org/TR/SVG11/">SVG 1.1 规范</a></li>
-<li>《数字信号处理》 - Oppenheim &amp; Schafer（滤波器设计理论基础）</li>
 </ul>
 
     
@@ -514,24 +523,12 @@ cmake .. &amp;&amp; make -j
       <i class="fas fa-tags"></i>
       <ul>
         
-        <li><a href="/tags/FFTW/">
-          FFTW
-        </a></li>
-      
         <li><a href="/tags/FFT/">
           FFT
         </a></li>
       
         <li><a href="/tags/C/">
           C++
-        </a></li>
-      
-        <li><a href="/tags/信号处理/">
-          信号处理
-        </a></li>
-      
-        <li><a href="/tags/SVG/">
-          SVG
         </a></li>
       
       </ul>
