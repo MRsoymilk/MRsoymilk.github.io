@@ -320,17 +320,17 @@ for (int i = 0; i &lt; N; ++i) smoothed[i] /= N;
 </thead>
 <tbody><tr>
 <td>频谱图</td>
-<td><code>fftw/spectrum.svg</code></td>
+<td><code>fftw/spectrum.png</code></td>
 <td>幅值谱，红虚线标注 100Hz 截止频率</td>
 </tr>
 <tr>
 <td>时域对比</td>
-<td><code>fftw/waveform_compare.svg</code></td>
+<td><code>fftw/waveform_compare.png</code></td>
 <td>红&#x3D;原始含噪&#x2F;高频，绿&#x3D;滤波后平滑波形</td>
 </tr>
 <tr>
 <td>滤波器响应</td>
-<td><code>fftw/filter_response.svg</code></td>
+<td><code>fftw/filter_response.png</code></td>
 <td>矩形窗理想低通响应</td>
 </tr>
 </tbody></table>
@@ -423,9 +423,9 @@ fftw_cleanup_threads();
 <p>对大规模 FFT (N &gt; 1&lt;&lt;18) 并行加速显著，小规模开销大于收益。</p>
 </details>
 
-<h2 id="6-运行结果展示"><a href="#6-运行结果展示" class="headerlink" title="6. 运行结果展示"></a>6. 运行结果展示</h2><h3 id="频谱图"><a href="#频谱图" class="headerlink" title="频谱图"></a>频谱图</h3><p><img src="/./fftw/spectrum.svg" alt="频谱图"><br><em>图 1：FFT 频谱幅值，红虚线为 100Hz 截止频率。可见 50Hz 基波(幅值<del>480)、150Hz 谐波(幅值</del>192)保留，500Hz 高频干扰被抑制。</em></p>
-<h3 id="时域波形对比"><a href="#时域波形对比" class="headerlink" title="时域波形对比"></a>时域波形对比</h3><p><img src="/./fftw/waveform_compare.svg" alt="波形对比"><br><em>图 2：红&#x3D;原始含噪&#x2F;高频信号，绿&#x3D;低通滤波后平滑波形。滤波后保留 50Hz 基波与 150Hz 谐波，500Hz 高频分量与高频噪声被有效抑制。</em></p>
-<h3 id="滤波器频率响应"><a href="#滤波器频率响应" class="headerlink" title="滤波器频率响应"></a>滤波器频率响应</h3><p><img src="/./fftw/filter_response.svg" alt="滤波器响应"><br><em>图 3：矩形窗理想低通响应。实际应用中建议使用窗函数(汉宁&#x2F;布莱克曼)平滑过渡带，减少吉布斯现象。</em></p>
+<h2 id="6-运行结果展示"><a href="#6-运行结果展示" class="headerlink" title="6. 运行结果展示"></a>6. 运行结果展示</h2><h3 id="频谱图"><a href="#频谱图" class="headerlink" title="频谱图"></a>频谱图</h3><p><img src="/./fftw/spectrum.png" alt="频谱图"><br><em>图 1：FFT 频谱幅值，红虚线为 100Hz 截止频率。可见 50Hz 基波(幅值<del>480)、150Hz 谐波(幅值</del>192)保留，500Hz 高频干扰被抑制。</em></p>
+<h3 id="时域波形对比"><a href="#时域波形对比" class="headerlink" title="时域波形对比"></a>时域波形对比</h3><p><img src="/./fftw/waveform_compare.png" alt="波形对比"><br><em>图 2：红&#x3D;原始含噪&#x2F;高频信号，绿&#x3D;低通滤波后平滑波形。滤波后保留 50Hz 基波与 150Hz 谐波，500Hz 高频分量与高频噪声被有效抑制。</em></p>
+<h3 id="滤波器频率响应"><a href="#滤波器频率响应" class="headerlink" title="滤波器频率响应"></a>滤波器频率响应</h3><p><img src="/./fftw/filter_response.png" alt="滤波器响应"><br><img src="/./fftw/waveform_zoom.png" alt="波形局部放大 (0-0.1s)"><br><em>图 3：矩形窗理想低通响应。实际应用中建议使用窗函数(汉宁&#x2F;布莱克曼)平滑过渡带，减少吉布斯现象。</em></p>
 <h3 id="统计数据"><a href="#统计数据" class="headerlink" title="统计数据"></a>统计数据</h3><pre><code>原始信号 RMS: 0.7973
 滤波后 RMS: 0.7087
 RMS 降低: 11.1%
@@ -488,16 +488,16 @@ RMS 降低: 11.1%
 ├── waveform_raw.csv      # 原始波形
 ├── waveform_filtered.csv # 滤波后波形
 └── fftw/
-    ├── spectrum.svg          # 频谱图
-    ├── waveform_compare.svg  # 时域对比
-    └── filter_response.svg   # 滤波器响应
+    ├── spectrum.png          # 频谱图
+    ├── waveform_compare.png  # 时域对比
+    └── filter_response.png   # 滤波器响应
 </code></pre>
 <p>一键复现：</p>
 <pre><code class="bash">cd FFTW-Simple-Usage
 mkdir build &amp;&amp; cd build
 cmake .. &amp;&amp; make -j
 ./main
-# 查看生成的 SVG：浏览器打开 fftw/*.svg 或直接在 Markdown 中引用
+# 查看生成的 SVG：浏览器打开 fftw/*.png 或直接在 Markdown 中引用
 </code></pre>
 <h2 id="9-参考资料"><a href="#9-参考资料" class="headerlink" title="9. 参考资料"></a>9. 参考资料</h2><ul>
 <li><a target="_blank" rel="noopener" href="http://www.fftw.org/doc/Real_002ddata-DFTs.html">FFTW 官方手册 - Real-data DFTs</a></li>
